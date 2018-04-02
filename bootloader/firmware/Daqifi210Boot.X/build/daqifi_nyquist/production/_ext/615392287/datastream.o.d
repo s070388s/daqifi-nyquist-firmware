@@ -1,0 +1,26 @@
+build/daqifi_nyquist/production/_ext/615392287/datastream.o:  \
+ ../../../../../framework/bootloader/src/datastream/datastream.c  \
+ ../../../../../framework/system/common/sys_module.h  \
+ ../../../../../framework/system/common/sys_common.h  \
+ ../../../../../framework/bootloader/src/datastream/../datastream.h  \
+ ../../../../../framework/system/system.h  \
+ ../../../../../framework/driver/driver_common.h  \
+ ../../../../../framework/bootloader/src/datastream/../nvm.h  \
+ ../../../../../framework/bootloader/src/bootloader.h  \
+ ../src/system_config/daqifi_nyquist/system_config.h  \
+ ../../../../../framework/bootloader/src/datastream.h  \
+ ../../../../../framework/system/fs/sys_fs.h  \
+ ../../../../../framework/system/reset/sys_reset.h  \
+ ../../../../../framework/peripheral/reset/plib_reset.h  \
+ ../../../../../framework/peripheral/reset/processor/reset_processor.h  \
+ ../../../../../framework/peripheral/reset/processor/reset_p32xxxx.h  \
+ ../../../../../framework/peripheral/reset/processor/reset_p32mz2048efm144.h  \
+ ../../../../../framework/peripheral/peripheral_common_32bit.h  \
+ ../../../../../framework/peripheral/peripheral_common.h  \
+ ../../../../../framework/peripheral/reset/processor/../templates/reset_ResetReasonStatus_MZ.h  \
+ ../../../../../framework/peripheral/reset/processor/../templates/reset_SoftwareResetTrigger_Default.h  \
+ ../../../../../framework/peripheral/reset/processor/../templates/reset_ConfigRegReadError_Default.h  \
+ ../../../../../framework/peripheral/reset/processor/../templates/reset_NmiControl_MZ_1.h  \
+ ../../../../../framework/peripheral/reset/processor/../templates/reset_WdtoInSleep_Default.h  \
+ ../../../../../framework/peripheral/reset/processor/../templates/reset_NmiCounter_Default.h  \
+ ../../../../../framework/system/reset/src/sys_reset_mapping.h 

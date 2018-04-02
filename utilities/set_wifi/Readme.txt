@@ -1,0 +1,1 @@
+Running this batch file will connect to the board via USB and set the WiFi parameters according to the PowerShell script.
