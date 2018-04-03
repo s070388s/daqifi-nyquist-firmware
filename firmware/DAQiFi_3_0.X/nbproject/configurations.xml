@@ -362,6 +362,9 @@
             <itemPath>../../../../../framework/system/clk/sys_clk.h</itemPath>
             <itemPath>../../../../../framework/system/clk/sys_clk_compatibility.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="f7" displayName="command" projectFiles="true">
+            <itemPath>../../../../../framework/system/command/sys_command.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="f4" displayName="common" projectFiles="true">
             <itemPath>../../../../../framework/system/common/sys_common.h</itemPath>
             <itemPath>../../../../../framework/system/common/sys_module.h</itemPath>
@@ -376,7 +379,7 @@
             </logicalFolder>
             <itemPath>../../../../../framework/system/console/sys_console.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="debug" projectFiles="true">
+          <logicalFolder name="f9" displayName="debug" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/debug/src/sys_debug_local.h</itemPath>
             </logicalFolder>
@@ -425,21 +428,21 @@
             <itemPath>../../../../../framework/system/ports/sys_ports.h</itemPath>
             <itemPath>../../../../../framework/system/ports/sys_ports_definitions.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f9" displayName="random" projectFiles="true">
+          <logicalFolder name="f10" displayName="random" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/random/src/sys_random_local.h</itemPath>
             </logicalFolder>
             <itemPath>../../../../../framework/system/random/sys_random.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f10" displayName="reset" projectFiles="true">
+          <logicalFolder name="f11" displayName="reset" projectFiles="true">
             <itemPath>../../../../../framework/system/reset/sys_reset.h</itemPath>
             <itemPath>../../../../../framework/system/reset/sys_reset_definitions_pic32m.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f11" displayName="rtcc" projectFiles="true">
+          <logicalFolder name="f12" displayName="rtcc" projectFiles="true">
             <itemPath>../../../../../framework/system/rtcc/sys_rtcc.h</itemPath>
             <itemPath>../../../../../framework/system/rtcc/sys_rtcc_pic32m.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f12" displayName="tmr" projectFiles="true">
+          <logicalFolder name="f13" displayName="tmr" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/tmr/src/sys_tmr_local.h</itemPath>
             </logicalFolder>
@@ -969,6 +972,11 @@
               <itemPath>../../../../../framework/system/clk/src/sys_clk_pic32mz.c</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <logicalFolder name="f4" displayName="command" projectFiles="true">
+            <logicalFolder name="f1" displayName="src" projectFiles="true">
+              <itemPath>../../../../../framework/system/command/src/sys_command.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
           <logicalFolder name="f1" displayName="common" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/common/src/sys_buffer.c</itemPath>
@@ -982,15 +990,15 @@
               <itemPath>../../../../../framework/system/console/src/sys_console_appio.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="debug" projectFiles="true">
+          <logicalFolder name="f5" displayName="debug" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/debug/src/sys_debug.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="dma" projectFiles="true">
+          <logicalFolder name="f6" displayName="dma" projectFiles="true">
             <itemPath>../../../../../framework/system/dma/src/sys_dma.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="fs" projectFiles="true">
+          <logicalFolder name="f7" displayName="fs" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
                 <itemPath>../../../../../framework/system/fs/src/dynamic/sys_fs.c</itemPath>
@@ -999,17 +1007,17 @@
             </logicalFolder>
             <itemPath>../../../../../framework/system/fs/mpfs/src/mpfs.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="int" projectFiles="true">
+          <logicalFolder name="f8" displayName="int" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/int/src/sys_int_pic32.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f8" displayName="random" projectFiles="true">
+          <logicalFolder name="f9" displayName="random" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/random/src/sys_random.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f9" displayName="tmr" projectFiles="true">
+          <logicalFolder name="f10" displayName="tmr" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/tmr/src/sys_tmr.c</itemPath>
             </logicalFolder>
@@ -1036,6 +1044,7 @@
             <itemPath>../../../../../framework/tcpip/src/icmp.c</itemPath>
             <itemPath>../../../../../framework/tcpip/src/nbns.c</itemPath>
             <itemPath>../../../../../framework/tcpip/src/tcpip_announce.c</itemPath>
+            <itemPath>../../../../../framework/tcpip/src/tcpip_commands.c</itemPath>
             <itemPath>../../../../../framework/tcpip/src/hash_fnv.c</itemPath>
             <itemPath>../../../../../framework/tcpip/src/oahash.c</itemPath>
             <itemPath>../../../../../framework/tcpip/src/tcpip_helpers.c</itemPath>
@@ -2134,8 +2143,40 @@
       <item path="../src/HAL/Announce/DAQiFi_tcpip_announce.c"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../src/HAL/Announce/tcpip_announce.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/Util/FreeRTOSLockContext.c" ex="true" overriding="false">
+      </item>
+      <item path="../src/Util/FreeRTOSLockContext.h" ex="true" overriding="false">
+      </item>
+      <item path="../src/Util/LinkedList.c" ex="true" overriding="false">
+      </item>
+      <item path="../src/Util/LinkedList.h" ex="true" overriding="false">
       </item>
       <C32>
         <property key="additional-warnings" value="true"/>
@@ -2360,7 +2401,7 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1d000000-1d1fffff"/>
-        <property key="poweroptions.powerenable" value="false"/>
+        <property key="poweroptions.powerenable" value="true"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>

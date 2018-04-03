@@ -154,6 +154,8 @@ static void _SYS_Tasks ( void)
     /* Maintain the file system state machine. */
     SYS_FS_Tasks();
     SYS_CONSOLE_Tasks(sysObj.sysConsole0);
+    /* SYS_COMMAND layer tasks routine */ 
+    SYS_CMD_Tasks();
     /* SYS_TMR Device layer tasks routine */ 
     SYS_TMR_Tasks(sysObj.sysTmr);
 

@@ -69,6 +69,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "driver/sdcard/drv_sdcard.h"
 #include "driver/spi/drv_spi.h"
 #include "system/debug/sys_debug.h"
+#include "system/command/sys_command.h"
 #include "driver/usb/usbhs/drv_usbhs.h"
 #include "usb/usb_device.h"
 #include "usb/usb_device_cdc.h"

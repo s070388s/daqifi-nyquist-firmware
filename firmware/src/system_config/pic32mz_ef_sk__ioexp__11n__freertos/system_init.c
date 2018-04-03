@@ -432,6 +432,15 @@ const SYS_CLK_INIT sysClkInit =
     .onWaitInstruction = SYS_CLK_ON_WAIT,
 };
 // </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="SYS_COMMAND Initialization Data">
+/*** System Command Initialization Data ***/
+
+SYS_CMD_INIT sysCmdInit =
+{
+    .moduleInit = {0},
+    .consoleCmdIOParam = SYS_CMD_FULL_COMMAND_READ_CONSOLE_IO_PARAM,
+};
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Initialization Data">
 /*** System Console Initialization Data ***/
 
@@ -1212,6 +1221,9 @@ void SYS_Initialize ( void* data )
     
 
     /* Initialize System Services */
+
+    /*** Command Service Initialization Code ***/
+    SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
     sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&consAppIOInit0);
 
 

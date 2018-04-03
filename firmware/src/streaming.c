@@ -5,6 +5,7 @@
 #include "json/Encoder.h"
 #include "nanopb/DaqifiOutMessage.pb.h"
 #include "nanopb/Encoder.h"
+#include "Util/Logger.h"
 
 #define UNUSED(x) (void)(x)
 

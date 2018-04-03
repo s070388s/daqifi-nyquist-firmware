@@ -178,6 +178,14 @@ extern "C" {
 #define SYS_PORT_K_CNEN         0x0000
 
 
+/*** Command Processor System Service Configuration ***/
+#define SYS_CMD_ENABLE
+#define SYS_CMD_DEVICE_MAX_INSTANCES    SYS_CONSOLE_DEVICE_MAX_INSTANCES
+#define SYS_CMD_PRINT_BUFFER_SIZE       8192
+#define SYS_CMD_BUFFER_DMA_READY        __attribute__((coherent)) __attribute__((aligned(16)))
+#define SYS_CMD_REMAP_SYS_CONSOLE_MESSAGE
+#define SYS_CMD_REMAP_SYS_DEBUG_MESSAGE
+
 /*** Console System Service Configuration ***/
 
 #define SYS_CONSOLE_OVERRIDE_STDIO
@@ -185,6 +193,9 @@ extern "C" {
 #define SYS_CONSOLE_INSTANCES_NUMBER            1
 #define SYS_CONSOLE_BUFFER_DMA_READY        __attribute__((coherent)) __attribute__((aligned(16)))
 
+// DM 8/23/2016: APPIO isn't fully implemented. Doing this allows it to compile though
+#define SYS_CONSOLE_APPIO_RD_QUEUE_DEPTH 1 
+#define SYS_CONSOLE_APPIO_WR_QUEUE_DEPTH 128
 
 
 /*** Debug System Service Configuration ***/
@@ -686,6 +697,14 @@ extern "C" {
 #define TCPIP_UDP_USE_RX_CHECKSUM             			true
 #define TCPIP_UDP_COMMANDS   false
 
+/*** tcpip_cmd Configuration ***/
+#define TCPIP_STACK_COMMAND_ENABLE
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUESTS         4
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUEST_DELAY    1000
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_TIMEOUT          5000
+#define TCPIP_STACK_COMMANDS_WIFI_ENABLE             	true
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUEST_BUFF_SIZE    2000
+#define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUEST_DATA_SIZE    100
 
 
 /*** IPv4 Configuration ***/

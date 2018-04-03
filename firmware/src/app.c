@@ -461,17 +461,6 @@ static void network_run(int16_t *ipWait, TCPIP_NET_HANDLE *netHandleWiFi, IPV4_A
 	APP_OSAL_MUTEX_UNLOCK();
 }
 
-static void led_toggle(void)
-{
-	static uint32_t startTick = 0;
-
-	if (SYS_TMR_TickCountGet() - startTick >= SYS_TMR_TickCounterFrequencyGet() / 2ul) {
-		startTick = SYS_TMR_TickCountGet();
-		s_LEDstate ^= BSP_LED_STATE_ON;
-		BSP_LEDStateSet(APP_LED_1, s_LEDstate);
-	}
-}
-
 static void firmware_update(TCPIP_NET_HANDLE *netHandleWiFi)
 {
 	APP_TCPIP_IFModules_Disable(*netHandleWiFi);
@@ -527,7 +516,7 @@ void APP_Tasks(void)
 		else
 			SYS_CMD_READY_TO_READ();
 		network_run(&ipWait, &netHandleWiFi, &defaultIpWiFi);
-		led_toggle();
+		//led_toggle();
 		break;
 	case APP_FW_OTA_UPDATE:
 		firmware_update(&netHandleWiFi);
@@ -735,8 +724,9 @@ static void APP_TCPIP_IFModules_Enable(TCPIP_NET_HANDLE netH)
 		APP_WIFI_IPv6MulticastFilter_Set(netH);
 	}
 	if (IS_NBNS_RUN()) {
-		const char *netBiosName = TCPIP_STACK_NetBIOSName(netH);
-		SYS_CONSOLE_PRINT("  Interface %s on host %s - NBNS enabled\r\n", netName, netBiosName);
+        // TODO Enable logging
+		//const char *netBiosName = TCPIP_STACK_NetBIOSName(netH);
+		//SYS_CONSOLE_PRINT("  Interface %s on host %s - NBNS enabled\r\n", netName, netBiosName);
 	}
 	if (IS_MDNS_RUN()) {
 		char mDNSServiceName[] = "MyWebServiceNameX "; // base name of the service Must not exceed 16 bytes long

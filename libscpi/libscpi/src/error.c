@@ -130,7 +130,7 @@ int32_t SCPI_ErrorCount(scpi_t * context) {
 
 static scpi_bool_t SCPI_ErrorAddInternal(scpi_t * context, int16_t err, char * info, size_t info_len) {
     scpi_error_t error_value;
-    char * info_ptr = info ? SCPIDEFINE_strndup(&context->error_info_heap, info, info_len) : NULL;
+    char * info_ptr = info ? (char *)SCPIDEFINE_strndup(&context->error_info_heap, info, info_len) : NULL;
     SCPI_ERROR_SETVAL(&error_value, err, info_ptr);
     if (!fifo_add(&context->error_queue, &error_value)) {
         SCPIDEFINE_free(&context->error_info_heap, error_value.device_dependent_info, true);

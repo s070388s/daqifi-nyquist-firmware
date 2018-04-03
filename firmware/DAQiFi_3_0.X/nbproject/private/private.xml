@@ -3,18 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/TCPServer/TcpServer.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/main.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/app.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/SCPI/SCPIInterface.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/Util/FreeRTOSLockContext.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/SCPI/SCPILAN.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/Util/Logger.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_config.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/app.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/app_wifi_mrf24wn.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/TCPServer/TcpServer.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/Util/FreeRTOSLockContext.c</file>
         </group>
     </open-files>
 </project-private>
