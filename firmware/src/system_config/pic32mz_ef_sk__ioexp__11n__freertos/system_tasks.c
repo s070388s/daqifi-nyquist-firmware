@@ -114,11 +114,11 @@ void SYS_Tasks ( void )
                 "USB Tasks",
                 2048, NULL, 4, NULL);
 
-//    /* Create task for TCPIP state machine*/
-//    /* Create OS Thread for TCPIP Tasks. */
-//    xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
-//                "TCPIP Tasks",
-//                2048, NULL, 9, NULL);
+    /* Create task for TCPIP state machine*/
+    /* Create OS Thread for TCPIP Tasks. */
+    xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
+                "TCPIP Tasks",
+                2048, NULL, 9, NULL);
 
 //    /* Create OS Thread for Net Pres Tasks. */
 //    xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
@@ -204,16 +204,16 @@ void _USB_Tasks(void)
     }
  }
 
-//void _TCPIP_Tasks(void)
-//{
-//    //portTASK_USES_FLOATING_POINT();
-//    while(1)
-//    {
-//        /* Maintain the TCP/IP Stack*/
-//        TCPIP_STACK_Task(sysObj.tcpip);
-//        vTaskDelay(1 / portTICK_PERIOD_MS);
-//    }
-//}
+void _TCPIP_Tasks(void)
+{
+    //portTASK_USES_FLOATING_POINT();
+    while(1)
+    {
+        /* Maintain the TCP/IP Stack*/
+        TCPIP_STACK_Task(sysObj.tcpip);
+        vTaskDelay(1 / portTICK_PERIOD_MS);
+    }
+}
 
 //void _NET_PRES_Tasks(void)
 //{
