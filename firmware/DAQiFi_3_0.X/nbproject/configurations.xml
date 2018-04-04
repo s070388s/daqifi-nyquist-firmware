@@ -354,13 +354,9 @@
         </logicalFolder>
         <logicalFolder name="f3" displayName="system" projectFiles="true">
           <logicalFolder name="f5" displayName="clk" projectFiles="true">
-            <logicalFolder name="f1" displayName="src" projectFiles="true">
-              <itemPath>../../../../../framework/system/clk/src/sys_clk_local.h</itemPath>
-              <itemPath>../../../../../framework/system/clk/src/sys_clk_variant_mapping.h</itemPath>
-              <itemPath>../../../../../framework/system/clk/src/sys_clk_pic32mz.h</itemPath>
-            </logicalFolder>
             <itemPath>../../../../../framework/system/clk/sys_clk.h</itemPath>
             <itemPath>../../../../../framework/system/clk/sys_clk_compatibility.h</itemPath>
+            <itemPath>../../../../../framework/system/clk/sys_clk_mapping.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f7" displayName="command" projectFiles="true">
             <itemPath>../../../../../framework/system/command/sys_command.h</itemPath>
@@ -726,7 +722,12 @@
                 </logicalFolder>
               </logicalFolder>
               <logicalFolder name="f3" displayName="system" projectFiles="true">
-                <logicalFolder name="f1" displayName="devcon" projectFiles="true">
+                <logicalFolder name="f1" displayName="clk" projectFiles="true">
+                  <logicalFolder name="f1" displayName="src" projectFiles="true">
+                    <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/clk/src/sys_clk_pic32mz.c</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+                <logicalFolder name="f2" displayName="devcon" projectFiles="true">
                   <logicalFolder name="f1" displayName="src" projectFiles="true">
                     <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src/sys_devcon.c</itemPath>
                     <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src/sys_devcon_pic32mz.c</itemPath>
@@ -734,17 +735,17 @@
                     <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src/sys_devcon_cache.h</itemPath>
                   </logicalFolder>
                 </logicalFolder>
-                <logicalFolder name="f2" displayName="ports" projectFiles="true">
+                <logicalFolder name="f3" displayName="ports" projectFiles="true">
                   <logicalFolder name="f1" displayName="src" projectFiles="true">
                     <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/ports/src/sys_ports_static.c</itemPath>
                   </logicalFolder>
                 </logicalFolder>
-                <logicalFolder name="f3" displayName="reset" projectFiles="true">
+                <logicalFolder name="f4" displayName="reset" projectFiles="true">
                   <logicalFolder name="f1" displayName="src" projectFiles="true">
                     <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/reset/src/sys_reset.c</itemPath>
                   </logicalFolder>
                 </logicalFolder>
-                <logicalFolder name="f4" displayName="rtcc" projectFiles="true">
+                <logicalFolder name="f5" displayName="rtcc" projectFiles="true">
                   <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/rtcc/sys_rtcc.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
@@ -966,13 +967,7 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="f4" displayName="system" projectFiles="true">
-          <logicalFolder name="f3" displayName="clk" projectFiles="true">
-            <logicalFolder name="f1" displayName="src" projectFiles="true">
-              <itemPath>../../../../../framework/system/clk/src/sys_clk.c</itemPath>
-              <itemPath>../../../../../framework/system/clk/src/sys_clk_pic32mz.c</itemPath>
-            </logicalFolder>
-          </logicalFolder>
-          <logicalFolder name="f4" displayName="command" projectFiles="true">
+          <logicalFolder name="f3" displayName="command" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/command/src/sys_command.c</itemPath>
             </logicalFolder>
@@ -990,15 +985,15 @@
               <itemPath>../../../../../framework/system/console/src/sys_console_appio.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f5" displayName="debug" projectFiles="true">
+          <logicalFolder name="f4" displayName="debug" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/debug/src/sys_debug.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="dma" projectFiles="true">
+          <logicalFolder name="f5" displayName="dma" projectFiles="true">
             <itemPath>../../../../../framework/system/dma/src/sys_dma.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="fs" projectFiles="true">
+          <logicalFolder name="f6" displayName="fs" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
                 <itemPath>../../../../../framework/system/fs/src/dynamic/sys_fs.c</itemPath>
@@ -1007,17 +1002,17 @@
             </logicalFolder>
             <itemPath>../../../../../framework/system/fs/mpfs/src/mpfs.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f8" displayName="int" projectFiles="true">
+          <logicalFolder name="f7" displayName="int" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/int/src/sys_int_pic32.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f9" displayName="random" projectFiles="true">
+          <logicalFolder name="f8" displayName="random" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/random/src/sys_random.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f10" displayName="tmr" projectFiles="true">
+          <logicalFolder name="f9" displayName="tmr" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/tmr/src/sys_tmr.c</itemPath>
             </logicalFolder>
@@ -1071,11 +1066,7 @@
             <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/portable/MemMang/heap_4.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f2" displayName="MPLAB" projectFiles="true">
-            <logicalFolder name="f1" displayName="PIC32MX" projectFiles="true">
-              <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/port.c</itemPath>
-              <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/port_asm.S</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f2" displayName="PIC32MZ" projectFiles="true">
+            <logicalFolder name="f1" displayName="PIC32MZ" projectFiles="true">
               <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ/port.c</itemPath>
               <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ/port_asm.S</itemPath>
             </logicalFolder>
@@ -2076,38 +2067,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/port.c"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/port_asm.S"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/portmacro.h"
             ex="true"
             overriding="false">
@@ -2171,12 +2130,60 @@
         </C32Global>
       </item>
       <item path="../src/Util/FreeRTOSLockContext.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../src/Util/FreeRTOSLockContext.h" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../src/Util/LinkedList.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../src/Util/LinkedList.h" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <C32>
         <property key="additional-warnings" value="true"/>
@@ -2387,6 +2394,7 @@
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

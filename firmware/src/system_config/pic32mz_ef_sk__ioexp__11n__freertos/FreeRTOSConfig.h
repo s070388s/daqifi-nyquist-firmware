@@ -92,7 +92,7 @@
 #define configISR_STACK_SIZE                    ( 512 )
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
 #define configSUPPORT_STATIC_ALLOCATION         0
-#define configTOTAL_HEAP_SIZE                   ( ( size_t ) 40960 )
+#define configTOTAL_HEAP_SIZE                   ( ( size_t ) 102400 )
 #define configMAX_TASK_NAME_LEN                 ( 16 )
 #define configUSE_16_BIT_TICKS                  0
 #define configIDLE_SHOULD_YIELD                 1
@@ -105,13 +105,13 @@
 #define configUSE_TIME_SLICING                  0
 #define configUSE_NEWLIB_REENTRANT              0
 #define configENABLE_BACKWARD_COMPATIBILITY     0
-#define configUSE_TASK_FPU_SUPPORT              1
+#define configUSE_TASK_FPU_SUPPORT              0
 
 /* Hook function related definitions. */
 #define configUSE_IDLE_HOOK                     0
 #define configUSE_TICK_HOOK                     0
 #define configCHECK_FOR_STACK_OVERFLOW          2
-#define configUSE_MALLOC_FAILED_HOOK            1
+#define configUSE_MALLOC_FAILED_HOOK            0
 
 /* Run time and task stats gathering related definitions. */
 #define configGENERATE_RUN_TIME_STATS           0
@@ -132,11 +132,6 @@
 /* Misc */
 #define configUSE_APPLICATION_TASK_TAG          0
 
-/* Prevent C specific syntax being included in assembly files. */
-#ifndef __LANGUAGE_ASSEMBLY
-    void vAssertCalled( const char *pcFileName, unsigned long ulLine );
-    #define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
-#endif
 
 /* Interrupt nesting behaviour configuration. */
 
@@ -156,7 +151,7 @@ Only API functions that end in ...FromISR() can be used within interrupts. */
 #define INCLUDE_vTaskDelay                      1
 #define INCLUDE_xTaskGetSchedulerState          0
 #define INCLUDE_xTaskGetCurrentTaskHandle       0
-#define INCLUDE_uxTaskGetStackHighWaterMark     1
+#define INCLUDE_uxTaskGetStackHighWaterMark     0
 #define INCLUDE_xTaskGetIdleTaskHandle          0
 #define INCLUDE_eTaskGetState                   0
 #define INCLUDE_xEventGroupSetBitFromISR        0

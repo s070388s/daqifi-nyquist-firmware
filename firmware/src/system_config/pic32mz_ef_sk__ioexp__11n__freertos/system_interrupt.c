@@ -68,16 +68,16 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-         void IntHandlerChangeNotification_PortB(void)
-{
-    
-    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
-}
-         void IntHandlerChangeNotification_PortF(void)
-{
-    
-    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
-}
+//         void IntHandlerChangeNotification_PortB(void)
+//{
+//    
+//    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
+//}
+//         void IntHandlerChangeNotification_PortF(void)
+//{
+//    
+//    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
+//}
 
 
 void IntHandlerSysDmaInstance0(void)
@@ -91,10 +91,10 @@ void IntHandlerSysDmaInstance1(void)
 }
 
 
-void __ISR(_RTCC_VECTOR, ipl1AUTO) _IntHandlerSysRtcc (void)
-{
-    SYS_RTCC_Tasks(sysObj.sysRtcc);
-}
+//void __ISR(_RTCC_VECTOR, ipl1AUTO) _IntHandlerSysRtcc (void)
+//{
+//    SYS_RTCC_Tasks(sysObj.sysRtcc);
+//}
 void IntHandlerExternalInterruptInstance0(void)
 {
     PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_EXTERNAL_4);
@@ -106,14 +106,14 @@ void IntHandlerDrvTmrInstance0(void)
 {
     DRV_TMR_Tasks(sysObj.drvTmr0);
 }
-void IntHandlerDrvTmrInstance1(void)
-{
-    DRV_TMR_Tasks(sysObj.drvTmr1);
-}
-void IntHandlerDrvTmrInstance2(void)
-{
-    DRV_TMR_Tasks(sysObj.drvTmr2);
-}
+//void IntHandlerDrvTmrInstance1(void)
+//{
+//    DRV_TMR_Tasks(sysObj.drvTmr1);
+//}
+//void IntHandlerDrvTmrInstance2(void)
+//{
+//    DRV_TMR_Tasks(sysObj.drvTmr2);
+//}
  
 void IntHandlerSPIRxInstance0(void)
 {
@@ -127,18 +127,18 @@ void IntHandlerSPIFaultInstance0(void)
 {
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
 }
-void IntHandlerSPIRxInstance1(void)
-{
-    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-}
-void IntHandlerSPITxInstance1(void)
-{
-    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-}
-void IntHandlerSPIFaultInstance1(void)
-{
-    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-}
+//void IntHandlerSPIRxInstance1(void)
+//{
+//    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
+//}
+//void IntHandlerSPITxInstance1(void)
+//{
+//    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
+//}
+//void IntHandlerSPIFaultInstance1(void)
+//{
+//    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
+//}
 
 void IntHandlerDrvNvm (void)
 

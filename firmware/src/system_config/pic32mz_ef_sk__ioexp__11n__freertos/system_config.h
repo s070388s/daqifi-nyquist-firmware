@@ -19,7 +19,7 @@
     until used by another MPLAB Harmony module or application.
 
     Created with MPLAB Harmony Version 2.05
-*******************************************************************************/
+***************************************************************SYS_CLK_ON_WAIT****************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
@@ -91,9 +91,7 @@ extern "C" {
 #define SYS_CLK_BUS_PERIPHERAL_8            100000000ul
 #define SYS_CLK_CONFIG_PRIMARY_XTAL         24000000ul
 #define SYS_CLK_CONFIG_SECONDARY_XTAL       32768ul
-#define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT     10
-#define SYS_CLK_WAIT_FOR_SWITCH             true
-#define SYS_CLK_ON_WAIT                     OSC_ON_WAIT_IDLE 
+
 #define SYS_CLK_DIV_PWR_SAVE    2  
    
 /*** Ports System Service Configuration ***/
@@ -155,7 +153,7 @@ extern "C" {
 
 #define SYS_PORT_H_ANSEL        0x0043
 #define SYS_PORT_H_TRIS         0x0673
-#define SYS_PORT_H_LAT          0x890C
+#define SYS_PORT_H_LAT          0x990C
 #define SYS_PORT_H_ODC          0x8000
 #define SYS_PORT_H_CNPU         0x0000
 #define SYS_PORT_H_CNPD         0x0000
@@ -181,7 +179,7 @@ extern "C" {
 /*** Command Processor System Service Configuration ***/
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES    SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE       8192
+#define SYS_CMD_PRINT_BUFFER_SIZE       1024
 #define SYS_CMD_BUFFER_DMA_READY        __attribute__((coherent)) __attribute__((aligned(16)))
 #define SYS_CMD_REMAP_SYS_CONSOLE_MESSAGE
 #define SYS_CMD_REMAP_SYS_DEBUG_MESSAGE
@@ -699,6 +697,7 @@ extern "C" {
 
 /*** tcpip_cmd Configuration ***/
 #define TCPIP_STACK_COMMAND_ENABLE
+#define TCPIP_STACK_COMMANDS_STORAGE_ENABLE
 #define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUESTS         4
 #define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUEST_DELAY    1000
 #define TCPIP_STACK_COMMANDS_ICMP_ECHO_TIMEOUT          5000

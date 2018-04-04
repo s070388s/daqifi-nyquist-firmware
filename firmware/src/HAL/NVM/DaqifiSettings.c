@@ -37,7 +37,7 @@
 #define UAINCAL_SETTINGS_ADDR FAINCAL_SETTINGS_ADDR + FAINCAL_SETTINGS_SIZE
 #define UAINCAL_SETTINGS_SIZE DRV_FLASH_PAGE_SIZE // 16KB allotment - uses ~512 bytes
 
-// Cannot figure out how to get the compiler to refrain from loading these with 0s - so we mustn't use the variable intiializers
+// Cannot figure out how to get the compiler to refrain from loading these with 0s - so we mustn't use the variable initializers
 // tried the noload attribute but that doesn't seem to work - assuming because they are globals?
 //const uint8_t __attribute__((space(prog),address(TOP_LEVEL_SETTINGS_ADDR))) TOP_LEVEL_SETTINGS[TOP_LEVEL_SETTINGS_SIZE];
 //const uint8_t __attribute__((space(prog),address(WIFI_SETTINGS_ADDR))) WIFI_SETTINGS[WIFI_SETTINGS_SIZE];

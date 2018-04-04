@@ -56,6 +56,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_definitions.h"
 #include "app.h"
 
+//#include "../src/HAL/UI/UI.h"
+//#include "../src/HAL/Power/PowerApi.h"
+//#include "state/runtime/BoardRuntimeConfig.h"
+//#include "state/data/BoardData.h"
+//#include "state/board/BoardConfig.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -68,12 +73,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 static void _SYS_Tasks ( void );
  
  
-void _DRV_SDCARD_Tasks(void);
+//void _DRV_SDCARD_Tasks(void);
 
 void _USB_Tasks(void);
 void _TCPIP_Tasks(void);
-void _NET_PRES_Tasks(void);
+//void _NET_PRES_Tasks(void);
 static void _APP_Tasks(void);
+//void _POWER_AND_UI_Tasks(void);
 
 
 // *****************************************************************************
@@ -97,40 +103,38 @@ void SYS_Tasks ( void )
                 "Sys Tasks",
                 2048, NULL, 3, NULL);
 
- 
- 
- 
-    /* Create task for gfx state machine*/
-    /* Create OS Thread for DRV_SDCARD Tasks. */
-    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
-                "DRV_SDCARD Tasks",
-                1024, NULL, 1, NULL);
+//    /* Create task for gfx state machine*/
+//    /* Create OS Thread for DRV_SDCARD Tasks. */
+//    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
+//                "DRV_SDCARD Tasks",
+//                1024, NULL, 1, NULL);
 
-
- 
-    /* Create task for gfx state machine*/
     /* Create OS Thread for USB Tasks. */
     xTaskCreate((TaskFunction_t) _USB_Tasks,
                 "USB Tasks",
-                2048, NULL, 3, NULL);
+                2048, NULL, 4, NULL);
 
+//    /* Create task for TCPIP state machine*/
+//    /* Create OS Thread for TCPIP Tasks. */
+//    xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
+//                "TCPIP Tasks",
+//                2048, NULL, 9, NULL);
 
-    /* Create task for TCPIP state machine*/
-    /* Create OS Thread for TCPIP Tasks. */
-    xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
-                "TCPIP Tasks",
-                2048, NULL, 9, NULL);
-
-    /* Create OS Thread for Net Pres Tasks. */
-    xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
-                "Net Pres Tasks",
-                1024, NULL, 1, NULL);
+//    /* Create OS Thread for Net Pres Tasks. */
+//    xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
+//                "Net Pres Tasks",
+//                1024, NULL, 1, NULL);
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                1024, NULL, 2, NULL);
-
+                2048, NULL, 2, NULL);
+    
+//    /* Create OS Thread for power Tasks. */
+//    xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
+//                "POWER Tasks",
+//                1024, NULL, 9, NULL);    
+    
     /**************
      * Start RTOS * 
      **************/
@@ -149,8 +153,10 @@ static void _SYS_Tasks ( void)
 {
     while(1)
     {
-        /* Maintain system services */
-        SYS_RTCC_Tasks(sysObj.sysRtcc);
+//    /* Maintain system services */
+//    SYS_DEVCON_Tasks(sysObj.sysDevcon);
+    /* Maintain system services */
+//    SYS_RTCC_Tasks(sysObj.sysRtcc);
     /* Maintain the file system state machine. */
     SYS_FS_Tasks();
     SYS_CONSOLE_Tasks(sysObj.sysConsole0);
@@ -164,57 +170,61 @@ static void _SYS_Tasks ( void)
  
 
         /* Maintain Middleware */
-
+ 
 
         /* Task Delay */
-        vTaskDelay(1 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
 
  
  
-void _DRV_SDCARD_Tasks(void)
-{
-    while(1)
-    {
-        DRV_SDCARD_Tasks(sysObj.drvSDCard);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-}
+//void _DRV_SDCARD_Tasks(void)
+//{
+//    while(1)
+//    {
+//        //DRV_SDCARD_Tasks(sysObj.drvSDCard);   // This must be handled by a mutex as it stomps on the WiFi task
+//        vTaskDelay(1000 / portTICK_PERIOD_MS);
+//    }
+//}
 
 void _USB_Tasks(void)
 {
+    //portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* USBHS Driver Task Routine */ 
          DRV_USBHS_Tasks(sysObj.drvUSBObject);
          
-        
         /* USB Device layer tasks routine */ 
         USB_DEVICE_Tasks(sysObj.usbDevObject0);
- 
-
-        vTaskDelay(1 / portTICK_PERIOD_MS);
+        
+        
+        vTaskDelay(2 / portTICK_PERIOD_MS);
     }
  }
-void _TCPIP_Tasks(void)
-{
-    while(1)
-    {
-        /* Maintain the TCP/IP Stack*/
-        TCPIP_STACK_Task(sysObj.tcpip);
-        vTaskDelay(1 / portTICK_PERIOD_MS);
-    }
-}
-void _NET_PRES_Tasks(void)
-{
-    while(1)
-    {
-        /* Maintain the TCP/IP Stack*/
-        NET_PRES_Tasks(sysObj.netPres);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-}
+
+//void _TCPIP_Tasks(void)
+//{
+//    //portTASK_USES_FLOATING_POINT();
+//    while(1)
+//    {
+//        /* Maintain the TCP/IP Stack*/
+//        TCPIP_STACK_Task(sysObj.tcpip);
+//        vTaskDelay(1 / portTICK_PERIOD_MS);
+//    }
+//}
+
+//void _NET_PRES_Tasks(void)
+//{
+//    //portTASK_USES_FLOATING_POINT();
+//    while(1)
+//    {
+//        /* Maintain the TCP/IxTaskIncrementTick P Stack*/
+//        NET_PRES_Tasks(sysObj.netPres);
+//        vTaskDelay(100 / portTICK_PERIOD_MS);
+//    }
+//}
 
 /*******************************************************************************
   Function:
@@ -229,10 +239,29 @@ static void _APP_Tasks(void)
     while(1)
     {
         APP_Tasks();
-        vTaskDelay(1 / portTICK_PERIOD_MS);
+        vTaskDelay(5 / portTICK_PERIOD_MS);
     }
 }
 
+/*******************************************************************************
+  Function:
+    void _POWER_Tasks ( void )
+
+  Summary:
+    Maintains state machine of Power API.
+*/
+
+//void _POWER_AND_UI_Tasks(void)
+//{
+//    portTASK_USES_FLOATING_POINT();
+//    while(1)
+//    {
+//        Power_Tasks(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, &g_BoardRuntimeConfig.PowerWriteVars);
+//        Button_Tasks(g_BoardConfig.UIConfig, &g_BoardData.UIReadVars, &g_BoardData.PowerData, g_BoardConfig.MCP73871Config, &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars);
+//        LED_Tasks(g_BoardConfig.UIConfig, &g_BoardData.PowerData, &g_BoardData.UIReadVars, g_BoardRuntimeConfig.StreamingConfig.IsEnabled);
+//        vTaskDelay(125 / portTICK_PERIOD_MS);
+//    }
+//}
 
 /*******************************************************************************
  End of File
