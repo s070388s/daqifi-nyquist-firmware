@@ -236,26 +236,26 @@ const DRV_TMR_INIT drvTmr0InitData =
     .interruptSource = DRV_TMR_INTERRUPT_SOURCE_IDX0,
     .asyncWriteEnable = false,
 };
-//const DRV_TMR_INIT drvTmr1InitData =
-//{
-//    .moduleInit.sys.powerState = DRV_TMR_POWER_STATE_IDX1,
-//    .tmrId = DRV_TMR_PERIPHERAL_ID_IDX1,
-//    .clockSource = DRV_TMR_CLOCK_SOURCE_IDX1,
-//    .prescale = DRV_TMR_PRESCALE_IDX1,
-//    .mode = DRV_TMR_OPERATION_MODE_IDX1,
-//    .interruptSource = DRV_TMR_INTERRUPT_SOURCE_IDX1,
-//    .asyncWriteEnable = false,
-//};
-//const DRV_TMR_INIT drvTmr2InitData =
-//{
-//    .moduleInit.sys.powerState = DRV_TMR_POWER_STATE_IDX2,
-//    .tmrId = DRV_TMR_PERIPHERAL_ID_IDX2,
-//    .clockSource = DRV_TMR_CLOCK_SOURCE_IDX2,
-//    .prescale = DRV_TMR_PRESCALE_IDX2,
-//    .mode = DRV_TMR_OPERATION_MODE_IDX2,
-//    .interruptSource = DRV_TMR_INTERRUPT_SOURCE_IDX2,
-//    .asyncWriteEnable = false,
-//};
+const DRV_TMR_INIT drvTmr1InitData =
+{
+    .moduleInit.sys.powerState = DRV_TMR_POWER_STATE_IDX1,
+    .tmrId = DRV_TMR_PERIPHERAL_ID_IDX1,
+    .clockSource = DRV_TMR_CLOCK_SOURCE_IDX1,
+    .prescale = DRV_TMR_PRESCALE_IDX1,
+    .mode = DRV_TMR_OPERATION_MODE_IDX1,
+    .interruptSource = DRV_TMR_INTERRUPT_SOURCE_IDX1,
+    .asyncWriteEnable = false,
+};
+const DRV_TMR_INIT drvTmr2InitData =
+{
+    .moduleInit.sys.powerState = DRV_TMR_POWER_STATE_IDX2,
+    .tmrId = DRV_TMR_PERIPHERAL_ID_IDX2,
+    .clockSource = DRV_TMR_CLOCK_SOURCE_IDX2,
+    .prescale = DRV_TMR_PRESCALE_IDX2,
+    .mode = DRV_TMR_OPERATION_MODE_IDX2,
+    .interruptSource = DRV_TMR_INTERRUPT_SOURCE_IDX2,
+    .asyncWriteEnable = false,
+};
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_USB Initialization Data">
 /******************************************************
@@ -1179,15 +1179,15 @@ void SYS_Initialize ( void* data )
 //    sysObj.spiObjectIdx1 = DRV_SPI_Initialize(DRV_SPI_INDEX_1, (const SYS_MODULE_INIT  * const)&drvSpi1InitData);
 
     sysObj.drvTmr0 = DRV_TMR_Initialize(DRV_TMR_INDEX_0, (SYS_MODULE_INIT *)&drvTmr0InitData);
-//    sysObj.drvTmr1 = DRV_TMR_Initialize(DRV_TMR_INDEX_1, (SYS_MODULE_INIT *)&drvTmr1InitData);
-//    sysObj.drvTmr2 = DRV_TMR_Initialize(DRV_TMR_INDEX_2, (SYS_MODULE_INIT *)&drvTmr2InitData);
+    sysObj.drvTmr1 = DRV_TMR_Initialize(DRV_TMR_INDEX_1, (SYS_MODULE_INIT *)&drvTmr1InitData);
+    sysObj.drvTmr2 = DRV_TMR_Initialize(DRV_TMR_INDEX_2, (SYS_MODULE_INIT *)&drvTmr2InitData);
 
     SYS_INT_VectorPrioritySet(INT_VECTOR_T2, INT_PRIORITY_LEVEL4);
     SYS_INT_VectorSubprioritySet(INT_VECTOR_T2, INT_SUBPRIORITY_LEVEL0);
-//    SYS_INT_VectorPrioritySet(INT_VECTOR_T5, INT_PRIORITY_LEVEL7);
-//    SYS_INT_VectorSubprioritySet(INT_VECTOR_T5, INT_SUBPRIORITY_LEVEL2);
-//    SYS_INT_VectorPrioritySet(INT_VECTOR_T7, INT_PRIORITY_LEVEL7);
-//    SYS_INT_VectorSubprioritySet(INT_VECTOR_T7, INT_SUBPRIORITY_LEVEL3);
+    SYS_INT_VectorPrioritySet(INT_VECTOR_T5, INT_PRIORITY_LEVEL7);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_T5, INT_SUBPRIORITY_LEVEL2);
+    SYS_INT_VectorPrioritySet(INT_VECTOR_T7, INT_PRIORITY_LEVEL7);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_T7, INT_SUBPRIORITY_LEVEL3);
  
  
      /* RTCC System Service Initialization Call */

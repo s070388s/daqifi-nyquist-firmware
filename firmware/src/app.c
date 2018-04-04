@@ -42,24 +42,24 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <sys/attribs.h>
 #include "app.h"
 #include "app_commands.h"
-//#include "streaming.h"
-//#include "HAL/DIO.h"
-//#include "HAL/ADC.h"
-//#include "HAL/Power/PowerApi.h"
-//#include "HAL/Wifi/WifiApi.h"
-//#include "HAL/NVM/DaqifiSettings.h"
-//#include "TCPServer/TcpServer.h"
+#include "streaming.h"
+#include "HAL/DIO.h"
+#include "HAL/ADC.h"
+#include "HAL/Power/PowerApi.h"
+#include "HAL/Wifi/WifiApi.h"
+#include "HAL/NVM/DaqifiSettings.h"
+#include "TCPServer/TcpServer.h"
 #include "UsbCdc/UsbCdc.h"
-//#include "state/board/BoardConfig.h"
-//#include "HAL/MCP73871/MCP73871.h"
-//#include "state/runtime/BoardRuntimeConfig.h"
-//#include "state/data/BoardData.h"
+#include "state/board/BoardConfig.h"
+#include "HAL/MCP73871/MCP73871.h"
+#include "state/runtime/BoardRuntimeConfig.h"
+#include "state/data/BoardData.h"
 
-//const char BOARD_HARDWARE_REV[16] = "1.0";
-//const char BOARD_FIRMWARE_REV[16] = "1.0.2";
-//#define BOARD_VARIANT       1
-//
-//#define UNUSED(x) (void)(x)
+const char BOARD_HARDWARE_REV[16] = "1.0";
+const char BOARD_FIRMWARE_REV[16] = "1.0.2";
+#define BOARD_VARIANT       1
+
+#define UNUSED(x) (void)(x)
 
 //TODO needed? WDRV_SCAN_STATUS g_scanStatus; // This is part of the wifi command code. IF we remove the commands, we have to define it ourselves
 
@@ -200,45 +200,45 @@ void APP_Initialize(void)
 
 	force_bootloader_flag = 0;    // Reset force bootloader flag
     
-//    DaqifiSettings tmpTopLevelSettings;
-//    tmpTopLevelSettings.type = DaqifiSettings_TopLevelSettings;
-//    
-//    // Try to load TopLevelSettings from NVM - if this fails, store default settings to NVM (first run after a program)
-//    if(!LoadNvmSettings(DaqifiSettings_TopLevelSettings, &tmpTopLevelSettings))
-//    {
-//        // Get board variant and cal param type from TopLevelSettings NVM variable
-//        LoadFactorySettings(DaqifiSettings_TopLevelSettings, &tmpTopLevelSettings);
-//        strcpy(tmpTopLevelSettings.settings.topLevelSettings.boardHardwareRev, BOARD_HARDWARE_REV);
-//        strcpy(tmpTopLevelSettings.settings.topLevelSettings.boardFirmwareRev, BOARD_FIRMWARE_REV);
-//        tmpTopLevelSettings.settings.topLevelSettings.boardVariant = BOARD_VARIANT;
-//        SaveNvmSettings(&tmpTopLevelSettings);
-//    }
-//    
-//    // Load board config structures with the correct board variant values
-//    InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
-//    InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
-//    InitializeBoardData(&g_BoardData);
-//        
-//    // Load factory calibration parameters - if they are not initialized, store them (first run after a program)
-//    if(!LoadADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels)) SaveADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels);
-//    // If calVals has been set to 1 (user cal params), overwrite with user calibration parameters
-//    if(tmpTopLevelSettings.settings.topLevelSettings.calVals) LoadADCCalSettings(DaqifiSettings_UserAInCalParams, &g_BoardRuntimeConfig.AInChannels);
-//
-//    // Set if USB has been initialized.
-//    // TODO: needed? if(sysObj.usbDevObject0 == SYS_MODULE_OBJ_INVALID);
-//
-// 	// Power initialization - enables 3.3V rail by default - other power functions are in power task
+    DaqifiSettings tmpTopLevelSettings;
+    tmpTopLevelSettings.type = DaqifiSettings_TopLevelSettings;
+    
+    // Try to load TopLevelSettings from NVM - if this fails, store default settings to NVM (first run after a program)
+    if(!LoadNvmSettings(DaqifiSettings_TopLevelSettings, &tmpTopLevelSettings))
+    {
+        // Get board variant and cal param type from TopLevelSettings NVM variable
+        LoadFactorySettings(DaqifiSettings_TopLevelSettings, &tmpTopLevelSettings);
+        strcpy(tmpTopLevelSettings.settings.topLevelSettings.boardHardwareRev, BOARD_HARDWARE_REV);
+        strcpy(tmpTopLevelSettings.settings.topLevelSettings.boardFirmwareRev, BOARD_FIRMWARE_REV);
+        tmpTopLevelSettings.settings.topLevelSettings.boardVariant = BOARD_VARIANT;
+        SaveNvmSettings(&tmpTopLevelSettings);
+    }
+    
+    // Load board config structures with the correct board variant values
+    InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
+    InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
+    InitializeBoardData(&g_BoardData);
+        
+    // Load factory calibration parameters - if they are not initialized, store them (first run after a program)
+    if(!LoadADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels)) SaveADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels);
+    // If calVals has been set to 1 (user cal params), overwrite with user calibration parameters
+    if(tmpTopLevelSettings.settings.topLevelSettings.calVals) LoadADCCalSettings(DaqifiSettings_UserAInCalParams, &g_BoardRuntimeConfig.AInChannels);
+
+    // Set if USB has been initialized.
+    // TODO: needed? if(sysObj.usbDevObject0 == SYS_MODULE_OBJ_INVALID);
+
+ 	// Power initialization - enables 3.3V rail by default - other power functions are in power task
 //    Power_Init(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, g_BoardRuntimeConfig.PowerWriteVars);
-//    
-//    // Init DIO Hardware
-//    DIO_InitHardware(&g_BoardConfig.DIOChannels);
-//    
-//	// Write initial values
-//    DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);
+    
+    // Init DIO Hardware
+    DIO_InitHardware(&g_BoardConfig.DIOChannels);
+    
+	// Write initial values
+    DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);
    
-//	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
-//    Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
-//    Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
+	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
+    Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
+    Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
 
     // TODO: Move USB into its own task
     UsbCdc_Initialize();
