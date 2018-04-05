@@ -19,7 +19,7 @@
     until used by another MPLAB Harmony module or application.
 
     Created with MPLAB Harmony Version 2.05
-***************************************************************SYS_CLK_ON_WAIT****************/
+*******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
@@ -91,6 +91,9 @@ extern "C" {
 #define SYS_CLK_BUS_PERIPHERAL_8            100000000ul
 #define SYS_CLK_CONFIG_PRIMARY_XTAL         24000000ul
 #define SYS_CLK_CONFIG_SECONDARY_XTAL       32768ul
+#define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT     10
+#define SYS_CLK_WAIT_FOR_SWITCH             true
+#define SYS_CLK_ON_WAIT                     OSC_ON_WAIT_IDLE 
 
 #define SYS_CLK_DIV_PWR_SAVE    2  
    

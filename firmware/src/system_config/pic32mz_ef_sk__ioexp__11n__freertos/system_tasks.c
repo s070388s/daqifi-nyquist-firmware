@@ -56,11 +56,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_definitions.h"
 #include "app.h"
 
-//#include "../src/HAL/UI/UI.h"
-//#include "../src/HAL/Power/PowerApi.h"
-//#include "state/runtime/BoardRuntimeConfig.h"
-//#include "state/data/BoardData.h"
-//#include "state/board/BoardConfig.h"
+#include "../src/HAL/UI/UI.h"
+#include "../src/HAL/Power/PowerApi.h"
+#include "state/runtime/BoardRuntimeConfig.h"
+#include "state/data/BoardData.h"
+#include "state/board/BoardConfig.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -79,7 +79,7 @@ void _USB_Tasks(void);
 void _TCPIP_Tasks(void);
 //void _NET_PRES_Tasks(void);
 static void _APP_Tasks(void);
-//void _POWER_AND_UI_Tasks(void);
+void _POWER_AND_UI_Tasks(void);
 
 
 // *****************************************************************************
@@ -118,7 +118,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for TCPIP Tasks. */
     xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
                 "TCPIP Tasks",
-                2048, NULL, 9, NULL);
+                2048, NULL, 4, NULL);
 
 //    /* Create OS Thread for Net Pres Tasks. */
 //    xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
@@ -130,10 +130,10 @@ void SYS_Tasks ( void )
                 "APP Tasks",
                 2048, NULL, 2, NULL);
     
-//    /* Create OS Thread for power Tasks. */
-//    xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
-//                "POWER Tasks",
-//                1024, NULL, 9, NULL);    
+    /* Create OS Thread for power Tasks. */
+    xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
+                "POWER Tasks",
+                1024, NULL, 9, NULL);    
     
     /**************
      * Start RTOS * 
@@ -251,17 +251,17 @@ static void _APP_Tasks(void)
     Maintains state machine of Power API.
 */
 
-//void _POWER_AND_UI_Tasks(void)
-//{
-//    portTASK_USES_FLOATING_POINT();
-//    while(1)
-//    {
-//        Power_Tasks(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, &g_BoardRuntimeConfig.PowerWriteVars);
-//        Button_Tasks(g_BoardConfig.UIConfig, &g_BoardData.UIReadVars, &g_BoardData.PowerData, g_BoardConfig.MCP73871Config, &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars);
-//        LED_Tasks(g_BoardConfig.UIConfig, &g_BoardData.PowerData, &g_BoardData.UIReadVars, g_BoardRuntimeConfig.StreamingConfig.IsEnabled);
-//        vTaskDelay(125 / portTICK_PERIOD_MS);
-//    }
-//}
+void _POWER_AND_UI_Tasks(void)
+{
+    portTASK_USES_FLOATING_POINT();
+    while(1)
+    {
+        Power_Tasks(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, &g_BoardRuntimeConfig.PowerWriteVars);
+        Button_Tasks(g_BoardConfig.UIConfig, &g_BoardData.UIReadVars, &g_BoardData.PowerData, g_BoardConfig.MCP73871Config, &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars);
+        LED_Tasks(g_BoardConfig.UIConfig, &g_BoardData.PowerData, &g_BoardData.UIReadVars, g_BoardRuntimeConfig.StreamingConfig.IsEnabled);
+        vTaskDelay(125 / portTICK_PERIOD_MS);
+    }
+}
 
 /*******************************************************************************
  End of File

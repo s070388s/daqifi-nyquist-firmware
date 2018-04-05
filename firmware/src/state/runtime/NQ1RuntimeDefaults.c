@@ -64,11 +64,11 @@ const BoardRuntimeConfig g_NQ1BoardRuntimeConfig = {
         .Size = 24
     },
     .PowerWriteVars = {
-       .EN_Vref_Val = false,    // Vref rail off
        .EN_3_3V_Val = false,     // 3.3V rail off
        .EN_5_10V_Val = false,   // 5V rail off
        .EN_5V_ADC_Val = false,   // 5V ADC rail off
        .EN_12V_Val = true,      // 12V rail off (inverse logic)
+       .EN_Vref_Val = false,    // Vref rail off
        .MCP73871WriteVars.SEL_Val = true,  // true = charger - but we cannot assume charger until we've checked TODO:change this back to false for production
        .MCP73871WriteVars.PROG2_Val = false, // true = 500mA false = 100mA - must assume 100mA until we've checked
        .MCP73871WriteVars.TE_Val = true,    // Timer Enable; Enables Safety Timer when active Low - no charging so no timer

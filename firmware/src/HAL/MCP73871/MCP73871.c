@@ -4,29 +4,7 @@ void MCP73871_Init(sMCP73871Config config, sMCP73871WriteVars write)
 {
 
     // Battery management initialization
-    
-//    data->SEL_Val = true;    // true = charger
-//    data->PROG2_Val = false;
-//    data->TE_Val = true;
-//    data->CE_Val = false;
-//    data->STAT1_Val = true;
-//    data->STAT2_Val = true;
-//    data->PG_Val = true;
-//    data->status = 0;
-
     MCP73871_Write(config, write);
-
-    // NOTE: Directions should already be set in MHC
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.SEL_Ch, config.SEL_Bit);    // Input type selection (Low for USB port, High for AC-DC adapter)
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.PROG2_Ch, config.PROG2_Bit);// USB port input current limit selection (Low = 100 mA, High = 500 mA)
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.TE_Ch, config.TE_Bit);      // Timer Enable; Enables Safety Timer when active Low
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.CE_Ch, config.CE_Bit);      // Device Charge Enable; Enabled when CE = High
-//    
-//	PLIB_PORTS_PinDirectionInputSet(PORTS_ID_0, config.STAT1_Ch, config.STAT1_Bit);	//STAT1 Charge Status Output 1 (Open-Drain). Low battery output indicator when VBAT>VIN
-//	PLIB_PORTS_PinDirectionInputSet(PORTS_ID_0, config.STAT2_Ch, config.STAT2_Bit);	//STAT2 Charge Status Output 2 (Open-Drain)
-//	PLIB_PORTS_PinDirectionInputSet(PORTS_ID_0, config.PG_Ch, config.PG_Bit);		//PG* Power-Good Status Output (Open-Drain)
-
-    //ConfigCNPullups(CN20_PULLUP_ENABLE); //Configure weak pullup on CN20 (RD14/STAT1)
 }
 
 void MCP73871_Write(sMCP73871Config config, sMCP73871WriteVars write)

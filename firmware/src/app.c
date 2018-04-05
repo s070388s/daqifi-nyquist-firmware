@@ -228,7 +228,7 @@ void APP_Initialize(void)
     // TODO: needed? if(sysObj.usbDevObject0 == SYS_MODULE_OBJ_INVALID);
 
  	// Power initialization - enables 3.3V rail by default - other power functions are in power task
-//    Power_Init(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, g_BoardRuntimeConfig.PowerWriteVars);
+    Power_Init(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, g_BoardRuntimeConfig.PowerWriteVars);
     
     // Init DIO Hardware
     DIO_InitHardware(&g_BoardConfig.DIOChannels);

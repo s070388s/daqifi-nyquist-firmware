@@ -420,6 +420,18 @@ SYSTEM_OBJECTS sysObj;
 //};
   
  
+// <editor-fold defaultstate="collapsed" desc="SYS_CLK Initialization Data">
+// *****************************************************************************
+/* System Clock Initialization Data
+*/
+const SYS_CLK_INIT sysClkInit =
+{
+    .moduleInit = {0},
+    .systemClockFrequencyHz = SYS_CLK_FREQ,
+    .waitTillComplete = true,
+    .onWaitInstruction = SYS_CLK_ON_WAIT,
+};
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_COMMAND Initialization Data">
 /*** System Command Initialization Data ***/
 

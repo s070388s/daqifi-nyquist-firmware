@@ -48,17 +48,14 @@
 
 void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
-    
+    // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
     MCP73871_Init(config.MCP73871Config, vars.MCP73871WriteVars);
-
-    Power_Write(config, &vars);
     
-    // NOTE: Directions should already be set in MHC
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.EN_Vref_Ch, config.EN_Vref_Bit);
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit);
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit);
-//	PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.EN_12V_Ch, config.EN_12V_Bit);
-    
+    PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars.EN_3_3V_Val);
+    PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars.EN_5_10V_Val);
+    PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5V_ADC_Ch, config.EN_5V_ADC_Bit, vars.EN_5V_ADC_Val);
+    PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_12V_Ch, config.EN_12V_Bit, vars.EN_12V_Val);
+    PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_Vref_Ch, config.EN_Vref_Bit, vars.EN_Vref_Val);
 }
 
 void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
@@ -240,6 +237,9 @@ void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     // and the frequency must be 200MHz to avoid crashing (even though we are actually
     // dividing the full speed (200MHz by a divider, SYS_CLK_DIV_PWR_SAVE)
     SYS_CLK_SystemFrequencySet (SYS_CLK_SOURCE_PRIMARY_SYSPLL, 200000000, true);
+    
+    
+    //SYS_CLK_SystemClockStatus
     
     // 3.3V Disable - if powered externally, board will stay on and go to low power state, else off completely
     vars->EN_3_3V_Val = false;
