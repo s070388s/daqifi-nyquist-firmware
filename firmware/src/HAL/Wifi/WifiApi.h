@@ -24,7 +24,7 @@ extern "C" {
      * Initializes Wifi state machine and settings
      * 
      */
-    void WifiInit(void);
+    void WifiInit(const WifiSettings* settings);
 
     /**
      * Should be called periodically to run the Wifi state machine

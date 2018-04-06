@@ -135,6 +135,16 @@ void APP_Initialize(void)
         SaveNvmSettings(&tmpTopLevelSettings);
     }
     
+    DaqifiSettings tmpWifiSettings;
+    tmpWifiSettings.type = DaqifiSettings_Wifi;
+    
+    if(!LoadNvmSettings(DaqifiSettings_Wifi, &tmpWifiSettings))
+    {
+        // Get board wifi settings from Wifi NVM variable
+        LoadFactorySettings(DaqifiSettings_Wifi, &tmpWifiSettings);
+        SaveNvmSettings(&tmpWifiSettings);
+    }
+    
     // Load board config structures with the correct board variant values
     InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
     InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
@@ -161,7 +171,7 @@ void APP_Initialize(void)
     Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
 
-    WifiInit();
+    WifiInit(&g_BoardRuntimeConfig.wifiSettings.settings.wifi);
     
     // TODO: Move USB into its own task
     UsbCdc_Initialize();

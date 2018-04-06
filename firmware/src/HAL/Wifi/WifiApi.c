@@ -52,7 +52,6 @@
 
 WF_CONFIG g_wifi_cfg;
 WF_DEVICE_INFO g_wifi_deviceInfo;
-WF_REDIRECTION_CONFIG g_redirectionConfig;
 WF_SCAN_CONTEXT g_wifi_scanContext;
 WF_REDIRECTION_CONFIG g_wifi_redirectionConfig;
 
@@ -101,7 +100,7 @@ static void APP_TCPIP_IF_Up(TCPIP_NET_HANDLE netH);
 
 
 
-void WifiInit(void){
+void WifiInit(const WifiSettings* settings){
     
     #if (OSAL_USE_RTOS == 1 || OSAL_USE_RTOS == 9)
 	if (!APP_OSAL_MutexInit(&s_appLock)) {
@@ -117,6 +116,19 @@ void WifiInit(void){
 	iwpriv_set(INITCONN_OPTION_SET, &s_app_set_param);
 	s_app_set_param.scan.prescanAllowed = true;
 	iwpriv_set(PRESCAN_OPTION_SET, &s_app_set_param);
+    
+    // Copy global WiFi settings to WiFi engine
+    
+    g_wifi_cfg.ssidLen = strlen(settings->ssid);
+    strncpy((char *)g_wifi_cfg.ssid, (char *)settings->ssid, g_wifi_cfg.ssidLen);
+    g_wifi_cfg.ssid[g_wifi_cfg.ssidLen] = '\0';
+    
+    g_wifi_cfg.securityMode = settings->securityMode;
+    g_wifi_cfg.securityKeyLen = WifiCopyKey(g_wifi_cfg.securityKey, g_wifi_cfg.securityMode, settings->passKey);
+    g_wifi_cfg.networkType = settings->networkType;
+    
+    // Direct the WiFi engine to 
+    // g_wifi_redirection_signal = true;
     
     #if defined(TCPIP_STACK_COMMAND_ENABLE) && defined(TCPIP_STACK_COMMANDS_WIFI_ENABLE)
         APP_Commands_Init();
