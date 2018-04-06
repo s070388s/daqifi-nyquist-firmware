@@ -479,9 +479,6 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/659825273/DIO.o:  \
  ../../../../../framework/net/pres/net_pres_socketapiconversion.h  \
  ../../../../../framework/net/pres/net_pres_socketapi.h  \
 ../src/app.h  \
- ../src/app_wifi_mrf24wn.h  \
- ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
- ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h  \
  ../src/Util/ArrayWrapper.h  \
 ../src/state/runtime/DIORuntimeConfig.h  \
  ../src/state/data/DIOSample.h  \

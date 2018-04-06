@@ -478,15 +478,7 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/1104413135/PowerApi.o:  \
  ../../../../../framework/net/pres/net_pres_socketapiconversion.h  \
  ../../../../../framework/net/pres/net_pres_socketapi.h  \
 ../src/app.h  \
- ../src/app_wifi_mrf24wn.h  \
- ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
- ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h  \
  ../src/HAL/MCP73871/MCP73871.h  \
-../src/HAL/Wifi/WifiApi.h  \
- ../src/HAL/Wifi/../NVM/DaqifiSettings.h  \
- ../../../../../framework/crypto/crypto.h  \
- ../src/HAL/Wifi/../NVM/../../state/runtime/AInRuntimeConfig.h  \
- ../src/Util/ArrayWrapper.h  \
 ../src/state/board/BoardConfig.h  \
  ../src/state/board/AInConfig.h  \
  ../../../../../framework/peripheral/peripheral.h  \
@@ -1030,10 +1022,13 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/1104413135/PowerApi.o:  \
  ../../../../../framework/peripheral/glcd/processor/glcd_processor.h  \
  ../../../../../framework/peripheral/glcd/processor/glcd_p32xxxx.h  \
  ../../../../../framework/peripheral/glcd/processor/glcd_p32mz2048efm144.h  \
- ../src/state/board/DIOConfig.h  \
-../src/state/board/StreamingConfig.h  \
- ../src/HAL/UI/UI.h  \
-../src/HAL/NVM/DaqifiSettings.h  \
+ ../src/Util/ArrayWrapper.h  \
+../src/state/board/DIOConfig.h  \
+ ../src/state/board/StreamingConfig.h  \
+../src/HAL/UI/UI.h  \
+ ../src/HAL/NVM/DaqifiSettings.h  \
+../../../../../framework/crypto/crypto.h  \
+ ../src/HAL/NVM/../../state/runtime/AInRuntimeConfig.h  \
  ../src/state/data/BoardData.h  \
 ../src/state/data/AInSample.h  \
  ../src/Util/HeapList.h  \
@@ -1059,4 +1054,9 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/1104413135/PowerApi.o:  \
  ../../libscpi/libscpi/inc/scpi/expression.h  \
 ../../microrl/src/microrl.h  \
  ../../microrl/src/config.h  \
-../src/state/runtime/UsbRuntimeConfig.h 
+../src/state/runtime/UsbRuntimeConfig.h  \
+ ../src/HAL/Wifi/WifiApi.h  \
+../src/HAL/Wifi/../NVM/DaqifiSettings.h  \
+ ../src/app_wifi_mrf24wn.h  \
+ ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
+ ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h 

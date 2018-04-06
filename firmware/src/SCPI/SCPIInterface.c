@@ -13,7 +13,6 @@
 
 #include "HAL/NVM/DaqifiSettings.h"
 #include "HAL/Power/PowerApi.h"
-#include "HAL/Wifi/WifiApi.h"
 #include "nanopb/DaqifiOutMessage.pb.h"
 #include "nanopb/Encoder.h"
 #include "Util/StringFormatters.h"

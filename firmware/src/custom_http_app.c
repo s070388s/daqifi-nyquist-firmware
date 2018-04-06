@@ -37,6 +37,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <ctype.h>
 #include "system_config.h"
 #include "system_definitions.h"
+#include "HAL/Wifi/WifiApi.h"
 
 #if defined(TCPIP_STACK_USE_HTTP_SERVER)
 

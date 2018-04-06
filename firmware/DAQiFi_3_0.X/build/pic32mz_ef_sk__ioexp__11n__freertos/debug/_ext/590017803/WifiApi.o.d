@@ -478,13 +478,13 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/590017803/WifiApi.o:  \
  ../../../../../framework/net/pres/net_pres_socketapiconversion.h  \
  ../../../../../framework/net/pres/net_pres_socketapi.h  \
 ../src/app.h  \
- ../src/app_wifi_mrf24wn.h  \
- ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
- ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h  \
  ../src/HAL/Wifi/../NVM/DaqifiSettings.h  \
  ../../../../../framework/crypto/crypto.h  \
  ../src/HAL/Wifi/../NVM/../../state/runtime/AInRuntimeConfig.h  \
  ../src/Util/ArrayWrapper.h  \
+../src/app_wifi_mrf24wn.h  \
+ ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
+ ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_api.h  \
  ../src/Util/StringFormatters.h  \
 ../src/state/data/BoardData.h  \
@@ -1037,4 +1037,5 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/590017803/WifiApi.o:  \
  ../../../../../framework/peripheral/glcd/processor/glcd_p32xxxx.h  \
  ../../../../../framework/peripheral/glcd/processor/glcd_p32mz2048efm144.h  \
  ../src/HAL/NVM/DaqifiSettings.h  \
-../src/Util/Logger.h 
+../src/Util/Logger.h  \
+ ../src/app_commands.h 

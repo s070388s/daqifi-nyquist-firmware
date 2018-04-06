@@ -54,7 +54,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system_config.h"
 #include "system_definitions.h"
-#include "app.h"
 
 #include "../src/HAL/UI/UI.h"
 #include "../src/HAL/Power/PowerApi.h"

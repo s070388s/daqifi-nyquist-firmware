@@ -480,9 +480,6 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/659825273/ADC.o:  \
  ../../../../../framework/net/pres/net_pres_socketapiconversion.h  \
  ../../../../../framework/net/pres/net_pres_socketapi.h  \
 ../src/app.h  \
- ../src/app_wifi_mrf24wn.h  \
- ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
- ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h  \
  ../../../../../framework/peripheral/peripheral.h  \
  ../../../../../framework/peripheral/adc/plib_adc.h  \
  ../../../../../framework/peripheral/adc/processor/adc_processor.h  \

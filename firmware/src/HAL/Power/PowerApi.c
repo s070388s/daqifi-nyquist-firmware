@@ -2,10 +2,10 @@
 
 #include "HAL/MCP73871/MCP73871.h"
 #include "system_definitions.h"
-#include "HAL/Wifi/WifiApi.h"
 #include "state/board/BoardConfig.h"
 #include "state/data/BoardData.h"
 #include "HAL/ADC.h"
+#include "HAL/Wifi/WifiApi.h"
 
 /*
  *  CHARGE CYCLE STATE      STAT1   STAT2   PG
