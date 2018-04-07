@@ -255,7 +255,7 @@ bool SaveNvmSettings(DaqifiSettings* settings)
         return false;
     }
     
-        if (!ClearNvmSettings(settings->type))
+    if (!ClearNvmSettings(settings->type))
     {
         return false;
     }

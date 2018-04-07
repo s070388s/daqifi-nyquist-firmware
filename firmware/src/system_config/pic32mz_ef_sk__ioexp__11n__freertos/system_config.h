@@ -57,7 +57,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /*  This section Includes other configuration headers necessary to completely
     define this configuration.
 */
-
+#include "xc.h" // Needed for crypto library
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -441,7 +441,7 @@ extern "C" {
 
 #define WDRV_DEFAULT_NETWORK_TYPE WDRV_NETWORK_TYPE_SOFT_AP
 #define WDRV_DEFAULT_CHANNEL 6
-#define WDRV_DEFAULT_SSID "DAQiFi"
+#define WDRV_DEFAULT_SSID "DAQiFiD"
 
 #define WDRV_DEFAULT_SECURITY_MODE WDRV_SECURITY_OPEN
 #define WDRV_DEFAULT_WEP_KEYS_40 "5AFB6C8E77" // default WEP40 key

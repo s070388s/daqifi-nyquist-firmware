@@ -135,6 +135,11 @@ void APP_Initialize(void)
         SaveNvmSettings(&tmpTopLevelSettings);
     }
     
+    // Load board config structures with the correct board variant values
+    InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
+    InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
+    InitializeBoardData(&g_BoardData);
+    
     DaqifiSettings tmpWifiSettings;
     tmpWifiSettings.type = DaqifiSettings_Wifi;
     
@@ -144,11 +149,7 @@ void APP_Initialize(void)
         LoadFactorySettings(DaqifiSettings_Wifi, &tmpWifiSettings);
         SaveNvmSettings(&tmpWifiSettings);
     }
-    
-    // Load board config structures with the correct board variant values
-    InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
-    InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
-    InitializeBoardData(&g_BoardData);
+    memcpy(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi), &(tmpWifiSettings.settings.wifi), sizeof(WifiSettings));
         
     // Load factory calibration parameters - if they are not initialized, store them (first run after a program)
     if(!LoadADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels)) SaveADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels);
@@ -171,7 +172,7 @@ void APP_Initialize(void)
     Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
 
-    WifiInit(&g_BoardRuntimeConfig.wifiSettings.settings.wifi);
+    WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
     
     // TODO: Move USB into its own task
     UsbCdc_Initialize();

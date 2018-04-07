@@ -486,6 +486,7 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/590017803/WifiApi.o:  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
  ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_iwpriv.h  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_api.h  \
+ ../../../../../framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_main.h  \
  ../src/Util/StringFormatters.h  \
 ../src/state/data/BoardData.h  \
  ../src/state/data/AInSample.h  \

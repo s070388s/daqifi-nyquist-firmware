@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "wdrv_mrf24wn_api.h"
+#include "wdrv_mrf24wn_main.h"
 #include "Util/StringFormatters.h"
 #include "state/data/BoardData.h"
 #include "Util/Logger.h"
@@ -55,6 +56,8 @@ WF_DEVICE_INFO g_wifi_deviceInfo;
 WF_SCAN_CONTEXT g_wifi_scanContext;
 WF_REDIRECTION_CONFIG g_wifi_redirectionConfig;
 
+extern WDRV_CONFIG *gp_wdrv_cfg;
+
 static APP_DATA s_appData;
 
 static IWPRIV_GET_PARAM s_app_get_param;
@@ -101,7 +104,7 @@ static void APP_TCPIP_IF_Up(TCPIP_NET_HANDLE netH);
 
 
 void WifiInit(const WifiSettings* settings){
-    
+
     #if (OSAL_USE_RTOS == 1 || OSAL_USE_RTOS == 9)
 	if (!APP_OSAL_MutexInit(&s_appLock)) {
 		SYS_CONSOLE_MESSAGE("APP: Mutex initialization failed!\r\n");
@@ -127,8 +130,8 @@ void WifiInit(const WifiSettings* settings){
     g_wifi_cfg.securityKeyLen = WifiCopyKey(g_wifi_cfg.securityKey, g_wifi_cfg.securityMode, settings->passKey);
     g_wifi_cfg.networkType = settings->networkType;
     
-    // Direct the WiFi engine to 
-    // g_wifi_redirection_signal = true;
+    memcpy((uint8_t *)gp_wdrv_cfg, (uint8_t *)&g_wifi_cfg, sizeof(WDRV_CONFIG));
+    WDRV_CONFIG_Save();
     
     #if defined(TCPIP_STACK_COMMAND_ENABLE) && defined(TCPIP_STACK_COMMANDS_WIFI_ENABLE)
         APP_Commands_Init();
@@ -442,6 +445,7 @@ static bool wifi_config(IPV4_ADDR *defaultIpWiFi, TCPIP_NET_HANDLE *netHandleWiF
 	 * APP_TCPIP_WAIT_INIT. But it is necessary in redirection or
 	 * Wi-Fi interface reset due to connection errors.
 	 */
+       
 	iwpriv_get(DRVSTATUS_GET, &s_app_get_param);
 	if (s_app_get_param.driverStatus.isOpen) {
 		// get necessary Wi-Fi interface information
@@ -456,7 +460,7 @@ static bool wifi_config(IPV4_ADDR *defaultIpWiFi, TCPIP_NET_HANDLE *netHandleWiF
 		// reset flag used in redirection command
 		if (g_wifi_redirection_signal)
 			g_wifi_redirection_signal = false;
-
+        
 		s_appData.state = APP_WIFI_PRESCAN;
 		return true;
 	}
