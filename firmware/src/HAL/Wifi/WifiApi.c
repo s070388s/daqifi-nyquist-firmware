@@ -112,16 +112,17 @@ void WifiInit(const WifiSettings* settings){
 	}
     #endif
     
+    // Initialize WiFi state machine
     s_appData.state = APP_MOUNT_DISK;
 	s_appData.prescanState = APP_WIFI_PRESCAN_INIT;
 
+    // Initialize WiFi module with initial proceedures
 	s_app_set_param.conn.initConnAllowed = false;
 	iwpriv_set(INITCONN_OPTION_SET, &s_app_set_param);
 	s_app_set_param.scan.prescanAllowed = true;
 	iwpriv_set(PRESCAN_OPTION_SET, &s_app_set_param);
     
-    // Copy global WiFi settings to WiFi engine
-    
+    // Copy global WiFi settings to WiFi engine golbal structure, g_wifi_cfg
     g_wifi_cfg.ssidLen = strlen(settings->ssid);
     strncpy((char *)g_wifi_cfg.ssid, (char *)settings->ssid, g_wifi_cfg.ssidLen);
     g_wifi_cfg.ssid[g_wifi_cfg.ssidLen] = '\0';
@@ -130,6 +131,9 @@ void WifiInit(const WifiSettings* settings){
     g_wifi_cfg.securityKeyLen = WifiCopyKey(g_wifi_cfg.securityKey, g_wifi_cfg.securityMode, settings->passKey);
     g_wifi_cfg.networkType = settings->networkType;
     
+    // Copy global WiFi settings from g_wifi_cfg to the WiFi module's initialization settings
+    // gp_wdrv_cfg is only used at boot up - from then on, the module uses g_wifi_cfg 
+    // and g_wifi_redirection_signal or manual restarting via WifiResetConnection
     memcpy((uint8_t *)gp_wdrv_cfg, (uint8_t *)&g_wifi_cfg, sizeof(WDRV_CONFIG));
     WDRV_CONFIG_Save();
     
@@ -164,7 +168,6 @@ static bool InitBuffer(char** buffer, uint8_t bufferLen)
 
 bool WifiApplyNetworkSettings(WifiSettings* settings)
 {
-    // WifiConnectionDown();
     if (g_BoardData.PowerData.powerState < POWERED_UP)
     {
         LogMessage("Board must be powered-on for WiFi operations\n\r");
@@ -188,7 +191,7 @@ bool WifiApplyNetworkSettings(WifiSettings* settings)
     s_httpapp_get_param.cfg.config = &g_wifi_cfg;
     iwpriv_get(CONFIG_GET, &s_httpapp_get_param);
     
-    // Copy the new settings
+    // Copy the new WiFi settings
     g_wifi_cfg.ssidLen = strlen(settings->ssid);
     strncpy((char *)g_wifi_cfg.ssid, (char *)settings->ssid, g_wifi_cfg.ssidLen);
     g_wifi_cfg.ssid[g_wifi_cfg.ssidLen] = '\0';
@@ -202,6 +205,7 @@ bool WifiApplyNetworkSettings(WifiSettings* settings)
     s_httpapp_set_param.cfg.config = &g_wifi_cfg;
     iwpriv_set(CONFIG_SET, &s_httpapp_set_param);
     
+    // Set new TCPIP settings
     networkConfigCache.pMacObject = &TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0;
     networkConfigCache.interface = TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0;
     
@@ -380,7 +384,8 @@ bool WifiConnectionUp()
 
     if (!TCPIP_STACK_NetIsUp(handle))
     {
-        TCPIP_STACK_NetUp(handle, &networkConfigCache);
+        APP_TCPIP_IF_Up(handle);
+        APP_TCPIP_IFModules_Enable(handle);
     }
   
     return true;
@@ -402,7 +407,10 @@ bool WifiConnectionDown()
     
     if (TCPIP_STACK_NetIsUp(handle))
     {
-        TCPIP_STACK_NetDown(handle);
+        APP_TCPIP_IFModules_Disable(handle);
+        if (IS_WF_INTF(netName)) isWiFiPowerSaveConfigured = false;
+		APP_TCPIP_IF_Down(handle);
+		SYS_CONSOLE_MESSAGE("WiFi going down.\r\n");
     }
     
     return true;

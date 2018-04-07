@@ -76,11 +76,6 @@ bool LoadNvmSettings(DaqifiSettingsType type, DaqifiSettings* settings)
         dataSize = sizeof(AInCalArray);
         break;
     case DaqifiSettings_Wifi:
-//        if (g_BoardData.PowerData.powerState < POWERED_UP)
-//        {
-//            LogMessage("Board must be powered-on for WiFi NVM operations\n\r");
-//            return false;
-//        }
         address = WIFI_SETTINGS_ADDR;
         memSize = WIFI_SETTINGS_SIZE;
         dataSize = sizeof(WifiSettings);
@@ -136,11 +131,6 @@ bool LoadFactorySettings(DaqifiSettingsType type, DaqifiSettings* settings)
         break;    
     case DaqifiSettings_Wifi:
     {
-//        if (g_BoardData.PowerData.powerState < POWERED_UP)
-//        {
-//            LogMessage("Board must be powered-on for WiFi NVM operations\n\r");
-//            return false;
-//        }
         WifiSettings* wifi = &(settings->settings.wifi);
                 
         if (strncmp(TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0, TCPIP_STACK_IF_POWER_FULL, 4) == 0)
@@ -242,11 +232,6 @@ bool SaveNvmSettings(DaqifiSettings* settings)
         dataSize = sizeof(AInCalArray);
         break;
     case DaqifiSettings_Wifi:
-//        if (g_BoardData.PowerData.powerState < POWERED_UP)
-//        {
-//            LogMessage("Board must be powered-on for WiFi NVM operations\n\r");
-//            return false;
-//        }
         address = WIFI_SETTINGS_ADDR;
         dataSize = WIFI_SETTINGS_SIZE;
         dataSize = sizeof(WifiSettings);
@@ -303,11 +288,6 @@ bool ClearNvmSettings(DaqifiSettingsType type)
         dataSize = UAINCAL_SETTINGS_SIZE;
         break;
     case DaqifiSettings_Wifi:
-//        if (g_BoardData.PowerData.powerState < POWERED_UP)
-//        {
-//            LogMessage("Board must be powered-on for WiFi NVM operations\n\r");
-//            return false;
-//        }
         address = WIFI_SETTINGS_ADDR;
         dataSize = WIFI_SETTINGS_SIZE;
         break;

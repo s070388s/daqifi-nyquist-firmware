@@ -5,18 +5,12 @@
         <group>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/HAL/NVM/DaqifiSettings.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/HAL/Wifi/WifiApi.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/SCPI/SCPIInterface.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/SCPI/SCPILAN.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/framework/driver/wifi/mrf24wn/wireless_driver/include/wdrv_mrf24wn_main.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_config.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/HAL/Wifi/WifiApi.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/app.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/HAL/NVM/DaqifiSettings.h</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/main.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/SCPI/SCPILAN.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/tasks.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/framework/tcpip/src/tcpip_manager.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/SCPI/SCPIInterface.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/HAL/Wifi/WifiApi.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_init.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/Daqifi/DAQiFi_3_0/firmware/src/app.c</file>
         </group>
     </open-files>
 </project-private>
