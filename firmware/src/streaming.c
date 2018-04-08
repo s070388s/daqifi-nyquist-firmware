@@ -49,7 +49,7 @@ static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
         if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
             g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
         {
-            Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
+            Streaming_TriggerADC(&(g_BoardConfig.AInModules.Data[i]));
         }
 
     }
