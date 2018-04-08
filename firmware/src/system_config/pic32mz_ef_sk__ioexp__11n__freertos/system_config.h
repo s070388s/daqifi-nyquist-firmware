@@ -59,6 +59,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 #include "xc.h" // Needed for crypto library
 
+
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
@@ -156,7 +157,7 @@ extern "C" {
 
 #define SYS_PORT_H_ANSEL        0x0043
 #define SYS_PORT_H_TRIS         0x0673
-#define SYS_PORT_H_LAT          0x990C
+#define SYS_PORT_H_LAT          0x890C
 #define SYS_PORT_H_ODC          0x8000
 #define SYS_PORT_H_CNPU         0x0000
 #define SYS_PORT_H_CNPD         0x0000
@@ -441,7 +442,7 @@ extern "C" {
 
 #define WDRV_DEFAULT_NETWORK_TYPE WDRV_NETWORK_TYPE_SOFT_AP
 #define WDRV_DEFAULT_CHANNEL 6
-#define WDRV_DEFAULT_SSID "DAQiFiD"
+#define WDRV_DEFAULT_SSID "DAQiFi"
 
 #define WDRV_DEFAULT_SECURITY_MODE WDRV_SECURITY_OPEN
 #define WDRV_DEFAULT_WEP_KEYS_40 "5AFB6C8E77" // default WEP40 key

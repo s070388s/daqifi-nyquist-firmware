@@ -44,6 +44,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 #include "framework/driver/adc/drv_adc_static.h"
+#include <peripheral/peripheral.h>
  
 // *****************************************************************************
 // *****************************************************************************
@@ -81,7 +82,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_0,
-                         ADCHS_CHANNEL_UNSYNC_TRIGGER_UNSYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -124,7 +125,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_1,
-                         ADCHS_CHANNEL_UNSYNC_TRIGGER_UNSYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -159,14 +160,14 @@ void DRV_ADC_Initialize(void)
      ADCHS_CHANNEL_2,
      ADCHS_DATA_RESOLUTION_12BIT,
      1,
-     1,
+     100,
      0
      );
 
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_2,
-                         ADCHS_CHANNEL_UNSYNC_TRIGGER_UNSYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -201,14 +202,14 @@ void DRV_ADC_Initialize(void)
      ADCHS_CHANNEL_3,
      ADCHS_DATA_RESOLUTION_12BIT,
      1,
-     1,
+     100,
      0
      );
 
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_3,
-                         ADCHS_CHANNEL_UNSYNC_TRIGGER_UNSYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -243,14 +244,14 @@ void DRV_ADC_Initialize(void)
      ADCHS_CHANNEL_4,
      ADCHS_DATA_RESOLUTION_12BIT,
      1,
-     1,
+     100,
      0
      );
 
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_4,
-                         ADCHS_CHANNEL_UNSYNC_TRIGGER_UNSYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -280,6 +281,15 @@ void DRV_ADC_Initialize(void)
      );
     if (DEVADC4 != 0xFFFFFFFF)
     PLIB_ADCHS_ChannelConfigurationSet(DRV_ADC_ID_1, ADCHS_CHANNEL_4, DEVADC4);
+    // DAQiFi: Leave this in here because there is a bug in the Harmony 2 which excludes this info
+	PLIB_ADCHS_ChannelSetup(
+	DRV_ADC_ID_1,
+	ADCHS_CHANNEL_7,
+	ADCHS_DATA_RESOLUTION_12BIT,
+	1,
+	100,
+	0
+	);
 
 /* Setting for class-2 analog inputs */
      PLIB_ADCHS_AnalogInputModeSelect(
@@ -359,16 +369,16 @@ void DRV_ADC_Initialize(void)
 /* Setting for class-2 analog inputs */
      PLIB_ADCHS_AnalogInputModeSelect(
                DRV_ADC_ID_1,
-               (ADCHS_AN_INPUT_ID)ADCHS_CLASS2_AN10,
+               (ADCHS_AN_INPUT_ID)ADCHS_CLASS2_AN11,
                ADCHS_INPUT_MODE_SINGLE_ENDED_UNIPOLAR
                );
 
 
-     PLIB_ADCHS_AnalogInputEdgeTriggerSet( DRV_ADC_ID_1, (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN10 );
+     PLIB_ADCHS_AnalogInputEdgeTriggerSet( DRV_ADC_ID_1, (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN11 );
 
      PLIB_ADCHS_AnalogInputTriggerSourceSelect(
                DRV_ADC_ID_1,
-               (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN10,
+               (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN11,
                ADCHS_TRIGGER_SOURCE_GLOBAL_SOFTWARE_EDGE
      );
 

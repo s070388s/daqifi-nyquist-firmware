@@ -117,8 +117,6 @@ extern volatile uint32_t force_bootloader_flag __attribute__((persistent, cohere
  */
 void APP_Initialize(void)
 {
-
-
 	force_bootloader_flag = 0;    // Reset force bootloader flag
     
     DaqifiSettings tmpTopLevelSettings;
@@ -140,6 +138,7 @@ void APP_Initialize(void)
     InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
     InitializeBoardData(&g_BoardData);
     
+    // Try to load WiFiSettings from NVM - if this fails, store default settings to NVM (first run after a program)
     DaqifiSettings tmpWifiSettings;
     tmpWifiSettings.type = DaqifiSettings_Wifi;
     
@@ -149,15 +148,13 @@ void APP_Initialize(void)
         LoadFactorySettings(DaqifiSettings_Wifi, &tmpWifiSettings);
         SaveNvmSettings(&tmpWifiSettings);
     }
+    // Move temp variable to global variable
     memcpy(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi), &(tmpWifiSettings.settings.wifi), sizeof(WifiSettings));
         
     // Load factory calibration parameters - if they are not initialized, store them (first run after a program)
     if(!LoadADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels)) SaveADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels);
     // If calVals has been set to 1 (user cal params), overwrite with user calibration parameters
     if(tmpTopLevelSettings.settings.topLevelSettings.calVals) LoadADCCalSettings(DaqifiSettings_UserAInCalParams, &g_BoardRuntimeConfig.AInChannels);
-
-    // Set if USB has been initialized.
-    // TODO: needed? if(sysObj.usbDevObject0 == SYS_MODULE_OBJ_INVALID);
 
  	// Power initialization - enables 3.3V rail by default - other power functions are in power task
     Power_Init(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, g_BoardRuntimeConfig.PowerWriteVars);
@@ -197,9 +194,9 @@ void APP_Tasks(void)
 	UsbCdc_ProcessState();
 //    //DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);    // Does this need to be here? It is called from streaming task.
 //    // DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);  // Added this line to be able to debug manual writes to the DIO with MPLAB
-//    ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
-//    Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
-//    
+    ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+    Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+    
 //    // Dont do anything until the board powers on
 //    if (g_BoardData.PowerData.powerState == MICRO_ON)
 //    {

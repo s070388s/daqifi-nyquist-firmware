@@ -54,6 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system_config.h"
 #include "system_definitions.h"
+#include "app.h"
 
 #include "../src/HAL/UI/UI.h"
 #include "../src/HAL/Power/PowerApi.h"
@@ -113,6 +114,7 @@ void SYS_Tasks ( void )
                 "USB Tasks",
                 2048, NULL, 4, NULL);
 
+
     /* Create task for TCPIP state machine*/
     /* Create OS Thread for TCPIP Tasks. */
     xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
@@ -127,7 +129,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                2048, NULL, 2, NULL);
+                4096, NULL, 2, NULL);
     
     /* Create OS Thread for power Tasks. */
     xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
@@ -189,12 +191,12 @@ static void _SYS_Tasks ( void)
 
 void _USB_Tasks(void)
 {
-    //portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* USBHS Driver Task Routine */ 
          DRV_USBHS_Tasks(sysObj.drvUSBObject);
          
+        
         /* USB Device layer tasks routine */ 
         USB_DEVICE_Tasks(sysObj.usbDevObject0);
         
@@ -202,10 +204,8 @@ void _USB_Tasks(void)
         vTaskDelay(2 / portTICK_PERIOD_MS);
     }
  }
-
 void _TCPIP_Tasks(void)
 {
-    //portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* Maintain the TCP/IP Stack*/

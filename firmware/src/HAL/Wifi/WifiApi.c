@@ -408,7 +408,6 @@ bool WifiConnectionDown()
     if (TCPIP_STACK_NetIsUp(handle))
     {
         APP_TCPIP_IFModules_Disable(handle);
-        if (IS_WF_INTF(netName)) isWiFiPowerSaveConfigured = false;
 		APP_TCPIP_IF_Down(handle);
 		SYS_CONSOLE_MESSAGE("WiFi going down.\r\n");
     }

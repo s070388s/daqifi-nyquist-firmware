@@ -60,7 +60,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "system/common/sys_common.h"
+#include "app.h"
 #include "system_definitions.h"
+
+#include "HAL/ADC.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -156,6 +159,29 @@ void IntHandlerUSBInstance0_USBDMA ( void )
 {
     DRV_USBHS_Tasks_ISR_USBDMA(sysObj.drvUSBObject);
 }
+
+void IntHandlerDrvAdcEOS(void)
+{
+ //   ++g_BoardData.InISR;
+    
+    // Scanning of ADC channels is complete - so read data
+
+    // Clear EOS interrupt flag in INT reg
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN);
+    
+    g_BoardData.PowerData.MCP73871Data.chargeAllowed = true;
+    MCP73871_ChargeEnable(g_BoardConfig.PowerConfig.MCP73871Config,
+            &g_BoardData.PowerData.MCP73871Data,
+            &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars,
+            true, g_BoardData.PowerData.pONBattPresent);
+    
+    // Tell the app to read the results
+    const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
+    ADC_ConversionComplete(module);
+    
+//    --g_BoardData.InISR;
+}
+
 /*******************************************************************************
  End of File
 */

@@ -353,6 +353,7 @@ void ADC_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig
         bool isEnabled = (module->Type == AIn_MC12bADC || isPowered) && moduleRuntime->IsEnabled;
         if(!isEnabled)
         {
+            boardData->AInState.Data[moduleIndex].AInTaskState = AINTASK_DISABLED;
             continue;
         }
                
@@ -390,11 +391,6 @@ void ADC_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig
             }
         }
          
-        if (!isEnabled)
-        {
-            boardData->AInState.Data[moduleIndex].AInTaskState = AINTASK_DISABLED;
-            continue;
-        }
     }
 }
 

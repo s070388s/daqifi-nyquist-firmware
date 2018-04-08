@@ -99,7 +99,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 //
 //
 //
-//
+//  
 
 /* External Interrupt Instance 0 Interrupt */
    .extern  IntHandlerExternalInterruptInstance0
@@ -416,8 +416,25 @@ IntVectorUSBInstance0_USBDMA:
     portRESTORE_CONTEXT
     .end	IntVectorUSBInstance0_USBDMA
 
+/* ADC EOS Interrupt */
+   .extern  IntHandlerDrvAdcEOS
 
+   .section	.vector_192,code, keep
+   .equ     __vector_dispatch_192, IntVectorDrvAdcEOS
+   .global  __vector_dispatch_192
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorDrvAdcEOS
 
+IntVectorDrvAdcEOS:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerDrvAdcEOS
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorDrvAdcEOS
 
 /*******************************************************************************
  End of File

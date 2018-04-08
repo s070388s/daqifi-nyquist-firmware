@@ -1159,7 +1159,14 @@ void SYS_Initialize ( void* data )
 
 
     /* Initialize ADC */
-//    DRV_ADC_Initialize();
+    DRV_ADC_Initialize();
+    
+    /* Initialize ADC Interrupts */
+    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN);
+    PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_ADC_END_OF_SCAN);
+    
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_PRIORITY_LEVEL5);
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_SUBPRIORITY_LEVEL0);	
 
 //    sysObj.drvFlash0 = DRV_FLASH_Initialize(DRV_FLASH_INDEX_0, (SYS_MODULE_INIT *)NULL);
     /* Configure the Flash Controller Interrupt Priority */
