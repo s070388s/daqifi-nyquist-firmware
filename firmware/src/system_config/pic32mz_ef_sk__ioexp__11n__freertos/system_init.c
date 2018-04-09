@@ -48,7 +48,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system_config.h"
 #include "system_definitions.h"
-
+#define UNUSED(x) (void)(x)
 
 // ****************************************************************************
 // ****************************************************************************
@@ -577,10 +577,10 @@ const TCPIP_DHCP_MODULE_CONFIG tcpipDHCPInitData =
 };
 
 /*** Berkeley API Initialization Data ***/
-//const BERKELEY_MODULE_CONFIG tcpipBerkeleyInitData = 
-//{
-//    .maxSockets     = MAX_BSD_SOCKETS,
-//};
+const BERKELEY_MODULE_CONFIG tcpipBerkeleyInitData = 
+{
+    .maxSockets     = MAX_BSD_SOCKETS,
+};
 
 /*** ICMP Server Initialization Data ***/
 const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData = 
@@ -690,7 +690,7 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     {TCPIP_MODULE_DNS_SERVER,       &tcpipDNSServerInitData},       // TCPIP_MODULE_DNS_SERVER
     {TCPIP_MODULE_NBNS,             &tcpipNBNSInitData},            // TCPIP_MODULE_NBNS
 
-//    {TCPIP_MODULE_BERKELEY,         &tcpipBerkeleyInitData},        // TCPIP_MODULE_BERKELEY
+    {TCPIP_MODULE_BERKELEY,         &tcpipBerkeleyInitData},        // TCPIP_MODULE_BERKELEY
     {TCPIP_MODULE_HTTP_SERVER,      &tcpipHTTPInitData},            // TCPIP_MODULE_HTTP_SERVER
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
     // MAC modules
@@ -1170,6 +1170,7 @@ void SYS_Initialize ( void* data )
    
     /*Initialize ADC Module Level Interrupts */
     uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
+    UNUSED(dummyADCCON2);
     PLIB_ADCHS_ScanCompleteInterruptEnable(DRV_ADC_ID_1);
     
     

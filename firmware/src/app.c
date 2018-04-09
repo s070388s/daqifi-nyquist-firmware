@@ -174,7 +174,7 @@ void APP_Initialize(void)
     // TODO: Move USB into its own task
     UsbCdc_Initialize();
     
-    TcpServer_Initialize();
+    //TcpServer_Initialize(); gets called from TCPServer task
     
 
 }
@@ -197,6 +197,8 @@ void APP_Tasks(void)
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     
+    // Run the TCP server
+    TcpServer_ProcessState();
 //    // Dont do anything until the board powers on
 //    if (g_BoardData.PowerData.powerState == MICRO_ON)
 //    {
