@@ -77,7 +77,7 @@ static void _SYS_Tasks ( void );
 
 void _USB_Tasks(void);
 void _TCPIP_Tasks(void);
-//void _NET_PRES_Tasks(void);
+void _NET_PRES_Tasks(void);
 static void _APP_Tasks(void);
 void _POWER_AND_UI_Tasks(void);
 
@@ -121,10 +121,10 @@ void SYS_Tasks ( void )
                 "TCPIP Tasks",
                 2048, NULL, 4, NULL);
 
-//    /* Create OS Thread for Net Pres Tasks. */
-//    xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
-//                "Net Pres Tasks",
-//                1024, NULL, 1, NULL);
+    /* Create OS Thread for Net Pres Tasks. */
+    xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
+                "Net Pres Tasks",
+                1024, NULL, 1, NULL);
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
@@ -161,8 +161,6 @@ static void _SYS_Tasks ( void)
     /* Maintain the file system state machine. */
     SYS_FS_Tasks();
     SYS_CONSOLE_Tasks(sysObj.sysConsole0);
-    /* SYS_COMMAND layer tasks routine */ 
-    SYS_CMD_Tasks();
     /* SYS_TMR Device layer tasks routine */ 
     SYS_TMR_Tasks(sysObj.sysTmr);
 
@@ -213,17 +211,15 @@ void _TCPIP_Tasks(void)
         vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }
-
-//void _NET_PRES_Tasks(void)
-//{
-//    //portTASK_USES_FLOATING_POINT();
-//    while(1)
-//    {
-//        /* Maintain the TCP/IxTaskIncrementTick P Stack*/
-//        NET_PRES_Tasks(sysObj.netPres);
-//        vTaskDelay(100 / portTICK_PERIOD_MS);
-//    }
-//}
+void _NET_PRES_Tasks(void)
+{
+    while(1)
+    {
+        /* Maintain the TCP/IP Stack*/
+        NET_PRES_Tasks(sysObj.netPres);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
 
 /*******************************************************************************
   Function:

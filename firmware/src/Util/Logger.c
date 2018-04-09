@@ -95,23 +95,23 @@ size_t LogMessagePop(uint8_t* buffer, size_t maxSize)
     return StackList_PopFront(m_ListPtr, buffer, maxSize);
 }
 
-//#ifndef SYS_CMD_ENABLE
-//
-//int SYS_CMD_MESSAGE(const char* message)
-//{
-//    return LogMessageImpl(message);
-//}
-//
-//int SYS_CMD_PRINT(const char* format, ...)
-//{
-//    va_list args;
-//    va_start(args, format);
-//    int result = LogMessageFormatImpl(format, &args);
-//    va_end(args);
-//    
-//    return result;
-//}
-//#endif
+#ifndef SYS_CMD_ENABLE
+
+int SYS_CMD_MESSAGE(const char* message)
+{
+    return LogMessageImpl(message);
+}
+
+int SYS_CMD_PRINT(const char* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    int result = LogMessageFormatImpl(format, &args);
+    va_end(args);
+    
+    return result;
+}
+#endif
 
 void vAssertCalled( const char * pcFile, unsigned long ulLine )
 {

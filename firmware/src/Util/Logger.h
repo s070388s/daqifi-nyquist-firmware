@@ -27,10 +27,10 @@ size_t LogMessageCount();
 
 size_t LogMessagePop(uint8_t* buffer, size_t maxSize);
 
-//#ifndef SYS_CMD_ENABLE
-//#define SYS_CMD_MESSAGE(message);
-//#define SYS_CMD_PRINT(format, ...);
-//#endif
+#ifndef SYS_CMD_ENABLE
+int SYS_CMD_MESSAGE(const char* message);
+int SYS_CMD_PRINT(const char* format, ...);
+#endif
 
 #ifdef	__cplusplus
 }

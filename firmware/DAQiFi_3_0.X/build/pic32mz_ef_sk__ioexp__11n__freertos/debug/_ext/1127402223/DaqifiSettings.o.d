@@ -346,7 +346,6 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/1127402223/DaqifiSettings.o
  ../../../../../framework/driver/spi/drv_spi_definitions.h  \
  ../../../../../framework/driver/sdcard/drv_sdcard_mapping.h  \
  ../../../../../framework/system/debug/sys_debug.h  \
- ../../../../../framework/system/command/sys_command.h  \
  ../../../../../framework/driver/usb/usbhs/drv_usbhs.h  \
  ../../../../../framework/usb/usb_common.h  \
  ../../../../../framework/usb/usb_chapter_9.h  \

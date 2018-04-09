@@ -8,7 +8,7 @@
 #include "state/data/BoardData.h"
 #include "Util/Logger.h"
 #include "app_commands.h"
-
+#define UNUSED(x) (void)(x)
 //  Begin code originally implemented as the Microchip wifi_easy_configuration demo
 /*
  * OSAL_USE_RTOS == 1 means FreeRTOS version 8.x.x is used.
@@ -654,10 +654,10 @@ void WifiTasks(void){
 		tcpip_module_enable();
 		timestamp_dhcp_kickin(ipWait);
 	case APP_TCPIP_TRANSACT:
-		if (APP_Commands_ScanListDisplay_Get())
-			APP_Commands_ScanListEntry_Display();
-		else
-			SYS_CMD_READY_TO_READ();
+//		if (APP_Commands_ScanListDisplay_Get())
+//			APP_Commands_ScanListEntry_Display();
+//		else
+//			SYS_CMD_READY_TO_READ();
 		network_run(&ipWait, &netHandleWiFi, &defaultIpWiFi);
 		//led_toggle();
 		break;
@@ -868,6 +868,7 @@ static void APP_TCPIP_IFModules_Enable(TCPIP_NET_HANDLE netH)
 	}
 	if (IS_NBNS_RUN()) {
 		const char *netBiosName = TCPIP_STACK_NetBIOSName(netH);
+        UNUSED(*netBiosName);
 		SYS_CONSOLE_PRINT("  Interface %s on host %s - NBNS enabled\r\n", netName, netBiosName);
 	}
 	if (IS_MDNS_RUN()) {
