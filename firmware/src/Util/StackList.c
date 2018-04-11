@@ -134,8 +134,8 @@ size_t StackList_Size(StackList* list)
     while (curr != NULL)
     {
         result += 1;
-        curr = curr->Next;
-    }
+            curr = curr->Next;
+        }
 
     list->Lock.UnlockFxn(&list->Lock.Handle);
     return result;
