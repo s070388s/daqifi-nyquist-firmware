@@ -85,13 +85,17 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 
 void IntHandlerSysDmaInstance0(void)
-{          
+{  
+    ++g_BoardData.InISR;
     SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_0);
+    --g_BoardData.InISR;
 }
 
 void IntHandlerSysDmaInstance1(void)
-{          
+{
+    ++g_BoardData.InISR;
     SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_1);
+    --g_BoardData.InISR;
 }
 
 
@@ -101,35 +105,49 @@ void IntHandlerSysDmaInstance1(void)
 //}
 void IntHandlerExternalInterruptInstance0(void)
 {
+    ++g_BoardData.InISR;
     PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_EXTERNAL_4);
     WDRV_MRF24WN_ISR();
+    --g_BoardData.InISR;
 }
  
 
 void IntHandlerDrvTmrInstance0(void)
 {
+    ++g_BoardData.InISR;
     DRV_TMR_Tasks(sysObj.drvTmr0);
+    --g_BoardData.InISR;
 }
 void IntHandlerDrvTmrInstance1(void)
 {
+    ++g_BoardData.InISR;
     DRV_TMR_Tasks(sysObj.drvTmr1);
+    --g_BoardData.InISR;
 }
 void IntHandlerDrvTmrInstance2(void)
 {
+    ++g_BoardData.InISR;
     DRV_TMR_Tasks(sysObj.drvTmr2);
+    --g_BoardData.InISR;
 }
  
 void IntHandlerSPIRxInstance0(void)
 {
+    ++g_BoardData.InISR;
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
+    --g_BoardData.InISR;
 }
 void IntHandlerSPITxInstance0(void)
 {
+    ++g_BoardData.InISR;
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
+    --g_BoardData.InISR;
 }
 void IntHandlerSPIFaultInstance0(void)
 {
+    ++g_BoardData.InISR;
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
+    --g_BoardData.InISR;
 }
 //void IntHandlerSPIRxInstance1(void)
 //{
@@ -147,24 +165,30 @@ void IntHandlerSPIFaultInstance0(void)
 void IntHandlerDrvNvm (void)
 
 {
+    ++g_BoardData.InISR;
     DRV_NVM_Tasks(sysObj.drvNvm);
+    --g_BoardData.InISR;
 
 }
 
 void IntHandlerUSBInstance0(void)
 
 {
+    ++g_BoardData.InISR;
     DRV_USBHS_Tasks_ISR(sysObj.drvUSBObject);
+    --g_BoardData.InISR;
 }
 
 void IntHandlerUSBInstance0_USBDMA ( void )
 {
+    ++g_BoardData.InISR;
     DRV_USBHS_Tasks_ISR_USBDMA(sysObj.drvUSBObject);
+    --g_BoardData.InISR;
 }
 
 void IntHandlerDrvAdcEOS(void)
 {
- //   ++g_BoardData.InISR;
+    ++g_BoardData.InISR;
     
     // Scanning of ADC channels is complete - so read data
 
@@ -184,7 +208,7 @@ void IntHandlerDrvAdcEOS(void)
     const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
     ADC_ConversionComplete(module);
     
-//    --g_BoardData.InISR;
+    --g_BoardData.InISR;
 }
 
 void _ISR_DefaultInterrupt(void) 

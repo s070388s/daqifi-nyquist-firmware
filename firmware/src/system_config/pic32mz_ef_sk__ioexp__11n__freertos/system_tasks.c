@@ -150,8 +150,9 @@ void SYS_Tasks ( void )
   Summary:
     Maintains state machines of system modules.
 */
-static void _SYS_Tasks ( void)
+static void _SYS_Tasks (void)
 {
+    portTASK_USES_FLOATING_POINT();
     while(1)
     {
 //    /* Maintain system services */
@@ -189,6 +190,7 @@ static void _SYS_Tasks ( void)
 
 void _USB_Tasks(void)
 {
+    portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* USBHS Driver Task Routine */ 
@@ -204,6 +206,7 @@ void _USB_Tasks(void)
  }
 void _TCPIP_Tasks(void)
 {
+    portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* Maintain the TCP/IP Stack*/
@@ -213,6 +216,7 @@ void _TCPIP_Tasks(void)
 }
 void _NET_PRES_Tasks(void)
 {
+    portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* Maintain the TCP/IP Stack*/
@@ -231,6 +235,7 @@ void _NET_PRES_Tasks(void)
 
 static void _APP_Tasks(void)
 {
+    portTASK_USES_FLOATING_POINT();
     while(1)
     {
         APP_Tasks();

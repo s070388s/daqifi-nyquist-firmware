@@ -1749,7 +1749,6 @@
         <Name dnOrder="0">sys_reset.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/reset/src</Path>
         <Checksum dnOrder="2">BE66429899862E1E38250CA4006D5F46</Checksum>
-        <ProjectFileChecksum dnOrder="3">83E98FFC7ADD4E734C996B5C7E7C50BA</ProjectFileChecksum>
       </Template>
       <Template dnOrder="15">
         <Name dnOrder="0">sys_devcon_pic32mz.c</Name>
@@ -1820,7 +1819,7 @@
       <Template dnOrder="28">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">4868050B4D50B9AC643A1EE10E0C8419</Checksum>
+        <Checksum dnOrder="2">DFA5F30E8B136626A125D674DA3C5B01</Checksum>
       </Template>
       <Template dnOrder="29">
         <Name dnOrder="0">net_pres_enc_glue.c</Name>

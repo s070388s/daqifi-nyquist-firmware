@@ -105,7 +105,7 @@
 #define configUSE_TIME_SLICING                  0
 #define configUSE_NEWLIB_REENTRANT              0
 #define configENABLE_BACKWARD_COMPATIBILITY     0
-#define configUSE_TASK_FPU_SUPPORT              0
+#define configUSE_TASK_FPU_SUPPORT              1
 
 /* Hook function related definitions. */
 #define configUSE_IDLE_HOOK                     0
