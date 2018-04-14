@@ -24,7 +24,7 @@ static void InitList()
 
 static int LogMessageImpl(const char* message)
 {
-    UNUSED(message);
+    //UNUSED(message);
 
     if (message == NULL)
     {
@@ -44,8 +44,8 @@ static int LogMessageImpl(const char* message)
 
 static int LogMessageFormatImpl(const char* format, va_list args)
 {
-    UNUSED(format);
-    UNUSED(args);
+    //UNUSED(format);
+    //UNUSED(args);
 
     if (format == NULL)
     {
@@ -71,7 +71,7 @@ static int LogMessageFormatImpl(const char* format, va_list args)
 
 int LogMessage(const char* format, ...)
 {
-    UNUSED(format);
+    //UNUSED(format);
     va_list args;
     va_start(args, format);
     int result = LogMessageFormatImpl(format, args);
@@ -88,8 +88,8 @@ size_t LogMessageCount()
 
 size_t LogMessagePop(uint8_t* buffer, size_t maxSize)
 {
-    UNUSED(buffer);
-    UNUSED(maxSize);
+    //UNUSED(buffer);
+    //UNUSED(maxSize);
     
     InitList();
     return StackList_PopFront(m_ListPtr, buffer, maxSize);

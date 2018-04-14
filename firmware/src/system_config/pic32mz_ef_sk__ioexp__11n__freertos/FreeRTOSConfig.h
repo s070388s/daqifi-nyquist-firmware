@@ -89,7 +89,7 @@
 #define configTICK_RATE_HZ                      ( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES                    ( 10UL )
 #define configMINIMAL_STACK_SIZE                ( 512 )
-#define configISR_STACK_SIZE                    ( 512 )
+#define configISR_STACK_SIZE                    ( 2048 )
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configTOTAL_HEAP_SIZE                   ( ( size_t ) 124000 )

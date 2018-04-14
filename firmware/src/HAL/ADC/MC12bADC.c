@@ -6,7 +6,8 @@
 #include "framework/driver/adc/drv_adc_static.h"
 #include "Util/Delay.h"
 
-#define UNUSED(x) (void)(x)
+//#define UNUSED(x) (void)(x)
+#define UNUSED(identifier) /* identifier */
 
 bool MC12b_InitHardware(const MC12bModuleConfig* boardConfig, const AInArray* channelConfig)
 {

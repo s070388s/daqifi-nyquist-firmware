@@ -190,7 +190,14 @@ extern "C" {
 // DM 8/23/2016: APPIO isn't fully implemented. Doing this allows it to compile though
 #define SYS_CONSOLE_APPIO_RD_QUEUE_DEPTH 1 
 #define SYS_CONSOLE_APPIO_WR_QUEUE_DEPTH 128
+    
+//#ifndef SYS_CONSOLE_PRINT
+//int LogMessage(const char* format, ...);
+//#define SYS_CONSOLE_MESSAGE(...) LogMessage(__VA_ARGS__) 
+//#define SYS_CONSOLE_PRINT(...) LogMessage(__VA_ARGS__)
+//#endif    
 
+// DM 8/23/2016: END
 
 /*** Debug System Service Configuration ***/
 #define SYS_DEBUG_ENABLE
