@@ -47,59 +47,59 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "ISR_Support.h"
 
-//
-// /* Port B Change Notice Interrupt */
-//   .extern  IntHandlerChangeNotification_PortB
-//
-//   .section	.vector_119,code, keep
-//   .equ     __vector_dispatch_119, IntVectorChangeNotification_PortB
-//   .global  __vector_dispatch_119
-//   .set     nomicromips
-//   .set     noreorder
-//   .set     nomips16
-//   .set     noat
-//   .ent  IntVectorChangeNotification_PortB
-//
-//IntVectorChangeNotification_PortB:
-//    portSAVE_CONTEXT
-//    la    s6,  IntHandlerChangeNotification_PortB
-//    jalr  s6
-//    nop
-//    portRESTORE_CONTEXT
-//    .end	IntVectorChangeNotification_PortB
-//
-//
-// 
-//
-//
-//
-// /* Port F Change Notice Interrupt */
-//   .extern  IntHandlerChangeNotification_PortF
-//
-//   .section	.vector_123,code, keep
-//   .equ     __vector_dispatch_123, IntVectorChangeNotification_PortF
-//   .global  __vector_dispatch_123
-//   .set     nomicromips
-//   .set     noreorder
-//   .set     nomips16
-//   .set     noat
-//   .ent  IntVectorChangeNotification_PortF
-//
-//IntVectorChangeNotification_PortF:
-//    portSAVE_CONTEXT
-//    la    s6,  IntHandlerChangeNotification_PortF
-//    jalr  s6
-//    nop
-//    portRESTORE_CONTEXT
-//    .end	IntVectorChangeNotification_PortF
-//
-//
-// 
-//
-//
-//
-//
-//  
+
+ /* Port B Change Notice Interrupt */
+   .extern  IntHandlerChangeNotification_PortB
+
+   .section	.vector_119,code, keep
+   .equ     __vector_dispatch_119, IntVectorChangeNotification_PortB
+   .global  __vector_dispatch_119
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorChangeNotification_PortB
+
+IntVectorChangeNotification_PortB:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerChangeNotification_PortB
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorChangeNotification_PortB
+
+
+ 
+
+
+
+ /* Port F Change Notice Interrupt */
+   .extern  IntHandlerChangeNotification_PortF
+
+   .section	.vector_123,code, keep
+   .equ     __vector_dispatch_123, IntVectorChangeNotification_PortF
+   .global  __vector_dispatch_123
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorChangeNotification_PortF
+
+IntVectorChangeNotification_PortF:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerChangeNotification_PortF
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorChangeNotification_PortF
+
+
+ 
+
+
+
+
+
 
 /* External Interrupt Instance 0 Interrupt */
    .extern  IntHandlerExternalInterruptInstance0

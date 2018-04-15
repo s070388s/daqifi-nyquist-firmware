@@ -14,6 +14,7 @@ static FreeRTOSLockProviderContext interruptStatuses[64];
 
 static void FreeRTOSLockProvider_Lock(const LockHandle* handle)
 {
+    if (xTaskGetSchedulerState() != taskSCHEDULER_RUNNING) return;
     FreeRTOSLockProviderContext* context = &interruptStatuses[*handle];
     if (context->RefCount == 0)
     {
@@ -25,6 +26,7 @@ static void FreeRTOSLockProvider_Lock(const LockHandle* handle)
 
 static void FreeRTOSLockProvider_Unlock(const LockHandle* handle)
 {
+    if (xTaskGetSchedulerState() != taskSCHEDULER_RUNNING) return;
     FreeRTOSLockProviderContext* context = &interruptStatuses[*handle];
     
     --context->RefCount;

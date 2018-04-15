@@ -191,11 +191,11 @@ extern "C" {
 #define SYS_CONSOLE_APPIO_RD_QUEUE_DEPTH 1 
 #define SYS_CONSOLE_APPIO_WR_QUEUE_DEPTH 128
     
-//#ifndef SYS_CONSOLE_PRINT
-//int LogMessage(const char* format, ...);
-//#define SYS_CONSOLE_MESSAGE(...) LogMessage(__VA_ARGS__) 
-//#define SYS_CONSOLE_PRINT(...) LogMessage(__VA_ARGS__)
-//#endif    
+#ifndef SYS_CONSOLE_PRINT
+int LogMessage(const char* format, ...);
+#define SYS_CONSOLE_MESSAGE(...) LogMessage(__VA_ARGS__) 
+#define SYS_CONSOLE_PRINT(...) LogMessage(__VA_ARGS__)
+#endif    
 
 // DM 8/23/2016: END
 

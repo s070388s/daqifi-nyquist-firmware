@@ -89,7 +89,7 @@
 #define configTICK_RATE_HZ                      ( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES                    ( 10UL )
 #define configMINIMAL_STACK_SIZE                ( 512 )
-#define configISR_STACK_SIZE                    ( 2048 )
+#define configISR_STACK_SIZE                    ( 4096 )
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configTOTAL_HEAP_SIZE                   ( ( size_t ) 124000 )
@@ -154,7 +154,7 @@ Only API functions that end in ...FromISR() can be used within interrupts. */
 #define INCLUDE_vTaskSuspend                    1
 #define INCLUDE_vTaskDelayUntil                 1
 #define INCLUDE_vTaskDelay                      1
-#define INCLUDE_xTaskGetSchedulerState          0
+#define INCLUDE_xTaskGetSchedulerState          1
 #define INCLUDE_xTaskGetCurrentTaskHandle       0
 #define INCLUDE_uxTaskGetStackHighWaterMark     0
 #define INCLUDE_xTaskGetIdleTaskHandle          0

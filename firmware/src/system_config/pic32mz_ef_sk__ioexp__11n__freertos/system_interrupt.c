@@ -72,16 +72,18 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-//         void IntHandlerChangeNotification_PortB(void)
-//{
-//    
-//    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
-//}
-//         void IntHandlerChangeNotification_PortF(void)
-//{
-//    
-//    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
-//}
+         void IntHandlerChangeNotification_PortB(void)
+{
+    ++g_BoardData.InISR;
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
+    --g_BoardData.InISR;
+}
+         void IntHandlerChangeNotification_PortF(void)
+{
+    ++g_BoardData.InISR;
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
+    --g_BoardData.InISR;
+}
 
 
 void IntHandlerSysDmaInstance0(void)

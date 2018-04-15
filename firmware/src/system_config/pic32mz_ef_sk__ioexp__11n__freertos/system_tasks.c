@@ -129,7 +129,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                4096, NULL, 2, NULL);
+                2048, NULL, 2, NULL);
     
     /* Create OS Thread for power Tasks. */
     xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
@@ -150,7 +150,7 @@ void SYS_Tasks ( void )
   Summary:
     Maintains state machines of system modules.
 */
-static void _SYS_Tasks (void)
+static void _SYS_Tasks ( void)
 {
     portTASK_USES_FLOATING_POINT();
     while(1)

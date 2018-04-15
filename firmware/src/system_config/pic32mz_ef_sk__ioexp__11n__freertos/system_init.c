@@ -1244,6 +1244,11 @@ void SYS_Initialize ( void* data )
     SYS_INT_ExternalInterruptTriggerSet(INT_EXTERNAL_INT_SOURCE4,INT_EDGE_TRIGGER_FALLING);
     SYS_INT_SourceEnable(INT_SOURCE_EXTERNAL_4);
 
+
+
+
+
+
     /*** Random Service Initialization Code ***/
     SYS_RANDOM_Initialize(0, 0);
 
