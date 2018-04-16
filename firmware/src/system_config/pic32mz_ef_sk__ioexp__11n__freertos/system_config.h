@@ -195,6 +195,8 @@ extern "C" {
 int LogMessage(const char* format, ...);
 #define SYS_CONSOLE_MESSAGE(...) LogMessage(__VA_ARGS__) 
 #define SYS_CONSOLE_PRINT(...) LogMessage(__VA_ARGS__)
+#define SYS_DEBUG_MESSAGE(level, ...) LogMessage(__VA_ARGS__)
+#define SYS_DEBUG_PRINT(level, ...) LogMessage(__VA_ARGS__)
 #endif    
 
 // DM 8/23/2016: END
@@ -203,7 +205,7 @@ int LogMessage(const char* format, ...);
 #define SYS_DEBUG_ENABLE
 #define DEBUG_PRINT_BUFFER_SIZE       512
 #define SYS_DEBUG_BUFFER_DMA_READY        __attribute__((coherent)) __attribute__((aligned(16)))
-#define SYS_DEBUG_USE_CONSOLE
+//#define SYS_DEBUG_USE_CONSOLE
 
 /*** File System Service Configuration ***/
 

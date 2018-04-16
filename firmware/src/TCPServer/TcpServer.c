@@ -1,7 +1,7 @@
 #include "TcpServer.h"
 
 // System
-#include <errno.h>
+//#include <errno.h>
 #include <sys/errno.h>
 #include <string.h>
 #include "tcpip/tcpip.h"
