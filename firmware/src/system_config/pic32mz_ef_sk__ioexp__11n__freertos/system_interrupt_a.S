@@ -249,67 +249,67 @@ IntVectorSPIFaultInstance0:
     portRESTORE_CONTEXT
     .end	IntVectorSPIFaultInstance0
 
-//
-///* SPI Instance 1 Interrupt */
-//   .extern  IntHandlerSPIRxInstance1
-//
-//   .section	.vector_186,code, keep
-//   .equ     __vector_dispatch_186, IntVectorSPIRxInstance1
-//   .global  __vector_dispatch_186
-//   .set     nomicromips
-//   .set     noreorder
-//   .set     nomips16
-//   .set     noat
-//   .ent  IntVectorSPIRxInstance1
-//
-//IntVectorSPIRxInstance1:
-//    portSAVE_CONTEXT
-//    la    s6,  IntHandlerSPIRxInstance1
-//    jalr  s6
-//    nop
-//    portRESTORE_CONTEXT
-//    .end	IntVectorSPIRxInstance1
-//
-//
-//   .extern  IntHandlerSPITxInstance1
-//
-//   .section	.vector_187,code, keep
-//   .equ     __vector_dispatch_187, IntVectorSPITxInstance1
-//   .global  __vector_dispatch_187
-//   .set     nomicromips
-//   .set     noreorder
-//   .set     nomips16
-//   .set     noat
-//   .ent  IntVectorSPITxInstance1
-//
-//IntVectorSPITxInstance1:
-//    portSAVE_CONTEXT
-//    la    s6,  IntHandlerSPITxInstance1
-//    jalr  s6
-//    nop
-//    portRESTORE_CONTEXT
-//    .end	IntVectorSPITxInstance1
-//
-//
-//   .extern  IntHandlerSPIFaultInstance1
-//
-//   .section	.vector_185,code, keep
-//   .equ     __vector_dispatch_185, IntVectorSPIFaultInstance1
-//   .global  __vector_dispatch_185
-//   .set     nomicromips
-//   .set     noreorder
-//   .set     nomips16
-//   .set     noat
-//   .ent  IntVectorSPIFaultInstance1
-//
-//IntVectorSPIFaultInstance1:
-//    portSAVE_CONTEXT
-//    la    s6,  IntHandlerSPIFaultInstance1
-//    jalr  s6
-//    nop
-//    portRESTORE_CONTEXT
-//    .end	IntVectorSPIFaultInstance1
-//
+
+/* SPI Instance 1 Interrupt */
+   .extern  IntHandlerSPIRxInstance1
+
+   .section	.vector_186,code, keep
+   .equ     __vector_dispatch_186, IntVectorSPIRxInstance1
+   .global  __vector_dispatch_186
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorSPIRxInstance1
+
+IntVectorSPIRxInstance1:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerSPIRxInstance1
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorSPIRxInstance1
+
+
+   .extern  IntHandlerSPITxInstance1
+
+   .section	.vector_187,code, keep
+   .equ     __vector_dispatch_187, IntVectorSPITxInstance1
+   .global  __vector_dispatch_187
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorSPITxInstance1
+
+IntVectorSPITxInstance1:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerSPITxInstance1
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorSPITxInstance1
+
+
+   .extern  IntHandlerSPIFaultInstance1
+
+   .section	.vector_185,code, keep
+   .equ     __vector_dispatch_185, IntVectorSPIFaultInstance1
+   .global  __vector_dispatch_185
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorSPIFaultInstance1
+
+IntVectorSPIFaultInstance1:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerSPIFaultInstance1
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorSPIFaultInstance1
+
 
 /* NVM Interrupt */
    .extern  IntHandlerDrvNvm

@@ -73,7 +73,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 static void _SYS_Tasks ( void );
  
  
-//void _DRV_SDCARD_Tasks(void);
+void _DRV_SDCARD_Tasks(void);
 
 void _USB_Tasks(void);
 void _TCPIP_Tasks(void);
@@ -103,12 +103,18 @@ void SYS_Tasks ( void )
                 "Sys Tasks",
                 2048, NULL, 3, NULL);
 
-//    /* Create task for gfx state machine*/
-//    /* Create OS Thread for DRV_SDCARD Tasks. */
-//    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
-//                "DRV_SDCARD Tasks",
-//                1024, NULL, 1, NULL);
 
+ 
+ 
+    /* Create task for gfx state machine*/
+    /* Create OS Thread for DRV_SDCARD Tasks. */
+    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
+                "DRV_SDCARD Tasks",
+                1024, NULL, 1, NULL);
+
+
+ 
+    /* Create task for gfx state machine*/
     /* Create OS Thread for USB Tasks. */
     xTaskCreate((TaskFunction_t) _USB_Tasks,
                 "USB Tasks",
@@ -158,7 +164,7 @@ static void _SYS_Tasks ( void)
 //    /* Maintain system services */
 //    SYS_DEVCON_Tasks(sysObj.sysDevcon);
     /* Maintain system services */
-//    SYS_RTCC_Tasks(sysObj.sysRtcc);
+        SYS_RTCC_Tasks(sysObj.sysRtcc);
     /* Maintain the file system state machine. */
     SYS_FS_Tasks();
     SYS_CONSOLE_Tasks(sysObj.sysConsole0);
@@ -179,14 +185,14 @@ static void _SYS_Tasks ( void)
 
  
  
-//void _DRV_SDCARD_Tasks(void)
-//{
-//    while(1)
-//    {
-//        //DRV_SDCARD_Tasks(sysObj.drvSDCard);   // This must be handled by a mutex as it stomps on the WiFi task
-//        vTaskDelay(1000 / portTICK_PERIOD_MS);
-//    }
-//}
+void _DRV_SDCARD_Tasks(void)
+{
+    while(1)
+    {
+        // DRV_SDCARD_Tasks(sysObj.drvSDCard);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
 
 void _USB_Tasks(void)
 {

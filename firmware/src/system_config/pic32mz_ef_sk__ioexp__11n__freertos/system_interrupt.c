@@ -101,10 +101,12 @@ void IntHandlerSysDmaInstance1(void)
 }
 
 
-//void __ISR(_RTCC_VECTOR, ipl1AUTO) _IntHandlerSysRtcc (void)
-//{
-//    SYS_RTCC_Tasks(sysObj.sysRtcc);
-//}
+void __ISR(_RTCC_VECTOR, ipl1AUTO) _IntHandlerSysRtcc (void)
+{
+    ++g_BoardData.InISR;
+    SYS_RTCC_Tasks(sysObj.sysRtcc);
+    --g_BoardData.InISR;
+}
 void IntHandlerExternalInterruptInstance0(void)
 {
     ++g_BoardData.InISR;
@@ -151,18 +153,24 @@ void IntHandlerSPIFaultInstance0(void)
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
     --g_BoardData.InISR;
 }
-//void IntHandlerSPIRxInstance1(void)
-//{
-//    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-//}
-//void IntHandlerSPITxInstance1(void)
-//{
-//    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-//}
-//void IntHandlerSPIFaultInstance1(void)
-//{
-//    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-//}
+void IntHandlerSPIRxInstance1(void)
+{
+    ++g_BoardData.InISR;
+    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
+    --g_BoardData.InISR;
+}
+void IntHandlerSPITxInstance1(void)
+{
+    ++g_BoardData.InISR;
+    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
+    --g_BoardData.InISR;
+}
+void IntHandlerSPIFaultInstance1(void)
+{
+    ++g_BoardData.InISR;
+    DRV_SPI_Tasks(sysObj.spiObjectIdx1);
+    --g_BoardData.InISR;
+}
 
 void IntHandlerDrvNvm (void)
 

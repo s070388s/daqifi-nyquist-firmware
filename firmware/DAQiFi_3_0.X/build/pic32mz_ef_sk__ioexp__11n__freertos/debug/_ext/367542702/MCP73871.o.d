@@ -470,7 +470,6 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/367542702/MCP73871.o:  \
  ../../../../../framework/driver/ethmac/drv_ethmac.h  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_api.h  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
- ../../../../../framework/system/command/sys_command.h  \
  ../../../../../framework/net/pres/net_pres_encryptionproviderapi.h  \
  ../../../../../framework/net/pres/net_pres.h  \
  ../../../../../framework/net/pres/net_pres_transportapi.h  \
