@@ -1818,7 +1818,7 @@
       <Template dnOrder="28">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">8C25C83E2A958DDB092B51E630BAFF97</Checksum>
+        <Checksum dnOrder="2">102FCD0912D23B1A447027DB3AB2A0E4</Checksum>
       </Template>
       <Template dnOrder="29">
         <Name dnOrder="0">net_pres_enc_glue.c</Name>

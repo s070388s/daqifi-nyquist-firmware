@@ -88,6 +88,13 @@ void _POWER_AND_UI_Tasks(void);
 // *****************************************************************************
 // *****************************************************************************
 
+static TaskHandle_t sysHandle;
+static TaskHandle_t usbHandle;
+static TaskHandle_t tcpipHandle;
+static TaskHandle_t appHandle;
+static TaskHandle_t netpHandle;
+static TaskHandle_t powerUIHandle;
+
 /*******************************************************************************
   Function:
     void SYS_Tasks ( void )
@@ -101,7 +108,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for Sys Tasks. */
     xTaskCreate((TaskFunction_t) _SYS_Tasks,
                 "Sys Tasks",
-                2048, NULL, 3, NULL);
+                2048, NULL, 3, &sysHandle);
 
 
  
@@ -118,29 +125,29 @@ void SYS_Tasks ( void )
     /* Create OS Thread for USB Tasks. */
     xTaskCreate((TaskFunction_t) _USB_Tasks,
                 "USB Tasks",
-                2048, NULL, 4, NULL);
+                2048, NULL, 4, &usbHandle);
 
 
     /* Create task for TCPIP state machine*/
     /* Create OS Thread for TCPIP Tasks. */
     xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
                 "TCPIP Tasks",
-                2048, NULL, 4, NULL);
+                2048, NULL, 4, &tcpipHandle);
 
     /* Create OS Thread for Net Pres Tasks. */
     xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
                 "Net Pres Tasks",
-                1024, NULL, 1, NULL);
+                1024, NULL, 1, &netpHandle);
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                2048, NULL, 2, NULL);
+                2048, NULL, 2, &appHandle);
     
     /* Create OS Thread for power Tasks. */
     xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
                 "POWER Tasks",
-                1024, NULL, 9, NULL);    
+                1024, NULL, 9, &powerUIHandle);    
     
     /**************
      * Start RTOS * 
@@ -158,18 +165,32 @@ void SYS_Tasks ( void )
 */
 static void _SYS_Tasks ( void)
 {
+    volatile UBaseType_t uxHighWaterMark0 = 0;
+    volatile UBaseType_t uxHighWaterMark1 = 0;
+    volatile UBaseType_t uxHighWaterMark2 = 0;
+    volatile UBaseType_t uxHighWaterMark3 = 0;
+    volatile UBaseType_t uxHighWaterMark4 = 0;
+    volatile UBaseType_t uxHighWaterMark5 = 0;
+    
+//    UNUSED(uxHighWaterMark0);
+//    UNUSED(uxHighWaterMark1);
+//    UNUSED(uxHighWaterMark2);
+//    UNUSED(uxHighWaterMark3);
+//    UNUSED(uxHighWaterMark4);
+//    UNUSED(uxHighWaterMark5);
+    
     portTASK_USES_FLOATING_POINT();
     while(1)
     {
-//    /* Maintain system services */
-//    SYS_DEVCON_Tasks(sysObj.sysDevcon);
-    /* Maintain system services */
+        /* Maintain system services */
+//        SYS_DEVCON_Tasks(sysObj.sysDevcon);
+        /* Maintain system services */
         SYS_RTCC_Tasks(sysObj.sysRtcc);
-    /* Maintain the file system state machine. */
-    SYS_FS_Tasks();
-    SYS_CONSOLE_Tasks(sysObj.sysConsole0);
-    /* SYS_TMR Device layer tasks routine */ 
-    SYS_TMR_Tasks(sysObj.sysTmr);
+        /* Maintain the file system state machine. */
+        SYS_FS_Tasks();
+        SYS_CONSOLE_Tasks(sysObj.sysConsole0);
+        /* SYS_TMR Device layer tasks routine */ 
+        SYS_TMR_Tasks(sysObj.sysTmr);
 
         /* Maintain Device Drivers */
  
@@ -177,6 +198,12 @@ static void _SYS_Tasks ( void)
 
         /* Maintain Middleware */
  
+        uxHighWaterMark0 = uxTaskGetStackHighWaterMark(sysHandle);
+        uxHighWaterMark1 = uxTaskGetStackHighWaterMark(usbHandle);
+        uxHighWaterMark2 = uxTaskGetStackHighWaterMark(tcpipHandle);
+        uxHighWaterMark3 = uxTaskGetStackHighWaterMark(netpHandle);
+        uxHighWaterMark4 = uxTaskGetStackHighWaterMark(appHandle);
+        uxHighWaterMark5 = uxTaskGetStackHighWaterMark(powerUIHandle);
 
         /* Task Delay */
         vTaskDelay(10 / portTICK_PERIOD_MS);

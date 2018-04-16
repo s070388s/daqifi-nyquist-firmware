@@ -659,6 +659,8 @@ void WifiTasks(void){
 //		else
 //			SYS_CMD_READY_TO_READ();
 		network_run(&ipWait, &netHandleWiFi, &defaultIpWiFi);
+        // Run the TCP server
+        TcpServer_ProcessState();
 		//led_toggle();
 		break;
 	case APP_FW_OTA_UPDATE:

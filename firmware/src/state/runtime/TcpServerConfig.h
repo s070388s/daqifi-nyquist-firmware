@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#define WIFI_MAX_CLIENT MAX_BSD_SOCKETS - 1
+#define WIFI_MAX_CLIENT 1 //MAX_BSD_SOCKETS - 1
 #define WIFI_BUFFER_SIZE 2048
 
 /**

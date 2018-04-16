@@ -38,6 +38,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // DOM-IGNORE-END
 #include "FreeRTOS.h"
 #include "task.h"
+#include "system_definitions.h"
 
 /*
 *********************************************************************************************************
@@ -64,6 +65,7 @@ void vApplicationStackOverflowHook( TaskHandle_t pxTask, signed char *pcTaskName
    called if a task stack overflow is detected.  Note the system/interrupt
    stack is not checked. */
    taskDISABLE_INTERRUPTS();
+   SYS_DEBUG_BreakPoint();
    for( ;; );
 }
 
@@ -108,6 +110,7 @@ void vApplicationMallocFailedHook( void )
       to query the size of free heap space that remains (although it does not
       provide information on how the remaining heap might be fragmented). */
    taskDISABLE_INTERRUPTS();
+   SYS_DEBUG_BreakPoint();
    for( ;; );
 }
 

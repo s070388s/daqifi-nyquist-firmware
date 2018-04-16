@@ -101,7 +101,7 @@ void IntHandlerSysDmaInstance1(void)
 }
 
 
-void __ISR(_RTCC_VECTOR, ipl1AUTO) _IntHandlerSysRtcc (void)
+void IntHandlerSysRtcc (void)
 {
     ++g_BoardData.InISR;
     SYS_RTCC_Tasks(sysObj.sysRtcc);

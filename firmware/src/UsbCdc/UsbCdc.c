@@ -237,7 +237,7 @@ static bool UsbCdc_BeginWrite(UsbCdcData* client)
         
         if (g_BoardRuntimeConfig.usbSettings.writeTransferHandle == USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID)
         {
-            SYS_DEBUG_MESSAGE(SYS_ERROR_ERROR, "Non-error w/ invalid transfer handle");
+            // SYS_DEBUG_MESSAGE(SYS_ERROR_ERROR, "Non-error w/ invalid transfer handle"); // Means USB write could not be scheduled
             return false;
         }
     }

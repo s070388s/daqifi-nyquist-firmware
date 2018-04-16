@@ -49,7 +49,7 @@ static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
         if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
             g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
         {
-            Streaming_TriggerADC(&(g_BoardConfig.AInModules.Data[i]));
+            Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
         }
 
     }
@@ -249,7 +249,7 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
             // TODO: Add error to the error log and/or some other error handling
             //  If we get here, we have a flag to encode, but our encoded size = 0 so something went wrong
             //while(1);
-            LogMessage("Stream overflow streaming.c ln 251\n\r");
+            // LogMessage("Stream overflow streaming.c ln 251\n\r");
         }
     }
 }

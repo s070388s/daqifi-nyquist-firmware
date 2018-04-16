@@ -191,15 +191,13 @@ void APP_Tasks(void)
 {
 
 
-	UsbCdc_ProcessState();
-//    //DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);    // Does this need to be here? It is called from streaming task.
-//    // DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);  // Added this line to be able to debug manual writes to the DIO with MPLAB
+	UsbCdc_ProcessState(); 
+    // DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);    // Does this need to be here? It is called from streaming task.
+    // DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);  // Added this line to be able to debug manual writes to the DIO with MPLAB
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     
-    // Run the TCP server
-    TcpServer_ProcessState();
-//    // Dont do anything until the board powers on
+    // Dont do anything until the board powers on
 //    if (g_BoardData.PowerData.powerState == MICRO_ON)
 //    {
 //        return;
