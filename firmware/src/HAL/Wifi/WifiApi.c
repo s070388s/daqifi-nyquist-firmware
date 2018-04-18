@@ -8,6 +8,9 @@
 #include "state/data/BoardData.h"
 #include "Util/Logger.h"
 #include "app_commands.h"
+// Is this needed?
+//#include "../../TCPServer/TcpServer.h"
+
 #define UNUSED(x) (void)(x)
 //  Begin code originally implemented as the Microchip wifi_easy_configuration demo
 /*

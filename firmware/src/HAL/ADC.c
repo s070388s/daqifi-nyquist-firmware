@@ -310,8 +310,6 @@ void ADC_ConversionComplete(const AInModule* module)
     
     // Read samples
     ADC_ReadSamples(&samples, module, &g_BoardRuntimeConfig.AInModules.Data[moduleId]);
-
-    //samples.Size = 16;
     
     // Copy samples to the data list
     for (i=0; i<samples.Size; ++i)

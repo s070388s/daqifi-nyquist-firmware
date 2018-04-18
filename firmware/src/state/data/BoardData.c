@@ -1,7 +1,7 @@
 #include "BoardData.h"
 
 #include "Util/FreeRTOSLockProvider.h"
-
+#include "../../HAL/ADC.h"
 BoardData __attribute__((coherent)) g_BoardData;
 
 void InitializeBoardData(BoardData* boardData)
@@ -14,6 +14,11 @@ void InitializeBoardData(BoardData* boardData)
     memset(&boardData->AInLatest, 0, sizeof(AInSampleArray));
     boardData->AInLatest.Size = MAX_AIN_DATA_MOD;
     AInSampleList_Initialize(&boardData->AInSamples, 60, true, &g_RTOSLockProvider);
+    
+    // Set default battery values for debugging - allows power on without ADC active
+    // TODO: This should be omitted for production
+    // size_t index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_VBATT);
+    // boardData->AInLatest.Data[index].Value = 4095;
     
     boardData->PowerData.powerState = MICRO_ON;
     boardData->PowerData.battLow = false;

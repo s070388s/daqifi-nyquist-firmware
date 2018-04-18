@@ -14,8 +14,10 @@
 
 static HeapListNode* HeapList_PopFrontImpl(HeapList* list)
 {
+    list->Lock.LockFxn(&list->Lock.Handle);
     if (list->Head == NULL)
     {
+        list->Lock.UnlockFxn(&list->Lock.Handle);
         return NULL;
     }
 
@@ -35,6 +37,7 @@ static HeapListNode* HeapList_PopFrontImpl(HeapList* list)
     curr->Next = NULL;
     curr->Prev = NULL;
 
+    list->Lock.UnlockFxn(&list->Lock.Handle);
     return curr;
 }
 
@@ -105,6 +108,7 @@ bool HeapList_PushBack(HeapList* list, const uint8_t* data, const size_t len)
     if(node == NULL)
     {
         LogMessage("malloc fail HeapList.c ln 104\n\r");
+        list->Lock.UnlockFxn(&list->Lock.Handle);
         return false;
     }
     
@@ -115,6 +119,7 @@ bool HeapList_PushBack(HeapList* list, const uint8_t* data, const size_t len)
     if(node->Data == NULL)
     {
         LogMessage("malloc fail HeapList.c ln 110\n\r");
+        list->Lock.UnlockFxn(&list->Lock.Handle);
         return false;
     }
     node->Size = len;

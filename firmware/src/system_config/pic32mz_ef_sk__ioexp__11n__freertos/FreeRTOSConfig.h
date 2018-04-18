@@ -68,7 +68,6 @@
 
 #include <xc.h>
 
-
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -111,7 +110,7 @@
 /* Hook function related definitions. */
 #define configUSE_IDLE_HOOK                     0
 #define configUSE_TICK_HOOK                     0
-#define configCHECK_FOR_STACK_OVERFLOW          2
+#define configCHECK_FOR_STACK_OVERFLOW          3   // 3 allows ISR checking
 #define configUSE_MALLOC_FAILED_HOOK            1
 
 /* Run time and task stats gathering related definitions. */

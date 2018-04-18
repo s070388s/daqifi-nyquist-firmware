@@ -1029,4 +1029,29 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/1920085922/BoardData.o:  \
  ../src/HAL/NVM/DaqifiSettings.h  \
 ../../../../../framework/crypto/crypto.h  \
  ../src/HAL/NVM/../../state/runtime/AInRuntimeConfig.h  \
- ../src/Util/FreeRTOSLockProvider.h 
+ ../src/Util/FreeRTOSLockProvider.h  \
+../src/state/data/../../HAL/ADC.h  \
+ ../src/state/board/BoardConfig.h  \
+../src/state/board/AInConfig.h  \
+ ../src/state/board/DIOConfig.h  \
+../src/state/board/StreamingConfig.h  \
+ ../src/state/runtime/BoardRuntimeConfig.h  \
+ ../src/state/runtime/DIORuntimeConfig.h  \
+ ../src/state/runtime/StreamingRuntimeConfig.h  \
+ ../src/state/runtime/TcpServerConfig.h  \
+../src/SCPI/SCPIInterface.h  \
+ ../../libscpi/libscpi/inc/scpi/scpi.h  \
+ ../../libscpi/libscpi/inc/scpi/parser.h  \
+ ../../libscpi/libscpi/inc/scpi/types.h  \
+ ../../libscpi/libscpi/inc/scpi/config.h  \
+ ../../libscpi/libscpi/inc/scpi/cc.h  \
+ ../../libscpi/libscpi/inc/scpi/ieee488.h  \
+ ../../libscpi/libscpi/inc/scpi/error.h  \
+ ../../libscpi/libscpi/inc/scpi/constants.h  \
+ ../../libscpi/libscpi/inc/scpi/minimal.h  \
+ ../../libscpi/libscpi/inc/scpi/units.h  \
+ ../../libscpi/libscpi/inc/scpi/utils.h  \
+ ../../libscpi/libscpi/inc/scpi/expression.h  \
+../../microrl/src/microrl.h  \
+ ../../microrl/src/config.h  \
+../src/state/runtime/UsbRuntimeConfig.h 

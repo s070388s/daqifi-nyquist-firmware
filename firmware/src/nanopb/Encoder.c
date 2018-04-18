@@ -37,7 +37,13 @@ size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* 
                     message.analog_in_data_count++;
                     // Check next value to be evaluated in the while test
                     AInSampleList_PeekFront(&state->AInSamples, &aInData);
+                    // Added to catch error when forcing data through without generating real data
+					//if (message.analog_in_data_count++ > 16)
+                    //{
+                    //    message.analog_in_data_count = 16;
+                    //}
                 }
+                
                 break;
             case DaqifiOutMessage_analog_in_data_float_tag:
                 message.analog_in_data_float_count = 0;

@@ -316,7 +316,7 @@ void TcpServer_Initialize()
 {
     // Init server params
     g_BoardRuntimeConfig.serverData.serverSocket = INVALID_SOCKET;
-    g_BoardRuntimeConfig.serverData.state = IP_SERVER_WAIT;
+    g_BoardRuntimeConfig.serverData.state = IP_SERVER_INITIALIZE;
     g_BoardRuntimeConfig.serverData.hInterface = TCPIP_STACK_NetHandleGet(WIFI_INTERFACE_NAME);
     
     // Init client params

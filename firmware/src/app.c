@@ -148,8 +148,9 @@ void APP_Initialize(void)
         LoadFactorySettings(DaqifiSettings_Wifi, &tmpWifiSettings);
         SaveNvmSettings(&tmpWifiSettings);
     }
-    // Move temp variable to global variable
-    memcpy(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi), &(tmpWifiSettings.settings.wifi), sizeof(WifiSettings));
+    // Move temp variable to global variables
+    memcpy(&g_BoardRuntimeConfig.wifiSettings.settings.wifi, &tmpWifiSettings.settings.wifi, sizeof(WifiSettings));
+    memcpy(&g_BoardData.wifiSettings.settings.wifi, &tmpWifiSettings.settings.wifi, sizeof(WifiSettings));
         
     // Load factory calibration parameters - if they are not initialized, store them (first run after a program)
     if(!LoadADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels)) SaveADCCalSettings(DaqifiSettings_FactAInCalParams, &g_BoardRuntimeConfig.AInChannels);
@@ -172,10 +173,7 @@ void APP_Initialize(void)
     WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
     
     // TODO: Move USB into its own task
-    UsbCdc_Initialize();
-    
-    //TcpServer_Initialize(); gets called from TCPServer task
-    
+    UsbCdc_Initialize();   
 
 }
 

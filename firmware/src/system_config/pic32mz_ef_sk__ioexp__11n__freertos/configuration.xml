@@ -1690,7 +1690,7 @@
       <Template dnOrder="3">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">2EC675509014818F7CB483B907EF6826</Checksum>
+        <Checksum dnOrder="2">E7388599CE958B931F42799A4251EF8D</Checksum>
         <ProjectFileChecksum dnOrder="3">E454046A4793BC3E9BAF5EABBA4F6F62</ProjectFileChecksum>
       </Template>
       <Template dnOrder="4">
@@ -1778,11 +1778,13 @@
         <Name dnOrder="0">rtos_hooks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">FA52743264536E5207D2ADBE57B48D05</Checksum>
+        <ProjectFileChecksum dnOrder="3">BDFE9DF797897E58322CB3447F884505</ProjectFileChecksum>
       </Template>
       <Template dnOrder="21">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/ports/src</Path>
         <Checksum dnOrder="2">C69E43E2EA2D2601C37E70DDD626A64A</Checksum>
+        <ProjectFileChecksum dnOrder="3">C949CF1C043042B2A8FCC5F12ABE2403</ProjectFileChecksum>
       </Template>
       <Template dnOrder="22">
         <Name dnOrder="0">drv_spi_api.c</Name>
@@ -1792,7 +1794,7 @@
       <Template dnOrder="23">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">665CA6574F12F47000392FB534D1F2F6</Checksum>
+        <Checksum dnOrder="2">92ABA7588E41CF95C32B0A8475E04EDB</Checksum>
         <ProjectFileChecksum dnOrder="3">73257D5A0D559C9E980880A536D5508F</ProjectFileChecksum>
       </Template>
       <Template dnOrder="24">
@@ -1819,6 +1821,7 @@
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">102FCD0912D23B1A447027DB3AB2A0E4</Checksum>
+        <ProjectFileChecksum dnOrder="3">8E6BD03CB705E785DEB53D25C319E3D5</ProjectFileChecksum>
       </Template>
       <Template dnOrder="29">
         <Name dnOrder="0">net_pres_enc_glue.c</Name>
@@ -1854,6 +1857,7 @@
         <Name dnOrder="0">system_exceptions.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">9836A04F3E98D3971DB91DF539160F34</Checksum>
+        <ProjectFileChecksum dnOrder="3">520ED59FC21D37F59847855B0A01733E</ProjectFileChecksum>
       </Template>
     </Templates>
     <CompilerItems dnOrder="2">

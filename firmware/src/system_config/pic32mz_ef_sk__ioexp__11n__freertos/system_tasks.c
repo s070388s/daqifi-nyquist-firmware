@@ -185,7 +185,7 @@ static void _SYS_Tasks ( void)
         /* Maintain system services */
 //        SYS_DEVCON_Tasks(sysObj.sysDevcon);
         /* Maintain system services */
-        SYS_RTCC_Tasks(sysObj.sysRtcc);
+        //SYS_RTCC_Tasks(sysObj.sysRtcc);
         /* Maintain the file system state machine. */
         SYS_FS_Tasks();
         SYS_CONSOLE_Tasks(sysObj.sysConsole0);
@@ -227,7 +227,7 @@ void _USB_Tasks(void)
     while(1)
     {
         /* USBHS Driver Task Routine */ 
-         DRV_USBHS_Tasks(sysObj.drvUSBObject);
+        DRV_USBHS_Tasks(sysObj.drvUSBObject);
          
         
         /* USB Device layer tasks routine */ 
