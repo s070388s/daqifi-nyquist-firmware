@@ -1726,138 +1726,148 @@
         <Checksum dnOrder="2">7AF2968D6948A72475CEEE91BE650ED6</Checksum>
       </Template>
       <Template dnOrder="10">
+        <Name dnOrder="0">fassert.c</Name>
+        <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
+        <Checksum dnOrder="2">ACF441D0BE263FA688241FA6A84CC549</Checksum>
+      </Template>
+      <Template dnOrder="11">
         <Name dnOrder="0">mpfs_img2.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
         <Checksum dnOrder="2">09304F58E4EFA934ECC95DF2E9BDC777</Checksum>
       </Template>
-      <Template dnOrder="11">
+      <Template dnOrder="12">
         <Name dnOrder="0">sys_rtcc.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/rtcc</Path>
         <Checksum dnOrder="2">7EF084FFC4F11FD771920C4843BB8EA6</Checksum>
       </Template>
-      <Template dnOrder="12">
+      <Template dnOrder="13">
         <Name dnOrder="0">http_print.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
         <Checksum dnOrder="2">36A16C64F0D37124A6311EF2414217A6</Checksum>
       </Template>
-      <Template dnOrder="13">
+      <Template dnOrder="14">
         <Name dnOrder="0">sys_devcon_local.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">B66F9B4DBD85DA7F9DE775E864E01395</Checksum>
       </Template>
-      <Template dnOrder="14">
+      <Template dnOrder="15">
         <Name dnOrder="0">sys_reset.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/reset/src</Path>
         <Checksum dnOrder="2">BE66429899862E1E38250CA4006D5F46</Checksum>
       </Template>
-      <Template dnOrder="15">
+      <Template dnOrder="16">
         <Name dnOrder="0">sys_devcon_pic32mz.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">D011F212E6410A0C92087C188E1F60AF</Checksum>
       </Template>
-      <Template dnOrder="16">
+      <Template dnOrder="17">
         <Name dnOrder="0">main.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
       </Template>
-      <Template dnOrder="17">
+      <Template dnOrder="18">
         <Name dnOrder="0">net_pres_enc_glue.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/net/pres</Path>
         <Checksum dnOrder="2">E9CAC33A51432E13895C3950315DC5F5</Checksum>
       </Template>
-      <Template dnOrder="18">
+      <Template dnOrder="19">
+        <Name dnOrder="0">general_exception_handler.c</Name>
+        <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
+        <Checksum dnOrder="2">D97B41BAC200A351BBB19C352CB56597</Checksum>
+        <ProjectFileChecksum dnOrder="3">16D010306E98D537C0C5169C10F6B52B</ProjectFileChecksum>
+      </Template>
+      <Template dnOrder="20">
         <Name dnOrder="0">nvm_disk_images.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/fs</Path>
         <Checksum dnOrder="2">B00B90E021F15FFD6B0B1B7F2D0650A5</Checksum>
       </Template>
-      <Template dnOrder="19">
+      <Template dnOrder="21">
         <Name dnOrder="0">sys_devcon_cache.h</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">5EB0485AC07A8B25665195B960AFBE5B</Checksum>
       </Template>
-      <Template dnOrder="20">
+      <Template dnOrder="22">
         <Name dnOrder="0">rtos_hooks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">FA52743264536E5207D2ADBE57B48D05</Checksum>
         <ProjectFileChecksum dnOrder="3">BDFE9DF797897E58322CB3447F884505</ProjectFileChecksum>
       </Template>
-      <Template dnOrder="21">
+      <Template dnOrder="23">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/ports/src</Path>
         <Checksum dnOrder="2">C69E43E2EA2D2601C37E70DDD626A64A</Checksum>
         <ProjectFileChecksum dnOrder="3">C949CF1C043042B2A8FCC5F12ABE2403</ProjectFileChecksum>
       </Template>
-      <Template dnOrder="22">
+      <Template dnOrder="24">
         <Name dnOrder="0">drv_spi_api.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/spi/dynamic</Path>
         <Checksum dnOrder="2">9C1A6AFABB16F21E998E1B49EB8947E5</Checksum>
       </Template>
-      <Template dnOrder="23">
+      <Template dnOrder="25">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">92ABA7588E41CF95C32B0A8475E04EDB</Checksum>
         <ProjectFileChecksum dnOrder="3">73257D5A0D559C9E980880A536D5508F</ProjectFileChecksum>
       </Template>
-      <Template dnOrder="24">
+      <Template dnOrder="26">
         <Name dnOrder="0">system_interrupt_a.S</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">DA157EC798FA4F3B83FC5FD27E885C92</Checksum>
         <ProjectFileChecksum dnOrder="3">B518D97797BFFD12DC42B663EE575FF1</ProjectFileChecksum>
       </Template>
-      <Template dnOrder="25">
+      <Template dnOrder="27">
         <Name dnOrder="0">drv_flash_static.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/flash</Path>
         <Checksum dnOrder="2">7612FC23AE86243D05F4B5B71DEEEAC8</Checksum>
       </Template>
-      <Template dnOrder="26">
+      <Template dnOrder="28">
         <Name dnOrder="0">app.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
       </Template>
-      <Template dnOrder="27">
+      <Template dnOrder="29">
         <Name dnOrder="0">sys_devcon.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">54ADBD4A35BCA03C42C74182FCE41849</Checksum>
       </Template>
-      <Template dnOrder="28">
+      <Template dnOrder="30">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">102FCD0912D23B1A447027DB3AB2A0E4</Checksum>
         <ProjectFileChecksum dnOrder="3">8E6BD03CB705E785DEB53D25C319E3D5</ProjectFileChecksum>
       </Template>
-      <Template dnOrder="29">
+      <Template dnOrder="31">
         <Name dnOrder="0">net_pres_enc_glue.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/net/pres</Path>
         <Checksum dnOrder="2">F299EB5298C761844925061277D5E36E</Checksum>
       </Template>
-      <Template dnOrder="30">
+      <Template dnOrder="32">
         <Name dnOrder="0">app.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app</Path>
       </Template>
-      <Template dnOrder="31">
+      <Template dnOrder="33">
         <Name dnOrder="0">sys_devcon_cache_pic32mz.S</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">D0A9CCA1CA85BB1CE7364A5DE10CC07D</Checksum>
       </Template>
-      <Template dnOrder="32">
+      <Template dnOrder="34">
         <Name dnOrder="0">drv_spi_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/spi/dynamic</Path>
         <Checksum dnOrder="2">668CEC2956DE8B9F7F95BD5983D99F9C</Checksum>
       </Template>
-      <Template dnOrder="33">
+      <Template dnOrder="35">
         <Name dnOrder="0">drv_adc_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/adc/src</Path>
         <Checksum dnOrder="2">CC25099B0D291E08AABD1E70FD95D50B</Checksum>
         <ProjectFileChecksum dnOrder="3">55290D07CD9D4BA364AF9C10F44FD6EF</ProjectFileChecksum>
       </Template>
-      <Template dnOrder="34">
+      <Template dnOrder="36">
         <Name dnOrder="0">drv_spi_master_dma_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/spi/dynamic</Path>
         <Checksum dnOrder="2">CD5585903D9F71AEE640D8DFD0179BB7</Checksum>
       </Template>
-      <Template dnOrder="35">
-        <Name dnOrder="0">system_exceptions.c</Name>
+      <Template dnOrder="37">
+        <Name dnOrder="0">general-exception-context.S</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">9836A04F3E98D3971DB91DF539160F34</Checksum>
-        <ProjectFileChecksum dnOrder="3">520ED59FC21D37F59847855B0A01733E</ProjectFileChecksum>
+        <Checksum dnOrder="2">C73FC716A50DDB05718577E8BBE06959</Checksum>
       </Template>
     </Templates>
     <CompilerItems dnOrder="2">

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_init.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/main.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ/port_asm.S</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/app.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_interrupt.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/state/data/AInSample.h</file>
@@ -12,7 +13,10 @@
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/TCPServer/TcpServer.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_tasks.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/state/data/AInSample.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/HAL/Wifi/WifiApi.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ/port.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/tasks.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/general_exception_handler.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/HAL/ADC.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/streaming.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/DAQiFi_3_0/firmware/src/nanopb/Encoder.c</file>

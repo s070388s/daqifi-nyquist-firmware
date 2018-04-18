@@ -748,7 +748,9 @@
             </logicalFolder>
             <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_init.c</itemPath>
             <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_interrupt.c</itemPath>
-            <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_exceptions.c</itemPath>
+            <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/general_exception_handler.c</itemPath>
+            <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/general-exception-context.S</itemPath>
+            <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/fassert.c</itemPath>
             <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_tasks.c</itemPath>
             <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_interrupt_a.S</itemPath>
             <itemPath>../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/rtos_hooks.c</itemPath>

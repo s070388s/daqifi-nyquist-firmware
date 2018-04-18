@@ -1158,7 +1158,7 @@ void SYS_Initialize ( void* data )
     PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_ADC_END_OF_SCAN);
     
     PLIB_INT_VectorPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_PRIORITY_LEVEL3);
-    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_SUBPRIORITY_LEVEL5);	
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_SUBPRIORITY_LEVEL3);	
    
     /*Initialize ADC Module Level Interrupts */
     uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
