@@ -470,6 +470,7 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/590017803/WifiApi.o:  \
  ../../../../../framework/driver/ethmac/drv_ethmac.h  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_api.h  \
  ../../../../../framework/driver/wifi/mrf24wn/include/wdrv_mrf24wn_common.h  \
+ ../../../../../framework/system/command/sys_command.h  \
  ../../../../../framework/net/pres/net_pres_encryptionproviderapi.h  \
  ../../../../../framework/net/pres/net_pres.h  \
  ../../../../../framework/net/pres/net_pres_transportapi.h  \
@@ -1038,4 +1039,21 @@ build/pic32mz_ef_sk__ioexp__11n__freertos/debug/_ext/590017803/WifiApi.o:  \
  ../../../../../framework/peripheral/glcd/processor/glcd_p32mz2048efm144.h  \
  ../src/HAL/NVM/DaqifiSettings.h  \
 ../src/Util/Logger.h  \
- ../src/app_commands.h 
+ ../src/app_commands.h  \
+../src/HAL/Wifi/../../TCPServer/TcpServer.h  \
+ ../src/state/runtime/TcpServerConfig.h  \
+../src/SCPI/SCPIInterface.h  \
+ ../../libscpi/libscpi/inc/scpi/scpi.h  \
+ ../../libscpi/libscpi/inc/scpi/parser.h  \
+ ../../libscpi/libscpi/inc/scpi/types.h  \
+ ../../libscpi/libscpi/inc/scpi/config.h  \
+ ../../libscpi/libscpi/inc/scpi/cc.h  \
+ ../../libscpi/libscpi/inc/scpi/ieee488.h  \
+ ../../libscpi/libscpi/inc/scpi/error.h  \
+ ../../libscpi/libscpi/inc/scpi/constants.h  \
+ ../../libscpi/libscpi/inc/scpi/minimal.h  \
+ ../../libscpi/libscpi/inc/scpi/units.h  \
+ ../../libscpi/libscpi/inc/scpi/utils.h  \
+ ../../libscpi/libscpi/inc/scpi/expression.h  \
+../../microrl/src/microrl.h  \
+ ../../microrl/src/config.h 

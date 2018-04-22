@@ -433,6 +433,18 @@ const SYS_CLK_INIT sysClkInit =
     .onWaitInstruction = SYS_CLK_ON_WAIT,
 };
 // </editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="SYS_DEVCON Initialization Data">
+/*******************************************************************************
+  Device Control System Service Initialization Data
+*/
+
+const SYS_DEVCON_INIT sysDevconInit =
+{
+    .moduleInit = {0},
+};
+
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_CONSOLE Initialization Data">
 /*** System Console Initialization Data ***/
 
@@ -1134,14 +1146,14 @@ void SYS_Initialize ( void* data )
 {
     /* Core Processor Initialization */
     SYS_CLK_Initialize( NULL );
-    SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)NULL);
+    sysObj.sysDevcon = SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)&sysDevconInit);
     SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
     SYS_PORTS_Initialize();
 
     /* Initialize Drivers */
     sysObj.sysDma = SYS_DMA_Initialize((SYS_MODULE_INIT *)&sysDmaInit);
     SYS_INT_VectorPrioritySet(INT_VECTOR_DMA0, INT_PRIORITY_LEVEL7);
-    SYS_INT_VectorSubprioritySet(INT_VECTOR_DMA0, INT_SUBPRIORITY_LEVEL1);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_DMA0, INT_SUBPRIORITY_LEVEL0);
     SYS_INT_VectorPrioritySet(INT_VECTOR_DMA1, INT_PRIORITY_LEVEL7);
     SYS_INT_VectorSubprioritySet(INT_VECTOR_DMA1, INT_SUBPRIORITY_LEVEL0);
 
@@ -1157,8 +1169,8 @@ void SYS_Initialize ( void* data )
     PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN);
     PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_ADC_END_OF_SCAN);
     
-    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_PRIORITY_LEVEL3);
-    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_SUBPRIORITY_LEVEL3);	
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_PRIORITY_LEVEL5);
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_SUBPRIORITY_LEVEL0);	
    
     /*Initialize ADC Module Level Interrupts */
     uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
@@ -1198,12 +1210,12 @@ void SYS_Initialize ( void* data )
     sysObj.drvTmr1 = DRV_TMR_Initialize(DRV_TMR_INDEX_1, (SYS_MODULE_INIT *)&drvTmr1InitData);
     sysObj.drvTmr2 = DRV_TMR_Initialize(DRV_TMR_INDEX_2, (SYS_MODULE_INIT *)&drvTmr2InitData);
 
-    SYS_INT_VectorPrioritySet(INT_VECTOR_T2, INT_PRIORITY_LEVEL3);
+    SYS_INT_VectorPrioritySet(INT_VECTOR_T2, INT_PRIORITY_LEVEL4);
     SYS_INT_VectorSubprioritySet(INT_VECTOR_T2, INT_SUBPRIORITY_LEVEL0);
     SYS_INT_VectorPrioritySet(INT_VECTOR_T5, INT_PRIORITY_LEVEL3);
-    SYS_INT_VectorSubprioritySet(INT_VECTOR_T5, INT_SUBPRIORITY_LEVEL2);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_T5, INT_SUBPRIORITY_LEVEL0);
     SYS_INT_VectorPrioritySet(INT_VECTOR_T7, INT_PRIORITY_LEVEL3);
-    SYS_INT_VectorSubprioritySet(INT_VECTOR_T7, INT_SUBPRIORITY_LEVEL3);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_T7, INT_SUBPRIORITY_LEVEL0);
  
  
      /* RTCC System Service Initialization Call */
@@ -1239,7 +1251,7 @@ void SYS_Initialize ( void* data )
 
     /*Setup the INT_SOURCE_EXTERNAL_4 and Enable it*/
     SYS_INT_VectorPrioritySet(INT_VECTOR_INT4, INT_PRIORITY_LEVEL7);
-    SYS_INT_VectorSubprioritySet(INT_VECTOR_INT4, INT_SUBPRIORITY_LEVEL3);
+    SYS_INT_VectorSubprioritySet(INT_VECTOR_INT4, INT_SUBPRIORITY_LEVEL0);
     SYS_INT_ExternalInterruptTriggerSet(INT_EXTERNAL_INT_SOURCE4,INT_EDGE_TRIGGER_FALLING);
     SYS_INT_SourceEnable(INT_SOURCE_EXTERNAL_4);
 

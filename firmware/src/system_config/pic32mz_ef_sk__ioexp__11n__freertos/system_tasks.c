@@ -94,7 +94,6 @@ static TaskHandle_t tcpipHandle;
 static TaskHandle_t appHandle;
 static TaskHandle_t netpHandle;
 static TaskHandle_t powerUIHandle;
-
 /*******************************************************************************
   Function:
     void SYS_Tasks ( void )
@@ -183,9 +182,8 @@ static void _SYS_Tasks ( void)
     while(1)
     {
         /* Maintain system services */
-//        SYS_DEVCON_Tasks(sysObj.sysDevcon);
-        /* Maintain system services */
         //SYS_RTCC_Tasks(sysObj.sysRtcc);
+        SYS_DEVCON_Tasks(sysObj.sysDevcon);
         /* Maintain the file system state machine. */
         SYS_FS_Tasks();
         SYS_CONSOLE_Tasks(sysObj.sysConsole0);

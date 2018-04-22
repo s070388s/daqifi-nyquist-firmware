@@ -116,6 +116,7 @@ extern "C" {
 typedef struct
 {
     SYS_MODULE_OBJ  drvFlash0;
+    SYS_MODULE_OBJ  sysDevcon;
     SYS_MODULE_OBJ  sysRtcc;
     SYS_MODULE_OBJ  sysTmr;
     SYS_MODULE_OBJ  sysDma;
