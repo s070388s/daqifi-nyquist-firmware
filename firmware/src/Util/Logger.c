@@ -113,10 +113,25 @@ int SYS_CMD_PRINT(const char* format, ...)
 }
 #endif
 
-void vAssertCalled( const char * pcFile, unsigned long ulLine )
+extern void vAssertCalled( const char * pcFile, unsigned long ulLine )
 {
-    LogMessage("Assert Called: %s %lu", pcFile, ulLine);
-    SYS_DEBUG_BreakPoint();
-    //SYS_RESET_SoftwareReset();
-}
+volatile char *pcFileName;
+volatile unsigned long ulLineNumber;
 
+	/* Prevent things that are useful to view in the debugger from being
+	optimised away. */
+	pcFileName = ( char * ) pcFile;
+	( void ) pcFileName;
+	ulLineNumber = ulLine;
+    SYS_DEBUG_BreakPoint();
+	/* Set ulLineNumber to 0 in the debugger to break out of this loop and
+	return to the line that triggered the assert. */
+	while( ulLineNumber != 0 )
+	{
+		__asm volatile( "NOP" );
+		__asm volatile( "NOP" );
+		__asm volatile( "NOP" );
+		__asm volatile( "NOP" );
+		__asm volatile( "NOP" );
+	}
+}
