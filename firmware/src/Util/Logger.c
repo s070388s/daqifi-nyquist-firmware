@@ -46,7 +46,7 @@ static int LogMessageFormatImpl(const char* format, va_list args)
 {
     //UNUSED(format);
     //UNUSED(args);
-
+   
     if (format == NULL)
     {
         return 0;

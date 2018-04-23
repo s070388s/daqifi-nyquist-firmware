@@ -112,62 +112,6 @@ void __attribute__((nomips16)) _general_exception_handler (XCPT_FRAME* const pXF
         SYS_DEBUG_BreakPoint();  // Stop here is in debugger.
     }
 }
-
-void __attribute__((nomips16)) _bootstrap_exception_handler(void)
-{
-       /* Mask off Mask of the ExcCode Field from the Cause Register
-    Refer to the MIPs Software User's manual */
-    _excep_code = (_CP0_GET_CAUSE() & 0x0000007C) >> 2;
-    _excep_addr = _CP0_GET_EPC();
-
-    SYS_DEBUG_PRINT(SYS_ERROR_FATAL, "\nTLB Exception (cause=%d, addr=%x).\n", 
-                _excep_code, _excep_addr);
-
-    while (1)
-    {
-        SYS_DEBUG_BreakPoint();
-        //TODO allow reset for production
-        //SYS_RESET_SoftwareReset();
-    }
-}        
-
-void _simple_tlb_refill_exception_handler(void)
-{
-       /* Mask off Mask of the ExcCode Field from the Cause Register
-    Refer to the MIPs Software User's manual */
-    _excep_code = (_CP0_GET_CAUSE() & 0x0000007C) >> 2;
-    _excep_addr = _CP0_GET_EPC();
-
-    SYS_DEBUG_PRINT(SYS_ERROR_FATAL, "\nTLB Exception (cause=%d, addr=%x).\n", 
-                    _excep_code, _excep_addr);
-
-    while (1)
-    {
-        SYS_DEBUG_BreakPoint();
-        //TODO allow reset for production
-        //SYS_RESET_SoftwareReset();
-    }
-}  
-
-void _cache_err_exception_handler(void)
-{
-       /* Mask off Mask of the ExcCode Field from the Cause Register
-    Refer to the MIPs Software User's manual */
-    _excep_code = (_CP0_GET_CAUSE() & 0x0000007C) >> 2;
-    _excep_addr = _CP0_GET_EPC();
-
-    SYS_DEBUG_PRINT(SYS_ERROR_FATAL, "\nTLB Exception (cause=%d, addr=%x).\n", 
-                _excep_code, _excep_addr);
-
-    while (1)
-    {
-        SYS_DEBUG_BreakPoint();
-        //TODO allow reset for production
-        //SYS_RESET_SoftwareReset();
-    }
-}  
-
-
 /*******************************************************************************
  End of File
 */
