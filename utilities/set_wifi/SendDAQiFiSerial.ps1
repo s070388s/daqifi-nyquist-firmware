@@ -41,26 +41,26 @@ Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 $port.WriteLine('SYSTem:COMMunicate:LAN:SAVE')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-# Rebooting is no longer necessary after applying network settings
+# Rebooting should be no longer necessary after applying network settings
 
-#Write-Host "Rebooting"
-#$port.WriteLine('SYSTem:REBOOT')
+Write-Host "Rebooting"
+$port.WriteLine('SYSTem:REBOOT')
 
-#Write-Host "Closing Connection."
-#$port.close() #close serial connection
+Write-Host "Closing Connection."
+$port.close() #close serial connection
 
-#Write-Host "Waiting for COM port..."
-#do{
-#	Start-Sleep -Milliseconds 1000 #wait 1 seconds
-#	$port.open()
-#}
-#while($port.IsOpen -ne 1)
+Write-Host "Waiting for COM port..."
+do{
+	Start-Sleep -Milliseconds 1000 #wait 1 seconds
+	$port.open()
+}
+while($port.IsOpen -ne 1)
 
-#Write-Host "Opening Connection..."
+Write-Host "Opening Connection..."
 
-#Write-Host "Powering on."
-#$port.WriteLine('SYSTem:POWer:STATe 1')
-#Start-Sleep -Milliseconds 2000 #wait 2 seconds
+Write-Host "Powering on."
+$port.WriteLine('SYSTem:POWer:STATe 1')
+Start-Sleep -Milliseconds 2000 #wait 2 seconds
 
 Write-Host "Enabling all ADC channels."
 $port.WriteLine('CONFigure:ADC:CHANnel 0,1')
