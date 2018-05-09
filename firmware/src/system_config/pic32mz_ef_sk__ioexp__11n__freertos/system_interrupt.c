@@ -75,12 +75,14 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
          void IntHandlerChangeNotification_PortB(void)
 {
     ++g_BoardData.InISR;
+    PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_3); // Read port to clear mismatch condition
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
     --g_BoardData.InISR;
 }
          void IntHandlerChangeNotification_PortF(void)
 {
     ++g_BoardData.InISR;
+    PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_2); // Read port to clear mismatch condition
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
     --g_BoardData.InISR;
 }
