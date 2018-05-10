@@ -169,12 +169,6 @@ void APP_Initialize(void)
 	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
-
-    WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
-    
-    // TODO: Move USB into its own task
-    UsbCdc_Initialize();   
-
 }
 
 
@@ -187,20 +181,17 @@ void APP_Initialize(void)
  */
 void APP_Tasks(void)
 {
-
-
-	UsbCdc_ProcessState(); 
-    // DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);    // Does this need to be here? It is called from streaming task.
-    // DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);  // Added this line to be able to debug manual writes to the DIO with MPLAB
-    ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
-    Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
-    
+	UsbCdc_ProcessState(); 	
+    WifiTasks();    
     // Dont do anything until the board powers on
 //    if (g_BoardData.PowerData.powerState == MICRO_ON)
 //    {
 //        return;
 //    }
-    WifiTasks();
+
+    ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+    Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+
 }
 
 /*******************************************************************************

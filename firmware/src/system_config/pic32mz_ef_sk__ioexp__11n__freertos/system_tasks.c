@@ -222,6 +222,7 @@ void _DRV_SDCARD_Tasks(void)
 void _USB_Tasks(void)
 {
     portTASK_USES_FLOATING_POINT();
+    UsbCdc_Initialize();
     while(1)
     {
         /* USBHS Driver Task Routine */ 
@@ -231,6 +232,7 @@ void _USB_Tasks(void)
         /* USB Device layer tasks routine */ 
         USB_DEVICE_Tasks(sysObj.usbDevObject0);
         
+        //UsbCdc_ProcessState();
         
         vTaskDelay(2 / portTICK_PERIOD_MS);
     }
@@ -238,8 +240,10 @@ void _USB_Tasks(void)
 void _TCPIP_Tasks(void)
 {
     portTASK_USES_FLOATING_POINT();
+    WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
     while(1)
     {
+        //WifiTasks();
         /* Maintain the TCP/IP Stack*/
         TCPIP_STACK_Task(sysObj.tcpip);
         vTaskDelay(1 / portTICK_PERIOD_MS);

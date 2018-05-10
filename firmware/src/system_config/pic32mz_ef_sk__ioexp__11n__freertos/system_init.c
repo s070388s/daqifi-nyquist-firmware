@@ -1169,7 +1169,7 @@ void SYS_Initialize ( void* data )
     PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN);
     PLIB_INT_SourceEnable(INT_ID_0,INT_SOURCE_ADC_END_OF_SCAN);
     
-    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_PRIORITY_LEVEL5);
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_PRIORITY_LEVEL3);
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN, INT_SUBPRIORITY_LEVEL0);	
    
     /*Initialize ADC Module Level Interrupts */
@@ -1219,7 +1219,7 @@ void SYS_Initialize ( void* data )
  
  
      /* RTCC System Service Initialization Call */
-    sysObj.sysRtcc = SYS_RTCC_Initialize( );
+    //sysObj.sysRtcc = SYS_RTCC_Initialize( );
     /* Initialize USB Driver */ 
     sysObj.drvUSBObject = DRV_USBHS_Initialize(DRV_USBHS_INDEX_0, (SYS_MODULE_INIT *) &drvUSBHSInit);
     
@@ -1250,7 +1250,7 @@ void SYS_Initialize ( void* data )
     SYS_INT_Initialize();
 
     /*Setup the INT_SOURCE_EXTERNAL_4 and Enable it*/
-    SYS_INT_VectorPrioritySet(INT_VECTOR_INT4, INT_PRIORITY_LEVEL7);
+    SYS_INT_VectorPrioritySet(INT_VECTOR_INT4, INT_PRIORITY_LEVEL3);
     SYS_INT_VectorSubprioritySet(INT_VECTOR_INT4, INT_SUBPRIORITY_LEVEL0);
     SYS_INT_ExternalInterruptTriggerSet(INT_EXTERNAL_INT_SOURCE4,INT_EDGE_TRIGGER_FALLING);
     SYS_INT_SourceEnable(INT_SOURCE_EXTERNAL_4);
