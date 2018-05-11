@@ -451,7 +451,7 @@ void TcpServer_ProcessState()
                     client->readBufferLength += length;
                     client->readBuffer[client->readBufferLength] = '\0';
 
-                    uint8_t j = 0;
+                    size_t j = 0;
                     for (j=0; j<client->readBufferLength; ++j)
                     {
                         microrl_insert_char (&client->console, client->readBuffer[j]);
