@@ -232,7 +232,7 @@ void _USB_Tasks(void)
         /* USB Device layer tasks routine */ 
         USB_DEVICE_Tasks(sysObj.usbDevObject0);
         
-        //UsbCdc_ProcessState();
+        UsbCdc_ProcessState();
         
         vTaskDelay(2 / portTICK_PERIOD_MS);
     }
@@ -243,7 +243,7 @@ void _TCPIP_Tasks(void)
     WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
     while(1)
     {
-        //WifiTasks();
+        WifiTasks();
         /* Maintain the TCP/IP Stack*/
         TCPIP_STACK_Task(sysObj.tcpip);
         vTaskDelay(1 / portTICK_PERIOD_MS);

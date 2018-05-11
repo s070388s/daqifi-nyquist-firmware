@@ -180,9 +180,7 @@ void APP_Initialize(void)
     See prototype in app.h.
  */
 void APP_Tasks(void)
-{
-	UsbCdc_ProcessState(); 	
-    WifiTasks();    
+{   
     // Dont do anything until the board powers on
 //    if (g_BoardData.PowerData.powerState == MICRO_ON)
 //    {
