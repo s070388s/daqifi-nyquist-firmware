@@ -61,6 +61,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "state/data/BoardData.h"
 #include "state/board/BoardConfig.h"
+#include "UsbCdc/UsbCdc.h"
+#include "HAL/Wifi/WifiApi.h"
 
 // *****************************************************************************
 // *****************************************************************************
