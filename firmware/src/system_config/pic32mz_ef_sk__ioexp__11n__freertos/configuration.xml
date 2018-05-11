@@ -1828,7 +1828,7 @@
       <Template dnOrder="25">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">065F8D14F0F232148033B58C5C92CAD8</Checksum>
+        <Checksum dnOrder="2">211EF0527613C489FF57D38B34CD9172</Checksum>
         <ProjectFileChecksum dnOrder="3">8E6BD03CB705E785DEB53D25C319E3D5</ProjectFileChecksum>
       </Template>
       <Template dnOrder="26">
