@@ -11,12 +11,12 @@
 #include "tcpip/tcpip.h"
 #include "Util/ArrayWrapper.h"
 #include "../src/state/data/BoardData.h"
-
+#include "tcpip/src/tcpip_private.h"
 
 extern const NanopbFlagsArray fields_discovery;
 extern size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen);
 
-size_t DAQiFi_TCPIP_ANNOUNCE_Send(uint8_t *buffer, size_t bufferLen)
+size_t DAQiFi_TCPIP_ANNOUNCE_Create(uint8_t *buffer, size_t bufferLen)
 {
     size_t count = Nanopb_Encode(&g_BoardData, &fields_discovery, buffer, DaqifiOutMessage_size);
     return (count);

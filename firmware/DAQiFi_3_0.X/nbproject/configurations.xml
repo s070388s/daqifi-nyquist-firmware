@@ -2049,6 +2049,10 @@
         <C32Global>
         </C32Global>
       </item>
+      <item path="../../../../../framework/tcpip/src/tcpip_announce.c"
+            ex="true"
+            overriding="false">
+      </item>
       <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/ISR_Support.h"
             ex="true"
             overriding="false">
@@ -2098,7 +2102,7 @@
         </C32Global>
       </item>
       <item path="../src/HAL/Announce/DAQiFi_tcpip_announce.c"
-            ex="true"
+            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -2113,7 +2117,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/HAL/Announce/tcpip_announce.c" ex="true" overriding="false">
+      <item path="../src/HAL/Announce/tcpip_announce.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
