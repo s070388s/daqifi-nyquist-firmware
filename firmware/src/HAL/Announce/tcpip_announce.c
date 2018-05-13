@@ -78,7 +78,7 @@ typedef enum
 }TCPIP_ANNOUNCE_EVENT_TYPE;
     
 static TCPIP_ANNOUNCE_DCPT announceDcpt;
-
+static bool sendMicrochipAnnounce = false;    // DAQiFi modification
 
 static int                  announceInitCount = 0;      // module initialization count
 
@@ -477,7 +477,6 @@ static bool TCPIP_ANNOUNCE_SendIf(int netIx, TCPIP_ANNOUNCE_DCPT* pDcpt, uint8_t
     annSkt = pDcpt->skt;
     
     uint8_t buffer[TCPIP_ANNOUNCE_MAX_PAYLOAD]; // DAQiFi Modification
-    size_t dataLen = 0; // DAQiFi Modification
 
     pNetIf = (TCPIP_NET_IF*)TCPIP_STACK_IndexToNet(netIx);
 
@@ -488,43 +487,51 @@ static bool TCPIP_ANNOUNCE_SendIf(int netIx, TCPIP_ANNOUNCE_DCPT* pDcpt, uint8_t
         {   // couldn't allocate buffer; try later
             return false;
         }
-//          DAQiFi Modification
-
-        DAQiFi_TCPIP_ANNOUNCE_Update (pNetIf);
-        dataLen = DAQiFi_TCPIP_ANNOUNCE_Create(buffer, sizeof(buffer));
         
-//        annDcpt.pMsg = (TCPIP_ANNOUNCE_MESSAGE*)pAnnBuffer;
-//        annDcpt.pNetIf = pNetIf;
-//        annDcpt.msgLen = 0;
-//        annDcpt.leftLen = pDcpt->txBuffSize;
-//        annDcpt.pWrPtr = pAnnBuffer;
-//        annDcpt.usrCback = pDcpt->usrCback;
-//
-//        pTDcpt = &annDcpt.pMsg->truncDcpt;
-//        if(_AnnounceFieldProcess(&annDcpt))
-//        {   // everything went well
-//            // skip the truncation field
-//            annDcpt.msgLen -= sizeof(*pTDcpt);
-//            outData = (uint8_t*)(pTDcpt + 1);
-//            isTruncated = false;
-//        }
-//        else
-//        {   // it's truncated, not everything went through
-//            outData = (uint8_t*)pTDcpt;
-//            isTruncated = true;
-//        }
+        if(sendMicrochipAnnounce)   // DAQiFi Modification
+        {
+            annDcpt.pMsg = (TCPIP_ANNOUNCE_MESSAGE*)pAnnBuffer;
+            annDcpt.pNetIf = pNetIf;
+            annDcpt.msgLen = 0;
+            annDcpt.leftLen = pDcpt->txBuffSize;
+            annDcpt.pWrPtr = pAnnBuffer;
+            annDcpt.usrCback = pDcpt->usrCback;
 
+            pTDcpt = &annDcpt.pMsg->truncDcpt;
+            if(_AnnounceFieldProcess(&annDcpt))
+            {   // everything went well
+                // skip the truncation field
+                annDcpt.msgLen -= sizeof(*pTDcpt);
+                outData = (uint8_t*)(pTDcpt + 1);
+                isTruncated = false;
+            }
+            else
+            {   // it's truncated, not everything went through
+                outData = (uint8_t*)pTDcpt;
+                isTruncated = true;
+            }
+        }
+        else
+        {
+            // DAQiFi Modification
+            DAQiFi_TCPIP_ANNOUNCE_Update (pNetIf);
+            annDcpt.msgLen = DAQiFi_TCPIP_ANNOUNCE_Create(buffer, sizeof(buffer));
+            outData = buffer;
+        }
+        
         TCPIP_UDP_SocketNetSet (annSkt, pNetIf);
         ifAdd.Val = _TCPIPStackNetAddress(pNetIf);
         TCPIP_UDP_SourceIPAddressSet(annSkt, IP_ADDRESS_TYPE_IPV4, (IP_MULTI_ADDRESS*)&ifAdd);
-        TCPIP_UDP_ArrayPut (annSkt, buffer, dataLen);
+        TCPIP_UDP_ArrayPut (annSkt, outData, annDcpt.msgLen);
 
-//          DAQiFi Modification        
-//        if(!isTruncated && pDcpt->usrCback != 0)
-//        {   // call the user handler
-//            (*pDcpt->usrCback)(pNetIf, annSkt);
-//        }
-        
+        if(sendMicrochipAnnounce)   // DAQiFi Modification
+        {
+            //  DAQiFi Modification        
+            if(!isTruncated && pDcpt->usrCback != 0)
+            {   // call the user handler
+                (*pDcpt->usrCback)(pNetIf, annSkt);
+            }
+        }
         TCPIP_UDP_Flush (annSkt);
     }
 
@@ -566,7 +573,7 @@ static void _TCPIP_AnnounceSocketRxSignalHandler(UDP_SOCKET hUDP, TCPIP_NET_HAND
 
 static void TCPIP_ANNOUNCE_Timeout(void)
 {
-    uint8_t         discQuery;
+    uint8_t         discQuery[7];   // DAQiFi modification
     UDP_SOCKET      s;
     UDP_SOCKET_INFO sktInfo;
     
@@ -580,13 +587,20 @@ static void TCPIP_ANNOUNCE_Timeout(void)
         }
 			
         // See if this is a discovery query or reply
-        TCPIP_UDP_Get(s, &discQuery);
-        if(discQuery == 'D')
+        TCPIP_UDP_ArrayGet(s, discQuery, sizeof(discQuery)); // DAQiFi modification
+        if(memcmp(discQuery, (const void *)"Discove", sizeof(discQuery))==0)    // DAQiFi modification
         {   // We received a discovery request, reply
-            TCPIP_UDP_SocketInfoGet(s, &sktInfo);
-            // fake a legitimate DHCP event on that interface	
-            ANNOUNCE_Notify (sktInfo.hNet, DHCP_EVENT_BOUND, (const void*)TCPIP_ANNOUNCE_EVENT_REMOTE_REQUEST);
+            sendMicrochipAnnounce = true; // DAQiFi Modification
         }
+        else if(memcmp(discQuery, (const void *)"DAQiFi?", sizeof(discQuery))==0)    // Begin DAQiFi modification
+        {
+            // We received a DAQiFi message
+            sendMicrochipAnnounce = false;   
+        }
+        
+        TCPIP_UDP_SocketInfoGet(s, &sktInfo);
+        // fake a legitimate DHCP event on that interface	
+        ANNOUNCE_Notify (sktInfo.hNet, DHCP_EVENT_BOUND, (const void*)TCPIP_ANNOUNCE_EVENT_REMOTE_REQUEST);
         TCPIP_UDP_Discard(s);
 	}	
 
