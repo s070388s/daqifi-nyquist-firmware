@@ -189,6 +189,7 @@ void APP_Tasks(void)
 
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+    WifiTasks();
 
 }
 

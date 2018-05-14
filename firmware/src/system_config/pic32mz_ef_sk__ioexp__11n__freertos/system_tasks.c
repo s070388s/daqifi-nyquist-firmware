@@ -118,7 +118,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for DRV_SDCARD Tasks. */
     xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
                 "DRV_SDCARD Tasks",
-                1024, NULL, 1, NULL);
+                1024, NULL, 2, NULL);
 
 
  
@@ -133,12 +133,12 @@ void SYS_Tasks ( void )
     /* Create OS Thread for TCPIP Tasks. */
     xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
                 "TCPIP Tasks",
-                2048, NULL, 4, &tcpipHandle);
+                2048, NULL, 1, &tcpipHandle);
 
     /* Create OS Thread for Net Pres Tasks. */
     xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
                 "Net Pres Tasks",
-                1024, NULL, 1, &netpHandle);
+                1024, NULL, 2, &netpHandle);
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
@@ -180,11 +180,10 @@ static void _SYS_Tasks ( void)
 //    UNUSED(uxHighWaterMark4);
 //    UNUSED(uxHighWaterMark5);
     
-    portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* Maintain system services */
-        //SYS_RTCC_Tasks(sysObj.sysRtcc);
+        SYS_RTCC_Tasks(sysObj.sysRtcc);
         SYS_DEVCON_Tasks(sysObj.sysDevcon);
         /* Maintain the file system state machine. */
         SYS_FS_Tasks();
@@ -223,7 +222,6 @@ void _DRV_SDCARD_Tasks(void)
 
 void _USB_Tasks(void)
 {
-    portTASK_USES_FLOATING_POINT();
     UsbCdc_Initialize();
     while(1)
     {
@@ -236,29 +234,26 @@ void _USB_Tasks(void)
         
         UsbCdc_ProcessState();
         
-        vTaskDelay(2 / portTICK_PERIOD_MS);
+        vTaskDelay(1 / portTICK_PERIOD_MS);
     }
  }
 void _TCPIP_Tasks(void)
 {
-    portTASK_USES_FLOATING_POINT();
-    WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
+
     while(1)
     {
-        WifiTasks();
+
         /* Maintain the TCP/IP Stack*/
         TCPIP_STACK_Task(sysObj.tcpip);
-        vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }
 void _NET_PRES_Tasks(void)
 {
-    portTASK_USES_FLOATING_POINT();
     while(1)
     {
         /* Maintain the TCP/IP Stack*/
         NET_PRES_Tasks(sysObj.netPres);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
@@ -273,10 +268,11 @@ void _NET_PRES_Tasks(void)
 static void _APP_Tasks(void)
 {
     portTASK_USES_FLOATING_POINT();
+    WifiInit(&(g_BoardRuntimeConfig.wifiSettings.settings.wifi));
     while(1)
     {
         APP_Tasks();
-        vTaskDelay(5 / portTICK_PERIOD_MS);
+        vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }
 

@@ -2049,10 +2049,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../framework/tcpip/src/tcpip_announce.c"
-            ex="true"
-            overriding="false">
-      </item>
       <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/ISR_Support.h"
             ex="true"
             overriding="false">
