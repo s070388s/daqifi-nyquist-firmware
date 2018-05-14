@@ -153,24 +153,9 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
 //        flags.Data[3] = DaqifiOutMessage_pwr_status_tag;
 //        flags.Data[4] = DaqifiOutMessage_temp_status_tag;
         flags.Size = 1;
-    }
-    
-    if (AINDataAvailable)
+    }else
     {
-        flags.Data[flags.Size] = DaqifiOutMessage_analog_in_data_tag;
-        //flags.Data[flags.Size + 1] = DaqifiOutMessage_analog_in_data_b_tag;   
-        //flags.Data[flags.Size + 2] = DaqifiOutMessage_analog_in_port_rse_tag;
-        //flags.Data[flags.Size + 3] = DaqifiOutMessage_analog_in_port_enabled_tag;
-        //flags.Data[flags.Size + 4] = DaqifiOutMessage_analog_in_port_range_tag;
-        //flags.Data[flags.Size + 5] = DaqifiOutMessage_analog_in_res_tag;
-        flags.Size += 1;
-    }
-    
-    if (DIODataAvailable)
-    {
-        flags.Data[flags.Size] = DaqifiOutMessage_digital_data_tag;
-        flags.Data[flags.Size + 1] = DaqifiOutMessage_digital_port_dir_tag;
-        flags.Size += 2;
+        return;
     }
     
     // Decide how many samples we can send out
@@ -216,45 +201,71 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         return;
     }
     
-    // Generate a packet
-    // TODO: ASCII Encoder
-    if(flags.Size>0){
-        size_t size = 0;
-        if (runtimeConfig->StreamingConfig.Encoding == Streaming_Json)
+    while(maxSize > 0)
+    {
+        AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
+        DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
+
+        if (AINDataAvailable)
         {
-            size = Json_Encode(boardData, &flags, buffer, maxSize);
-        }
-        else
-        {
-            size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
+            flags.Data[flags.Size] = DaqifiOutMessage_analog_in_data_tag;
+            //flags.Data[flags.Size + 1] = DaqifiOutMessage_analog_in_data_b_tag;   
+            //flags.Data[flags.Size + 2] = DaqifiOutMessage_analog_in_port_rse_tag;
+            //flags.Data[flags.Size + 3] = DaqifiOutMessage_analog_in_port_enabled_tag;
+            //flags.Data[flags.Size + 4] = DaqifiOutMessage_analog_in_port_range_tag;
+            //flags.Data[flags.Size + 5] = DaqifiOutMessage_analog_in_res_tag;
+            flags.Size += 1;
         }
 
-        // Write the packet out
-        if (size > 0)
+        if (DIODataAvailable)
         {
-            if (hasUsb)
+            flags.Data[flags.Size] = DaqifiOutMessage_digital_data_tag;
+            flags.Data[flags.Size + 1] = DaqifiOutMessage_digital_port_dir_tag;
+            flags.Size += 2;
+        }
+
+
+
+        // Generate a packet
+        // TODO: ASCII Encoder
+        if(flags.Size>0){
+            size_t size = 0;
+            if (runtimeConfig->StreamingConfig.Encoding == Streaming_Json)
             {
-                memcpy(runtimeConfig->usbSettings.writeBuffer + runtimeConfig->usbSettings.writeBufferLength, buffer, size);
-                runtimeConfig->usbSettings.writeBufferLength += size;
+                size = Json_Encode(boardData, &flags, buffer, maxSize);
+            }
+            else
+            {
+                size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
             }
 
-            if (hasWifi)
+            // Write the packet out
+            if (size > 0)
             {
-                for (i=0; i<WIFI_MAX_CLIENT; ++i)
+                if (hasUsb)
                 {
-                    if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
+                    memcpy(runtimeConfig->usbSettings.writeBuffer + runtimeConfig->usbSettings.writeBufferLength, buffer, size);
+                    runtimeConfig->usbSettings.writeBufferLength += size;
+                }
+
+                if (hasWifi)
+                {
+                    for (i=0; i<WIFI_MAX_CLIENT; ++i)
                     {
-                        memcpy(runtimeConfig->serverData.clients[i].writeBuffer + runtimeConfig->serverData.clients[i].writeBufferLength, buffer, size);
-                        runtimeConfig->serverData.clients[i].writeBufferLength += size;
+                        if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
+                        {
+                            memcpy(runtimeConfig->serverData.clients[i].writeBuffer + runtimeConfig->serverData.clients[i].writeBufferLength, buffer, size);
+                            runtimeConfig->serverData.clients[i].writeBufferLength += size;
+                        }
                     }
                 }
+                maxSize = maxSize - size;
+            }else
+            {
+                // We don't have enough available buffer to encode another message
+                // Set maxSize to 0 to break out of loop
+                maxSize = 0;
             }
-        }else
-        {
-            // TODO: Add error to the error log and/or some other error handling
-            //  If we get here, we have a flag to encode, but our encoded size = 0 so something went wrong
-            //while(1);
-            // LogMessage("Stream overflow streaming.c ln 251\n\r");
         }
     }
 }
