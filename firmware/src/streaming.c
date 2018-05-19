@@ -140,6 +140,12 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
     bool AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
     bool DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
     
+    // For diagnostic purposes, setup DIO pin 1
+    static DIORuntimeConfig DIOConfig;
+    DIOConfig.IsInput = false;
+    DIOConfig.IsReadOnly = false;
+    DIOConfig.Value = !DIOConfig.Value;
+    
     // Decide what to write
     NanopbFlagsArray flags;
     
@@ -201,7 +207,7 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         return;
     }
     
-    while(maxSize > 0)
+    while(maxSize > 0 && (AINDataAvailable || DIODataAvailable))
     {
         AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
         DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
@@ -242,6 +248,9 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
             // Write the packet out
             if (size > 0)
             {
+                // Toggle DIO pin for diagnostic use
+                DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[1], &DIOConfig);
+                
                 if (hasUsb)
                 {
                     memcpy(runtimeConfig->usbSettings.writeBuffer + runtimeConfig->usbSettings.writeBufferLength, buffer, size);

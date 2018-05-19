@@ -3,6 +3,7 @@
 #include "ADC/AD7609.h"
 #include "ADC/AD7173.h"
 #include "ADC/MC12bADC.h"
+#include "DIO.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -300,14 +301,23 @@ uint8_t ADC_FindModuleIndex(const AInModArray* boardConfig, const AInModule* mod
 
 void ADC_ConversionComplete(const AInModule* module)
 {
+    
     AInSampleArray samples;
     samples.Size = 0;
     int i=0;
     
+    // For diagnostic purposes, setup DIO pin 0
+    static DIORuntimeConfig DIOConfig;
+    DIOConfig.IsInput = false;
+    DIOConfig.IsReadOnly = false;
+    DIOConfig.Value = !DIOConfig.Value;
+    // Toggle DIO pin for diagnostic use
+    DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[0], &DIOConfig);
+    
     uint8_t moduleId = ADC_FindModuleIndex(&g_BoardConfig.AInModules, module);
     
     g_BoardData.AInState.Data[moduleId].AInTaskState = AINTASK_CONVCOMPLETE;
-    
+       
     // Read samples
     ADC_ReadSamples(&samples, module, &g_BoardRuntimeConfig.AInModules.Data[moduleId]);
     

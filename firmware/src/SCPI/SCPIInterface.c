@@ -33,9 +33,9 @@
 #define SCPI_IDN3 NULL
 #define SCPI_IDN4 "01-02"
 
-// Define force bootloader RAM flag location
-//#define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFF0 
-//#define FORCE_BOOTLOADER_FLAG_VALUE 0x04CEB001
+// These are now defined in the gcc configuration
+//#define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFE0 
+//#define FORCE_BOOTLOADER_FLAG_VALUE 0x04CEB007
 
 // Declare force bootloader RAM flag location
 volatile uint32_t force_bootloader_flag __attribute__((persistent, coherent, address(FORCE_BOOTLOADER_FLAG_ADDR)));
