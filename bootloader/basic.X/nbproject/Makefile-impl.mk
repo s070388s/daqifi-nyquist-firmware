@@ -31,7 +31,7 @@ DEFAULTCONF=usbdevice_pic32mz_ef_sk
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=sdcard_pic32mz_ef_sk_meb2 udp_pic32mx_eth_sk udp_pic32mz_ef_sk udp_pic32mz_da_sk_intddr usart_pic32mx_eth_sk usart_pic32mz_ef_sk usart_pic32mz_da_sk_intddr usbdevice_pic32mx_usb_sk2 usbdevice_pic32mz_ef_sk usbhost_pic32mx_usb_sk2 usbhost_pic32mz_ef_sk 
+ALLCONFS=usbdevice_pic32mz_ef_sk 
 
 
 # build
@@ -45,33 +45,13 @@ ALLCONFS=sdcard_pic32mz_ef_sk_meb2 udp_pic32mx_eth_sk udp_pic32mz_ef_sk udp_pic3
 
 # clobber
 .clobber-impl: .clobber-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=sdcard_pic32mz_ef_sk_meb2 clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=udp_pic32mx_eth_sk clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=udp_pic32mz_ef_sk clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=udp_pic32mz_da_sk_intddr clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usart_pic32mx_eth_sk clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usart_pic32mz_ef_sk clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usart_pic32mz_da_sk_intddr clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbdevice_pic32mx_usb_sk2 clean
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbdevice_pic32mz_ef_sk clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbhost_pic32mx_usb_sk2 clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbhost_pic32mz_ef_sk clean
 
 
 
 # all
 .all-impl: .all-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=sdcard_pic32mz_ef_sk_meb2 build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=udp_pic32mx_eth_sk build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=udp_pic32mz_ef_sk build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=udp_pic32mz_da_sk_intddr build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usart_pic32mx_eth_sk build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usart_pic32mz_ef_sk build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usart_pic32mz_da_sk_intddr build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbdevice_pic32mx_usb_sk2 build
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbdevice_pic32mz_ef_sk build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbhost_pic32mx_usb_sk2 build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=usbhost_pic32mz_ef_sk build
 
 
 
