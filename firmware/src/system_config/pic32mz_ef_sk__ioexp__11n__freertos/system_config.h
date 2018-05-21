@@ -267,7 +267,7 @@ int LogMessage(const char* format, ...);
 #define DRV_NVM_INTERRUPT_SOURCE      	INT_SOURCE_FLASH_CONTROL
 
 #define DRV_NVM_MEDIA_SIZE              64
-#define DRV_NVM_MEDIA_START_ADDRESS     0x9D018000
+#define DRV_NVM_MEDIA_START_ADDRESS     0x9D020000
 
 #define DRV_NVM_ERASE_WRITE_ENABLE
 

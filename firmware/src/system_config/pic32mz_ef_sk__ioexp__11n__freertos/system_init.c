@@ -155,7 +155,7 @@ const DRV_NVM_INIT drvNvmInit =
     .nvmID = NVM_ID_0,
     .interruptSource = INT_SOURCE_FLASH_CONTROL,
 
-    .mediaStartAddress = 0x9D000000,
+    .mediaStartAddress = 0x9D020000,
     .nvmMediaGeometry = (SYS_FS_MEDIA_GEOMETRY *)&NVMGeometry
 
 };
