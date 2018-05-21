@@ -28,7 +28,7 @@
 
 #define UNUSED(x) (void)(x)
 
-#define SCPI_IDN1 "DAQifi"
+#define SCPI_IDN1 "DAQiFi"
 #define SCPI_IDN2 "Nq1"
 #define SCPI_IDN3 NULL
 #define SCPI_IDN4 "01-02"
