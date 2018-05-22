@@ -141,10 +141,10 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
     bool DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
     
     // For diagnostic purposes, setup DIO pin 1
-    static DIORuntimeConfig DIOConfig;
-    DIOConfig.IsInput = false;
-    DIOConfig.IsReadOnly = false;
-    DIOConfig.Value = !DIOConfig.Value;
+    //TODO: DAQiFi For diagnostic purposes, setup DIO pin 1
+    g_BoardRuntimeConfig.DIOChannels.Data[1].IsInput = false;
+    g_BoardRuntimeConfig.DIOChannels.Data[1].IsReadOnly = false;
+    g_BoardRuntimeConfig.DIOChannels.Data[1].Value = !g_BoardRuntimeConfig.DIOChannels.Data[1].Value;
     
     // Decide what to write
     NanopbFlagsArray flags;
@@ -249,7 +249,7 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
             if (size > 0)
             {
                 // Toggle DIO pin for diagnostic use
-                DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[1], &DIOConfig);
+                DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[1], &g_BoardRuntimeConfig.DIOChannels.Data[1]);
                 
                 if (hasUsb)
                 {

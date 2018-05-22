@@ -233,6 +233,13 @@ bool ADC_ReadSamples(AInSampleArray* samples, const AInModule* module, AInModule
 
 bool ADC_TriggerConversion(const AInModule* module)
 {
+    //TODO: DAQiFi For diagnostic purposes, setup DIO pin 2
+    g_BoardRuntimeConfig.DIOChannels.Data[2].IsInput = false;
+    g_BoardRuntimeConfig.DIOChannels.Data[2].IsReadOnly = false;
+    g_BoardRuntimeConfig.DIOChannels.Data[2].Value = !g_BoardRuntimeConfig.DIOChannels.Data[2].Value;
+    // Toggle DIO pin for diagnostic use
+    DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[2], &g_BoardRuntimeConfig.DIOChannels.Data[2]);
+    
     uint8_t moduleId = ADC_FindModuleIndex(&g_BoardConfig.AInModules, module);
     
     POWER_STATE powerState = g_BoardData.PowerData.powerState;
@@ -305,14 +312,13 @@ void ADC_ConversionComplete(const AInModule* module)
     AInSampleArray samples;
     samples.Size = 0;
     int i=0;
-    
-    // For diagnostic purposes, setup DIO pin 0
-    static DIORuntimeConfig DIOConfig;
-    DIOConfig.IsInput = false;
-    DIOConfig.IsReadOnly = false;
-    DIOConfig.Value = !DIOConfig.Value;
+        
+    //TODO: DAQiFi For diagnostic purposes, setup DIO pin 0
+    g_BoardRuntimeConfig.DIOChannels.Data[0].IsInput = false;
+    g_BoardRuntimeConfig.DIOChannels.Data[0].IsReadOnly = false;
+    g_BoardRuntimeConfig.DIOChannels.Data[0].Value = !g_BoardRuntimeConfig.DIOChannels.Data[0].Value;
     // Toggle DIO pin for diagnostic use
-    DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[0], &DIOConfig);
+    DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[0], &g_BoardRuntimeConfig.DIOChannels.Data[0]);
     
     uint8_t moduleId = ADC_FindModuleIndex(&g_BoardConfig.AInModules, module);
     

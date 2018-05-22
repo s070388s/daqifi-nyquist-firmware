@@ -206,19 +206,24 @@ void IntHandlerDrvAdcEOS(void)
 
     // Clear EOS interrupt flag in INT reg
     PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_END_OF_SCAN);
+
     
-    uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
-    UNUSED(dummyADCCON2);
-    
-    g_BoardData.PowerData.MCP73871Data.chargeAllowed = true;
-    MCP73871_ChargeEnable(g_BoardConfig.PowerConfig.MCP73871Config,
-            &g_BoardData.PowerData.MCP73871Data,
-            &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars,
-            true, g_BoardData.PowerData.pONBattPresent);
-    
-    // Tell the app to read the results
-    const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
-    ADC_ConversionComplete(module);
+    // Apparently something else might share this interrupt, so check to make sure the scan is complete!
+    if(PLIB_ADCHS_AnalogInputScanIsComplete(ADCHS_ID_0))
+    {
+        //uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
+        //UNUSED(dummyADCCON2);
+        
+        g_BoardData.PowerData.MCP73871Data.chargeAllowed = true;
+        MCP73871_ChargeEnable(g_BoardConfig.PowerConfig.MCP73871Config,
+                &g_BoardData.PowerData.MCP73871Data,
+                &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars,
+                true, g_BoardData.PowerData.pONBattPresent);
+
+        // Tell the app to read the results
+        const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
+        ADC_ConversionComplete(module);
+    }
     
     --g_BoardData.InISR;
 }

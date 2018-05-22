@@ -82,7 +82,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_0,
-                         ADCHS_CHANNEL_SYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_TRIGGER_UNSYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -125,7 +125,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_1,
-                         ADCHS_CHANNEL_SYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_TRIGGER_UNSYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -167,7 +167,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_2,
-                         ADCHS_CHANNEL_SYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_TRIGGER_UNSYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -209,7 +209,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_3,
-                         ADCHS_CHANNEL_SYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_TRIGGER_UNSYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
@@ -251,7 +251,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelTriggerSampleSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_4,
-                         ADCHS_CHANNEL_SYNC_SAMPLING
+                         ADCHS_CHANNEL_SYNC_TRIGGER_UNSYNC_SAMPLING
                          ))
                          { while(1);}
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
