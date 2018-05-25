@@ -1,19 +1,19 @@
 #include "BoardData.h"
 
-#include "Util/FreeRTOSLockProvider.h"
+#include "Util/NullLockProvider.h"
 #include "../../HAL/ADC.h"
 BoardData __attribute__((coherent)) g_BoardData;
 
 void InitializeBoardData(BoardData* boardData)
 {    
     memset(&boardData->DIOLatest, 0, sizeof(DIOSample));
-    DIOSampleList_Initialize(&boardData->DIOSamples, 32, true, &g_RTOSLockProvider);
+    DIOSampleList_Initialize(&boardData->DIOSamples, 3 * MAX_DIO_CHANNEL, false, &g_NullLockProvider);
     
     memset(&boardData->AInState, 0, sizeof(AInModDataArray));
     
     memset(&boardData->AInLatest, 0, sizeof(AInSampleArray));
     boardData->AInLatest.Size = MAX_AIN_DATA_MOD;
-    AInSampleList_Initialize(&boardData->AInSamples, 60, true, &g_RTOSLockProvider);
+    AInSampleList_Initialize(&boardData->AInSamples, 3 * MAX_AIN_SAMPLE_COUNT, false, &g_NullLockProvider);
     
     // Set default battery values for debugging - allows power on without ADC active
     // TODO: This should be omitted for production

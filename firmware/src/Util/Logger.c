@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "FreeRTOSLockProvider.h"
+#include "NullLockProvider.h"
 #include "StackList.h"
 #include "system/debug/sys_debug.h"
 
@@ -17,7 +17,7 @@ static void InitList()
 {
     if (m_ListPtr == NULL)
     {
-        StackList_Initialize(&m_Data, true, &g_RTOSLockProvider);
+        StackList_Initialize(&m_Data, false, &g_NullLockProvider);
         m_ListPtr = &m_Data;
     }
 }

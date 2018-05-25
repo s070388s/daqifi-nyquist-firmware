@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name="dist/pic32mz_ef_sk__ioexp__11n__freertos/production/DAQiFi_3_0.X.production.elf">                 
+    <memory name="program">                 
+      <units>bytes</units>                 
+      <length>2097152</length>                 
+      <used>569512</used>                     
+      <free>1527640</free>                     
+    </memory>                              
+    <memory name="data">              
+      <units>bytes</units>                 
+      <length>524288</length>                 
+      <used>205064</used>                     
+      <free>319224</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 

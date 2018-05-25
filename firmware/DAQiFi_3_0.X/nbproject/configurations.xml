@@ -116,6 +116,7 @@
           <itemPath>../src/Util/Logger.h</itemPath>
           <itemPath>../src/Util/StackList.h</itemPath>
           <itemPath>../src/Util/StringFormatters.h</itemPath>
+          <itemPath>../src/Util/NullLockProvider.h</itemPath>
         </logicalFolder>
         <itemPath>../src/app.h</itemPath>
         <itemPath>../src/app_commands.h</itemPath>
@@ -770,6 +771,7 @@
           <itemPath>../src/Util/Logger.c</itemPath>
           <itemPath>../src/Util/StackList.c</itemPath>
           <itemPath>../src/Util/StringFormatters.c</itemPath>
+          <itemPath>../src/Util/NullLockProvider.c</itemPath>
         </logicalFolder>
         <itemPath>../src/app.c</itemPath>
         <itemPath>../src/app_commands.c</itemPath>
