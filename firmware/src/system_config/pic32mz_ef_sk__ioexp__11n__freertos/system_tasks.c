@@ -239,10 +239,8 @@ void _USB_Tasks(void)
  }
 void _TCPIP_Tasks(void)
 {
-
     while(1)
     {
-
         /* Maintain the TCP/IP Stack*/
         TCPIP_STACK_Task(sysObj.tcpip);
     }

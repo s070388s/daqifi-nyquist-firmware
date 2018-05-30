@@ -54,7 +54,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/data/BoardData.h"
 
 const char BOARD_HARDWARE_REV[16] = "1.0";
-const char BOARD_FIRMWARE_REV[16] = "1.0.2";
+const char BOARD_FIRMWARE_REV[16] = "1.0.3";
 #define BOARD_VARIANT       1
 
 #define UNUSED(x) (void)(x)

@@ -2220,39 +2220,39 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000    0x52371
+.debug_info     0x00000000    0x523e9
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x3b5 build/usbdevice_pic32mz_ef_sk/production/_ext/1483757215/bsp.o
- .debug_info    0x000003b5     0x2362 build/usbdevice_pic32mz_ef_sk/production/_ext/734223846/sys_clk_pic32mz.o
- .debug_info    0x00002717     0x1987 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon.o
- .debug_info    0x0000409e     0x1493 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_pic32mz.o
- .debug_info    0x00005531       0xd0 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_cache_pic32mz.o
- .debug_info    0x00005601     0x6484 build/usbdevice_pic32mz_ef_sk/production/_ext/278102762/sys_ports_static.o
- .debug_info    0x0000ba85      0xc66 build/usbdevice_pic32mz_ef_sk/production/_ext/612711379/sys_reset.o
- .debug_info    0x0000c6eb     0x72ac build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_init.o
- .debug_info    0x00013997     0x1074 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_interrupt.o
- .debug_info    0x00014a0b     0x17d2 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_exceptions.o
- .debug_info    0x000161dd     0x1034 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_tasks.o
- .debug_info    0x00017211      0x1a8 build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/main.o
- .debug_info    0x000173b9     0x6c48 build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/app.o
- .debug_info    0x0001e001     0x131c build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream.o
- .debug_info    0x0001f31d     0x571c build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream_usb_hid.o
- .debug_info    0x00024a39     0x1ddc build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/bootloader.o
- .debug_info    0x00026815     0x1b0f build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/nvm.o
- .debug_info    0x00028324     0x6d99 build/usbdevice_pic32mz_ef_sk/production/_ext/941160041/drv_tmr.o
- .debug_info    0x0002f0bd     0x6d63 build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs.o
- .debug_info    0x00035e20     0xc7c5 build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs_device.o
- .debug_info    0x000425e5     0x2232 build/usbdevice_pic32mz_ef_sk/production/_ext/1042686532/sys_int_pic32.o
- .debug_info    0x00044817     0x2b5c build/usbdevice_pic32mz_ef_sk/production/_ext/2110151058/sys_tmr.o
- .debug_info    0x00047373     0x6e3e build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device.o
- .debug_info    0x0004e1b1     0x34e7 build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device_hid.o
- .debug_info    0x00051698      0x76a c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/fpu64\libgcc.a(_udivdi3.o)
- .debug_info    0x00051e02       0xf3 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_info    0x00051ef5       0xcc c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_info    0x00051fc1       0xd4 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_info    0x00052095       0xe6 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_info    0x0005217b       0xf3 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_info    0x0005226e      0x103 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_info    0x00000000      0x3ba build/usbdevice_pic32mz_ef_sk/production/_ext/1483757215/bsp.o
+ .debug_info    0x000003ba     0x2367 build/usbdevice_pic32mz_ef_sk/production/_ext/734223846/sys_clk_pic32mz.o
+ .debug_info    0x00002721     0x198c build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon.o
+ .debug_info    0x000040ad     0x1498 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_pic32mz.o
+ .debug_info    0x00005545       0xd5 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_cache_pic32mz.o
+ .debug_info    0x0000561a     0x6489 build/usbdevice_pic32mz_ef_sk/production/_ext/278102762/sys_ports_static.o
+ .debug_info    0x0000baa3      0xc6b build/usbdevice_pic32mz_ef_sk/production/_ext/612711379/sys_reset.o
+ .debug_info    0x0000c70e     0x72b1 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_init.o
+ .debug_info    0x000139bf     0x1079 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_interrupt.o
+ .debug_info    0x00014a38     0x17d7 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_exceptions.o
+ .debug_info    0x0001620f     0x1039 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_tasks.o
+ .debug_info    0x00017248      0x1ad build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/main.o
+ .debug_info    0x000173f5     0x6c4d build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/app.o
+ .debug_info    0x0001e042     0x1321 build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream.o
+ .debug_info    0x0001f363     0x5721 build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream_usb_hid.o
+ .debug_info    0x00024a84     0x1de1 build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/bootloader.o
+ .debug_info    0x00026865     0x1b14 build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/nvm.o
+ .debug_info    0x00028379     0x6d9e build/usbdevice_pic32mz_ef_sk/production/_ext/941160041/drv_tmr.o
+ .debug_info    0x0002f117     0x6d68 build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs.o
+ .debug_info    0x00035e7f     0xc7ca build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs_device.o
+ .debug_info    0x00042649     0x2237 build/usbdevice_pic32mz_ef_sk/production/_ext/1042686532/sys_int_pic32.o
+ .debug_info    0x00044880     0x2b61 build/usbdevice_pic32mz_ef_sk/production/_ext/2110151058/sys_tmr.o
+ .debug_info    0x000473e1     0x6e43 build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device.o
+ .debug_info    0x0004e224     0x34ec build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device_hid.o
+ .debug_info    0x00051710      0x76a c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/fpu64\libgcc.a(_udivdi3.o)
+ .debug_info    0x00051e7a       0xf3 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_info    0x00051f6d       0xcc c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_info    0x00052039       0xd4 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_info    0x0005210d       0xe6 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_info    0x000521f3       0xf3 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_info    0x000522e6      0x103 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
 .debug_abbrev   0x00000000     0x45a3
  *(.debug_abbrev)
@@ -2288,39 +2288,39 @@ END GROUP
  .debug_abbrev  0x00004553       0x28 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
  .debug_abbrev  0x0000457b       0x28 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
-.debug_line     0x00000000     0x989b
+.debug_line     0x00000000     0x98eb
  *(.debug_line)
- .debug_line    0x00000000      0x14f build/usbdevice_pic32mz_ef_sk/production/_ext/1483757215/bsp.o
- .debug_line    0x0000014f      0x5a6 build/usbdevice_pic32mz_ef_sk/production/_ext/734223846/sys_clk_pic32mz.o
- .debug_line    0x000006f5      0x675 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon.o
- .debug_line    0x00000d6a      0x5b8 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_pic32mz.o
- .debug_line    0x00001322      0x230 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_cache_pic32mz.o
- .debug_line    0x00001552      0xa47 build/usbdevice_pic32mz_ef_sk/production/_ext/278102762/sys_ports_static.o
- .debug_line    0x00001f99      0x3e3 build/usbdevice_pic32mz_ef_sk/production/_ext/612711379/sys_reset.o
- .debug_line    0x0000237c      0x866 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_init.o
- .debug_line    0x00002be2      0x312 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_interrupt.o
- .debug_line    0x00002ef4      0x281 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_exceptions.o
- .debug_line    0x00003175      0x35d build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_tasks.o
- .debug_line    0x000034d2       0xbe build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/main.o
- .debug_line    0x00003590      0x8e1 build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/app.o
- .debug_line    0x00003e71      0x36d build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream.o
- .debug_line    0x000041de      0x5e1 build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream_usb_hid.o
- .debug_line    0x000047bf      0x573 build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/bootloader.o
- .debug_line    0x00004d32      0x5a1 build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/nvm.o
- .debug_line    0x000052d3      0xcc5 build/usbdevice_pic32mz_ef_sk/production/_ext/941160041/drv_tmr.o
- .debug_line    0x00005f98      0x851 build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs.o
- .debug_line    0x000067e9     0x12aa build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs_device.o
- .debug_line    0x00007a93      0x2e8 build/usbdevice_pic32mz_ef_sk/production/_ext/1042686532/sys_int_pic32.o
- .debug_line    0x00007d7b      0x66f build/usbdevice_pic32mz_ef_sk/production/_ext/2110151058/sys_tmr.o
- .debug_line    0x000083ea      0xa44 build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device.o
- .debug_line    0x00008e2e      0x5af build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device_hid.o
- .debug_line    0x000093dd       0xfb c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/fpu64\libgcc.a(_udivdi3.o)
- .debug_line    0x000094d8       0xa5 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_line    0x0000957d       0x92 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_line    0x0000960f       0x96 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
- .debug_line    0x000096a5       0xa4 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
- .debug_line    0x00009749       0xa5 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
- .debug_line    0x000097ee       0xad c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
+ .debug_line    0x00000000      0x154 build/usbdevice_pic32mz_ef_sk/production/_ext/1483757215/bsp.o
+ .debug_line    0x00000154      0x5ab build/usbdevice_pic32mz_ef_sk/production/_ext/734223846/sys_clk_pic32mz.o
+ .debug_line    0x000006ff      0x67a build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon.o
+ .debug_line    0x00000d79      0x5bd build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_pic32mz.o
+ .debug_line    0x00001336      0x230 build/usbdevice_pic32mz_ef_sk/production/_ext/658126509/sys_devcon_cache_pic32mz.o
+ .debug_line    0x00001566      0xa4c build/usbdevice_pic32mz_ef_sk/production/_ext/278102762/sys_ports_static.o
+ .debug_line    0x00001fb2      0x3e8 build/usbdevice_pic32mz_ef_sk/production/_ext/612711379/sys_reset.o
+ .debug_line    0x0000239a      0x875 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_init.o
+ .debug_line    0x00002c0f      0x317 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_interrupt.o
+ .debug_line    0x00002f26      0x286 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_exceptions.o
+ .debug_line    0x000031ac      0x367 build/usbdevice_pic32mz_ef_sk/production/_ext/1340256719/system_tasks.o
+ .debug_line    0x00003513       0xc3 build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/main.o
+ .debug_line    0x000035d6      0x8eb build/usbdevice_pic32mz_ef_sk/production/_ext/1360937237/app.o
+ .debug_line    0x00003ec1      0x36d build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream.o
+ .debug_line    0x0000422e      0x5e1 build/usbdevice_pic32mz_ef_sk/production/_ext/615392287/datastream_usb_hid.o
+ .debug_line    0x0000480f      0x573 build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/bootloader.o
+ .debug_line    0x00004d82      0x5a1 build/usbdevice_pic32mz_ef_sk/production/_ext/686445382/nvm.o
+ .debug_line    0x00005323      0xcc5 build/usbdevice_pic32mz_ef_sk/production/_ext/941160041/drv_tmr.o
+ .debug_line    0x00005fe8      0x851 build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs.o
+ .debug_line    0x00006839     0x12aa build/usbdevice_pic32mz_ef_sk/production/_ext/179651966/drv_usbhs_device.o
+ .debug_line    0x00007ae3      0x2e8 build/usbdevice_pic32mz_ef_sk/production/_ext/1042686532/sys_int_pic32.o
+ .debug_line    0x00007dcb      0x66f build/usbdevice_pic32mz_ef_sk/production/_ext/2110151058/sys_tmr.o
+ .debug_line    0x0000843a      0xa44 build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device.o
+ .debug_line    0x00008e7e      0x5af build/usbdevice_pic32mz_ef_sk/production/_ext/2136608937/usb_device_hid.o
+ .debug_line    0x0000942d       0xfb c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/fpu64\libgcc.a(_udivdi3.o)
+ .debug_line    0x00009528       0xa5 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x000095cd       0x92 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_line    0x0000965f       0x96 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_line    0x000096f5       0xa4 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(defaultinterrupt.o)
+ .debug_line    0x00009799       0xa5 c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-cache-err-exception-handler.o)
+ .debug_line    0x0000983e       0xad c:/program files (x86)/microchip/xc32/v2.05/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib/fpu64\libpic32.a(default-simple-tlb-refill-exception-handler.o)
 
 .debug_frame    0x00000000     0x1d08
  *(.debug_frame)

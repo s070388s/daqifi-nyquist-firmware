@@ -233,12 +233,16 @@ bool ADC_ReadSamples(AInSampleArray* samples, const AInModule* module, AInModule
 
 bool ADC_TriggerConversion(const AInModule* module)
 {
-    //TODO: DAQiFi For diagnostic purposes, setup DIO pin 2
-    g_BoardRuntimeConfig.DIOChannels.Data[2].IsInput = false;
-    g_BoardRuntimeConfig.DIOChannels.Data[2].IsReadOnly = false;
-    g_BoardRuntimeConfig.DIOChannels.Data[2].Value = !g_BoardRuntimeConfig.DIOChannels.Data[2].Value;
-    // Toggle DIO pin for diagnostic use
-    DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[2], &g_BoardRuntimeConfig.DIOChannels.Data[2]);
+    #if(DAQIFI_DIO_DEBUG == 1)
+    {
+        //TODO: DAQiFi For diagnostic purposes, setup DIO pin 2
+        g_BoardRuntimeConfig.DIOChannels.Data[2].IsInput = false;
+        g_BoardRuntimeConfig.DIOChannels.Data[2].IsReadOnly = false;
+        g_BoardRuntimeConfig.DIOChannels.Data[2].Value = !g_BoardRuntimeConfig.DIOChannels.Data[2].Value;
+        // Toggle DIO pin for diagnostic use
+        DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[2], &g_BoardRuntimeConfig.DIOChannels.Data[2]);
+    }
+    #endif
     
     uint8_t moduleId = ADC_FindModuleIndex(&g_BoardConfig.AInModules, module);
     
@@ -312,13 +316,17 @@ void ADC_ConversionComplete(const AInModule* module)
     AInSampleArray samples;
     samples.Size = 0;
     int i=0;
+    bool result = false;
         
-    //TODO: DAQiFi For diagnostic purposes, setup DIO pin 0
-    g_BoardRuntimeConfig.DIOChannels.Data[0].IsInput = false;
-    g_BoardRuntimeConfig.DIOChannels.Data[0].IsReadOnly = false;
-    g_BoardRuntimeConfig.DIOChannels.Data[0].Value = !g_BoardRuntimeConfig.DIOChannels.Data[0].Value;
-    // Toggle DIO pin for diagnostic use
-    DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[0], &g_BoardRuntimeConfig.DIOChannels.Data[0]);
+    #if(DAQIFI_DIO_DEBUG == 1)
+    {
+        //TODO: DAQiFi For diagnostic purposes, setup DIO pin 0
+        g_BoardRuntimeConfig.DIOChannels.Data[0].IsInput = false;
+        g_BoardRuntimeConfig.DIOChannels.Data[0].IsReadOnly = false;
+        g_BoardRuntimeConfig.DIOChannels.Data[0].Value = !g_BoardRuntimeConfig.DIOChannels.Data[0].Value;
+    }
+    #endif
+
     
     uint8_t moduleId = ADC_FindModuleIndex(&g_BoardConfig.AInModules, module);
     
@@ -340,7 +348,13 @@ void ADC_ConversionComplete(const AInModule* module)
             }
             else
             {
-                AInSampleList_PushBack(&g_BoardData.AInSamples, &samples.Data[i]);  // If not the internal ADC, send to streaming
+                result = AInSampleList_PushBack(&g_BoardData.AInSamples, &samples.Data[i]);  // If not the internal ADC, send to streaming
+                #if(DAQIFI_DIO_DEBUG == 1)
+                {
+                    // Toggle DIO pin for diagnostic use
+                    if (result) DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[0], &g_BoardRuntimeConfig.DIOChannels.Data[0]);
+                }
+                #endif      
             }
         }
         

@@ -140,11 +140,15 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
     bool AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
     bool DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
     
-    // For diagnostic purposes, setup DIO pin 1
-    //TODO: DAQiFi For diagnostic purposes, setup DIO pin 1
-    g_BoardRuntimeConfig.DIOChannels.Data[1].IsInput = false;
-    g_BoardRuntimeConfig.DIOChannels.Data[1].IsReadOnly = false;
-    g_BoardRuntimeConfig.DIOChannels.Data[1].Value = !g_BoardRuntimeConfig.DIOChannels.Data[1].Value;
+    #if(DAQIFI_DIO_DEBUG == 1)
+    {
+        // For diagnostic purposes, setup DIO pin 1
+        //TODO: DAQiFi For diagnostic purposes, setup DIO pin 1
+        g_BoardRuntimeConfig.DIOChannels.Data[1].IsInput = false;
+        g_BoardRuntimeConfig.DIOChannels.Data[1].IsReadOnly = false;
+        g_BoardRuntimeConfig.DIOChannels.Data[1].Value = !g_BoardRuntimeConfig.DIOChannels.Data[1].Value;
+    }
+    #endif
     
     // Decide what to write
     NanopbFlagsArray flags;

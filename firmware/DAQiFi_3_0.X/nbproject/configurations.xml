@@ -2211,7 +2211,7 @@
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
-                  value="FORCE_BOOTLOADER_FLAG_ADDR=&quot;0x8007FFE0&quot;;FORCE_BOOTLOADER_FLAG_VALUE=&quot;0x04CEB007&quot;"/>
+                  value="FORCE_BOOTLOADER_FLAG_ADDR=&quot;0x8007FFE0&quot;;FORCE_BOOTLOADER_FLAG_VALUE=&quot;0x04CEB007&quot;;DAQIFI_DIO_DEBUG=1"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
         <property key="toplevel-reordering" value=""/>
@@ -2401,7 +2401,6 @@
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
@@ -2550,8 +2549,7 @@
         <property key="tracecontrol.select" value="0"/>
         <property key="tracecontrol.stallontracebufferfull" value="false"/>
         <property key="tracecontrol.tracebufmax" value="546000"/>
-        <property key="tracecontrol.tracefile"
-                  value="C:\SmallTests\V6Temp\Harmony_0828\apps\tcpip\wifi_easy_configuration\firmware\pic32_wifi_easy_config.X\debug\pic32mz_ec_sk__ioexp\defmplabxtrace.log"/>
+        <property key="tracecontrol.tracefile" value="defmplabxtrace.log"/>
         <property key="tracecontrol.tracefilemax" value="10000000"/>
         <property key="voltagevalue" value="3.25"/>
       </RealICEPlatformTool>

@@ -96,8 +96,7 @@ extern "C" {
 #define SYS_CLK_WAIT_FOR_SWITCH             true
 #define SYS_CLK_ON_WAIT                     OSC_ON_WAIT_IDLE 
 
-#define SYS_CLK_DIV_PWR_SAVE    2  
-   
+#define SYS_CLK_DIV_PWR_SAVE    2       // Keep this for changing clock speeds   
 /*** Ports System Service Configuration ***/
 #define SYS_PORT_A_ANSEL        0x3F03
 #define SYS_PORT_A_TRIS         0xBFCF
@@ -200,7 +199,6 @@ int LogMessage(const char* format, ...);
 #endif    
 
 // DM 8/23/2016: END
-
 /*** Debug System Service Configuration ***/
 #define SYS_DEBUG_ENABLE
 #define DEBUG_PRINT_BUFFER_SIZE       512
@@ -407,7 +405,7 @@ int LogMessage(const char* format, ...);
 #define DRV_TMR_INTERRUPT_SOURCE_IDX2       INT_SOURCE_TIMER_7
 #define DRV_TMR_INTERRUPT_VECTOR_IDX2       INT_VECTOR_T7
 #define DRV_TMR_ISR_VECTOR_IDX2             _TIMER_7_VECTOR
-#define DRV_TMR_INTERRUPT_PRIORITY_IDX2     INT_PRIORITY_LEVEL3
+#define DRV_TMR_INTERRUPT_PRIORITY_IDX2     INT_PRIORITY_LEVEL1
 #define DRV_TMR_INTERRUPT_SUB_PRIORITY_IDX2 INT_SUBPRIORITY_LEVEL0
 #define DRV_TMR_CLOCK_SOURCE_IDX2           DRV_TMR_CLKSOURCE_INTERNAL
 #define DRV_TMR_PRESCALE_IDX2               TMR_PRESCALE_VALUE_2
