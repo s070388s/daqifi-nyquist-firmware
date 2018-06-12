@@ -1,6 +1,7 @@
 #include "TcpServer.h"
 
 // System
+extern __attribute__((section(".bss.errno"))) int errno;
 #include <sys/errno.h>
 #include <string.h>
 #include "tcpip/tcpip.h"
