@@ -1853,7 +1853,7 @@
       <Template dnOrder="30">
         <Name dnOrder="0">drv_adc_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/adc/src</Path>
-        <Checksum dnOrder="2">AFAA2D38518058EA5830C99BB75BBDF3</Checksum>
+        <Checksum dnOrder="2">8C006CFAA80B61B181A4EE5AB286450A</Checksum>
         <ProjectFileChecksum dnOrder="3">55290D07CD9D4BA364AF9C10F44FD6EF</ProjectFileChecksum>
       </Template>
       <Template dnOrder="31">

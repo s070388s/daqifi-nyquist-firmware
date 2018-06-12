@@ -261,7 +261,7 @@ void DRV_ADC_Initialize(void)
      if(false == PLIB_ADCHS_ChannelInputSelect(
                          DRV_ADC_ID_1,
                          ADCHS_CHANNEL_4,
-                         (ADCHS_CHANNEL_INP_SEL)ADCHS_ALTERNATE_CLASS1_AN49
+                         (ADCHS_CHANNEL_INP_SEL)ADCHS_DEFAULT_CLASS1_AN4
                          ))
                          { while(1);}
 
