@@ -2,29 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/general_exception_handler.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/FreeRTOSLockProvider.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/general-exception-context.S</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/Logger.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/NullLockProvider.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/state/data/DIOSample.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/state/board/DIOConfig.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/HAL/DIO.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/NullLockProvider.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/LockProvider.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/bootloader/src/main.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/HAL/Wifi/WifiApi.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/TCPServer/TcpServer.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/HAL/ADC/AD7609.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/HAL/Wifi/WifiApi.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/HeapList.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/HeapList.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/StackList.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/SCPI/SCPIInterface.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/state/data/BoardData.c</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/state/data/AInSample.h</file>
-            <file>file:/C:/microchip/harmony/v2_05_01/apps/DAQiFi/trunk/firmware/src/Util/FreeRTOSLockProvider.c</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
