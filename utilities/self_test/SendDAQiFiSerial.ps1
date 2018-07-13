@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'SilentlyContinue'
 #Create SerialPort and Configure
 $port = New-Object System.IO.Ports.SerialPort
-$port.PortName = "COM4"
+$port.PortName = "COM3"
 $port.BaudRate = "9600"
 $port.Parity = "None"
 $port.DataBits = 8
