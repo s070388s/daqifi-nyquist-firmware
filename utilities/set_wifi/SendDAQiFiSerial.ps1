@@ -1,7 +1,10 @@
 $ErrorActionPreference = 'SilentlyContinue'
+
+$portNum = Read-Host -Prompt 'Enter COM port number'
+
 #Create SerialPort and Configure
 $port = New-Object System.IO.Ports.SerialPort
-$port.PortName = "COM4"
+$port.PortName = "COM$portNum"
 $port.BaudRate = "9600"
 $port.Parity = "None"
 $port.DataBits = 8
@@ -29,7 +32,7 @@ Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 $port.WriteLine('SYSTem:COMMunicate:LAN:SSID WiFi_Test')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-$port.WriteLine('SYSTem:COMMunicate:LAN:SECurity 4')
+$port.WriteLine('SYSTem:COMMunicate:LAN:SECurity 3')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 $port.WriteLine('SYSTem:COMMunicate:LAN:PASs WiFi_Test')
