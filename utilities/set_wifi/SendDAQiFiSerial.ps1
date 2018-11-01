@@ -23,19 +23,19 @@ Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 Write-Host "Powering on."
 $port.WriteLine('SYSTem:POWer:STATe 1')
-Start-Sleep -Milliseconds 2000 #wait 1 seconds
+Start-Sleep -Milliseconds 2000 #wait 2 seconds
 
 Write-Host "Writing WiFi Settings"
 $port.WriteLine('SYSTem:COMMunicate:LAN:NETType 1')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-$port.WriteLine('SYSTem:COMMunicate:LAN:SSID WiFi_Test')
+$port.WriteLine('SYSTem:COMMunicate:LAN:SSID Doranix')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 $port.WriteLine('SYSTem:COMMunicate:LAN:SECurity 3')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-$port.WriteLine('SYSTem:COMMunicate:LAN:PASs WiFi_Test')
+$port.WriteLine('SYSTem:COMMunicate:LAN:PASs Cooie001')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 $port.WriteLine('SYSTem:COMMunicate:LAN:APPLY')

@@ -1,7 +1,10 @@
 $ErrorActionPreference = 'SilentlyContinue'
+
+$portNum = Read-Host -Prompt 'Enter COM port number'
+
 #Create SerialPort and Configure
 $port = New-Object System.IO.Ports.SerialPort
-$port.PortName = "COM3"
+$port.PortName = "COM$portNum"
 $port.BaudRate = "9600"
 $port.Parity = "None"
 $port.DataBits = 8
@@ -20,15 +23,8 @@ Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 Write-Host "Powering on."
 $port.WriteLine('SYSTem:POWer:STATe 1')
+Start-Sleep -Milliseconds 3000 #wait 3 seconds
 
-Write-Host "Enabling DIO channels..."
-
-$port.WriteLine("DIO:PORt:ENAble 1")
-Start-Sleep -Milliseconds 100 #wait 0.1 seconds
-$port.WriteLine("DIO:PORt:DIRection 65535")
-Start-Sleep -Milliseconds 100 #wait 0.1 seconds
-$port.WriteLine("DIO:PORt:state 65535")
-Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 $port.DiscardInBuffer();
 
@@ -76,9 +72,10 @@ Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 Write-Host ""
 Write-Host "Reading DIO channels..."
+Write-Host "should return 0"
 Write-Host ""
 
-#Set DIO ports as inouts
+#Set DIO ports as inputs
 $port.WriteLine("DIO:PORt:DIRection 0")
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 $port.WriteLine("DIO:PORt:STATe 0")
@@ -93,26 +90,61 @@ $data = $port.ReadLine();
 Write-Host($data);
 Write-Host ""
 
-Write-Host "Writing DIO channels..."
-$port.WriteLine("DIO:PORt:DIRection 65535")
+Write-Host ""
+Write-Host "Connect DIO null adapter..."
+Read-Host "then press ENTER"
+Write-Host ""
+
+Write-Host "Writing even DIO channels..."
+Write-Host "(should return 65535)"
+$port.WriteLine("DIO:PORt:DIRection 21845")
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
-$port.WriteLine("DIO:PORt:STATe 65535")
-Start-Sleep -Milliseconds 1000 #wait 1 seconds
+$port.WriteLine("DIO:PORt:STATe 21845")
+Start-Sleep -Milliseconds 100 #wait 1 seconds
+$port.DiscardInBuffer();
+$port.WriteLine("DIO:PORt:STATe?")
+Start-Sleep -Milliseconds 100 #wait 0.1 seconds
+# Discard echoed command
+$data = $port.ReadLine();
+$data = $port.ReadLine();
+Write-Host($data);
+Write-Host([convert]::ToString($data,2)) #show output in binary
+
+Read-Host "then press ENTER"
+
+Write-Host "Writing odd DIO channels..."
+Write-Host "(should return 65535)"
+$port.WriteLine("DIO:PORt:DIRection 43690")
+Start-Sleep -Milliseconds 100 #wait 0.1 seconds
+$port.WriteLine("DIO:PORt:STATe 43690")
+Start-Sleep -Milliseconds 100 #wait 1 seconds
+$port.DiscardInBuffer();
+$port.WriteLine("DIO:PORt:STATe?")
+Start-Sleep -Milliseconds 100 #wait 0.1 seconds
+# Discard echoed command
+$data = $port.ReadLine();
+$data = $port.ReadLine();
+Write-Host($data);
+Write-Host([convert]::ToString($data,2)) #show output in binary
+
 $port.WriteLine("DIO:PORt:STATe 0")
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
+$port.WriteLine("DIO:PORt:DIRection 0")
+Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-For ($i=0; $i -lt 16; $i++)
-{
-    $data = [string]::Format("DIO:PORt:STATe {0}, 1",$i)
-    $port.WriteLine($data)
-    Start-Sleep -Milliseconds 100 #wait 0.2 seconds
-    $data = [string]::Format("DIO:PORt:STATe {0}, 0",$i)
-    $port.WriteLine($data)
-    Start-Sleep -Milliseconds 100 #wait 0.2 seconds
-}
-$port.DiscardInBuffer();
+# Toggle DIO ports in sequence
+# For ($i=0; $i -lt 16; $i++)
+# {
+    # $data = [string]::Format("DIO:PORt:STATe {0}, 1",$i)
+    # $port.WriteLine($data)
+    # Start-Sleep -Milliseconds 100 #wait 0.2 seconds
+    # $data = [string]::Format("DIO:PORt:STATe {0}, 0",$i)
+    # $port.WriteLine($data)
+    # Start-Sleep -Milliseconds 100 #wait 0.2 seconds
+# }
+# $port.DiscardInBuffer();
 
-#Set DIO ports as inouts
+#Set DIO ports as inputs
 $port.WriteLine("DIO:PORt:DIRection 0")
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
