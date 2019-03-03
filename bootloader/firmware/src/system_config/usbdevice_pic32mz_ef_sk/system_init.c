@@ -50,6 +50,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_definitions.h"
 
 
+#define SYS_CLK_DIV_PWR_SAVE 2
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
@@ -120,7 +121,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: Driver Initialization Data
 // *****************************************************************************
 // *****************************************************************************
-// <editor-fold defaultstate="collapsed" desc="DRV_Timer Initialization Data">
 /*** TMR Driver Initialization Data ***/
 
 const DRV_TMR_INIT drvTmr0InitData =
@@ -133,7 +133,6 @@ const DRV_TMR_INIT drvTmr0InitData =
     .interruptSource = DRV_TMR_INTERRUPT_SOURCE_IDX0,
     .asyncWriteEnable = false,
 };
-// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_USB Initialization Data">
 /******************************************************
  * USB Driver Initialization
@@ -186,6 +185,18 @@ SYSTEM_OBJECTS sysObj;
  const BOOTLOADER_INIT BootloaderInitData =
 {
     .drvType          = TYPE_USB_DEVICE,
+};
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="SYS_CLK Initialization Data">
+// *****************************************************************************
+/* System Clock Initialization Data
+*/
+const SYS_CLK_INIT sysClkInit =
+{
+    .moduleInit = {0},
+    .systemClockFrequencyHz = SYS_CLK_FREQ,
+    .waitTillComplete = true,
+    .onWaitInstruction = SYS_CLK_ON_WAIT,
 };
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_TMR Initialization Data">
@@ -571,14 +582,24 @@ void SYS_Initialize ( void* data )
     SYS_CLK_Initialize( NULL );
     SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)NULL);
     SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
-    SYS_PORTS_Initialize();
 
+    // Divide system frequency by value below to save power
+    SYS_DEVCON_SystemUnlock();
+    SLEWCONbits.SYSDIV = SYS_CLK_DIV_PWR_SAVE;
+    SYS_DEVCON_SystemLock();
+    
+    // We still have to call SYS_CLK_SystemFrequencySet after setting SYSDIV above for some reason
+    // and the frequency must be 200MHz to avoid crashing (even though we are actually
+    // dividing the full speed (200MHz by a divider, SYS_CLK_DIV_PWR_SAVE)
+    SYS_CLK_SystemFrequencySet (SYS_CLK_SOURCE_PRIMARY_SYSPLL, 200000000, true);
+    
     /* Board Support Package Initialization */
     BSP_Initialize();        
 
     /* Initialize Drivers */
 
     sysObj.drvTmr0 = DRV_TMR_Initialize(DRV_TMR_INDEX_0, (SYS_MODULE_INIT *)&drvTmr0InitData);
+
 
     SYS_INT_VectorPrioritySet(INT_VECTOR_T2, INT_PRIORITY_LEVEL4);
     SYS_INT_VectorSubprioritySet(INT_VECTOR_T2, INT_SUBPRIORITY_LEVEL0);
@@ -601,6 +622,7 @@ void SYS_Initialize ( void* data )
     
 
     /* Initialize System Services */
+    SYS_PORTS_Initialize();
 
     /*** Interrupt Service Initialization Code ***/
     SYS_INT_Initialize();

@@ -148,7 +148,7 @@ const BoardConfig g_NQ1BoardConfig = {
             {
                 .ChannelId = ADC_CHANNEL_10V,
                 .DataModule = 0,
-                .Config = {.MC12b = {false, 32, 2, false, 2.16666666667}} // +10_Prot_Mon
+                .Config = {.MC12b = {false, 32, 2, false, 3.905000000000}} // +10_Prot_Mon
             },
             {
                 .ChannelId = ADC_CHANNEL_TEMP,
@@ -163,7 +163,7 @@ const BoardConfig g_NQ1BoardConfig = {
             {
                 .ChannelId = ADC_CHANNEL_VSYS,
                 .DataModule = 0,
-                .Config = {.MC12b = {false, 10, 2, false, 1.31926121372}} // Board system power
+                .Config = {.MC12b = {false, 10, 2, false, 1.409090909091}} // Board system power
             },
         },
         .Size = 24

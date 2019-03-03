@@ -18,7 +18,7 @@
     definitions for build-time configuration options that are not instantiated
     until used by another MPLAB Harmony module or application.
 
-    Created with MPLAB Harmony Version 2.05
+    Created with MPLAB Harmony Version 2.06
 *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -76,8 +76,8 @@ extern "C" {
 // *****************************************************************************
 /* Common System Service Configuration Options
 */
-#define SYS_VERSION_STR           "2.05"
-#define SYS_VERSION               20500
+#define SYS_VERSION_STR           "2.06"
+#define SYS_VERSION               20600
 
 // *****************************************************************************
 /* Clock System Service Configuration Options
@@ -92,6 +92,9 @@ extern "C" {
 #define SYS_CLK_BUS_PERIPHERAL_8            100000000ul
 #define SYS_CLK_CONFIG_PRIMARY_XTAL         24000000ul
 #define SYS_CLK_CONFIG_SECONDARY_XTAL       0ul
+#define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT     10
+#define SYS_CLK_WAIT_FOR_SWITCH             true
+#define SYS_CLK_ON_WAIT                     OSC_ON_WAIT_IDLE 
    
 /*** Ports System Service Configuration ***/
 #define SYS_PORT_A_ANSEL        0x3F03
@@ -210,6 +213,7 @@ extern "C" {
 #define DRV_TMR_ASYNC_WRITE_ENABLE_IDX0     false
 #define DRV_TMR_POWER_STATE_IDX0            SYS_MODULE_POWER_RUN_FULL
 
+ 
  
 // *****************************************************************************
 // *****************************************************************************

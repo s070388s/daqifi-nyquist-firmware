@@ -366,18 +366,22 @@
           <itemPath>../../../../../framework/osal/osal_impl_basic.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="system" projectFiles="true">
-          <logicalFolder name="f5" displayName="clk" projectFiles="true">
+          <logicalFolder name="f4" displayName="clk" projectFiles="true">
+            <logicalFolder name="f1" displayName="src" projectFiles="true">
+              <itemPath>../../../../../framework/system/clk/src/sys_clk_local.h</itemPath>
+              <itemPath>../../../../../framework/system/clk/src/sys_clk_variant_mapping.h</itemPath>
+              <itemPath>../../../../../framework/system/clk/src/sys_clk_pic32mz.h</itemPath>
+            </logicalFolder>
             <itemPath>../../../../../framework/system/clk/sys_clk.h</itemPath>
             <itemPath>../../../../../framework/system/clk/sys_clk_compatibility.h</itemPath>
-            <itemPath>../../../../../framework/system/clk/sys_clk_mapping.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="common" projectFiles="true">
+          <logicalFolder name="f2" displayName="common" projectFiles="true">
             <itemPath>../../../../../framework/system/common/sys_common.h</itemPath>
             <itemPath>../../../../../framework/system/common/sys_module.h</itemPath>
             <itemPath>../../../../../framework/system/common/sys_buffer.h</itemPath>
             <itemPath>../../../../../framework/system/common/sys_queue.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f7" displayName="debug" projectFiles="true">
+          <logicalFolder name="f6" displayName="debug" projectFiles="true">
             <itemPath>../../../../../framework/system/debug/sys_debug.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f3" displayName="dma" projectFiles="true">
@@ -408,17 +412,17 @@
               <itemPath>../../../../../framework/system/fs/src/sys_fs_local.h</itemPath>
               <itemPath>../../../../../framework/system/fs/src/sys_fs_media_manager_local.h</itemPath>
             </logicalFolder>
-            <itemPath>../../../../../framework/system/fs/sys_fs.h</itemPath>
             <itemPath>../../../../../framework/system/fs/sys_fs_media_manager.h</itemPath>
+            <itemPath>../../../../../framework/system/fs/sys_fs.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="int" projectFiles="true">
+          <logicalFolder name="f7" displayName="int" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/int/src/sys_int_private.h</itemPath>
             </logicalFolder>
             <itemPath>../../../../../framework/system/int/sys_int.h</itemPath>
             <itemPath>../../../../../framework/system/int/sys_int_mapping.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f6" displayName="ports" projectFiles="true">
+          <logicalFolder name="f5" displayName="ports" projectFiles="true">
             <itemPath>../../../../../framework/system/ports/sys_ports.h</itemPath>
             <itemPath>../../../../../framework/system/ports/sys_ports_definitions.h</itemPath>
           </logicalFolder>
@@ -428,11 +432,11 @@
             </logicalFolder>
             <itemPath>../../../../../framework/system/random/sys_random.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f11" displayName="reset" projectFiles="true">
+          <logicalFolder name="f8" displayName="reset" projectFiles="true">
             <itemPath>../../../../../framework/system/reset/sys_reset.h</itemPath>
             <itemPath>../../../../../framework/system/reset/sys_reset_definitions_pic32m.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f8" displayName="tmr" projectFiles="true">
+          <logicalFolder name="f11" displayName="tmr" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/tmr/src/sys_tmr_local.h</itemPath>
             </logicalFolder>
@@ -573,22 +577,22 @@
             <itemPath>../../../../../framework/usb/src/usb_host_hub_mapping.h</itemPath>
             <itemPath>../../../../../framework/usb/src/usb_host_msd_local.h</itemPath>
             <itemPath>../../../../../framework/usb/src/usb_host_scsi_local.h</itemPath>
+            <itemPath>../../../../../framework/usb/src/usb_device_function_driver.h</itemPath>
             <itemPath>../../../../../framework/usb/src/usb_device_local.h</itemPath>
             <itemPath>../../../../../framework/usb/src/usb_device_mapping.h</itemPath>
             <itemPath>../../../../../framework/usb/src/usb_device_hid_local.h</itemPath>
-            <itemPath>../../../../../framework/usb/src/usb_device_function_driver.h</itemPath>
           </logicalFolder>
-          <itemPath>../../../../../framework/usb/usb_common.h</itemPath>
-          <itemPath>../../../../../framework/usb/usb_chapter_9.h</itemPath>
-          <itemPath>../../../../../framework/usb/usb_hub.h</itemPath>
-          <itemPath>../../../../../framework/usb/usb_host_hub.h</itemPath>
-          <itemPath>../../../../../framework/usb/usb_host.h</itemPath>
-          <itemPath>../../../../../framework/usb/usb_host_hub_interface.h</itemPath>
-          <itemPath>../../../../../framework/usb/usb_host_client_driver.h</itemPath>
           <itemPath>../../../../../framework/usb/usb_host_msd.h</itemPath>
           <itemPath>../../../../../framework/usb/usb_msd.h</itemPath>
           <itemPath>../../../../../framework/usb/scsi.h</itemPath>
           <itemPath>../../../../../framework/usb/usb_host_scsi.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_common.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_chapter_9.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_hub.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_host_hub.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_host_client_driver.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_host.h</itemPath>
+          <itemPath>../../../../../framework/usb/usb_host_hub_interface.h</itemPath>
           <itemPath>../../../../../framework/usb/usb_device.h</itemPath>
           <itemPath>../../../../../framework/usb/usb_billboard.h</itemPath>
           <itemPath>../../../../../framework/usb/usb_hid.h</itemPath>
@@ -653,10 +657,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="app" displayName="app" projectFiles="true">
-        <logicalFolder name="system_config"
-                       displayName="system_config"
-                       projectFiles="true">
-          <logicalFolder name="f4"
+        <logicalFolder name="f1" displayName="system_config" projectFiles="true">
+          <logicalFolder name="f1"
                          displayName="usbdevice_pic32mz_ef_sk"
                          projectFiles="true">
             <logicalFolder name="f2" displayName="bsp" projectFiles="true">
@@ -664,12 +666,7 @@
             </logicalFolder>
             <logicalFolder name="f1" displayName="framework" projectFiles="true">
               <logicalFolder name="f1" displayName="system" projectFiles="true">
-                <logicalFolder name="f1" displayName="clk" projectFiles="true">
-                  <logicalFolder name="f1" displayName="src" projectFiles="true">
-                    <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/framework/system/clk/src/sys_clk_pic32mz.c</itemPath>
-                  </logicalFolder>
-                </logicalFolder>
-                <logicalFolder name="f2" displayName="devcon" projectFiles="true">
+                <logicalFolder name="f1" displayName="devcon" projectFiles="true">
                   <logicalFolder name="f1" displayName="src" projectFiles="true">
                     <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src/sys_devcon.c</itemPath>
                     <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src/sys_devcon_pic32mz.c</itemPath>
@@ -677,12 +674,12 @@
                     <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src/sys_devcon_cache.h</itemPath>
                   </logicalFolder>
                 </logicalFolder>
-                <logicalFolder name="f3" displayName="ports" projectFiles="true">
+                <logicalFolder name="f2" displayName="ports" projectFiles="true">
                   <logicalFolder name="f1" displayName="src" projectFiles="true">
                     <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/framework/system/ports/src/sys_ports_static.c</itemPath>
                   </logicalFolder>
                 </logicalFolder>
-                <logicalFolder name="f4" displayName="reset" projectFiles="true">
+                <logicalFolder name="f3" displayName="reset" projectFiles="true">
                   <logicalFolder name="f1" displayName="src" projectFiles="true">
                     <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/framework/system/reset/src/sys_reset.c</itemPath>
                   </logicalFolder>
@@ -702,12 +699,12 @@
         <logicalFolder name="f1" displayName="bootloader" projectFiles="true">
           <logicalFolder name="f1" displayName="src" projectFiles="true">
             <logicalFolder name="f1" displayName="datastream" projectFiles="true">
-              <itemPath>../../../../../framework/bootloader/src/datastream/datastream.c</itemPath>
               <itemPath>../../../../../framework/bootloader/src/datastream/datastream_udp.c</itemPath>
               <itemPath>../../../../../framework/bootloader/src/datastream/datastream_usart.c</itemPath>
               <itemPath>../../../../../framework/bootloader/src/datastream/datastream_usb_host.c</itemPath>
-              <itemPath>../../../../../framework/bootloader/src/datastream/datastream_usb_hid.c</itemPath>
               <itemPath>../../../../../framework/bootloader/src/datastream/datastream_sdcard.c</itemPath>
+              <itemPath>../../../../../framework/bootloader/src/datastream/datastream.c</itemPath>
+              <itemPath>../../../../../framework/bootloader/src/datastream/datastream_usb_hid.c</itemPath>
             </logicalFolder>
             <itemPath>../../../../../framework/bootloader/src/bootloader.c</itemPath>
             <itemPath>../../../../../framework/bootloader/src/nvm.c</itemPath>
@@ -763,8 +760,8 @@
             <logicalFolder name="f1" displayName="usbhs" projectFiles="true">
               <logicalFolder name="f1" displayName="src" projectFiles="true">
                 <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
-                  <itemPath>../../../../../framework/driver/usb/usbhs/src/dynamic/drv_usbhs.c</itemPath>
                   <itemPath>../../../../../framework/driver/usb/usbhs/src/dynamic/drv_usbhs_host.c</itemPath>
+                  <itemPath>../../../../../framework/driver/usb/usbhs/src/dynamic/drv_usbhs.c</itemPath>
                   <itemPath>../../../../../framework/driver/usb/usbhs/src/dynamic/drv_usbhs_device.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
@@ -772,6 +769,12 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="f3" displayName="system" projectFiles="true">
+          <logicalFolder name="f2" displayName="clk" projectFiles="true">
+            <logicalFolder name="f1" displayName="src" projectFiles="true">
+              <itemPath>../../../../../framework/system/clk/src/sys_clk.c</itemPath>
+              <itemPath>../../../../../framework/system/clk/src/sys_clk_pic32mz.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
           <logicalFolder name="f1" displayName="fs" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
@@ -782,7 +785,7 @@
             <itemPath>../../../../../framework/system/fs/fat_fs/src/file_system/ff.c</itemPath>
             <itemPath>../../../../../framework/system/fs/fat_fs/src/hardware_access/diskio.c</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="int" projectFiles="true">
+          <logicalFolder name="f3" displayName="int" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/int/src/sys_int_pic32.c</itemPath>
             </logicalFolder>
@@ -792,7 +795,7 @@
               <itemPath>../../../../../framework/system/random/src/sys_random.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="tmr" projectFiles="true">
+          <logicalFolder name="f5" displayName="tmr" projectFiles="true">
             <logicalFolder name="f1" displayName="src" projectFiles="true">
               <itemPath>../../../../../framework/system/tmr/src/sys_tmr.c</itemPath>
             </logicalFolder>
@@ -915,7 +918,7 @@
         <targetDevice>PIC32MZ2048EFM144</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>ICD3PlatformTool</platformTool>
+        <platformTool>RealICEPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.10</languageToolchainVersion>
         <platform>3</platform>
@@ -963,70 +966,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../../../../framework/bootloader/src/bootloader.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/bootloader/src/bootloader.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/bootloader/src/datastream.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/bootloader/src/datastream/datastream.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../framework/bootloader/src/datastream/datastream_sdcard.c"
             ex="true"
             overriding="false">
@@ -1091,72 +1030,8 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../framework/bootloader/src/nvm.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/bootloader/src/nvm.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../framework/crypto/src/des3.h"
             ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/driver.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/driver_common.h"
-            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -1811,118 +1686,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../framework/driver/tmr/drv_tmr.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/tmr/drv_tmr_compatibility.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/tmr/drv_tmr_mapping.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/tmr/src/drv_tmr_local.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/tmr/src/drv_tmr_variant_mapping.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/tmr/src/dynamic/drv_tmr.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/tmr/tmr_definitions_pic32m.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../framework/driver/usart/drv_usart.h"
             ex="true"
             overriding="false">
@@ -1957,22 +1720,6 @@
       </item>
       <item path="../../../../../framework/driver/usart/src/drv_usart_variant_mapping.h"
             ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/usb/drv_usb.h"
-            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -2099,70 +1846,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../framework/driver/usb/usbhs/drv_usbhs.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/usb/usbhs/src/drv_usbhs_local.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/usb/usbhs/src/drv_usbhs_variant_mapping.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/driver/usb/usbhs/src/dynamic/drv_usbhs.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../framework/driver/usb/usbhs/src/dynamic/drv_usbhs_host.c"
             ex="true"
             overriding="false">
@@ -2181,180 +1864,6 @@
       </item>
       <item path="../../../../../framework/net/pres/net_pres.h"
             ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/osal/osal.h" ex="false" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/osal/osal_definitions.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/osal/osal_impl_basic.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/clk/sys_clk.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/clk/sys_clk_compatibility.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/clk/sys_clk_mapping.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/common/sys_buffer.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/common/sys_common.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/common/sys_module.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/common/sys_queue.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/debug/sys_debug.h"
-            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -2577,120 +2086,8 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../framework/system/fs/sys_fs.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../framework/system/fs/sys_fs_media_manager.h"
             ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/int/src/sys_int_pic32.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/int/src/sys_int_private.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/int/sys_int.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/int/sys_int_mapping.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/ports/sys_ports.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/ports/sys_ports_definitions.h"
-            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -2739,86 +2136,6 @@
       </item>
       <item path="../../../../../framework/system/random/sys_random.h"
             ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/reset/sys_reset.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/system.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/tmr/src/sys_tmr.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/tmr/src/sys_tmr_local.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/system/tmr/sys_tmr.h"
-            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -5033,102 +4350,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../../../../../framework/usb/usb_chapter_9.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/usb/usb_common.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/usb/usb_host.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/usb/usb_host_client_driver.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/usb/usb_host_hub.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/usb/usb_host_hub_interface.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../../../../../framework/usb/usb_host_msd.h"
             ex="true"
             overriding="false">
@@ -5147,22 +4368,6 @@
       </item>
       <item path="../../../../../framework/usb/usb_host_scsi.h"
             ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../../../../../framework/usb/usb_hub.h"
-            ex="false"
             overriding="false">
         <C32>
         </C32>
@@ -6798,6 +6003,7 @@
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="hwtoolclock.instructionspeed" value="4"/>
         <property key="hwtoolclock.units" value="mips"/>

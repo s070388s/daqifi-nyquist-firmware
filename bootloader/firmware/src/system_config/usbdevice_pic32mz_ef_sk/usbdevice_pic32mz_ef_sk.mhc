@@ -6,7 +6,7 @@
 #     Harmony version: 2.06
 #
 #
-# from $HARMONY_VERSION_PATH\apps\DAQiFi_3_0_WINC1500\bootloader\firmware\basic.hconfig
+# from $HARMONY_VERSION_PATH\apps\Nyquist\bootloader\firmware\basic.hconfig
 #
 CONFIG_APP_INSTANCES=1
 #
@@ -15,7 +15,7 @@ CONFIG_APP_INSTANCES=1
 CONFIG_APP_MENU_IDX0=y
 CONFIG_APP_NAME_0="app"
 #
-# from $HARMONY_VERSION_PATH\apps\DAQiFi_3_0_WINC1500\bootloader\firmware\basic.hconfig
+# from $HARMONY_VERSION_PATH\apps\Nyquist\bootloader\firmware\basic.hconfig
 #
 CONFIG_USE_EXCEPTION_HANDLER=y
 CONFIG_EXCEPTION_USE_SYS_DEBUG=y
@@ -295,7 +295,7 @@ CONFIG_SYS_QUEUE=n
 # from $HARMONY_VERSION_PATH\framework\system\clk\config\DS60001320.hconfig
 #
 CONFIG_USE_SYS_CLK=y
-CONFIG_SYS_CLK_MODE="STATIC"
+CONFIG_SYS_CLK_MODE="DYNAMIC"
 CONFIG_SYS_CLK_FRCDIV="OSC_FRC_DIV_1"
 CONFIG_SYS_CLK_PBDIV0_MZ=2
 CONFIG_SYS_CLK_PBCLK1_ENABLE=y
