@@ -22,7 +22,7 @@ void InitializeBoardData(BoardData* boardData)
     
     boardData->PowerData.powerState = MICRO_ON;
     boardData->PowerData.battLow = false;
-    boardData->PowerData.pONBattPresent = false;
+    boardData->PowerData.pONBattPresent = true; // TODO: Rework this.  Likely could enable charging then check for charging to determine if bat is present - or get rid of this
     boardData->PowerData.battVoltage = 0.0;
     boardData->PowerData.chargePct = 0;
     boardData->PowerData.USBConnected = false;

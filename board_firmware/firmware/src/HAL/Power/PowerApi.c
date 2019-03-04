@@ -192,15 +192,19 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
     
     SYS_INT_Enable();
+    vTaskDelay(100 / portTICK_PERIOD_MS);   //Delay after turning up to full speed to allow steady-state before powering system
     
       // 3.3V Enable
     vars->EN_3_3V_Val = true;
     // 5V Enable
     vars->EN_5_10V_Val = true;
+    vTaskDelay(10 / portTICK_PERIOD_MS);
     // 5V ADC Enable
     vars->EN_5V_ADC_Val = true;
+    vTaskDelay(10 / portTICK_PERIOD_MS);
     // 12V Enable (set low to turn on, set as input (or high if configured as open collector) to turn off)
     vars->EN_12V_Val = false;
+    vTaskDelay(10 / portTICK_PERIOD_MS);
     // Vref Enable
     vars->EN_Vref_Val = true;
     Power_Write(config, vars);   
