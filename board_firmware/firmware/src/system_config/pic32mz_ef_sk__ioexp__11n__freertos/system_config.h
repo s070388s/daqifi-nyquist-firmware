@@ -94,11 +94,10 @@ extern "C" {
 #define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT     10
 #define SYS_CLK_WAIT_FOR_SWITCH             true
 #define SYS_CLK_ON_WAIT                     OSC_ON_WAIT_IDLE 
-
-#define SYS_CLK_DIV_PWR_SAVE    2       // Keep this for changing clock speeds   
-/*** Ports System Service Configuration ***/
+   
+#define SYS_CLK_DIV_PWR_SAVE    2       // Keep this for changing clock speeds   /*** Ports System Service Configuration ***/
 #define SYS_PORT_A_ANSEL        0x3F03
-#define SYS_PORT_A_TRIS         0xBFCF
+#define SYS_PORT_A_TRIS         0xBFDF
 #define SYS_PORT_A_LAT          0x0020
 #define SYS_PORT_A_ODC          0x0000
 #define SYS_PORT_A_CNPU         0x8000
@@ -154,8 +153,8 @@ extern "C" {
 #define SYS_PORT_G_CNEN         0x0000
 
 #define SYS_PORT_H_ANSEL        0x0043
-#define SYS_PORT_H_TRIS         0x0643
-#define SYS_PORT_H_LAT          0x883C
+#define SYS_PORT_H_TRIS         0x0E43
+#define SYS_PORT_H_LAT          0x803C
 #define SYS_PORT_H_ODC          0x8000
 #define SYS_PORT_H_CNPU         0x0000
 #define SYS_PORT_H_CNPD         0x0000
@@ -170,10 +169,10 @@ extern "C" {
 #define SYS_PORT_J_CNEN         0x0000
 
 #define SYS_PORT_K_ANSEL        0xFF00
-#define SYS_PORT_K_TRIS         0xFF30
-#define SYS_PORT_K_LAT          0x0001
+#define SYS_PORT_K_TRIS         0xFF10
+#define SYS_PORT_K_LAT          0x0061
 #define SYS_PORT_K_ODC          0x0000
-#define SYS_PORT_K_CNPU         0x0031
+#define SYS_PORT_K_CNPU         0x0011
 #define SYS_PORT_K_CNPD         0x0000
 #define SYS_PORT_K_CNEN         0x0000
 
@@ -801,6 +800,75 @@ int LogMessage(const char* format, ...);
 // *****************************************************************************
 // *****************************************************************************
 /*** Application Defined Pins ***/
+
+/*** Functions for Vref_EN pin ***/
+#define Vref_ENToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_J, PORTS_BIT_POS_15)
+#define Vref_ENOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_J, PORTS_BIT_POS_15)
+#define Vref_ENOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_J, PORTS_BIT_POS_15)
+#define Vref_ENStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_J, PORTS_BIT_POS_15)
+#define Vref_ENStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_J, PORTS_BIT_POS_15, Value)
+
+/*** Functions for P_5V_ADC_EN pin ***/
+#define P_5V_ADC_ENToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_0)
+#define P_5V_ADC_ENOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_0)
+#define P_5V_ADC_ENOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_0)
+#define P_5V_ADC_ENStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_0)
+#define P_5V_ADC_ENStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_0, Value)
+
+/*** Functions for BM_OTG pin ***/
+#define BM_OTGToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_5)
+#define BM_OTGOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_5)
+#define BM_OTGOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_5)
+#define BM_OTGStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_5)
+#define BM_OTGStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_5, Value)
+
+/*** Functions for BM_CE pin ***/
+#define BM_CEToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_6)
+#define BM_CEOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_6)
+#define BM_CEOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_6)
+#define BM_CEStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_6)
+#define BM_CEStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_K, PORTS_BIT_POS_6, Value)
+
+/*** Functions for I2C_EN2 pin ***/
+#define I2C_EN2Toggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_14)
+#define I2C_EN2On() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_14)
+#define I2C_EN2Off() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_14)
+#define I2C_EN2StateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_14)
+#define I2C_EN2StateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_14, Value)
+
+/*** Functions for P_3_3V_EN pin ***/
+#define P_3_3V_ENToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_12)
+#define P_3_3V_ENOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_12)
+#define P_3_3V_ENOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_12)
+#define P_3_3V_ENStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_12)
+#define P_3_3V_ENStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_12, Value)
+
+/*** Functions for I2C_EN1 pin ***/
+#define I2C_EN1Toggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_14)
+#define I2C_EN1On() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_14)
+#define I2C_EN1Off() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_14)
+#define I2C_EN1StateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_14)
+#define I2C_EN1StateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_14, Value)
+
+/*** Functions for P_12V_EN pin ***/
+#define P_12V_ENToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_15)
+#define P_12V_ENOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_15)
+#define P_12V_ENOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_15)
+#define P_12V_ENStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_15)
+#define P_12V_ENStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_15, Value)
+
+/*** Functions for P_5V_EN pin ***/
+#define P_5V_ENToggle() PLIB_PORTS_PinToggle(PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_0)
+#define P_5V_ENOn() PLIB_PORTS_PinSet(PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_0)
+#define P_5V_ENOff() PLIB_PORTS_PinClear(PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_0)
+#define P_5V_ENStateGet() PLIB_PORTS_PinGetLatched(PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_0)
+#define P_5V_ENStateSet(Value) PLIB_PORTS_PinWrite(PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_0, Value)
+
+/*** Functions for BM_STAT pin ***/
+#define BM_STATStateGet() PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_H, PORTS_BIT_POS_11)
+
+/*** Functions for BM_INT pin ***/
+#define BM_INTStateGet() PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_A, PORTS_BIT_POS_4)
 
 
 /*** Application Instance 0 Configuration ***/
