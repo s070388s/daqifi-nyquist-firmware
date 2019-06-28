@@ -44,7 +44,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 #include "framework/driver/adc/drv_adc_static.h"
-
+ 
 // *****************************************************************************
 // *****************************************************************************
 // Section: ADC Static Driver Functions
@@ -280,14 +280,14 @@ void DRV_ADC_Initialize(void)
      );
     if (DEVADC4 != 0xFFFFFFFF)
     PLIB_ADCHS_ChannelConfigurationSet(DRV_ADC_ID_1, ADCHS_CHANNEL_4, DEVADC4);
-	PLIB_ADCHS_ChannelSetup(
-	DRV_ADC_ID_1,
-	ADCHS_CHANNEL_7,
-	ADCHS_DATA_RESOLUTION_12BIT,
-	1,
-	100,
-	0
-	);
+     PLIB_ADCHS_ChannelSetup(
+     DRV_ADC_ID_1,
+     ADCHS_CHANNEL_7,
+     ADCHS_DATA_RESOLUTION_12BIT,
+     1,
+     100,
+     0
+     );
 
 /* Since configuration of analog inputs (dedicated and alternate) for dedicated ADC channel */
 /* is done via selection of dedicated channel only, here, the analog input for a dedicated */
@@ -354,21 +354,6 @@ void DRV_ADC_Initialize(void)
      PLIB_ADCHS_AnalogInputTriggerSourceSelect(
                DRV_ADC_ID_1,
                (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN8,
-               ADCHS_TRIGGER_SOURCE_GLOBAL_SOFTWARE_EDGE
-     );
-/* Setting for class-2 analog inputs */
-     PLIB_ADCHS_AnalogInputModeSelect(
-               DRV_ADC_ID_1,
-               (ADCHS_AN_INPUT_ID)ADCHS_CLASS2_AN10,
-               ADCHS_INPUT_MODE_SINGLE_ENDED_UNIPOLAR
-               );
-
-
-     PLIB_ADCHS_AnalogInputEdgeTriggerSet( DRV_ADC_ID_1, (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN10 );
-
-     PLIB_ADCHS_AnalogInputTriggerSourceSelect(
-               DRV_ADC_ID_1,
-               (ADCHS_CLASS12_AN_INPUT_ID)ADCHS_CLASS2_AN10,
                ADCHS_TRIGGER_SOURCE_GLOBAL_SOFTWARE_EDGE
      );
 /* Setting for class-2 analog inputs */
@@ -646,6 +631,26 @@ void DRV_ADC_Initialize(void)
      (
           DRV_ADC_ID_1, 
           ADCHS_AN44, 
+          ADCHS_SCAN_TRIGGER_SENSITIVE_EDGE,
+          ADCHS_SCAN_TRIGGER_SOURCE_GLOBAL_SOFTWARE_EDGE
+     );
+
+     /* Include Analog input to Scan list */
+     PLIB_ADCHS_AnalogInputScanSelect
+     (
+          DRV_ADC_ID_1,
+          ADCHS_AN41
+     );
+     
+     PLIB_ADCHS_AnalogInputModeSelect(
+               DRV_ADC_ID_1,
+               ADCHS_AN41,
+               ADCHS_INPUT_MODE_SINGLE_ENDED_UNIPOLAR
+               );               
+     PLIB_ADCHS_AnalogInputScanSetup
+     (
+          DRV_ADC_ID_1, 
+          ADCHS_AN41, 
           ADCHS_SCAN_TRIGGER_SENSITIVE_EDGE,
           ADCHS_SCAN_TRIGGER_SOURCE_GLOBAL_SOFTWARE_EDGE
      );

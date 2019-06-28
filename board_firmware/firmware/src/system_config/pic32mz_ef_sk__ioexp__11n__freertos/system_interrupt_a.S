@@ -47,7 +47,28 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "ISR_Support.h"
 
+ /* Port A Change Notice Interrupt */
+   .extern  IntHandlerChangeNotification_PortA
 
+   .section	.vector_118,code, keep
+   .equ     __vector_dispatch_118, IntVectorChangeNotification_PortA
+   .global  __vector_dispatch_118
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorChangeNotification_PortA
+
+IntVectorChangeNotification_PortA:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerChangeNotification_PortA
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorChangeNotification_PortA
+
+
+ 
  /* Port B Change Notice Interrupt */
    .extern  IntHandlerChangeNotification_PortB
 

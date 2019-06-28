@@ -12,6 +12,27 @@
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>../libscpi/src</sourceRootElem>
+                <sourceRootElem>../libscpi/inc/scpi</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>PIC32MZ2048EFM144</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>WIFI</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>PIC32MZ2048EFH144</name>
+                    <type>3</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
         </data>
     </configuration>
 </project>

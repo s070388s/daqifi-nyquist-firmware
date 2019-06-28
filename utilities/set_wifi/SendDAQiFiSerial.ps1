@@ -29,13 +29,13 @@ Write-Host "Writing WiFi Settings"
 $port.WriteLine('SYSTem:COMMunicate:LAN:NETType 1')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-$port.WriteLine('SYSTem:COMMunicate:LAN:SSID Tesla_2_4')
+$port.WriteLine('SYSTem:COMMunicate:LAN:SSID Doranix')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 $port.WriteLine('SYSTem:COMMunicate:LAN:SECurity 3')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
-$port.WriteLine('SYSTem:COMMunicate:LAN:PASs KpMg24259415')
+$port.WriteLine('SYSTem:COMMunicate:LAN:PASs Cooie001')
 Start-Sleep -Milliseconds 100 #wait 0.1 seconds
 
 $port.WriteLine('SYSTem:COMMunicate:LAN:APPLY')

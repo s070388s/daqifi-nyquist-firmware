@@ -62,7 +62,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.17"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.20"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -527,7 +527,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EC_DFP" vendor="Microchip" version="1.0.20"/>
+        <pack name="PIC32MZ-EC_DFP" vendor="Microchip" version="1.0.21"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -988,7 +988,7 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.17"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.0.20"/>
       </packs>
       <compileType>
         <linkerTool>

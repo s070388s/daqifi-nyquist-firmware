@@ -12,6 +12,27 @@
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>../src</sourceRootElem>
+                <sourceRootElem>../../UsbConsole/firmware/src</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>PIC32MZ2048EFM144</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>PIC32MX695F512L</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>PIC32MZ2048EFH144</name>
+                    <type>3</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
         </data>
     </configuration>
 </project>

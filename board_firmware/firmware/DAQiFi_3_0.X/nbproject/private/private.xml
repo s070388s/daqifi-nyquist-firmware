@@ -3,20 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/state/board/NQ1BoardConfig.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/HAL/Power/PowerApi.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/SCPI/SCPILAN.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/app.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/main.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_tasks.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/framework/peripheral/int/templates/int_VectorPriority_Default.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/framework/system/console/src/sys_console.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/state/board/BoardConfig.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_init.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_config.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/HAL/NVM/DaqifiSettings.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/SCPI/SCPIInterface.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/Nyquist/board_firmware/firmware/src/state/board/BoardConfig.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/state/board/BoardConfig.h</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/state/board/NQ1BoardConfig.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/app.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_config.h</file>
         </group>
     </open-files>
 </project-private>

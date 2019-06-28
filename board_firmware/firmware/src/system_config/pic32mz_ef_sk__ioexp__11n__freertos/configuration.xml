@@ -1852,19 +1852,19 @@
         <Name dnOrder="0">custom_http_app.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app</Path>
         <Checksum dnOrder="2">8AA86038DDDAA8D8DB0B9E6A37DADCBB</Checksum>
-        <ProjectFileChecksum dnOrder="3">960341E513CB39558C216DAAEB3970C2</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">5B3B23C8C3ED85E1FD083AD39EDFBE59</ProjectFileChecksum>
       </Template>
       <Template dnOrder="2">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">9A177377FFC6C3F24D9183D814D6BF5E</Checksum>
-        <ProjectFileChecksum dnOrder="3">32F1E5073708BBF0E0EC8DBF31F26422</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">1F5125529BBB1C620E1E6B057099F18A</ProjectFileChecksum>
       </Template>
       <Template dnOrder="3">
         <Name dnOrder="0">system_interrupt.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">BEA41321A3A79DF6976F936E0AD40D79</Checksum>
-        <ProjectFileChecksum dnOrder="3">1D61BE153D5F98F2862271834E455E7E</ProjectFileChecksum>
+        <Checksum dnOrder="2">882897F830F18B477F8DCECCEFC37470</Checksum>
+        <ProjectFileChecksum dnOrder="3">3D386B47E90CF9F4D3F836BE3C8F0CF1</ProjectFileChecksum>
       </Template>
       <Template dnOrder="4">
         <Name dnOrder="0">system_definitions.h</Name>
@@ -1885,7 +1885,7 @@
         <Name dnOrder="0">system_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">43BEAEA85DF3626543C7C96350DEDCA0</Checksum>
-        <ProjectFileChecksum dnOrder="3">7496F5C735028FC3D466151E619795B0</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">98F5056F6A75CF066499459BF84C4239</ProjectFileChecksum>
       </Template>
       <Template dnOrder="8">
         <Name dnOrder="0">drv_adc_static.h</Name>
@@ -1940,12 +1940,12 @@
         <Name dnOrder="0">rtos_hooks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">FA52743264536E5207D2ADBE57B48D05</Checksum>
-        <ProjectFileChecksum dnOrder="3">3FEA918AFD49328F412DDAAF382A2CF3</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">931FF5DBF95C1E2178B1176308AFBC9A</ProjectFileChecksum>
       </Template>
       <Template dnOrder="19">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/system/ports/src</Path>
-        <Checksum dnOrder="2">FB0768E40C41E6F931EA00F9E01194A2</Checksum>
+        <Checksum dnOrder="2">7F7E2A272490D0415B7BB03386962DCB</Checksum>
       </Template>
       <Template dnOrder="20">
         <Name dnOrder="0">drv_spi_api.c</Name>
@@ -1955,13 +1955,14 @@
       <Template dnOrder="21">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">0329AF31EC125FB46AC4B37F827E4DF2</Checksum>
+        <Checksum dnOrder="2">BE683DF1DA919B05441CF3BB5DD7774F</Checksum>
+        <ProjectFileChecksum dnOrder="3">52CB7566A977DDFA9C5914356301C0FC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="22">
         <Name dnOrder="0">system_interrupt_a.S</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">DA157EC798FA4F3B83FC5FD27E885C92</Checksum>
-        <ProjectFileChecksum dnOrder="3">3AB545F10F97D2CB2D96914D8C65AB80</ProjectFileChecksum>
+        <Checksum dnOrder="2">503D98BB84AB709A15CDB49E6B89E785</Checksum>
+        <ProjectFileChecksum dnOrder="3">D8365CE57A5F713DCD30C55B59505B5A</ProjectFileChecksum>
       </Template>
       <Template dnOrder="23">
         <Name dnOrder="0">drv_flash_static.h</Name>
@@ -1976,7 +1977,7 @@
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">0143E0D429B2807D671D040A6C99E4F2</Checksum>
-        <ProjectFileChecksum dnOrder="3">23D94281D2D6324A48462DD40482F510</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">DC6E53CFD92B08B3BE61B268425E189B</ProjectFileChecksum>
       </Template>
       <Template dnOrder="26">
         <Name dnOrder="0">net_pres_enc_glue.c</Name>
@@ -2000,7 +2001,7 @@
       <Template dnOrder="30">
         <Name dnOrder="0">drv_adc_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework/driver/adc/src</Path>
-        <Checksum dnOrder="2">34D4F170D998556997107F477383340A</Checksum>
+        <Checksum dnOrder="2">E6345AE8A99EDB2B1E2CC58F5B6FCDAF</Checksum>
       </Template>
       <Template dnOrder="31">
         <Name dnOrder="0">drv_spi_master_dma_tasks.c</Name>
@@ -2020,11 +2021,11 @@
         <Include dnOrder="2" value="../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos"/>
       </C32-AS>
       <C32 dnOrder="1">
-        <Include dnOrder="0" value="C:\microchip\harmony\v2_06\apps\Nyquist\board_firmware\firmware\src"/>
-        <Include dnOrder="1" value="C:\microchip\harmony\v2_06\apps\Nyquist\board_firmware\firmware\src\system_config\pic32mz_ef_sk__ioexp__11n__freertos"/>
-        <Include dnOrder="2" value="C:\microchip\harmony\v2_06\apps\Nyquist\board_firmware\firmware\src\pic32mz_ef_sk__ioexp__11n__freertos"/>
+        <Include dnOrder="0" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\board_firmware\firmware\src"/>
+        <Include dnOrder="1" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\board_firmware\firmware\src\system_config\pic32mz_ef_sk__ioexp__11n__freertos"/>
+        <Include dnOrder="2" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\board_firmware\firmware\src\pic32mz_ef_sk__ioexp__11n__freertos"/>
         <Include dnOrder="3" value="C:\microchip\harmony\v2_06\framework"/>
-        <Include dnOrder="4" value="C:\microchip\harmony\v2_06\apps\Nyquist\board_firmware\firmware\src\system_config\pic32mz_ef_sk__ioexp__11n__freertos\framework"/>
+        <Include dnOrder="4" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\board_firmware\firmware\src\system_config\pic32mz_ef_sk__ioexp__11n__freertos\framework"/>
         <Include dnOrder="5" value="../../../../../framework/driver/wifi/winc1500/include"/>
         <Include dnOrder="6" value="../../../../../framework/driver/wifi/winc1500/wireless_driver/include"/>
         <Include dnOrder="7" value="../../../../../framework/driver/wifi/winc1500/wireless_driver_extension"/>

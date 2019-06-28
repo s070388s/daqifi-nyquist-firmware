@@ -72,6 +72,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
+         void IntHandlerChangeNotification_PortA(void)
+{
+    
+    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_A);
+}
          void IntHandlerChangeNotification_PortB(void)
 {
     ++g_BoardData.InISR;
