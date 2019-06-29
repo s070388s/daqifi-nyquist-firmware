@@ -103,7 +103,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /*** DEVCFG3 ***/
 
 #pragma config USERID =     0xffff
-#pragma config FMIIEN =     OFF
+#pragma config FMIIEN =     ON
 #pragma config FETHIO =     ON
 #pragma config PGL1WAY =    ON
 #pragma config PMDL1WAY =   ON

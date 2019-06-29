@@ -1857,7 +1857,7 @@
       <Template dnOrder="2">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">9A177377FFC6C3F24D9183D814D6BF5E</Checksum>
+        <Checksum dnOrder="2">AD4D94C0B55A7C81F78A7A9A374E291A</Checksum>
         <ProjectFileChecksum dnOrder="3">1F5125529BBB1C620E1E6B057099F18A</ProjectFileChecksum>
       </Template>
       <Template dnOrder="3">
@@ -1884,7 +1884,7 @@
       <Template dnOrder="7">
         <Name dnOrder="0">system_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">43BEAEA85DF3626543C7C96350DEDCA0</Checksum>
+        <Checksum dnOrder="2">9F15B461CC179621596E421109D7D062</Checksum>
         <ProjectFileChecksum dnOrder="3">98F5056F6A75CF066499459BF84C4239</ProjectFileChecksum>
       </Template>
       <Template dnOrder="8">
@@ -1955,7 +1955,7 @@
       <Template dnOrder="21">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">BE683DF1DA919B05441CF3BB5DD7774F</Checksum>
+        <Checksum dnOrder="2">6667ACD7A0F59013D8AC55BCF36F0242</Checksum>
         <ProjectFileChecksum dnOrder="3">52CB7566A977DDFA9C5914356301C0FC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="22">
@@ -1976,7 +1976,7 @@
       <Template dnOrder="25">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">0143E0D429B2807D671D040A6C99E4F2</Checksum>
+        <Checksum dnOrder="2">F5DCD7A7CE639CC9CE738D093123C0D2</Checksum>
         <ProjectFileChecksum dnOrder="3">DC6E53CFD92B08B3BE61B268425E189B</ProjectFileChecksum>
       </Template>
       <Template dnOrder="26">
