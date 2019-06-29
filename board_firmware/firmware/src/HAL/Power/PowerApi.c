@@ -1,46 +1,11 @@
 #include "HAL/Power/PowerApi.h"
 
-#include "HAL/MCP73871/MCP73871.h"
+//#include "HAL/MCP73871/MCP73871.h"
 #include "system_definitions.h"
 #include "state/board/BoardConfig.h"
 #include "state/data/BoardData.h"
 #include "HAL/ADC.h"
 #include "HAL/Wifi/WifiApi.h"
-
-/*
- *  CHARGE CYCLE STATE      STAT1   STAT2   PG
- *   No Input Power Present  Hi-Z    Hi-Z    Hi-Z
- *   Shutdown (VDD = VBAT)   Hi-Z    Hi-Z    Hi-Z
- * 
- *   No battery or charge disabled:
- *   Shutdown (VDD = IN)     Hi-Z    Hi-Z    L
- *   Shutdown (CE = L)       Hi-Z    Hi-Z    L
- *   No Battery Present      Hi-Z    Hi-Z    L
- * 
- *   Charging:
- *   Preconditioning         L       Hi-Z    L
- *   Constant Current        L       Hi-Z    L
- *   Constant Voltage        L       Hi-Z    L
- * 
- *   Charge finished:
- *   Charge Cmplt - Stby     Hi-Z    L       L
- * 
- *   Fault:
- *   Temperature Fault       L       L       L
- *   Timer Fault             L       L       L
- * 
- *   Low Battery:
- *   Low Battery Output      L       Hi-Z    Hi-Z
- * 
- * The UVLO circuit places the device in Shutdown mode
- * if the input supply falls to within approximately 100 mV
- * of the battery voltage.
- * 
- * UVLO Start Threshold =   4.35V
- * UVLO Stop Threshold =    4.13V
- * Low Batt Threshold =     3.1V
- * 
-*/
 
 #define BATT_EXH_TH 5.0
 #define BATT_LOW_TH 10.0 // 10% or ~3.2V
@@ -49,7 +14,7 @@
 void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
     // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
-    MCP73871_Init(config.MCP73871Config, vars.MCP73871WriteVars);
+    //MCP73871_Init(config.MCP73871Config, vars.MCP73871WriteVars);
     
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars.EN_3_3V_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars.EN_5_10V_Val);
@@ -85,9 +50,9 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
     {
     
         // Set battery management to external source during power-up to avoid triggering overload
-        tempSELVal=vars->MCP73871WriteVars.SEL_Val; // Store current value for later
+        tempSELVal=0;//MCP73871WriteVars.SEL_Val; // Store current value for later
         vars->MCP73871WriteVars.SEL_Val = true;   
-        MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
+        //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
 
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars->EN_5_10V_Val);
 
@@ -98,7 +63,7 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
         vTaskDelay(100 / portTICK_PERIOD_MS);
 
         vars->MCP73871WriteVars.SEL_Val = tempSELVal;   
-        MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
+        //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
     }
     
     // Check to see if we are changing the state of this power pin
@@ -361,11 +326,11 @@ void Power_UpdateChgPct(sPowerData *data)
 void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
 {
     // Update digital IO status from MCP73871
-    MCP73871_Read(PowerConfig.MCP73871Config, &PowerData->MCP73871Data);
-    MCP73871_ComputeStatus(&PowerData->MCP73871Data);
+    //MCP73871_Read(PowerConfig.MCP73871Config, &PowerData->MCP73871Data);
+    //MCP73871_ComputeStatus(&PowerData->MCP73871Data);
     
     // Update battLow status based on MCP73871 status
-    PowerData->battLow=(PowerData->MCP73871Data.status==LOW_BATT);
+    //PowerData->battLow=(PowerData->MCP73871Data.status==LOW_BATT);
     
     // Update power source
     Power_Update_Source(PowerConfig, PowerData, powerWriteVars);
@@ -438,8 +403,8 @@ void Power_Update_Source(sPowerConfig config, sPowerData *data, sPowerWriteVars 
         vars->MCP73871WriteVars.SEL_Val = true;
     }
 
-    MCP73871_ChargeEnable(config.MCP73871Config, &data->MCP73871Data, &vars->MCP73871WriteVars, chargeEnable, data->pONBattPresent);
-    MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
+    //MCP73871_ChargeEnable(config.MCP73871Config, &data->MCP73871Data, &vars->MCP73871WriteVars, chargeEnable, data->pONBattPresent);
+    //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
 }
 
 void Power_USB_Con_Update(sPowerConfig config, sPowerData *data, bool connected)
