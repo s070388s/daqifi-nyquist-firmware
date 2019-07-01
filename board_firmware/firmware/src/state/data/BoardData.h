@@ -3,7 +3,6 @@
 #include "AInSample.h"
 #include "DIOSample.h"
 #include "Util/HeapList.h"
-#include "HAL/MCP73871/MCP73871.h"
 #include "HAL/Power/PowerApi.h"
 #include "HAL/UI/UI.h"
 #include "HAL/NVM/DaqifiSettings.h"

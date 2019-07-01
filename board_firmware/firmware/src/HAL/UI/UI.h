@@ -98,7 +98,7 @@ extern "C" {
         Function should be called periodically (~100ms) from a FreeRTOS task
 
      */
-    void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData, sMCP73871Config MCP73871Config, sMCP73871WriteVars* MCP73871WriteVars);
+    void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData);
     
         /**
       @Function

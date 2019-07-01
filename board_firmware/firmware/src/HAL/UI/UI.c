@@ -23,7 +23,7 @@
 #define BUTTON_POWER_OFF_TH (3000/UI_TASK_CALLING_PRD)  //  4 seconds (~1 second is required to power off)
 
 
-void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData, sMCP73871Config MCP73871Config, sMCP73871WriteVars* MCP73871WriteVars)
+void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData)
 {
     static uint16_t buttonPressCount = 0;   // Number of times the function has consecutively detected a button press
     static bool oneShot = false;    // One shot variable to ensure only action is performed if the user holds the button for a long period of time
@@ -36,7 +36,7 @@ void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerDa
         if(PowerData->powerState == MICRO_ON)
         {
             // Disable charging to allow us to check if the battery is present (in anticipation of turning on)
-            MCP73871_ChargeEnable(MCP73871Config, &PowerData->MCP73871Data, MCP73871WriteVars, false, false);
+            //MCP73871_ChargeEnable(MCP73871Config, &PowerData->MCP73871Data, MCP73871WriteVars, false, false);
 
             if((buttonPressCount > BUTTON_POWER_ON_TH) && !oneShot)
             {
@@ -83,15 +83,15 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
     
     
     // Assign nicer variable names to make the code below more readable
-    pluggedIn = !PowerData->MCP73871Data.PG_Val;
+    pluggedIn = 0; //!PowerData->MCP73871Data.PG_Val;
        
     poweredOn = (PowerData->powerState > 0);
 
-    charging = (PowerData->MCP73871Data.status == CHARGING);
+    charging = 0; //(PowerData->MCP73871Data.status == CHARGING);
 
     streaming = streamingFlag;
     
-    battLow = (PowerData->MCP73871Data.status == LOW_BATT);
+    battLow = 0;//(PowerData->MCP73871Data.status == LOW_BATT);
 
     genError = false;
     

@@ -30,8 +30,8 @@ void InitializeBoardData(BoardData* boardData)
     boardData->PowerData.powerDnAllowed = false;
     boardData->PowerData.externalPowerSource = NO_EXT_POWER;
     
-    boardData->PowerData.MCP73871Data.chargeAllowed = true;
-    boardData->PowerData.MCP73871Data.status = NO_INPUT;
+    //boardData->PowerData.MCP73871Data.chargeAllowed = true;
+    //boardData->PowerData.MCP73871Data.status = NO_INPUT;
     
     boardData->UIReadVars.LED1 = false;
     boardData->UIReadVars.LED2 = false;

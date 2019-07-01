@@ -9,7 +9,6 @@
 #include "TcpServerConfig.h"
 #include "UsbRuntimeConfig.h"
 #include "Util/ArrayWrapper.h"
-#include "HAL/MCP73871/MCP73871.h"
 #include "HAL/Power/PowerApi.h"
 #include "HAL/UI/UI.h"
 #include "HAL/NVM/DaqifiSettings.h"

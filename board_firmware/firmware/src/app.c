@@ -49,7 +49,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "TCPServer/TcpServer.h"
 #include "UsbCdc/UsbCdc.h"
 #include "state/board/BoardConfig.h"
-#include "HAL/MCP73871/MCP73871.h"
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "state/data/BoardData.h"
 

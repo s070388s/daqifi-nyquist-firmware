@@ -219,12 +219,6 @@ void IntHandlerDrvAdcEOS(void)
         //uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
         //UNUSED(dummyADCCON2);
         
-        g_BoardData.PowerData.MCP73871Data.chargeAllowed = true;
-        MCP73871_ChargeEnable(g_BoardConfig.PowerConfig.MCP73871Config,
-                &g_BoardData.PowerData.MCP73871Data,
-                &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars,
-                true, g_BoardData.PowerData.pONBattPresent);
-
         // Tell the app to read the results
         const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
         ADC_ConversionComplete(module);

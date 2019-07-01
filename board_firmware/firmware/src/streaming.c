@@ -14,12 +14,7 @@ static void Streaming_TriggerADC(AInModule* module)
 {
     if (module->Type == AIn_MC12bADC)
     {
-        g_BoardData.PowerData.MCP73871Data.chargeAllowed = false;
         
-        MCP73871_ChargeEnable(g_BoardConfig.PowerConfig.MCP73871Config,
-            &g_BoardData.PowerData.MCP73871Data,
-            &g_BoardRuntimeConfig.PowerWriteVars.MCP73871WriteVars,
-            false, g_BoardData.PowerData.pONBattPresent);
     }
     
     ADC_TriggerConversion(module);

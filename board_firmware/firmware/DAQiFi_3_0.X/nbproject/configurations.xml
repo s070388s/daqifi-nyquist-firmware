@@ -17,9 +17,6 @@
           <logicalFolder name="DAC7718" displayName="DAC7718" projectFiles="true">
             <itemPath>../src/HAL/DAC7718/DAC7718.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="MCP73871" displayName="MCP73871" projectFiles="true">
-            <itemPath>../src/HAL/MCP73871/MCP73871.h</itemPath>
-          </logicalFolder>
           <logicalFolder name="NVM" displayName="NVM" projectFiles="true">
             <itemPath>../src/HAL/NVM/DaqifiSettings.h</itemPath>
           </logicalFolder>
@@ -638,9 +635,6 @@
           </logicalFolder>
           <logicalFolder name="DAC7718" displayName="DAC7718" projectFiles="true">
             <itemPath>../src/HAL/DAC7718/DAC7718.c</itemPath>
-          </logicalFolder>
-          <logicalFolder name="MCP73871" displayName="MCP73871" projectFiles="true">
-            <itemPath>../src/HAL/MCP73871/MCP73871.c</itemPath>
           </logicalFolder>
           <logicalFolder name="NVM" displayName="NVM" projectFiles="true">
             <itemPath>../src/HAL/NVM/DaqifiSettings.c</itemPath>

@@ -4,7 +4,6 @@
 #include "AInConfig.h"
 #include "DIOConfig.h"
 #include "StreamingConfig.h"
-#include "HAL/MCP73871/MCP73871.h"
 #include "HAL/Power/PowerApi.h"
 #include "HAL/UI/UI.h"
 #include "HAL/NVM/DaqifiSettings.h"
@@ -53,9 +52,6 @@ extern "C" {
          * This is an array where index = channel and data = configuration
          */
         AInArray AInChannels;
-        
-        //MCP73871 Structure
-        sMCP73871Config MCP73871Config;
         
         //Power Structure
         sPowerConfig PowerConfig;

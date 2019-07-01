@@ -1955,7 +1955,7 @@
       <Template dnOrder="21">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">6667ACD7A0F59013D8AC55BCF36F0242</Checksum>
+        <Checksum dnOrder="2">E0B4F50F6ED62183F1F7B0A03121140A</Checksum>
         <ProjectFileChecksum dnOrder="3">52CB7566A977DDFA9C5914356301C0FC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="22">
