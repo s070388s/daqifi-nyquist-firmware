@@ -1,4 +1,5 @@
 #include "BoardRuntimeConfig.h"
+#include "HAL/BQ24297/BQ24297.h"
 
 // The default board configuration
 // TODO: It would be handly if this was at a special place in memory so we could flash just the board config (vs recompiling the firmware w/ a different configuration)
@@ -69,6 +70,8 @@ const BoardRuntimeConfig g_NQ1BoardRuntimeConfig = {
        .EN_5V_ADC_Val = false,   // 5V ADC rail off
        .EN_12V_Val = true,      // 12V rail off (inverse logic)
        .EN_Vref_Val = false,    // Vref rail off
+       .BQ24297WriteVars.CE_Val = false,    // Disable charging
+       .BQ24297WriteVars.OTG_Val = true,    // TOTO: Change this. Allow more than 100mA during power up for debugging
     },
     .UIWriteVars = {
         .LED1 = false,

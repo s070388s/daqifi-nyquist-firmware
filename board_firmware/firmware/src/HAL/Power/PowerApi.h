@@ -10,6 +10,7 @@
 
 #include "system_config.h"
 #include "system_definitions.h"
+#include "HAL/BQ24297/BQ24297.h"
 
 #ifdef	__cplusplus
 extern "C" {
@@ -71,7 +72,7 @@ extern "C" {
         PORTS_CHANNEL USB_Dn_Ch; 
         PORTS_BIT_POS USB_Dn_Bit;
        
-       //sMCP73871Config MCP73871Config;
+       sBQ24297Config BQ24297Config;
 
     } sPowerConfig;
 
@@ -89,7 +90,7 @@ extern "C" {
        double battVoltage;
        bool pONBattPresent;
        
-       //sMCP73871Data MCP73871Data;
+       sBQ24297Data BQ24297Data;
 
     } sPowerData;
     
@@ -100,7 +101,7 @@ extern "C" {
        unsigned char EN_5_10V_Val;
        unsigned char EN_5V_ADC_Val;
        unsigned char EN_12V_Val;
-       //sMCP73871WriteVars MCP73871WriteVars;
+       sBQ24297WriteVars BQ24297WriteVars;
 
     } sPowerWriteVars;
     

@@ -14,6 +14,9 @@
           <logicalFolder name="Announce" displayName="Announce" projectFiles="true">
             <itemPath>../src/HAL/Announce/DAQiFi_tcpip_announce.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="BQ24297" displayName="BQ24297" projectFiles="true">
+            <itemPath>../src/HAL/BQ24297/BQ24297.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="DAC7718" displayName="DAC7718" projectFiles="true">
             <itemPath>../src/HAL/DAC7718/DAC7718.h</itemPath>
           </logicalFolder>
@@ -632,6 +635,9 @@
           <logicalFolder name="Announce" displayName="Announce" projectFiles="true">
             <itemPath>../src/HAL/Announce/DAQiFi_tcpip_announce.c</itemPath>
             <itemPath>../src/HAL/Announce/tcpip_announce.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="BQ24297" displayName="BQ24297" projectFiles="true">
+            <itemPath>../src/HAL/BQ24297/BQ24297.c</itemPath>
           </logicalFolder>
           <logicalFolder name="DAC7718" displayName="DAC7718" projectFiles="true">
             <itemPath>../src/HAL/DAC7718/DAC7718.c</itemPath>

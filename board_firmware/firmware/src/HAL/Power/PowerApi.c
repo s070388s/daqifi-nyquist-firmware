@@ -1,5 +1,4 @@
 #include "HAL/Power/PowerApi.h"
-
 #include "system_definitions.h"
 #include "state/board/BoardConfig.h"
 #include "state/data/BoardData.h"
@@ -13,7 +12,7 @@
 void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
     // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
-    //MCP73871_Init(config.MCP73871Config, vars.MCP73871WriteVars);
+    BQ24297_Init(config.BQ24297Config, vars.BQ24297WriteVars);
     
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars.EN_3_3V_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars.EN_5_10V_Val);

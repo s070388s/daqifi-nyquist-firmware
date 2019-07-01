@@ -7,6 +7,7 @@
 #include "HAL/Power/PowerApi.h"
 #include "HAL/UI/UI.h"
 #include "HAL/NVM/DaqifiSettings.h"
+#include "HAL/BQ24297/BQ24297.h"
 
 
 #ifdef __cplusplus

@@ -952,6 +952,11 @@ int LogMessage(const char* format, ...);
 #define BATT_MAN_STAT_PIN PORTS_BIT_POS_11
 #define BATT_MAN_STAT_PIN_MASK (0x1 << 11)
 
+/*** Functions for BATT_MAN_INT pin ***/
+#define BATT_MAN_INT_PORT PORT_CHANNEL_A
+#define BATT_MAN_INT_PIN PORTS_BIT_POS_4
+#define BATT_MAN_INT_PIN_MASK (0x1 << 4)
+
 /*** Functions for WIFI_CS pin ***/
 #define WIFI_CS_PORT PORT_CHANNEL_K
 #define WIFI_CS_PIN PORTS_BIT_POS_4
