@@ -12,7 +12,7 @@
 void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
     // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
-    BQ24297_Init(config.BQ24297Config, vars.BQ24297WriteVars);
+    BQ24297_Init(config.BQ24297Config, vars.BQ24297WriteVars, &(data->BQ24297Data));
     
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars.EN_3_3V_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars.EN_5_10V_Val);
@@ -22,9 +22,7 @@ void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 }
 
 void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
-{
-    bool tempSELVal = false;
-    
+{    
     // Current power state values
 
     bool EN_3_3V_Val_Current, EN_5_10V_Val_Current, EN_5V_ADC_Val_Current, EN_12V_Val_Current, EN_Vref_Val_Current;
@@ -48,7 +46,7 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
     {
     
         // Set battery management to external source during power-up to avoid triggering overload
-        tempSELVal=0;//MCP73871WriteVars.SEL_Val; // Store current value for later
+
         //vars->MCP73871WriteVars.SEL_Val = true;   
         //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
 
@@ -323,12 +321,17 @@ void Power_UpdateChgPct(sPowerData *data)
 
 void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
 {
+    volatile uint8_t deviceID = 0;
+    
     // Update digital IO status from MCP73871
     //MCP73871_Read(PowerConfig.MCP73871Config, &PowerData->MCP73871Data);
     //MCP73871_ComputeStatus(&PowerData->MCP73871Data);
     
     // Update battLow status based on MCP73871 status
     //PowerData->battLow=(PowerData->MCP73871Data.status==LOW_BATT);
+    
+    // Read device ID
+    deviceID = BQ24297_Read_I2C(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, PowerData->BQ24297Data, 0x0A); // Get device ID
     
     // Update power source
     Power_Update_Source(PowerConfig, PowerData, powerWriteVars);

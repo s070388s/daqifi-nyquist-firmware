@@ -387,15 +387,58 @@ IntVectorSysDmaInstance0:
    .set     noat
    .ent  IntVectorSysDmaInstance1
 
-IntVectorSysDmaInstance1:
+    IntVectorSysDmaInstance1:
     portSAVE_CONTEXT
     la    s6,  IntHandlerSysDmaInstance1
     jalr  s6
     nop
     portRESTORE_CONTEXT
     .end	IntVectorSysDmaInstance1
+    
 
 
+    /* I2C Instance 0 Interrupt */
+
+   .extern  IntHandlerDrvI2CMasterInstance0
+
+   .section	.vector_184,code, keep
+   .equ     __vector_dispatch_184, IntVectorDrvI2CMasterInstance0
+   .global  __vector_dispatch_184
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorDrvI2CMasterInstance0
+
+IntVectorDrvI2CMasterInstance0:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerDrvI2CMasterInstance0
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorDrvI2CMasterInstance0
+
+
+   .extern  IntHandlerDrvI2CErrorInstance0
+
+   .section	.vector_182,code, keep
+   .equ     __vector_dispatch_182, IntVectorDrvI2CErrorInstance0
+   .global  __vector_dispatch_182
+   .set     nomicromips
+   .set     noreorder
+   .set     nomips16
+   .set     noat
+   .ent  IntVectorDrvI2CErrorInstance0
+
+IntVectorDrvI2CErrorInstance0:
+    portSAVE_CONTEXT
+    la    s6,  IntHandlerDrvI2CErrorInstance0
+    jalr  s6
+    nop
+    portRESTORE_CONTEXT
+    .end	IntVectorDrvI2CErrorInstance0
+    
+    
 
 /* USB Device Interrupt */
    .extern  IntHandlerUSBInstance0
@@ -436,7 +479,7 @@ IntVectorUSBInstance0_USBDMA:
     nop
     portRESTORE_CONTEXT
     .end	IntVectorUSBInstance0_USBDMA
-
+    
 /* ADC EOS Interrupt */
    .extern  IntHandlerDrvAdcEOS
 

@@ -243,7 +243,6 @@ void _TCPIP_Tasks(void)
     {
         /* Maintain the TCP/IP Stack*/
         TCPIP_STACK_Task(sysObj.tcpip);
-        
         vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }

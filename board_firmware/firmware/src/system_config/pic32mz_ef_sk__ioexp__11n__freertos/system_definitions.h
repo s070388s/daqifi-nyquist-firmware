@@ -50,7 +50,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system/common/sys_common.h"
 #include "system/common/sys_module.h"
 #include "driver/flash/drv_flash.h" 
-#include "system/devcon/sys_devcon.h"
+#include "driver/i2c/drv_i2c.h"
+         
+     
+ 
+ 
+ #include "system/devcon/sys_devcon.h"
       #include "system/reset/sys_reset.h"
       #include "system/rtcc/sys_rtcc.h"
 #include "system/clk/sys_clk.h"
@@ -124,6 +129,7 @@ typedef struct
     SYS_MODULE_OBJ  drvTmr1;
     SYS_MODULE_OBJ  drvTmr2;
 
+    SYS_MODULE_OBJ  drvI2C0;
     SYS_MODULE_OBJ  drvNvm;
     SYS_MODULE_OBJ  drvSDCard;
     SYS_MODULE_OBJ  sysDebug;

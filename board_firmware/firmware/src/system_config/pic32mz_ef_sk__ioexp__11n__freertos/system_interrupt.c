@@ -72,19 +72,31 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-         void IntHandlerChangeNotification_PortA(void)
+
+void IntHandlerDrvI2CMasterInstance0(void)
+{
+    DRV_I2C_Tasks(sysObj.drvI2C0);
+}
+
+
+void IntHandlerDrvI2CErrorInstance0(void)
+{
+    SYS_ASSERT(false, "I2C Driver Instance 0 Error");
+}
+
+void IntHandlerChangeNotification_PortA(void)
 {
     
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_A);
 }
-         void IntHandlerChangeNotification_PortB(void)
+void IntHandlerChangeNotification_PortB(void)
 {
     ++g_BoardData.InISR;
     PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_3); // Read port to clear mismatch condition
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
     --g_BoardData.InISR;
 }
-         void IntHandlerChangeNotification_PortF(void)
+void IntHandlerChangeNotification_PortF(void)
 {
     ++g_BoardData.InISR;
     PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_2); // Read port to clear mismatch condition

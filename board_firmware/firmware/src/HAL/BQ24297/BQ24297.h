@@ -36,7 +36,7 @@ typedef enum
 	PORTS_CHANNEL SDA_Ch;
 	PORTS_BIT_POS SDA_Bit;
 	PORTS_CHANNEL SCL_Ch; 
-	PORTS_BIT_POS SCL_Bit; 
+	PORTS_BIT_POS SCL_Bit;
 	PORTS_CHANNEL OTG_Ch; 
 	PORTS_BIT_POS OTG_Bit; 
 	PORTS_CHANNEL CE_Ch; 
@@ -45,14 +45,16 @@ typedef enum
 	PORTS_BIT_POS INT_Bit; 
 	PORTS_CHANNEL STAT_Ch; 
 	PORTS_BIT_POS STAT_Bit;
+    SYS_MODULE_INDEX I2C_Index;
+    unsigned char I2C_Address;
  } sBQ24297Config;
 
   typedef struct sBQ24297Data{
-
 	unsigned char INT_Val;
 	unsigned char STAT_Val;
     bool chargeAllowed;
     BQ24297_STATUS status;
+    DRV_HANDLE I2C_Handle;
  } sBQ24297Data;
  
    typedef struct sBQ24297WriteVars{
@@ -64,7 +66,7 @@ typedef enum
     /**
      * Sets the default variable values and initializes hardware
      */
-    void BQ24297_Init(sBQ24297Config config, sBQ24297WriteVars write);
+    void BQ24297_Init(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
  
     /**
     * Reads data from BQ24297.
@@ -73,7 +75,7 @@ typedef enum
     * @param data 
     * @return
     */
-    void BQ24297_Read(sBQ24297Config config, sBQ24297Data *data);
+    uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg);
     
     /**
     * Writes data to the the BQ24297.
@@ -82,7 +84,7 @@ typedef enum
     * @param write
     * @return
     */
-    void BQ24297_Write(sBQ24297Config config, sBQ24297WriteVars write);
+    void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData);
     
     void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297Data *data, sBQ24297WriteVars *write, bool chargeEnable, bool pONBattPresent);
 

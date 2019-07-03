@@ -189,6 +189,8 @@ const BoardConfig g_NQ1BoardConfig = {
         .BQ24297Config.OTG_Bit = BATT_MAN_OTG_PIN,
         .BQ24297Config.STAT_Ch = BATT_MAN_STAT_PORT,
         .BQ24297Config.STAT_Bit = BATT_MAN_STAT_PIN,
+        .BQ24297Config.I2C_Index = DRV_I2C_INDEX_0,
+        .BQ24297Config.I2C_Address = 0xD6,  // Microchip libraries use an 8 bit address with 0 appended to the end of the 7 bit I2C address
     },
     .UIConfig = {
         .LED1_Mod = 0,
