@@ -8,11 +8,12 @@
 #define BATT_EXH_TH 5.0
 #define BATT_LOW_TH 10.0 // 10% or ~3.2V
 #define BATT_LOW_HYST 10.0 // Battery must be charged at least this value higher than BATT_LOW_TH
+#define WARMUP_PULSES 10
 
 void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
     // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
-    BQ24297_Init(config.BQ24297Config, vars.BQ24297WriteVars, &(data->BQ24297Data));
+    BQ24297_InitHardware(config.BQ24297Config, vars.BQ24297WriteVars, &(data->BQ24297Data));
     
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars.EN_3_3V_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars.EN_5_10V_Val);
@@ -38,7 +39,7 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
     {
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars->EN_3_3V_Val);
         // Delay 10ms for power to stabilize (should already be stable)
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        //vTaskDelay(10 / portTICK_PERIOD_MS);
     }
     
     // Check to see if we are changing the state of these power pins
@@ -56,7 +57,7 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
 
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_12V_Ch, config.EN_12V_Bit, vars->EN_12V_Val);
         // Delay 100ms for power to stabilize
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+        //vTaskDelay(100 / portTICK_PERIOD_MS);
 
         //vars->MCP73871WriteVars.SEL_Val = tempSELVal;   
         //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
@@ -74,7 +75,7 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
 
 void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-
+    uint32_t i = 0;
     //uint32_t achievedFrequencyHz=0;
     
     // Enable processor to run at full speed
@@ -157,15 +158,25 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     
       // 3.3V Enable
     vars->EN_3_3V_Val = true;
+    Power_Write(config, vars); 
     // 5V Enable
-    //vars->EN_5_10V_Val = true;
-    vTaskDelay(10 / portTICK_PERIOD_MS);
+    for (i = 0; i < WARMUP_PULSES; i++)
+    {
+        vars->EN_5_10V_Val = false;
+        Power_Write(config, vars);
+        vTaskDelay(2 / portTICK_PERIOD_MS);
+        vars->EN_5_10V_Val = true;
+        Power_Write(config, vars);
+        vTaskDelay(1 / portTICK_PERIOD_MS);
+    }
     // 5V ADC Enable
-    //vars->EN_5V_ADC_Val = true;
-    vTaskDelay(10 / portTICK_PERIOD_MS);
+    vars->EN_5V_ADC_Val = true;
+    Power_Write(config, vars); 
+    vTaskDelay(50 / portTICK_PERIOD_MS);
     // 12V Enable (set low to turn on, set as input (or high if configured as open collector) to turn off)
-   //vars->EN_12V_Val = false;
-    vTaskDelay(10 / portTICK_PERIOD_MS);
+    vars->EN_12V_Val = false;
+    Power_Write(config, vars);
+    vTaskDelay(50 / portTICK_PERIOD_MS);
     // Vref Enable
     vars->EN_Vref_Val = true;
     Power_Write(config, vars);   
@@ -248,7 +259,7 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
          */
             if(data->requestedPowerState == DO_POWER_UP)
             {
-                if(1)//data->externalPowerSource==CHARGER_2A_EXT_POWER || CHARGER_1A_EXT_POWER || data->externalPowerSource==USB_500MA_EXT_POWER || !data->battLow)
+                if(data->BQ24297Data.status.vsys || data->BQ24297Data.status.pg)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
                 {
 
                     // If plugged into external power source or battery has charge enable full power
@@ -267,7 +278,7 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
          * ADC readings are now valid!
          */ 
             Power_UpdateChgPct(data);
-            if(data->requestedPowerState == DO_POWER_UP_EXT_DOWN || (data->chargePct<BATT_LOW_TH && !(data->externalPowerSource==USB_500MA_EXT_POWER || data->externalPowerSource==CHARGER_2A_EXT_POWER)))
+            if(data->requestedPowerState == DO_POWER_UP_EXT_DOWN || (data->chargePct<BATT_LOW_TH && !data->BQ24297Data.status.pg))
             {
                 // If battery is low on charge and we are not plugged in, disable external supplies
                 vars->EN_5_10V_Val = false;
@@ -279,7 +290,7 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
         case POWERED_UP_EXT_DOWN:
         /* Board partially powered. Monitor for any changes */ 
             Power_UpdateChgPct(data);
-            if(data->chargePct>BATT_LOW_TH + BATT_LOW_HYST || (data->externalPowerSource==USB_500MA_EXT_POWER || data->externalPowerSource==CHARGER_2A_EXT_POWER))
+            if(data->chargePct>(BATT_LOW_TH + BATT_LOW_HYST) || (data->BQ24297Data.status.inLim > 1))
             {
                 if(data->requestedPowerState == DO_POWER_UP)
                 {
@@ -321,17 +332,18 @@ void Power_UpdateChgPct(sPowerData *data)
 
 void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
 {
-    volatile uint8_t deviceID = 0;
+    static bool battManSettingsInit = false;
     
-    // Update digital IO status from MCP73871
-    //MCP73871_Read(PowerConfig.MCP73871Config, &PowerData->MCP73871Data);
-    //MCP73871_ComputeStatus(&PowerData->MCP73871Data);
+    // If we haven't initialized the battery management settings, do so now
+    if (battManSettingsInit == false)
+    {
+        BQ24297_InitSettings(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
+        battManSettingsInit = true;
+    }
     
-    // Update battLow status based on MCP73871 status
-    //PowerData->battLow=(PowerData->MCP73871Data.status==LOW_BATT);
+    // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
+    BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
     
-    // Read device ID
-    deviceID = BQ24297_Read_I2C(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, PowerData->BQ24297Data, 0x0A); // Get device ID
     
     // Update power source
     Power_Update_Source(PowerConfig, PowerData, powerWriteVars);

@@ -181,10 +181,10 @@ void APP_Initialize(void)
 void APP_Tasks(void)
 {   
     // Dont do anything until the board powers on
-//    if (g_BoardData.PowerData.powerState == MICRO_ON)
-//    {
-//        return;
-//    }
+    if (g_BoardData.PowerData.powerState == MICRO_ON)
+    {
+        return;
+    }
 
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);

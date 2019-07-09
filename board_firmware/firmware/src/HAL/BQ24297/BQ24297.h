@@ -16,21 +16,31 @@ extern "C" {
 #endif
     
 
-typedef enum
-    {   
-        //  No input power present or battery only
-        NO_INPUT = 0,
-        //  No battery or charge disabled
-        NO_BATT,
-        //  Charging
-        CHARGING,
-        //  Charge complete
-        CHARGE_COMPLETE,
-        // Fault
-        FAULT,
-        // Low battery
-        LOW_BATT,
-    } BQ24297_STATUS;
+typedef struct
+{
+    // From control register 0x00
+    bool hiZ;
+    enum inLim_t{ILim_100, ILim_150, ILim_500, ILim_900, ILim_1000, ILim_1500, ILim_2000, ILim_3000} inLim;
+    
+    // From power-on configuration 0x01
+    bool otg;
+    bool chg;
+    
+    // From status register 0x08
+    enum vBusStat_t{VBUS_UNKNOWN, VBUS_USB, VBUS_CHARGER, VBUS_OTG} vBusStat;
+    enum chgStat_t{CHG_STAT_NOCHARGE, CHG_STAT_PRECHARGE, CHG_STAT_FASTCHARGE, CHG_STAT_CHARGED} chgStat;
+    bool dpm;
+    bool pg;
+    bool therm;
+    bool vsys;
+    
+    // From fault register 0x09
+    bool watchdog_fault;
+    bool otg_fault;
+    enum chgFault_t{CHG_FAULT_NORMAL, CHG_FAULT_INPUTFAULT, CHG_FAULT_THERMAL, CHG_FAULT_TIMER} chgFault;
+    bool bat_fault;
+    enum ntcFault_t{NTC_FAULT_NORMAL, NTC_FAULT_HOT, NTC_FAULT_COLD, NTC_FAULT_HOTCOLD} ntcFault;
+} BQ24297_STATUS;
     
  typedef struct sBQ24297Config{
 	PORTS_CHANNEL SDA_Ch;
@@ -64,10 +74,15 @@ typedef enum
  } sBQ24297WriteVars;
  
     /**
-     * Sets the default variable values and initializes hardware
+     * Initializes hardware
      */
-    void BQ24297_Init(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+    void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
  
+    /**
+     * Sets the default variable values via I2C
+     */
+    void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+    
     /**
     * Reads data from BQ24297.
     * TODO:
@@ -88,6 +103,9 @@ typedef enum
     
     void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297Data *data, sBQ24297WriteVars *write, bool chargeEnable, bool pONBattPresent);
 
+    void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+
+    
 #ifdef	__cplusplus
 }
 #endif

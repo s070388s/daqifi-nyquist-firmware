@@ -1,14 +1,35 @@
 #include "BQ24297.h"
 
-void BQ24297_Init(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
+void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    // Battery management initialization
+    // Battery management initialization (hardware interface)
     
     // Open the I2C Driver for Master
     data->I2C_Handle = DRV_I2C_Open( config.I2C_Index, DRV_IO_INTENT_READWRITE );
     
+    // Set I/O such that we can power up when needed
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.CE_Ch, config.CE_Bit, write.CE_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.OTG_Ch, config.OTG_Bit, write.OTG_Val);
+}
+
+void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
+{
+    // Set input voltage limit to 3.88V: VINDPM = 0
+    // REG00: 0b00000010
+    BQ24297_Write_I2C(config, write, *data, 0x00, 0b00000010);
+     
+    // Set system voltage limit to 3V: SYS_MIN = 0
+    // REG01: 0b00010001
+    BQ24297_Write_I2C(config, write, *data, 0x01, 0b00010001);
+     
+    // Set fast charge limit to 1A: ICHG4=0
+    // REG02: 0b00100000
+    BQ24297_Write_I2C(config, write, *data, 0x02, 0b00100000);
+    
+    // Disable watchdog WATCHDOG = 0
+    // REG05: 0b10001100
+    BQ24297_Write_I2C(config, write, *data, 0x05, 0b10001100);
+    
 }
 
 void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData)
@@ -32,6 +53,7 @@ void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297D
             while(!(DRV_I2C_TransferStatusGet(data.I2C_Handle, I2CWriteBufferHandle)==DRV_I2C_BUFFER_EVENT_COMPLETE))
             {
                 // TODO: Wait for transaction to be completed - maybe return control to RTOS?
+                vTaskDelay(1 / portTICK_PERIOD_MS);
             }
         }
     }
@@ -69,14 +91,46 @@ uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ2429
     return(rxData);
 }
 
-void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297Data *data, sBQ24297WriteVars *write, bool chargeEnable, bool pONBattPresent)
+void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    if(data->chargeAllowed && chargeEnable && data->status!=FAULT && pONBattPresent)
-    {
-
-    }
-    else
-    {
-
-    }
+    volatile uint8_t regData = 0;
+    
+    regData = BQ24297_Read_I2C(config, write, *data, 0x00);
+    data->status.hiZ = (bool) (regData & 0b10000000);
+    data->status.inLim = (uint8_t) (regData & 0b00000111);
+    
+    regData = BQ24297_Read_I2C(config, write, *data, 0x01);
+    data->status.otg = (bool) (regData & 0b00100000);
+    data->status.chg = (bool) (regData & 0b00010000);
+    
+    regData = BQ24297_Read_I2C(config, write, *data, 0x08);
+    data->status.vBusStat = (uint8_t) (regData & 0b11000000) >> 6;
+    data->status.chgStat = (uint8_t) (regData & 0b00110000) >> 4;
+    data->status.dpm = (bool) (regData & 0b00001000);
+    data->status.pg = (bool) (regData & 0b00000100);
+    data->status.therm = (bool) (regData & 0b00000010);
+    data->status.vsys = (bool) (regData & 0b00000001);
+    
+    // First read to REG09 resets faults
+    regData = BQ24297_Read_I2C(config, write, *data, 0x09);
+    
+    // Second read to REG09 will send current status
+    regData = BQ24297_Read_I2C(config, write, *data, 0x09);
+    data->status.watchdog_fault = (bool) (regData & 0b10000000);
+    data->status.otg_fault = (bool) (regData & 0b01000000);
+    data->status.chgFault = (uint8_t) (regData & 0b00110000) >> 4;
+    data->status.bat_fault = (bool) (regData & 0b00001000);
+    data->status.ntcFault = (uint8_t) (regData & 0b00000011);
 }
+
+//void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297Data *data, sBQ24297WriteVars *write, bool chargeEnable, bool pONBattPresent)
+//{
+//    if(data->chargeAllowed && chargeEnable && data->status!=FAULT && pONBattPresent)
+//    {
+//
+//    }
+//    else
+//    {
+//
+//    }
+//}

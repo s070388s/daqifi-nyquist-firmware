@@ -65,12 +65,12 @@ const BoardRuntimeConfig g_NQ1BoardRuntimeConfig = {
         .Size = 24
     },
     .PowerWriteVars = {
-       .EN_3_3V_Val = false,     // 3.3V rail off
+       .EN_3_3V_Val = true,     // 3.3V rail on
        .EN_5_10V_Val = false,   // 5V rail off
        .EN_5V_ADC_Val = false,   // 5V ADC rail off
        .EN_12V_Val = true,      // 12V rail off (inverse logic)
        .EN_Vref_Val = false,    // Vref rail off
-       .BQ24297WriteVars.CE_Val = false,    // Disable charging
+       .BQ24297WriteVars.CE_Val = true,    // Disable charging
        .BQ24297WriteVars.OTG_Val = true,    // TOTO: Change this. Allow more than 100mA during power up for debugging
     },
     .UIWriteVars = {
