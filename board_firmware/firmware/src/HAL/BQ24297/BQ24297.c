@@ -8,19 +8,25 @@ void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     data->I2C_Handle = DRV_I2C_Open( config.I2C_Index, DRV_IO_INTENT_READWRITE );
     
     // Set I/O such that we can power up when needed
-    PLIB_PORTS_PinWrite(PORTS_ID_0, config.CE_Ch, config.CE_Bit, write.CE_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.OTG_Ch, config.OTG_Bit, write.OTG_Val);
 }
 
 void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
+    volatile uint8_t reg = 0;    // Temporary value to hold current register value
+    
+    // At this point, the chip has evaluated the power source, so we should get the current limit
+    // and save it when writing to register 0
+    reg = BQ24297_Read_I2C(config, write, *data, 0x00);
+    
     // Set input voltage limit to 3.88V: VINDPM = 0
-    // REG00: 0b00000010
-    BQ24297_Write_I2C(config, write, *data, 0x00, 0b00000010);
+    // REG00: 0b00000XXX
+    reg = reg | 0b00000000;
+    BQ24297_Write_I2C(config, write, *data, 0x00, reg);
      
-    // Set system voltage limit to 3V: SYS_MIN = 0
-    // REG01: 0b00010001
-    BQ24297_Write_I2C(config, write, *data, 0x01, 0b00010001);
+    // Reset watchdog and set system voltage limit to 3.7V: SYS_MIN = 0b111
+    // REG01: 0b01011111
+    BQ24297_Write_I2C(config, write, *data, 0x01, 0b01011111);
      
     // Set fast charge limit to 1A: ICHG4=0
     // REG02: 0b00100000
@@ -29,7 +35,6 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     // Disable watchdog WATCHDOG = 0
     // REG05: 0b10001100
     BQ24297_Write_I2C(config, write, *data, 0x05, 0b10001100);
-    
 }
 
 void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData)

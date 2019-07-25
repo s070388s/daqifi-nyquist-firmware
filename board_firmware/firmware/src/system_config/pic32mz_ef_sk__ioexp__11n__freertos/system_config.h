@@ -83,7 +83,7 @@ extern "C" {
 */
 #define SYS_CLK_FREQ                        200000000ul
 #define SYS_CLK_BUS_PERIPHERAL_1            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_2            25000000ul
+#define SYS_CLK_BUS_PERIPHERAL_2            100000000ul
 #define SYS_CLK_BUS_PERIPHERAL_3            100000000ul
 #define SYS_CLK_BUS_PERIPHERAL_4            100000000ul
 #define SYS_CLK_BUS_PERIPHERAL_5            100000000ul
@@ -272,7 +272,7 @@ int LogMessage(const char* format, ...);
 #define DRV_I2C_STOP_IN_IDLE_IDX0                       false
 #define DRV_I2C_SMBus_SPECIFICATION_IDX0			    false
 #define DRV_I2C_BAUD_RATE_IDX0                    		50000
-#define DRV_I2C_BRG_CLOCK_IDX0	                  		25000000
+#define DRV_I2C_BRG_CLOCK_IDX0	                  		100000000
 #define DRV_I2C_SLEW_RATE_CONTROL_IDX0      			false
 #define DRV_I2C_MASTER_INT_SRC_IDX0               		INT_SOURCE_I2C_5_MASTER
 #define DRV_I2C_SLAVE_INT_SRC_IDX0                		
@@ -354,7 +354,7 @@ int LogMessage(const char* format, ...);
 #define DRV_SPI_COMM_WIDTH_IDX0 			SPI_COMMUNICATION_WIDTH_8BITS
 #define DRV_SPI_CLOCK_SOURCE_IDX0 		    SPI_BAUD_RATE_PBCLK_CLOCK
 #define DRV_SPI_SPI_CLOCK_IDX0 				CLK_BUS_PERIPHERAL_2
-#define DRV_SPI_BAUD_RATE_IDX0 				24000000
+#define DRV_SPI_BAUD_RATE_IDX0 				40000000
 #define DRV_SPI_BUFFER_TYPE_IDX0 			DRV_SPI_BUFFER_TYPE_ENHANCED
 #define DRV_SPI_CLOCK_MODE_IDX0 			DRV_SPI_CLOCK_MODE_IDLE_LOW_EDGE_FALL
 #define DRV_SPI_INPUT_PHASE_IDX0 			SPI_INPUT_SAMPLING_PHASE_AT_END

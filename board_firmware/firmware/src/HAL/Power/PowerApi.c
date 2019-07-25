@@ -160,14 +160,14 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     vars->EN_3_3V_Val = true;
     Power_Write(config, vars); 
     // 5V Enable
-    for (i = 0; i < WARMUP_PULSES; i++)
+//    for (i = 0; i < WARMUP_PULSES; i++)
     {
         vars->EN_5_10V_Val = false;
         Power_Write(config, vars);
-        vTaskDelay(2 / portTICK_PERIOD_MS);
+        //vTaskDelay(1 / portTICK_PERIOD_MS);
         vars->EN_5_10V_Val = true;
         Power_Write(config, vars);
-        vTaskDelay(1 / portTICK_PERIOD_MS);
+        //vTaskDelay(1 / portTICK_PERIOD_MS);
     }
     // 5V ADC Enable
     vars->EN_5V_ADC_Val = true;
@@ -259,7 +259,7 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
          */
             if(data->requestedPowerState == DO_POWER_UP)
             {
-                if(data->BQ24297Data.status.vsys || data->BQ24297Data.status.pg)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
+                if(!data->BQ24297Data.status.vsys || data->BQ24297Data.status.pg)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
                 {
 
                     // If plugged into external power source or battery has charge enable full power
@@ -340,6 +340,8 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
         BQ24297_InitSettings(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
         battManSettingsInit = true;
     }
+    
+    BQ24297_Write_I2C(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, (PowerData->BQ24297Data), 0x01, 0b01011111);
     
     // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
     BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
