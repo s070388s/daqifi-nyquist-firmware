@@ -38,7 +38,7 @@ const BoardConfig g_NQ1BoardConfig = {
     .AInChannels = {
         .Data = {
             // Internal ADC
-            // Internal scale = ((R2Ain)/(R1Ain+R2Ain)) * ((R1+R2)/(R2)) 
+            // Internal scale = (R1Ain+R2Ain)/(R2Ain) * ((R1+R2)/(R2)) 
             // where RAin is the resistor divider for the 16 RAin channels
             // and R is the resistor divider for the internal channels
             
