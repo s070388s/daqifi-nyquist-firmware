@@ -16,6 +16,65 @@
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "HAL/DIO.h"
 
+/**
+ * Sets the GPIO direction for a single pin
+ * @param id The id of the pin to change
+ * @param isInput Indicates whether the value is an input
+ * @return SCPI_RES_OK on success SCPI_RES_ERR on error
+ */
+static scpi_result_t SCPI_GPIOSingleDirectionSet(uint8_t id, bool isInput);
+
+/**
+ * Sets the GPIO direction for all pins
+ * @param mask A mask where each bit corresponds to the pin with the given id (BIT(1) == PIN(1))
+ * @return SCPI_RES_OK on success SCPI_RES_ERR on error
+ */
+static scpi_result_t SCPI_GPIOMultiDirectionSet(uint32_t mask);
+
+/**
+ * Gets the direction of a single GPIO pin
+ * @param id The id of the pin
+ * @param result [out] The direction of the pin
+ * @return A boolean indicating whether the pin is an output (true) or input (false)
+ */
+static scpi_result_t SCPI_GPIOSingleDirectionGet(uint8_t id, bool* result);
+
+/**
+ * Gets the direction of all GPIO pins
+ * @param mask [out] A mask where each bit corresponds to the pin with the given id (BIT(1) == PIN(1))
+ * @return A value indicating successfullness of the operation
+ */
+static scpi_result_t SCPI_GPIOMultiDirectionGet(uint32_t* mask);
+
+/**
+ * Sets the GPIO value for a single (output) pin
+ * @param id The id of the pin to change
+ * @param value The new value of the pin
+ * @return SCPI_RES_OK on success SCPI_RES_ERR on error
+ */
+static scpi_result_t SCPI_GPIOSingleStateSet(uint8_t id, bool value);
+
+/**
+ * Sets the value (high/low) for all pins
+ * @param mask A mask where each bit corresponds to the pin with the given id (BIT(1) == PIN(1))
+ * @return SCPI_RES_OK on success SCPI_RES_ERR on error
+ */
+static scpi_result_t SCPI_GPIOMultiStateSet(uint32_t mask);
+
+/**
+ * Gets the value of a single GPIO pin
+ * @param id The id of the pin
+ * @param result [out] The direction of the pin
+ * @return A boolean indicating whether the pin is an output (true) or input (false)
+ */
+static scpi_result_t SCPI_GPIOSingleStateGet(uint8_t id, bool* result);
+
+/**
+ * Gets the value (high/low) of all GPIO pins
+ * @return A mask where each bit corresponds to the pin with the given id (BIT(1) == PIN(1))
+ */
+static scpi_result_t SCPI_GPIOMultiStateGet(uint32_t* result);
+
 scpi_result_t SCPI_GPIODirectionSet(scpi_t * context)
 {
     int param1, param2;
@@ -150,8 +209,11 @@ scpi_result_t SCPI_GPIOEnableGet(scpi_t * context)
     return SCPI_RES_OK;
 }
 
+////////
+// Internal Implementation
+////////
 
-scpi_result_t SCPI_GPIOSingleDirectionSet(uint8_t id, bool isInput)
+static scpi_result_t SCPI_GPIOSingleDirectionSet(uint8_t id, bool isInput)
 {
     if ( id > g_BoardRuntimeConfig.DIOChannels.Size)
     {
@@ -167,7 +229,7 @@ scpi_result_t SCPI_GPIOSingleDirectionSet(uint8_t id, bool isInput)
     return SCPI_RES_OK;
 }
 
-scpi_result_t SCPI_GPIOMultiDirectionSet(uint32_t mask)
+static scpi_result_t SCPI_GPIOMultiDirectionSet(uint32_t mask)
 {
     size_t i = 0;
     scpi_result_t result = SCPI_RES_OK;
@@ -183,7 +245,7 @@ scpi_result_t SCPI_GPIOMultiDirectionSet(uint32_t mask)
     return result;
 }
 
-scpi_result_t SCPI_GPIOSingleDirectionGet(uint8_t id, bool* result)
+static scpi_result_t SCPI_GPIOSingleDirectionGet(uint8_t id, bool* result)
 {
     if ( id > g_BoardRuntimeConfig.DIOChannels.Size)
     {
@@ -195,7 +257,7 @@ scpi_result_t SCPI_GPIOSingleDirectionGet(uint8_t id, bool* result)
     return SCPI_RES_OK;
 }
 
-scpi_result_t SCPI_GPIOMultiDirectionGet(uint32_t* mask)
+static scpi_result_t SCPI_GPIOMultiDirectionGet(uint32_t* mask)
 {
     scpi_result_t result = SCPI_RES_OK;
     (*mask) = 0;
@@ -219,7 +281,7 @@ scpi_result_t SCPI_GPIOMultiDirectionGet(uint32_t* mask)
     return result;
 }
 
-scpi_result_t SCPI_GPIOSingleStateSet(uint8_t id, bool value)
+static scpi_result_t SCPI_GPIOSingleStateSet(uint8_t id, bool value)
 {
     if ( id > g_BoardRuntimeConfig.DIOChannels.Size)
     {
@@ -235,7 +297,7 @@ scpi_result_t SCPI_GPIOSingleStateSet(uint8_t id, bool value)
     return SCPI_RES_OK;
 }
 
-scpi_result_t SCPI_GPIOMultiStateSet(uint32_t mask)
+static scpi_result_t SCPI_GPIOMultiStateSet(uint32_t mask)
 {
     size_t i = 0;
     scpi_result_t result = SCPI_RES_OK;
@@ -251,7 +313,7 @@ scpi_result_t SCPI_GPIOMultiStateSet(uint32_t mask)
     return result;
 }
 
-scpi_result_t SCPI_GPIOSingleStateGet(uint8_t id, bool* result)
+static scpi_result_t SCPI_GPIOSingleStateGet(uint8_t id, bool* result)
 {
     if ( id > g_BoardRuntimeConfig.DIOChannels.Size)
     {
@@ -269,7 +331,7 @@ scpi_result_t SCPI_GPIOSingleStateGet(uint8_t id, bool* result)
     return SCPI_RES_OK;
 }
 
-scpi_result_t SCPI_GPIOMultiStateGet(uint32_t* result)
+static scpi_result_t SCPI_GPIOMultiStateGet(uint32_t* result)
 {
     (*result) = 0;
     uint32_t channelMask = 0xFFFFFFFF;

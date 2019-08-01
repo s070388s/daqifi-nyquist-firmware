@@ -29,10 +29,10 @@ typedef struct
     // From status register 0x08
     enum vBusStat_t{VBUS_UNKNOWN, VBUS_USB, VBUS_CHARGER, VBUS_OTG} vBusStat;
     enum chgStat_t{CHG_STAT_NOCHARGE, CHG_STAT_PRECHARGE, CHG_STAT_FASTCHARGE, CHG_STAT_CHARGED} chgStat;
-    bool dpm;
-    bool pg;
-    bool therm;
-    bool vsys;
+    bool dpmStat;
+    bool pgStat;
+    bool thermStat;
+    bool vsysStat;
     
     // From fault register 0x09
     bool watchdog_fault;
@@ -40,6 +40,9 @@ typedef struct
     enum chgFault_t{CHG_FAULT_NORMAL, CHG_FAULT_INPUTFAULT, CHG_FAULT_THERMAL, CHG_FAULT_TIMER} chgFault;
     bool bat_fault;
     enum ntcFault_t{NTC_FAULT_NORMAL, NTC_FAULT_HOT, NTC_FAULT_COLD, NTC_FAULT_HOTCOLD} ntcFault;
+    
+    // Inferred battery status from registers
+    bool batPresent;
 } BQ24297_STATUS;
     
  typedef struct sBQ24297Config{
@@ -63,6 +66,7 @@ typedef struct
 	unsigned char INT_Val;
 	unsigned char STAT_Val;
     bool chargeAllowed;
+    bool initComplete;
     BQ24297_STATUS status;
     DRV_HANDLE I2C_Handle;
  } sBQ24297Data;
@@ -101,7 +105,7 @@ typedef struct
     */
     void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData);
     
-    void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297Data *data, sBQ24297WriteVars *write, bool chargeEnable, bool pONBattPresent);
+    void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable);
 
     void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
 

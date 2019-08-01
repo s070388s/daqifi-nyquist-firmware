@@ -51,9 +51,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/board/BoardConfig.h"
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "state/data/BoardData.h"
-#include "SCPI/SCPIDIO.h"
 
-const char BOARD_HARDWARE_REV[16] = "2.0.0";
+const char BOARD_HARDWARE_REV[16] = "2.0";
 const char BOARD_FIRMWARE_REV[16] = "1.0.3";
 #define BOARD_VARIANT       1
 
@@ -183,62 +182,15 @@ void APP_Tasks(void)
 {   
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
-    APP_SelfTest();
-        
-    // Wait for power-on for WiFi
-    if (g_BoardData.PowerData.powerState > MICRO_ON)
+    
+    // Don't do anything else until the board powers on
+    if (g_BoardData.PowerData.powerState == MICRO_ON)
     {
-        WifiTasks();
+        return;
     }
-}
 
-void APP_SelfTest(void)
-{
-    size_t index;
-    vTaskDelay(1000 / portTICK_PERIOD_MS);  // Delay for voltage to stabilize
-    index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_VSYS);
-    if (ADC_IsDataValid(&g_BoardData.AInLatest.Data[index]))
-    {
-        volatile double voltage_Vsys, voltage_3_3V, voltage_2_5_Vref, voltage_5V;
-        volatile DIO_result;
-        volatile bool test_result[6] = {false,false,false,false,false,false};
-        
-           
-        // Check system voltages
-        index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_VSYS);
-        voltage_Vsys = ADC_ConvertToVoltage(&g_BoardData.AInLatest.Data[index]);
-        if (voltage_Vsys > 3 && voltage_Vsys < 4.3) test_result[0] = true;
-        
-        index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_3_3V);
-        voltage_3_3V = ADC_ConvertToVoltage(&g_BoardData.AInLatest.Data[index]);
-        if (voltage_3_3V > 3.24 && voltage_3_3V < 3.35) test_result[1] = true;
-        
-        index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_2_5VREF);
-        voltage_2_5_Vref = ADC_ConvertToVoltage(&g_BoardData.AInLatest.Data[index]);
-        if (voltage_2_5_Vref > 2.48 && voltage_2_5_Vref < 2.52) test_result[2] = true;
-                
-        index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_5V);
-        voltage_5V = ADC_ConvertToVoltage(&g_BoardData.AInLatest.Data[index]);
-        if (voltage_5V > 5.44 && voltage_5V < 5.6) test_result[3] = true;
-        
-        // Check DIO
-        // Assuming each pair of DIO are connected together with jumpers 0--1, 2--3, etc.
-        // Write even DIO
-        SCPI_GPIOMultiDirectionSet(~21845);
-        SCPI_GPIOMultiStateSet(21845);
-        
-        SCPI_GPIOMultiStateGet(&DIO_result);
-        if(DIO_result == 65535) test_result[4] = true;
-        
-        // Write odd DIO
-        SCPI_GPIOMultiDirectionSet(~43690);
-        SCPI_GPIOMultiStateSet(43690);
-        
-        SCPI_GPIOMultiStateGet(&DIO_result);   
-        if(DIO_result == 65535) test_result[5] = true;
+    WifiTasks();
 
-        // if (test_result) PLIB_PORTS_PinSet(config.LED1_Mod, config.LED1_Ch, config.LED1_Bit);
-    }
 }
 
 /*******************************************************************************

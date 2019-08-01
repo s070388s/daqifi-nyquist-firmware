@@ -78,8 +78,6 @@ void APP_Initialize(void);
 
 void APP_Tasks(void);
 
-void APP_SelfTest(void);
-
 #endif /* _APP_H */
 
 /*******************************************************************************

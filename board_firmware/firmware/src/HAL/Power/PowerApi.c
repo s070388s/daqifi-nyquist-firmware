@@ -78,6 +78,9 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     uint32_t i = 0;
     //uint32_t achievedFrequencyHz=0;
     
+    // If the battery management is not enabled, wait for it to become ready
+    while(!data->BQ24297Data.initComplete) vTaskDelay(100 / portTICK_PERIOD_MS);   
+    
     // Enable processor to run at full speed
     SYS_INT_Disable();
     
@@ -149,8 +152,6 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 //        while(1);
 //    }
 
- 
-    
     SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
     
     SYS_INT_Enable();
@@ -159,43 +160,26 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
       // 3.3V Enable
     vars->EN_3_3V_Val = true;
     Power_Write(config, vars); 
+
     // 5V Enable
-//    for (i = 0; i < WARMUP_PULSES; i++)
-    {
-        vars->EN_5_10V_Val = false;
-        Power_Write(config, vars);
-        //vTaskDelay(1 / portTICK_PERIOD_MS);
-        vars->EN_5_10V_Val = true;
-        Power_Write(config, vars);
-        //vTaskDelay(1 / portTICK_PERIOD_MS);
-    }
+    if((data->BQ24297Data.status.batPresent) || (data->BQ24297Data.status.vBusStat == VBUS_CHARGER)) vars->EN_5_10V_Val = true;
+    Power_Write(config, vars);
+    
     // 5V ADC Enable
     vars->EN_5V_ADC_Val = true;
     Power_Write(config, vars); 
     vTaskDelay(50 / portTICK_PERIOD_MS);
+    
     // 12V Enable (set low to turn on, set as input (or high if configured as open collector) to turn off)
     vars->EN_12V_Val = false;
     Power_Write(config, vars);
     vTaskDelay(50 / portTICK_PERIOD_MS);
+    
     // Vref Enable
     vars->EN_Vref_Val = true;
     Power_Write(config, vars);   
     
     data->powerState = POWERED_UP;
-    
-    // Wait for streaming ADC trigger to collect at least one sample TODO: Bolster our ability to determine when a read is valid
-    vTaskDelay(1500 / portTICK_PERIOD_MS);
-    
-    Power_UpdateChgPct(data);
- 
-    if(data->battVoltage > 2.5)
-    {
-        g_BoardData.PowerData.pONBattPresent = true;
-    }else
-    {
-        g_BoardData.PowerData.pONBattPresent = false;
-    }
-
 
 }
 
@@ -259,7 +243,7 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
          */
             if(data->requestedPowerState == DO_POWER_UP)
             {
-                if(!data->BQ24297Data.status.vsys || data->BQ24297Data.status.pg)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
+                if(!data->BQ24297Data.status.vsysStat || data->BQ24297Data.status.pgStat)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
                 {
 
                     // If plugged into external power source or battery has charge enable full power
@@ -278,7 +262,7 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
          * ADC readings are now valid!
          */ 
             Power_UpdateChgPct(data);
-            if(data->requestedPowerState == DO_POWER_UP_EXT_DOWN || (data->chargePct<BATT_LOW_TH && !data->BQ24297Data.status.pg))
+            if(data->requestedPowerState == DO_POWER_UP_EXT_DOWN || (data->chargePct<BATT_LOW_TH && !data->BQ24297Data.status.pgStat))
             {
                 // If battery is low on charge and we are not plugged in, disable external supplies
                 vars->EN_5_10V_Val = false;
@@ -315,7 +299,11 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
 void Power_UpdateChgPct(sPowerData *data)
 {
     size_t index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_VBATT);
-   
+    // TODO: Add data validation without blocking
+//    while(!ADC_IsDataValid(&g_BoardData.AInLatest.Data[index]))
+//    {
+//        vTaskDelay(100 / portTICK_PERIOD_MS);
+//    }
     data->battVoltage = ADC_ConvertToVoltage(&g_BoardData.AInLatest.Data[index]);
 
     // Function below is defined from 3.17-3.868.  Must coerce input value to within these bounds.
@@ -332,13 +320,10 @@ void Power_UpdateChgPct(sPowerData *data)
 
 void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
 {
-    static bool battManSettingsInit = false;
-    
-    // If we haven't initialized the battery management settings, do so now
-    if (battManSettingsInit == false)
+        // If we haven't initialized the battery management settings, do so now
+    if (PowerData->BQ24297Data.initComplete == false)
     {
         BQ24297_InitSettings(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
-        battManSettingsInit = true;
     }
     
     BQ24297_Write_I2C(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, (PowerData->BQ24297Data), 0x01, 0b01011111);
