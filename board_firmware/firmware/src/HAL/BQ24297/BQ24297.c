@@ -15,6 +15,10 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 {
     volatile uint8_t reg = 0;    // Temporary value to hold current register value
     
+    // Read the current status data
+    BQ24297_UpdateStatus(config, write, data);
+    while(data->status.iinDet_Read) BQ24297_UpdateStatus(config, write, data);
+    
     // At this point, the chip has evaluated the power source, so we should get the current limit
     // and save it when writing to register 0
     reg = BQ24297_Read_I2C(config, write, *data, 0x00);
@@ -28,6 +32,12 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     // REG01: 0b01000001
     BQ24297_Write_I2C(config, write, *data, 0x01, 0b01000001);
     
+    // Set fast charge to 2000mA
+    BQ24297_Write_I2C(config, write, *data, 0x02, 0b01100000);
+    
+    // Set charge voltage to 4.2V
+    BQ24297_Write_I2C(config, write, *data, 0x04, 0b10110010);
+    
     // Disable watchdog WATCHDOG = 0, set charge timer to 20hr
     // REG05: 0b10001110
     BQ24297_Write_I2C(config, write, *data, 0x05, 0b10001110);
@@ -35,11 +45,14 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     // Read the current status data
     BQ24297_UpdateStatus(config, write, data);
     
+    // Infer battery's existence from status
+    // If ntc has a cold fault and vsys is true, battery is likely not present
+    data->status.batPresent = !((data->status.ntcFault == NTC_FAULT_COLD) && (data->status.vsysStat == true));
+    
     // If battery is present, enable charging
     BQ24297_ChargeEnable(config, &write, data, data->status.batPresent);
     
-    data->initComplete = true;
-        
+    data->initComplete = true;     
 }
 
 void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData)
@@ -62,7 +75,7 @@ void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297D
 
             while(!(DRV_I2C_TransferStatusGet(data.I2C_Handle, I2CWriteBufferHandle)==DRV_I2C_BUFFER_EVENT_COMPLETE))
             {
-                // TODO: Wait for transaction to be completed - maybe return control to RTOS?
+                // Wait for transaction to be completed - return control to RTOS
                 vTaskDelay(1 / portTICK_PERIOD_MS);
             }
         }
@@ -94,7 +107,7 @@ uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ2429
         while(!(result==DRV_I2C_BUFFER_EVENT_COMPLETE))
         {
             result = DRV_I2C_TransferStatusGet(data.I2C_Handle, I2CWriteBufferHandle);
-            // TODO: Wait for transaction to be completed - return control to RTOS?
+            // Wait for transaction to be completed - return control to RTOS
             vTaskDelay(1 / portTICK_PERIOD_MS);
         }
     }
@@ -112,6 +125,10 @@ void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     regData = BQ24297_Read_I2C(config, write, *data, 0x01);
     data->status.otg = (bool) (regData & 0b00100000);
     data->status.chg = (bool) (regData & 0b00010000);
+    
+    // Make sure we are not still trying to determine the input source
+    regData = BQ24297_Read_I2C(config, write, *data, 0x07);
+    data->status.iinDet_Read = (bool) (regData & 0b10000000);
     
     regData = BQ24297_Read_I2C(config, write, *data, 0x08);
     data->status.vBusStat = (uint8_t) (regData & 0b11000000) >> 6;
@@ -131,10 +148,6 @@ void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     data->status.chgFault = (uint8_t) (regData & 0b00110000) >> 4;
     data->status.bat_fault = (bool) (regData & 0b00001000);
     data->status.ntcFault = (uint8_t) (regData & 0b00000011);
-    
-    // Infer battery's existence from status
-    // If ntc has a cold fault and vsys is true, battery is likely not present
-    data->status.batPresent = !((data->status.ntcFault == NTC_FAULT_COLD) && (data->status.vsysStat == true));
 }
 
 void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable)

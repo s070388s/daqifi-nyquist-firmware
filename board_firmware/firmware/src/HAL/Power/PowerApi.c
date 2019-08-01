@@ -8,7 +8,6 @@
 #define BATT_EXH_TH 5.0
 #define BATT_LOW_TH 10.0 // 10% or ~3.2V
 #define BATT_LOW_HYST 10.0 // Battery must be charged at least this value higher than BATT_LOW_TH
-#define WARMUP_PULSES 10
 
 void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
@@ -38,44 +37,28 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
     if(EN_3_3V_Val_Current != vars->EN_3_3V_Val)
     {
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars->EN_3_3V_Val);
-        // Delay 10ms for power to stabilize (should already be stable)
-        //vTaskDelay(10 / portTICK_PERIOD_MS);
     }
     
     // Check to see if we are changing the state of these power pins
     if(EN_5_10V_Val_Current != vars->EN_5_10V_Val || EN_5V_ADC_Val_Current != vars->EN_5V_ADC_Val || EN_12V_Val_Current != vars->EN_12V_Val)
     {
-    
-        // Set battery management to external source during power-up to avoid triggering overload
-
-        //vars->MCP73871WriteVars.SEL_Val = true;   
-        //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
-
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars->EN_5_10V_Val);
 
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5V_ADC_Ch, config.EN_5V_ADC_Bit, vars->EN_5V_ADC_Val);
 
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_12V_Ch, config.EN_12V_Bit, vars->EN_12V_Val);
-        // Delay 100ms for power to stabilize
-        //vTaskDelay(100 / portTICK_PERIOD_MS);
-
-        //vars->MCP73871WriteVars.SEL_Val = tempSELVal;   
-        //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
     }
     
     // Check to see if we are changing the state of this power pin
     if(EN_Vref_Val_Current != vars->EN_Vref_Val)
     {
         PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_Vref_Ch, config.EN_Vref_Bit, vars->EN_Vref_Val);
-        // Delay 100ms for power to stabilize
-        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 
 }
 
 void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-    uint32_t i = 0;
     //uint32_t achievedFrequencyHz=0;
     
     // If the battery management is not enabled, wait for it to become ready
@@ -155,7 +138,7 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
     
     SYS_INT_Enable();
-    vTaskDelay(100 / portTICK_PERIOD_MS);   //Delay after turning up to full speed to allow steady-state before powering system
+    vTaskDelay(50 / portTICK_PERIOD_MS);   //Delay after turning up to full speed to allow steady-state before powering system
     
       // 3.3V Enable
     vars->EN_3_3V_Val = true;
@@ -164,6 +147,7 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     // 5V Enable
     if((data->BQ24297Data.status.batPresent) || (data->BQ24297Data.status.vBusStat == VBUS_CHARGER)) vars->EN_5_10V_Val = true;
     Power_Write(config, vars);
+    vTaskDelay(50 / portTICK_PERIOD_MS);
     
     // 5V ADC Enable
     vars->EN_5V_ADC_Val = true;
@@ -177,7 +161,8 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     
     // Vref Enable
     vars->EN_Vref_Val = true;
-    Power_Write(config, vars);   
+    Power_Write(config, vars);  
+    vTaskDelay(50 / portTICK_PERIOD_MS);
     
     data->powerState = POWERED_UP;
 
@@ -230,7 +215,6 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
     switch(data->powerState){
         case POWER_DOWN:
             /* Not initialized or powered down */
-            //Insufficient_Power_Indication(config);
             
             // Check to see if we've finished signaling the user of insufficient power if necessary
             if(data->powerDnAllowed == true) Power_Down(config, data, vars);
@@ -245,8 +229,6 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
             {
                 if(!data->BQ24297Data.status.vsysStat || data->BQ24297Data.status.pgStat)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
                 {
-
-                    // If plugged into external power source or battery has charge enable full power
                     Power_Up(config, data, vars);
                 }else
                 {
@@ -331,9 +313,8 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
     // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
     BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
     
-    
     // Update power source
-    Power_Update_Source(PowerConfig, PowerData, powerWriteVars);
+    //Power_Update_Source(PowerConfig, PowerData, powerWriteVars);
     
     // Call update state
     Power_UpdateState(PowerConfig, PowerData, powerWriteVars);
@@ -341,70 +322,37 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
 
 void Power_Update_Source(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-    bool chargeEnable = false;
-    
-    if(1)
-    {   // If PG is high, there is no power plugged into the board
-        data->externalPowerSource = NO_EXT_POWER;
+//    bool chargeEnable = false;
+//    
+//
+//    if(data->USBConnected)
+//    {   // If USB is connected, the computer has agreed to give us 500mA
+//        data->externalPowerSource = USB_500MA_EXT_POWER;
+//        
+//        chargeEnable = true;
+//
+//        // TODO: Change SEL value to false when used in production with battery
+//        //vars->MCP73871WriteVars.SEL_Val = false;    // Input type selection (Low for USB port, High for ac-dc adapter)
+//        //vars->MCP73871WriteVars.PROG2_Val = true;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
+//        
+//    }
+//    else if(PLIB_PORTS_PinGet(PORTS_ID_0, config.USB_Dp_Ch, config.USB_Dp_Bit))
+//    {   // If the D+ line is high, a 2A charger is plugged in
+//        data->externalPowerSource = CHARGER_2A_EXT_POWER;
+//
+//        chargeEnable = true;
+//        
+//        
+//    }
+//    else if(PLIB_PORTS_PinGet(PORTS_ID_0, config.USB_Dn_Ch, config.USB_Dn_Bit))
+//    {   // If the D+ line is high, a 1A charger is plugged in
+//        data->externalPowerSource = CHARGER_1A_EXT_POWER;
+//
+//        chargeEnable = true;
+//        
+//        
+//    }
 
-        chargeEnable = false;
-        
-        //vars->MCP73871WriteVars.SEL_Val = false;    // Input type selection (Low for USB port, High for ac-dc adapter)
-        //vars->MCP73871WriteVars.PROG2_Val = false;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
-        
-        
-    }
-    else if(data->USBConnected)
-    {   // If USB is connected, the computer has agreed to give us 500mA
-        data->externalPowerSource = USB_500MA_EXT_POWER;
-        
-        chargeEnable = true;
-
-        // TODO: Change SEL value to false when used in production with battery
-        //vars->MCP73871WriteVars.SEL_Val = false;    // Input type selection (Low for USB port, High for ac-dc adapter)
-        //vars->MCP73871WriteVars.PROG2_Val = true;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
-        
-    }
-    else if(PLIB_PORTS_PinGet(PORTS_ID_0, config.USB_Dp_Ch, config.USB_Dp_Bit))
-    {   // If the D+ line is high, a 2A charger is plugged in
-        data->externalPowerSource = CHARGER_2A_EXT_POWER;
-
-        chargeEnable = true;
-        
-        //vars->MCP73871WriteVars.SEL_Val = true;    // Input type selection (Low for USB port, High for ac-dc adapter)
-        //vars->MCP73871WriteVars.PROG2_Val = false;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
-        
-    }
-    else if(PLIB_PORTS_PinGet(PORTS_ID_0, config.USB_Dn_Ch, config.USB_Dn_Bit))
-    {   // If the D+ line is high, a 1A charger is plugged in
-        data->externalPowerSource = CHARGER_1A_EXT_POWER;
-
-        chargeEnable = true;
-        
-        //vars->MCP73871WriteVars.SEL_Val = true;    // Input type selection (Low for USB port, High for ac-dc adapter)
-        //vars->MCP73871WriteVars.PROG2_Val = false;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
-        
-    }
-    else
-    {   // Else we don't know what is powering the board, so default to 100mA
-        data->externalPowerSource = UNKNOWN_EXT_POWER;
-
-        chargeEnable = true;
-        
-        // TODO: Change SEL value to false when used in production with battery
-        //vars->MCP73871WriteVars.SEL_Val = true;    // Input type selection (Low for USB port, High for ac-dc adapter)
-        //vars->MCP73871WriteVars.PROG2_Val = false;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)        
-    }    
-    
-    // If there is a battery fault or missing battery, don't allow charging and turn SEL to high to avoid brownout
-    if(0 || !data->pONBattPresent)
-    {
-        chargeEnable = false;
-        //vars->MCP73871WriteVars.SEL_Val = true;
-    }
-
-    //MCP73871_ChargeEnable(config.MCP73871Config, &data->MCP73871Data, &vars->MCP73871WriteVars, chargeEnable, data->pONBattPresent);
-    //MCP73871_Write(config.MCP73871Config, vars->MCP73871WriteVars);
 }
 
 void Power_USB_Con_Update(sPowerConfig config, sPowerData *data, bool connected)

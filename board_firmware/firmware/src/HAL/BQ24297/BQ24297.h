@@ -26,6 +26,9 @@ typedef struct
     bool otg;
     bool chg;
     
+    // From operation control register 0x07
+    bool iinDet_Read;
+    
     // From status register 0x08
     enum vBusStat_t{VBUS_UNKNOWN, VBUS_USB, VBUS_CHARGER, VBUS_OTG} vBusStat;
     enum chgStat_t{CHG_STAT_NOCHARGE, CHG_STAT_PRECHARGE, CHG_STAT_FASTCHARGE, CHG_STAT_CHARGED} chgStat;

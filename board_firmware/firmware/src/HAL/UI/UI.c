@@ -35,9 +35,6 @@ void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerDa
         buttonPressCount++;
         if(PowerData->powerState == MICRO_ON)
         {
-            // Disable charging to allow us to check if the battery is present (in anticipation of turning on)
-            //MCP73871_ChargeEnable(MCP73871Config, &PowerData->MCP73871Data, MCP73871WriteVars, false, false);
-
             if((buttonPressCount > BUTTON_POWER_ON_TH) && !oneShot)
             {
                 // Signal board to power up
