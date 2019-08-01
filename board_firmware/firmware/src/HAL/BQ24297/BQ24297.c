@@ -13,7 +13,7 @@ void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 
 void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    volatile uint8_t reg = 0;    // Temporary value to hold current register value
+    uint8_t reg = 0;    // Temporary value to hold current register value
     
     // Read the current status data
     BQ24297_UpdateStatus(config, write, data);
@@ -86,7 +86,7 @@ void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297D
 uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg)
 {
     static DRV_I2C_BUFFER_HANDLE I2CWriteBufferHandle;
-    volatile DRV_I2C_BUFFER_EVENT result;
+    DRV_I2C_BUFFER_EVENT result;
     
     uint8_t I2CData[1];
     uint8_t rxData = 0;
@@ -116,7 +116,7 @@ uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ2429
 
 void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    volatile uint8_t regData = 0;
+    uint8_t regData = 0;
     
     regData = BQ24297_Read_I2C(config, write, *data, 0x00);
     data->status.hiZ = (bool) (regData & 0b10000000);
@@ -152,7 +152,7 @@ void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 
 void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable)
 {
-    volatile uint8_t reg = 0;    // Temporary value to hold current register value
+    uint8_t reg = 0;    // Temporary value to hold current register value
     reg = BQ24297_Read_I2C(config, *write, *data, 0x01);
     if(data->chargeAllowed && chargeEnable && data->status.batPresent)
     {

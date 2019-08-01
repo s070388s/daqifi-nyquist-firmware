@@ -154,8 +154,8 @@ extern "C" {
 #define SYS_PORT_G_CNEN         0x0000
 
 #define SYS_PORT_H_ANSEL        0x0063
-#define SYS_PORT_H_TRIS         0x0E43
-#define SYS_PORT_H_LAT          0x903C
+#define SYS_PORT_H_TRIS         0x1E43
+#define SYS_PORT_H_LAT          0x803C
 #define SYS_PORT_H_ODC          0x8000
 #define SYS_PORT_H_CNPU         0x0000
 #define SYS_PORT_H_CNPD         0x0000
@@ -1004,10 +1004,10 @@ int LogMessage(const char* format, ...);
 #define BATT_MAN_OTG_PIN PORTS_BIT_POS_5
 #define BATT_MAN_OTG_PIN_MASK (0x1 << 5)
 
-/*** Functions for BATT_MAN_CE pin ***/
-#define BATT_MAN_CE_PORT PORT_CHANNEL_K
-#define BATT_MAN_CE_PIN PORTS_BIT_POS_6
-#define BATT_MAN_CE_PIN_MASK (0x1 << 6)
+/*** Functions for PWR_5_5V_CUR_LIM pin ***/
+#define PWR_5_5V_CUR_LIM_PORT PORT_CHANNEL_K
+#define PWR_5_5V_CUR_LIM_PIN PORTS_BIT_POS_6
+#define PWR_5_5V_CUR_LIM_PIN_MASK (0x1 << 6)
 
 /*** Functions for I2C_EN1 pin ***/
 #define I2C_EN1_PORT PORT_CHANNEL_A

@@ -19,8 +19,8 @@
                                                     //  This multiplier value is the square of SYS_CLK_DIV_PWR_SAVE
 
 #define UI_TASK_CALLING_PRD 125 //  125ms
-#define BUTTON_POWER_ON_TH (2000/UI_POWER_ON_TASK_CALLING_PRD)   //  4 seconds (~2 seconds are required for power on sequence)
-#define BUTTON_POWER_OFF_TH (3000/UI_TASK_CALLING_PRD)  //  4 seconds (~1 second is required to power off)
+#define BUTTON_POWER_ON_TH (1000/UI_POWER_ON_TASK_CALLING_PRD)   //  2 seconds (~2 seconds are required for power on sequence)
+#define BUTTON_POWER_OFF_TH (2000/UI_TASK_CALLING_PRD)  //  2 seconds (~1 second is required to power off)
 
 
 void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData)
@@ -64,8 +64,8 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
 {
     static uint16_t sequenceNum = 0;
     static int8_t currentPattern = 0;
-    volatile static int8_t repeatSeq = 0;
-    volatile static int8_t repeatSeqNum = 0;
+    static int8_t repeatSeq = 0;
+    static int8_t repeatSeqNum = 0;
     static uint32_t periodCount = 1;    // If we've gotten in this function, the period is at least 1
     static bool errorDisplayPending = false;
     static bool begunErrorDisplay = false;
@@ -80,15 +80,15 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
     
     
     // Assign nicer variable names to make the code below more readable
-    pluggedIn = 0; //!PowerData->MCP73871Data.PG_Val;
+    pluggedIn = PowerData->BQ24297Data.status.pgStat;
        
     poweredOn = (PowerData->powerState > 0);
 
-    charging = 0; //(PowerData->MCP73871Data.status == CHARGING);
+    charging = ((PowerData->BQ24297Data.status.chgStat == CHG_STAT_PRECHARGE) || (PowerData->BQ24297Data.status.chgStat == CHG_STAT_FASTCHARGE));
 
     streaming = streamingFlag;
     
-    battLow = 0;//(PowerData->MCP73871Data.status == LOW_BATT);
+    battLow = PowerData->BQ24297Data.status.vsysStat;
 
     genError = false;
     
@@ -104,7 +104,7 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
     }
     else if(pluggedIn && !poweredOn && charging && !streaming && !battLow)
     {   // Plugged in and charging - NOTE: This state has been temporarily disable to avoid confusion during debugging
-        if(currentPattern == 0) currentPattern = 0;
+        if(currentPattern == 0) currentPattern = 3;
     }
     else if(pluggedIn && poweredOn && !charging && !streaming && !battLow)
     {   // Plugged in and powered on

@@ -58,9 +58,6 @@ const char BOARD_FIRMWARE_REV[16] = "1.0.3";
 
 #define UNUSED(x) (void)(x)
 
-//TODO needed? WDRV_SCAN_STATUS g_scanStatus; // This is part of the wifi command code. IF we remove the commands, we have to define it ourselves
-
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Variable Definitions
