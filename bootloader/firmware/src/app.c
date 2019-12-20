@@ -108,10 +108,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define BOOTLOADER_FORCE_PORT PORT_CHANNEL_B
 #define BOOTLOADER_FORCE_PIN PORTS_BIT_POS_1
 
-#define POWER_GOOD_MODULE PORTS_ID_0
-#define POWER_GOOD_PORT PORT_CHANNEL_K
-#define POWER_GOOD_PIN PORTS_BIT_POS_5
-
 #define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFE0 // Address must match what is defined in the project preprocessor definition (0x8007FFE0 is the last 16 bytes of data mem)
 #define FORCE_BOOOT_VALUE 0x04CEB007    // magic force bootloader value
 
@@ -317,9 +313,6 @@ void APP_Initialize ( void )
     // User button
     PLIB_PORTS_PinDirectionInputSet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN);
     
-    // Power good status
-    PLIB_PORTS_PinDirectionInputSet(POWER_GOOD_MODULE, POWER_GOOD_PORT, POWER_GOOD_PIN);
-    
     // Status LED1
     PLIB_PORTS_PinDirectionOutputSet(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);
     PLIB_PORTS_PinClear(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);
@@ -352,7 +345,7 @@ void APP_Initialize ( void )
         {
             DelayMs(BOOTLOADER_FORCE_DURATION);
             // Once we've timed out the BOOTLOADER_FORCE_DURATION and the user is still holding the button and we are powered via external power (low = powered)
-            if(PLIB_PORTS_PinGet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN) && !PLIB_PORTS_PinGet(POWER_GOOD_MODULE, POWER_GOOD_PORT, POWER_GOOD_PIN)) forceBootloader = true; 
+            if(PLIB_PORTS_PinGet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN)) forceBootloader = true; 
         }
         
         // Clear the reset reason status flag

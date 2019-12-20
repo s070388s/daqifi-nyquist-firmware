@@ -57,7 +57,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /*  This section Includes other configuration headers necessary to completely
     define this configuration.
 */
-#include "bsp.h"
 
 
 // DOM-IGNORE-BEGIN
@@ -155,7 +154,7 @@ extern "C" {
 
 #define SYS_PORT_H_ANSEL        0x0043
 #define SYS_PORT_H_TRIS         0x0673
-#define SYS_PORT_H_LAT          0x890C
+#define SYS_PORT_H_LAT          0x990C
 #define SYS_PORT_H_ODC          0x8000
 #define SYS_PORT_H_CNPU         0x0000
 #define SYS_PORT_H_CNPD         0x0000
@@ -323,10 +322,6 @@ extern "C" {
 
 
 
-// *****************************************************************************
-/* BSP Configuration Options
-*/
-#define BSP_OSC_FREQUENCY 24000000
 
 
 // *****************************************************************************

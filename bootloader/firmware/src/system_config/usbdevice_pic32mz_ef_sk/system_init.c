@@ -103,7 +103,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /*** DEVCFG3 ***/
 
 #pragma config USERID =     0xffff
-#pragma config FMIIEN =     OFF
+#pragma config FMIIEN =     ON
 #pragma config FETHIO =     ON
 #pragma config PGL1WAY =    ON
 #pragma config PMDL1WAY =   ON
@@ -592,10 +592,6 @@ void SYS_Initialize ( void* data )
     // and the frequency must be 200MHz to avoid crashing (even though we are actually
     // dividing the full speed (200MHz by a divider, SYS_CLK_DIV_PWR_SAVE)
     SYS_CLK_SystemFrequencySet (SYS_CLK_SOURCE_PRIMARY_SYSPLL, 200000000, true);
-    
-    /* Board Support Package Initialization */
-    BSP_Initialize();        
-
     /* Initialize Drivers */
 
     sysObj.drvTmr0 = DRV_TMR_Initialize(DRV_TMR_INDEX_0, (SYS_MODULE_INIT *)&drvTmr0InitData);

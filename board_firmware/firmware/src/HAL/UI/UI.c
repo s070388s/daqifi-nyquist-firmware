@@ -70,12 +70,12 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
     static bool errorDisplayPending = false;
     static bool begunErrorDisplay = false;
     
-    bool pluggedIn = false;
-    bool poweredOn = false;
-    bool charging = false;
-    bool streaming = false;
-    bool battLow = false;
-    bool genError = false;
+    volatile bool pluggedIn = false;
+    volatile bool poweredOn = false;
+    volatile bool charging = false;
+    volatile bool streaming = false;
+    volatile bool battLow = false;
+    volatile bool genError = false;
     uint32_t period = 1;                // Lowest allowable period is 1
     
     
@@ -102,31 +102,31 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
         // If we've finished our repetitions, allow board to be powered down.
         if(repeatSeqNum==repeatSeq) PowerData->powerDnAllowed = true;
     }
-    else if(pluggedIn && !poweredOn && charging && !streaming && !battLow)
+    else if(pluggedIn && !poweredOn && charging && !streaming) // && !battLow)
     {   // Plugged in and charging - NOTE: This state has been temporarily disable to avoid confusion during debugging
         if(currentPattern == 0) currentPattern = 3;
     }
-    else if(pluggedIn && poweredOn && !charging && !streaming && !battLow)
+    else if(pluggedIn && poweredOn && !charging && !streaming) //  && !battLow)
     {   // Plugged in and powered on
         if(currentPattern == 0) currentPattern = 4;
     }
-    else if(pluggedIn && poweredOn && charging && !streaming && !battLow)
+    else if(pluggedIn && poweredOn && charging && !streaming) //  && !battLow)
     {   // Plugged in, powered on, and charging
         if(currentPattern == 0) currentPattern = 5;
     }
-    else if(pluggedIn && poweredOn && !charging && streaming && !battLow)
+    else if(pluggedIn && poweredOn && !charging && streaming) //  && !battLow)
     {   // Plugged in, powered on, and streaming
         if(currentPattern == 0) currentPattern = 6;
     }
-    else if(pluggedIn && poweredOn && charging && streaming && !battLow)
+    else if(pluggedIn && poweredOn && charging && streaming) //  && !battLow)
     {   // Plugged in, powered on, charging, and streaming
         if(currentPattern == 0) currentPattern = 7;
     }
-    else if(!pluggedIn && poweredOn && !charging && !streaming && !battLow)
+    else if(!pluggedIn && poweredOn && !charging && !streaming) //  && !battLow)
     {   // Powered on
         if(currentPattern == 0) currentPattern = 8;
     }
-    else if(!pluggedIn && poweredOn && !charging && streaming && !battLow)
+    else if(!pluggedIn && poweredOn && !charging && streaming) //  && !battLow)
     {   // Powered on and streaming
         if(currentPattern == 0) currentPattern = 9;
     }
