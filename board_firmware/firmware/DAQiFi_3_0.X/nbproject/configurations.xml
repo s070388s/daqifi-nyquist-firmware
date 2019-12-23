@@ -1116,7 +1116,7 @@
         <targetDevice>PIC32MZ2048EFM144</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>ICD3PlatformTool</platformTool>
+        <platformTool>RealICEPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.10</languageToolchainVersion>
         <platform>3</platform>
@@ -1362,6 +1362,24 @@
         <C32Global>
         </C32Global>
       </item>
+      <item path="../../../../../framework/tcpip/src/tcpip_announce.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
       <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/ISR_Support.h"
             ex="true"
             overriding="false">
@@ -1514,24 +1532,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/app_mz.ld"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
@@ -1541,7 +1541,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos;../src/pic32mz_ef_sk__ioexp__11n__freertos;../../../../../framework;../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework;../../../../../framework/driver/wifi/winc1500/include;../../../../../framework/driver/wifi/winc1500/wireless_driver/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/bsp/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/bus_wrapper/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/common/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/driver/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/driver/source;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/spi_flash/include;../../../../../third_party/rtos/FreeRTOS/Source/include;../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ"/>
+                  value="../src;../src/pic32mz_ef_sk__ioexp__11n__freertos;../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/framework;../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos;../../../../../framework;../../../../../framework/driver/wifi/winc1500/include;../../../../../framework/driver/wifi/winc1500/wireless_driver/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/bsp/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/bus_wrapper/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/common/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/driver/include;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/driver/source;../../../../../framework/driver/wifi/winc1500/wireless_driver_extension/spi_flash/include;../../../../../third_party/rtos/FreeRTOS/Source/include;../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

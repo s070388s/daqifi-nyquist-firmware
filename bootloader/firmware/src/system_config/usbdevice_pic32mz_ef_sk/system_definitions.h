@@ -96,6 +96,7 @@ typedef struct
 {
     SYS_MODULE_OBJ  sysTmr;
     SYS_MODULE_OBJ  drvTmr0;
+
     SYS_MODULE_OBJ  drvUSBObject;
     
     SYS_MODULE_OBJ  usbDevObject0;
@@ -104,7 +105,6 @@ typedef struct
 
 } SYSTEM_OBJECTS;
 
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: extern declarations
@@ -112,7 +112,6 @@ typedef struct
 // *****************************************************************************
 
 extern SYSTEM_OBJECTS sysObj;
-
 
 
 //DOM-IGNORE-BEGIN
