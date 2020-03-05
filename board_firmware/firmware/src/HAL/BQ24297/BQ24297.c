@@ -2,7 +2,7 @@
 
 void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    return;
+    //return;
     // Battery management initialization (hardware interface)
     
     // Open the I2C Driver for Master
@@ -14,7 +14,7 @@ void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 
 void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    return;
+    //return;
     uint8_t reg = 0;    // Temporary value to hold current register value
     
     // Read the current status data
@@ -59,7 +59,7 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 
 void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData)
 {
-    return;
+    //return;
     static uintptr_t I2CWriteBufferHandle;
     uint8_t I2CData[2];
     
@@ -88,7 +88,7 @@ void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297D
 
 uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg)
 {
-    return;
+    //return 0;
     static DRV_I2C_BUFFER_HANDLE I2CWriteBufferHandle;
     DRV_I2C_BUFFER_EVENT result;
     
@@ -120,7 +120,7 @@ uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ2429
 
 void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
-    return;
+    //return;
     uint8_t regData = 0;
     
     regData = BQ24297_Read_I2C(config, write, *data, 0x00);
@@ -157,7 +157,7 @@ void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 
 void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable)
 {
-    return;
+    //return;
     uint8_t reg = 0;    // Temporary value to hold current register value
     reg = BQ24297_Read_I2C(config, *write, *data, 0x01);
     if(data->chargeAllowed && chargeEnable && data->status.batPresent)

@@ -501,26 +501,25 @@ IntVectorDrvAdcEOS:
     .end	IntVectorDrvAdcEOS
 
 /* RTCC Interrupt */
-   .extern  IntHandlerSysRtcc
+//  Commenting out because compiler complains past version 2.10
+//   .extern  IntHandlerSysRtcc
 
-   .section	.vector_166,code, keep
-   .equ     __vector_dispatch_166, IntHandlerSysRtcc
-   .global  __vector_dispatch_166
-   .set     nomicromips
-   .set     noreorder
-   .set     nomips16
-   .set     noat
-   .ent  IntHandlerSysRtcc
+//   .section	.vector_166,code, keep
+//   .equ     __vector_dispatch_166, IntHandlerSysRtcc
+//   .global  __vector_dispatch_166
+//   .set     nomicromips
+//   .set     noreorder
+//   .set     nomips16
+//   .set     noat
+//   .ent  IntHandlerSysRtcc
 
-IntHandlerSysRtcc:
-    portSAVE_CONTEXT
-    la    s6,  IntHandlerSysRtcc
-    jalr  s6
-    nop
-    portRESTORE_CONTEXT
-    .end	IntHandlerSysRtcc
-            
-
+//IntHandlerSysRtcc:
+//    portSAVE_CONTEXT
+//    la    s6,  IntHandlerSysRtcc
+//    jalr  s6
+//    nop
+//    portRESTORE_CONTEXT
+//    .end	IntHandlerSysRtcc
 /*******************************************************************************
  End of File
  */
