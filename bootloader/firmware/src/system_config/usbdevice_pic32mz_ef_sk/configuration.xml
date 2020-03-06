@@ -305,8 +305,7 @@
       <Template dnOrder="4">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
-        <Checksum dnOrder="2">567E4C0EB460B9ACB3592F34C845EB5A</Checksum>
-        <ProjectFileChecksum dnOrder="3">01C3885FF24F454DBC59B1C1867ADB3A</ProjectFileChecksum>
+        <Checksum dnOrder="2">1329C490A2359857D274E7DD9FA9C2D5</Checksum>
       </Template>
       <Template dnOrder="5">
         <Name dnOrder="0">system_tasks.c</Name>
@@ -350,7 +349,7 @@
       <Template dnOrder="13">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/ports/src</Path>
-        <Checksum dnOrder="2">A490A9CE338CCD0DAD3A5FA3EF173BF4</Checksum>
+        <Checksum dnOrder="2">FA986A6635EA85C17FB02A4694D5E187</Checksum>
       </Template>
       <Template dnOrder="14">
         <Name dnOrder="0">system_exceptions.c</Name>
@@ -370,16 +369,16 @@
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">EC01CC21E4E78648AFE985BE457C6A80</Checksum>
-        <ProjectFileChecksum dnOrder="3">8F3CFA27380E8A5495C118AD82FF6E74</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">E23FC5967097F7E642A6DB3905C264E7</ProjectFileChecksum>
       </Template>
     </Templates>
     <CompilerItems dnOrder="2">
       <C32 dnOrder="0">
-        <Include dnOrder="0" value="C:\microchip\harmony\v2_06\apps\Nyquist\bootloader\firmware\src"/>
-        <Include dnOrder="1" value="C:\microchip\harmony\v2_06\apps\Nyquist\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk"/>
-        <Include dnOrder="2" value="C:\microchip\harmony\v2_06\apps\Nyquist\bootloader\firmware\src\usbdevice_pic32mz_ef_sk"/>
+        <Include dnOrder="0" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src"/>
+        <Include dnOrder="1" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk"/>
+        <Include dnOrder="2" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src\usbdevice_pic32mz_ef_sk"/>
         <Include dnOrder="3" value="C:\microchip\harmony\v2_06\framework"/>
-        <Include dnOrder="4" value="C:\microchip\harmony\v2_06\apps\Nyquist\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk\framework"/>
+        <Include dnOrder="4" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk\framework"/>
       </C32>
     </CompilerItems>
     <Libraries dnOrder="3">

@@ -49,8 +49,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_config.h"
 #include "system_definitions.h"
 
-
-#define SYS_CLK_DIV_PWR_SAVE 2
+#define SYS_CLK_DIV_PWR_SAVE    2
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
