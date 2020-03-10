@@ -84,7 +84,7 @@ extern "C" {
        EXT_POWER_SOURCE externalPowerSource;
        
        // Variables below are meant to be updated externally
-       bool USBConnected;
+       bool USBSleep;
        bool battLow;
        bool powerDnAllowed;
        double battVoltage;
@@ -106,8 +106,8 @@ extern "C" {
     } sPowerWriteVars;
     
     void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars);
-    void Power_Update_Source(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
-    void Power_USB_Con_Update(sPowerConfig config, sPowerData *data, bool connected);
+    void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool connected);
     void Power_Write(sPowerConfig config, sPowerWriteVars *vars);
     void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
     void Power_Down(sPowerConfig configs, sPowerData *data, sPowerWriteVars *vars);

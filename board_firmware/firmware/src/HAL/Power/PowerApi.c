@@ -311,49 +311,35 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
     // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
     BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
     
-    // Update power source
-    //Power_Update_Source(PowerConfig, PowerData, powerWriteVars);
+    // Update power settings based on BQ24297 interrupt change
+    if (PowerData->BQ24297Data.intFlag)
+    {
+        /* The BQ24297 asserted an interrupt so we might need to update our power settings
+         * INT on the BQ24297 can be asserted:
+         * -Good input source detected
+         * -Input removed or VBUS above VACOV threshold
+         * -After successful input source qualification
+         * -Any fault during boost operation, including VBUS over-voltage or over-current
+         * -Once a charging cycle is complete/charging termination
+         * -On temperature fault
+         * -Safety timer timeout
+         */
+        
+        Power_Update_Settings(PowerConfig, PowerData, powerWriteVars);
+    }
     
     // Call update state
     Power_UpdateState(PowerConfig, PowerData, powerWriteVars);
 }
 
-void Power_Update_Source(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
+void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-//    bool chargeEnable = false;
-//    
-//
-//    if(data->USBConnected)
-//    {   // If USB is connected, the computer has agreed to give us 500mA
-//        data->externalPowerSource = USB_500MA_EXT_POWER;
-//        
-//        chargeEnable = true;
-//
-//        // TODO: Change SEL value to false when used in production with battery
-//        //vars->MCP73871WriteVars.SEL_Val = false;    // Input type selection (Low for USB port, High for ac-dc adapter)
-//        //vars->MCP73871WriteVars.PROG2_Val = true;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
-//        
-//    }
-//    else if(PLIB_PORTS_PinGet(PORTS_ID_0, config.USB_Dp_Ch, config.USB_Dp_Bit))
-//    {   // If the D+ line is high, a 2A charger is plugged in
-//        data->externalPowerSource = CHARGER_2A_EXT_POWER;
-//
-//        chargeEnable = true;
-//        
-//        
-//    }
-//    else if(PLIB_PORTS_PinGet(PORTS_ID_0, config.USB_Dn_Ch, config.USB_Dn_Bit))
-//    {   // If the D+ line is high, a 1A charger is plugged in
-//        data->externalPowerSource = CHARGER_1A_EXT_POWER;
-//
-//        chargeEnable = true;
-//        
-//        
-//    }
+//    Change charging/other power settings based on current status
+//      bool chargeEnable = false;
 
 }
 
-void Power_USB_Con_Update(sPowerConfig config, sPowerData *data, bool connected)
+void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool sleep)
 {
-    data->USBConnected = connected;
+    data->USBSleep = sleep;
 }

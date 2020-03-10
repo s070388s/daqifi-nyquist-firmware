@@ -24,7 +24,7 @@ void InitializeBoardData(BoardData* boardData)
     boardData->PowerData.battLow = false;
     boardData->PowerData.battVoltage = 0.0;
     boardData->PowerData.chargePct = 0;
-    boardData->PowerData.USBConnected = false;
+    boardData->PowerData.USBSleep = false;
     boardData->PowerData.requestedPowerState = NO_CHANGE;       // Initialize to NO_CHANGE nominally for debugging, can use DO_POWER_UP to power immediately
     boardData->PowerData.powerDnAllowed = false;
     boardData->PowerData.externalPowerSource = NO_EXT_POWER;

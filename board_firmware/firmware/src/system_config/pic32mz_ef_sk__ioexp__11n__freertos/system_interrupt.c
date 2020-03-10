@@ -86,34 +86,35 @@ void IntHandlerDrvI2CErrorInstance0(void)
     SYS_ASSERT(false, "I2C Driver Instance 0 Error");
 }
 
-     
-   
-
- 
- 
- 
-
- 
-
-
-
 
 void IntHandlerChangeNotification_PortA(void)
 {
-    
+    ++g_BoardData.InISR;
+    if(PLIB_PORTS_PinGet(PORTS_ID_0, BATT_MAN_INT_PORT, BATT_MAN_INT_PIN)) // Read port to clear mismatch condition on BATT_MAN_INT
+    {
+        // Battery management interrupt has occurred
+        g_BoardData.PowerData.BQ24297Data.intFlag = true;   // Set intFlag so we can handle it in the main power task
+    }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_A);
+    --g_BoardData.InISR;
 }
 void IntHandlerChangeNotification_PortB(void)
 {
     ++g_BoardData.InISR;
-    PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_B, PORTS_BIT_POS_3); // Read port to clear mismatch condition
+    if(PLIB_PORTS_PinGet(PORTS_ID_0, AD7609_BUSY_PORT, AD7609_BUSY_PIN)) // Read port to clear mismatch condition
+    {
+        // AD7609 interrupt has occurred
+    }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
     --g_BoardData.InISR;
 }
 void IntHandlerChangeNotification_PortF(void)
 {
     ++g_BoardData.InISR;
-    PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_2); // Read port to clear mismatch condition
+    if(PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_2)) // Read port to clear mismatch condition
+    {
+        // SDI6 signal caused interrupt
+    }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
     --g_BoardData.InISR;
 }

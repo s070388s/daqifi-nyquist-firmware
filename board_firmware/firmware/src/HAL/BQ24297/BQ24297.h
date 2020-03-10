@@ -71,6 +71,7 @@ typedef struct
   typedef struct sBQ24297Data{
 	unsigned char INT_Val;
 	unsigned char STAT_Val;
+    bool intFlag;
     bool chargeAllowed;
     bool initComplete;
     BQ24297_STATUS status;

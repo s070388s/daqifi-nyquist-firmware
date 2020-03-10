@@ -139,7 +139,6 @@ void UsbCdc_EventHandler ( USB_DEVICE_EVENT event, void * eventData, uintptr_t c
             {
                 g_BoardRuntimeConfig.usbSettings.state = USB_CDC_STATE_BEGIN_CLOSE;
             }
-            Power_USB_Con_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, false);
             break;
         case USB_DEVICE_EVENT_CONFIGURED:
 
@@ -154,7 +153,6 @@ void UsbCdc_EventHandler ( USB_DEVICE_EVENT event, void * eventData, uintptr_t c
 
                 /* Mark that the device is now configured */
                 g_BoardRuntimeConfig.usbSettings.state = USB_CDC_STATE_WAIT;
-                Power_USB_Con_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, true);
             }
             break;
 
@@ -162,30 +160,26 @@ void UsbCdc_EventHandler ( USB_DEVICE_EVENT event, void * eventData, uintptr_t c
 
             /* VBUS was detected. We can attach the device */
             USB_DEVICE_Attach(g_BoardRuntimeConfig.usbSettings.deviceHandle);
-            Power_Update_Source(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, &g_BoardRuntimeConfig.PowerWriteVars);
             break;
 
         case USB_DEVICE_EVENT_POWER_REMOVED:
 
             /* VBUS is not available any more. Detach the device. */
-            Power_USB_Con_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, false);
             USB_DEVICE_Detach(g_BoardRuntimeConfig.usbSettings.deviceHandle);
-            Power_Update_Source(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, &g_BoardRuntimeConfig.PowerWriteVars);
             break;
 
         case USB_DEVICE_EVENT_SUSPENDED:
             // TODO: Are the transfer handles still valid?
-            Power_USB_Con_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, false);
+            Power_USB_Sleep_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, true);
             g_BoardRuntimeConfig.usbSettings.state = USB_CDC_STATE_WAIT;
             break;
         case USB_DEVICE_EVENT_RESUMED:
-            // TODO: Does suspend only occur after initialization
-            Power_USB_Con_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, true);
+            // TODO: Does suspend only occur after initialization?
+            Power_USB_Sleep_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, false);
             g_BoardRuntimeConfig.usbSettings.state = USB_CDC_STATE_WAIT;
             break;
         case USB_DEVICE_EVENT_ERROR:
             // TODO: Are there non-fatal errors?
-            Power_USB_Con_Update(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, false);
             g_BoardRuntimeConfig.usbSettings.state = USB_CDC_STATE_BEGIN_CLOSE;
             break;
         default:
