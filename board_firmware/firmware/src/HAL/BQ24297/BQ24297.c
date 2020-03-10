@@ -32,11 +32,11 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     // REG01: 0b01000001
     BQ24297_Write_I2C(config, write, *data, 0x01, 0b01000001);
     
-    // Set fast charge to 2000mA
-    BQ24297_Write_I2C(config, write, *data, 0x02, 0b01100000);
+    // Set fast charge to 128mA - this will get updated in the power task
+    BQ24297_Write_I2C(config, write, *data, 0x02, 0b00001000);
     
-    // Set charge voltage to 4.2V
-    BQ24297_Write_I2C(config, write, *data, 0x04, 0b10110010);
+    // Set charge voltage to 4.096V
+    BQ24297_Write_I2C(config, write, *data, 0x04, 0b10010110);
     
     // Disable watchdog WATCHDOG = 0, set charge timer to 20hr
     // REG05: 0b10001110
@@ -125,6 +125,9 @@ void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     regData = BQ24297_Read_I2C(config, write, *data, 0x01);
     data->status.otg = (bool) (regData & 0b00100000);
     data->status.chg = (bool) (regData & 0b00010000);
+    
+    regData = BQ24297_Read_I2C(config, write, *data, 0x02);
+    data->status.ichg = (uint8_t) (regData & 0b11111100) >> 2;
     
     // Make sure we are not still trying to determine the input source
     regData = BQ24297_Read_I2C(config, write, *data, 0x07);

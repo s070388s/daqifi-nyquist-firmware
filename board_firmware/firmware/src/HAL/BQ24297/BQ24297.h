@@ -26,6 +26,9 @@ typedef struct
     bool otg;
     bool chg;
     
+    // From charger current control register 0x02
+    uint8_t ichg;
+    
     // From operation control register 0x07
     bool iinDet_Read;
     

@@ -88,26 +88,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define BOOT_RESET_DELAY 5      // Delay for user to press button to enter bootloader (timer is ~0.9sec per integer)
 #define BOOT_POWER_DELAY 5      // Delay for user to press button to power off board      
 
-#define STATUS_LED_MODULE PORTS_ID_0
-#define STATUS_LED_PORT PORT_CHANNEL_C
-#define STATUS_LED_PIN PORTS_BIT_POS_3
-
-#define STATUS2_LED_MODULE PORTS_ID_0
-#define STATUS2_LED_PORT PORT_CHANNEL_B
-#define STATUS2_LED_PIN PORTS_BIT_POS_14
-
-#define BUTTON_MODULE PORTS_ID_0
-#define BUTTON_PORT PORT_CHANNEL_J
-#define BUTTON_PIN PORTS_BIT_POS_14
-
-#define PWR_3_3V_EN_MODULE PORTS_ID_0
-#define PWR_3_3V_EN_PORT PORT_CHANNEL_H
-#define PWR_3_3V_EN_PIN PORTS_BIT_POS_12
-
-#define BOOTLOADER_FORCE_MODULE PORTS_ID_0
-#define BOOTLOADER_FORCE_PORT PORT_CHANNEL_B
-#define BOOTLOADER_FORCE_PIN PORTS_BIT_POS_1
-
 #define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFE0 // Address must match what is defined in the project preprocessor definition (0x8007FFE0 is the last 16 bytes of data mem)
 #define FORCE_BOOOT_VALUE 0x04CEB007    // magic force bootloader value
 
@@ -160,8 +140,14 @@ int APP_Bootloader_ForceEvent(void)
  */
 int APP_StartApp(void)
 {
+    // Jump to main program - but first, clean up some things.
+    
     /* Disable Global Interrupts */
     PLIB_INT_Disable(INT_ID_0);
+    
+    // Turn off LEDs
+    PLIB_PORTS_PinClear(0, LED_WHITE_PORT, LED_WHITE_PIN);
+    PLIB_PORTS_PinClear(0, LED_BLUE_PORT, LED_BLUE_PIN);
     
     /* Disable Individual Interrupts */
     IEC0=0;
@@ -265,7 +251,7 @@ void APP_TimerCallback(uintptr_t context, uint32_t currTick)
     
     g_timerCount++;       // Increment global timer count
     
-    PLIB_PORTS_PinToggle(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);
+    PLIB_PORTS_PinToggle(0, LED_WHITE_PORT, LED_WHITE_PIN);
     
     Nop();
     Nop();
@@ -274,10 +260,10 @@ void APP_TimerCallback(uintptr_t context, uint32_t currTick)
     
     if (bootloaderDownloading)    // If we are downloading the bootloader, flash LED2
     {
-        PLIB_PORTS_PinWrite(STATUS2_LED_MODULE, STATUS2_LED_PORT, STATUS2_LED_PIN, PLIB_PORTS_PinGet(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN));
+        PLIB_PORTS_PinWrite(0, LED_BLUE_PORT, LED_BLUE_PIN, PLIB_PORTS_PinGet(0, LED_WHITE_PORT, LED_WHITE_PIN));
     }else if(bootloaderConnected) // If we are connected to the bootloader app, light LED2
     {
-        PLIB_PORTS_PinSet(STATUS2_LED_MODULE, STATUS2_LED_PORT, STATUS2_LED_PIN);
+        PLIB_PORTS_PinSet(0, LED_BLUE_PORT, LED_BLUE_PIN);
     } 
 }
 
@@ -307,23 +293,20 @@ void APP_Initialize ( void )
     BOOTLOADER_ForceBootloadRegister(APP_Bootloader_ForceEvent);
     BOOTLOADER_StartAppRegister(APP_StartApp);
     
-    // Bootloader force pin
-    PLIB_PORTS_PinDirectionInputSet(BOOTLOADER_FORCE_MODULE, BOOTLOADER_FORCE_PORT, BOOTLOADER_FORCE_PIN);
-    
     // User button
-    PLIB_PORTS_PinDirectionInputSet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN);
+    PLIB_PORTS_PinDirectionInputSet(0, BUTTON_PORT, BUTTON_PIN);
     
     // Status LED1
-    PLIB_PORTS_PinDirectionOutputSet(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);
-    PLIB_PORTS_PinClear(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);
+    PLIB_PORTS_PinDirectionOutputSet(0, LED_WHITE_PORT, LED_WHITE_PIN);
+    PLIB_PORTS_PinClear(0, LED_WHITE_PORT, LED_WHITE_PIN);
     
     // 3.3V Enable Pin
-    PLIB_PORTS_PinDirectionOutputSet(PWR_3_3V_EN_MODULE, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN);
-    PLIB_PORTS_PinSet(PWR_3_3V_EN_MODULE, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN);
+    PLIB_PORTS_PinDirectionOutputSet(0, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN);
+    PLIB_PORTS_PinSet(0, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN);
     
     // Status LED2
-    PLIB_PORTS_PinDirectionOutputSet(STATUS2_LED_MODULE, STATUS2_LED_PORT, STATUS2_LED_PIN);
-    PLIB_PORTS_PinClear(STATUS2_LED_MODULE, STATUS2_LED_PORT, STATUS2_LED_PIN);
+    PLIB_PORTS_PinDirectionOutputSet(0, LED_BLUE_PORT, LED_BLUE_PIN);
+    PLIB_PORTS_PinClear(0, LED_BLUE_PORT, LED_BLUE_PIN);
     
     m_TimerCallback = SYS_TMR_HANDLE_INVALID;
        
@@ -335,17 +318,17 @@ void APP_Initialize ( void )
     {
         // If the processor has been reset from the MCLR pin, turn on LED to indicate a reset has occurred 
         // and check to see if we should enter bootloader
-        PLIB_PORTS_PinSet(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);
-        PLIB_PORTS_PinSet(STATUS2_LED_MODULE, STATUS2_LED_PORT, STATUS2_LED_PIN);
+        PLIB_PORTS_PinSet(0, LED_WHITE_PORT, LED_WHITE_PIN);
+        PLIB_PORTS_PinSet(0, LED_BLUE_PORT, LED_BLUE_PIN);
 
         DelayMs(BOOTLOADER_PRIME_WINDOW);
         
         // If the user is still holding the button, stay in while and count loop cycles
-        if(PLIB_PORTS_PinGet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN))
+        if(PLIB_PORTS_PinGet(0, BUTTON_PORT, BUTTON_PIN))
         {
             DelayMs(BOOTLOADER_FORCE_DURATION);
             // Once we've timed out the BOOTLOADER_FORCE_DURATION and the user is still holding the button and we are powered via external power (low = powered)
-            if(PLIB_PORTS_PinGet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN)) forceBootloader = true; 
+            if(PLIB_PORTS_PinGet(0, BUTTON_PORT, BUTTON_PIN)) forceBootloader = true; 
         }
         
         // Clear the reset reason status flag
@@ -396,7 +379,7 @@ void APP_Tasks ( void )
                 bootloaderDownloading = true;
             }
             
-            if(forceBootloader && PLIB_PORTS_PinGet(BUTTON_MODULE, BUTTON_PORT, BUTTON_PIN)) // If we are in the bootloader and the user is holding the button
+            if(forceBootloader && PLIB_PORTS_PinGet(0, BUTTON_PORT, BUTTON_PIN)) // If we are in the bootloader and the user is holding the button
             {
                 static uint32_t timerPowerStartCount = 0;
 
@@ -405,9 +388,9 @@ void APP_Tasks ( void )
 
                 if((g_timerCount-timerPowerStartCount)>BOOTLOADER_POWER_DURATION)
                 {
-                    PLIB_PORTS_PinClear(PWR_3_3V_EN_MODULE, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN); // Disable the 3.3V power rail
-                    PLIB_PORTS_PinClear(STATUS_LED_MODULE, STATUS_LED_PORT, STATUS_LED_PIN);    // Turn off LED1
-                    PLIB_PORTS_PinClear(STATUS2_LED_MODULE, STATUS2_LED_PORT, STATUS2_LED_PIN); // Turn off LED2
+                    PLIB_PORTS_PinClear(0, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN); // Disable the 3.3V power rail
+                    PLIB_PORTS_PinClear(0, LED_WHITE_PORT, LED_WHITE_PIN);    // Turn off LED1
+                    PLIB_PORTS_PinClear(0, LED_BLUE_PORT, LED_BLUE_PIN); // Turn off LED2
 
                     // Delay for about 1s to allow the 3.3V rail to power off (unless plugged in then we will timeout and hit the reset below)
                     _CP0_SET_COUNT(0);

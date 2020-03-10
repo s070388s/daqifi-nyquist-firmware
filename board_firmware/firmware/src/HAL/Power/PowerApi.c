@@ -302,13 +302,11 @@ void Power_UpdateChgPct(sPowerData *data)
 
 void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
 {
-        // If we haven't initialized the battery management settings, do so now
+    // If we haven't initialized the battery management settings, do so now
     if (PowerData->BQ24297Data.initComplete == false)
     {
         BQ24297_InitSettings(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
     }
-    
-    BQ24297_Write_I2C(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, (PowerData->BQ24297Data), 0x01, 0b01011111);
     
     // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
     BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
