@@ -156,6 +156,25 @@ void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable)
 {
     uint8_t reg = 0;    // Temporary value to hold current register value
+    
+    reg = BQ24297_Read_I2C(config, *write, *data, 0x02);
+    
+    //  Set battery charging current
+    switch(data->status.vBusStat)
+    {
+        case 0b00:
+        case 0b01:
+            // Set fast charge to 128mA - maximum allowed on USB 2.0
+            BQ24297_Write_I2C(config, *write, *data, 0x02, 0b00001000 | (reg & 0b00000011));
+            break;
+        case 0b10:
+            // Set fast charge to 2000mA - maximum allowed on charger
+            BQ24297_Write_I2C(config, *write, *data, 0x02, 0b01100000 | (reg & 0b00000011));
+            break;
+        default:
+            break;
+    }
+    
     reg = BQ24297_Read_I2C(config, *write, *data, 0x01);
     if(data->chargeAllowed && chargeEnable && data->status.batPresent)
     {
@@ -167,4 +186,25 @@ void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24
         // Disable charging, and write register
         BQ24297_Write_I2C(config, *write, *data, 0x01, reg & 0b11101111);
     }
+}
+
+void BQ24297_ForceDPDM(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
+{
+    uint8_t reg = 0;    // Temporary value to hold current register value
+    
+    // Read the current status data
+    BQ24297_UpdateStatus(config, write, data);
+    while(data->status.iinDet_Read) BQ24297_UpdateStatus(config, write, data);
+    
+    // If we are plugged in, we can reevaluate our power source by forcing DPDM
+    if(data->status.pgStat)
+    {    
+        reg = BQ24297_Read_I2C(config, write, *data, 0x07);
+
+        // Force DPDM detection
+        // REG07: 0b1XXXXXXX
+        BQ24297_Write_I2C(config, write, *data, 0x07, reg | 0b10000000);
+    }
+    BQ24297_UpdateStatus(config, write, data);
+    while(data->status.iinDet_Read) BQ24297_UpdateStatus(config, write, data);
 }

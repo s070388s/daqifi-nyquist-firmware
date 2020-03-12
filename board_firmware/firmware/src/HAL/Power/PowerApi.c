@@ -324,8 +324,9 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
          * -On temperature fault
          * -Safety timer timeout
          */
-        
+        BQ24297_ForceDPDM(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &PowerData->BQ24297Data);
         Power_Update_Settings(PowerConfig, PowerData, powerWriteVars);
+        PowerData->BQ24297Data.intFlag = false; // Clear flag
     }
     
     // Call update state
@@ -334,9 +335,11 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
 
 void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-//    Change charging/other power settings based on current status
-//      bool chargeEnable = false;
-
+    //  Change charging/other power settings based on current status
+    
+    // Enable/update charging rate
+    BQ24297_ChargeEnable(config.BQ24297Config, &vars->BQ24297WriteVars, &data->BQ24297Data, data->BQ24297Data.status.batPresent);
+    
 }
 
 void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool sleep)

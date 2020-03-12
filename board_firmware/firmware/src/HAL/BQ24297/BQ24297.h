@@ -115,6 +115,9 @@ typedef struct
     void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable);
 
     void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+    
+    void BQ24297_ForceDPDM(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+
 
     
 #ifdef	__cplusplus
