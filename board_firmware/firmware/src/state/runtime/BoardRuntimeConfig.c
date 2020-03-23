@@ -4,6 +4,9 @@ BoardRuntimeConfig __attribute__((coherent)) g_BoardRuntimeConfig;
 
 void InitBoardRuntimeConfig(int boardVariant)
 {
+    // Initialize variable to known state
+    memset(&g_BoardRuntimeConfig, 0, sizeof(g_BoardRuntimeConfig));
+    
     switch (boardVariant)
     {
     case 3:

@@ -116,6 +116,8 @@ void APP_Initialize(void)
 	force_bootloader_flag = 0;    // Reset force bootloader flag
     
     DaqifiSettings tmpTopLevelSettings;
+    // Initialize the variable to 0s
+    memset(&tmpTopLevelSettings, 0, sizeof(tmpTopLevelSettings));
     tmpTopLevelSettings.type = DaqifiSettings_TopLevelSettings;
     
     // Try to load TopLevelSettings from NVM - if this fails, store default settings to NVM (first run after a program)
@@ -136,6 +138,8 @@ void APP_Initialize(void)
     
     // Try to load WiFiSettings from NVM - if this fails, store default settings to NVM (first run after a program)
     DaqifiSettings tmpWifiSettings;
+    // Initialize the variable to 0s
+    memset(&tmpWifiSettings, 0, sizeof(tmpWifiSettings));
     tmpWifiSettings.type = DaqifiSettings_Wifi;
     
     if(!LoadNvmSettings(DaqifiSettings_Wifi, &tmpWifiSettings))

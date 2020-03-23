@@ -289,7 +289,7 @@ static scpi_result_t SCPI_SysInfoGet(scpi_t * context)
     }
     
     uint8_t buffer[DaqifiOutMessage_size];
-    size_t count = Nanopb_Encode(&g_BoardData, &fields_info, buffer, DaqifiOutMessage_size);
+    size_t count = Nanopb_Encode(&g_BoardData, (const)&fields_info, buffer, DaqifiOutMessage_size);
     if (count < 1)
     {
         return SCPI_RES_ERR;

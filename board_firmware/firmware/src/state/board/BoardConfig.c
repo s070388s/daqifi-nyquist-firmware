@@ -4,6 +4,9 @@ BoardConfig g_BoardConfig;
 
 void InitBoardConfig(TopLevelSettings* topLevelSettings)
 {
+    // Initialize variable to known state
+    memset(&g_BoardConfig, 0, sizeof(g_BoardConfig));
+    
     switch (topLevelSettings->boardVariant)
     {
     case 3:

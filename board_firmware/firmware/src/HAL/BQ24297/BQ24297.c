@@ -32,8 +32,8 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     // REG01: 0b01000001
     BQ24297_Write_I2C(config, write, *data, 0x01, 0b01000001);
     
-    // Set fast charge to 128mA - this will get updated in the power task
-    BQ24297_Write_I2C(config, write, *data, 0x02, 0b00001000);
+    // Set fast charge to 2000mA - this should never need to be updated
+    BQ24297_Write_I2C(config, write, *data, 0x02, 0b01100000);
     
     // Set charge voltage to 4.096V
     BQ24297_Write_I2C(config, write, *data, 0x04, 0b10010110);
@@ -44,6 +44,9 @@ void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
     
     // Read the current status data
     BQ24297_UpdateStatus(config, write, data);
+    
+    // Evaluate current power source and set current limits
+    BQ24297_AutoSetILim(config, &write, data);
     
     // Infer battery's existence from status
     // If ntc has a cold fault and vsys is true, battery is likely not present
@@ -157,24 +160,6 @@ void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24
 {
     uint8_t reg = 0;    // Temporary value to hold current register value
     
-    reg = BQ24297_Read_I2C(config, *write, *data, 0x02);
-    
-    //  Set battery charging current
-    switch(data->status.vBusStat)
-    {
-        case 0b00:
-        case 0b01:
-            // Set fast charge to 128mA - maximum allowed on USB 2.0
-            BQ24297_Write_I2C(config, *write, *data, 0x02, 0b00001000 | (reg & 0b00000011));
-            break;
-        case 0b10:
-            // Set fast charge to 2000mA - maximum allowed on charger
-            BQ24297_Write_I2C(config, *write, *data, 0x02, 0b01100000 | (reg & 0b00000011));
-            break;
-        default:
-            break;
-    }
-    
     reg = BQ24297_Read_I2C(config, *write, *data, 0x01);
     if(data->chargeAllowed && chargeEnable && data->status.batPresent)
     {
@@ -191,20 +176,43 @@ void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24
 void BQ24297_ForceDPDM(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data)
 {
     uint8_t reg = 0;    // Temporary value to hold current register value
-    
-    // Read the current status data
-    BQ24297_UpdateStatus(config, write, data);
-    while(data->status.iinDet_Read) BQ24297_UpdateStatus(config, write, data);
-    
-    // If we are plugged in, we can reevaluate our power source by forcing DPDM
-    if(data->status.pgStat)
-    {    
-        reg = BQ24297_Read_I2C(config, write, *data, 0x07);
+    // ----Untested implementation!----
+    // Be sure that the USB lines are disconnected ie. USBCSR0bits.SOFTCONN = 0
 
-        // Force DPDM detection
-        // REG07: 0b1XXXXXXX
-        BQ24297_Write_I2C(config, write, *data, 0x07, reg | 0b10000000);
-    }
+    reg = BQ24297_Read_I2C(config, write, *data, 0x07);
+
+    // Force DPDM detection
+    // REG07: 0b1XXXXXXX
+    BQ24297_Write_I2C(config, write, *data, 0x07, reg | 0b10000000);
+
     BQ24297_UpdateStatus(config, write, data);
     while(data->status.iinDet_Read) BQ24297_UpdateStatus(config, write, data);
+}
+
+void BQ24297_AutoSetILim(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data)
+{
+    uint8_t reg0;    // Temporary value to hold current register value
+    
+    reg0 = BQ24297_Read_I2C(config, *write, *data, 0x00);
+ 
+    //  Set system input current
+    switch(data->status.vBusStat)
+    {
+        case 0b00:
+            // Unknown - assume it is a charger. Set IINLIM to 2000mA - maximum allowed on charger
+            BQ24297_Write_I2C(config, *write, *data, 0x00, 0b00000110 | (reg0 & 0b11111000));
+            break;
+        case 0b01:
+            // Set to 500mA - maximum allowed on USB 2.0
+            // BQ24297_Write_I2C(config, *write, *data, 0x00, 0b00000010 | (reg0 & 0b11111000));
+            // TODO: Only using 2A as 500mA causes whining!
+            BQ24297_Write_I2C(config, *write, *data, 0x00, 0b00000110 | (reg0 & 0b11111000));
+            break;
+        case 0b10:
+            // Unknown - assume it is a charger. Set IINLIM to 2000mA - maximum allowed on charger
+            BQ24297_Write_I2C(config, *write, *data, 0x00, 0b00000110 | (reg0 & 0b11111000));
+            break;
+        default:
+            break;
+    }
 }

@@ -6,6 +6,9 @@ BoardData __attribute__((coherent)) g_BoardData;
 
 void InitializeBoardData(BoardData* boardData)
 {    
+    // Initialize variable to known state
+    memset(&g_BoardData, 0, sizeof(g_BoardData));
+        
     memset(&boardData->DIOLatest, 0, sizeof(DIOSample));
     DIOSampleList_Initialize(&boardData->DIOSamples, MAX_DIO_SAMPLE_COUNT, false, &g_NullLockProvider);
     
@@ -34,7 +37,6 @@ void InitializeBoardData(BoardData* boardData)
     boardData->UIReadVars.LED1 = false;
     boardData->UIReadVars.LED2 = false;
     boardData->UIReadVars.button = false;
-    
     boardData->wifiSettings.type = DaqifiSettings_Wifi;
     
 }

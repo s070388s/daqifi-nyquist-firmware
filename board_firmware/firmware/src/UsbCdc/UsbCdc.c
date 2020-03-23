@@ -158,7 +158,8 @@ void UsbCdc_EventHandler ( USB_DEVICE_EVENT event, void * eventData, uintptr_t c
 
         case USB_DEVICE_EVENT_POWER_DETECTED:
 
-            /* VBUS was detected. We can attach the device */
+            /* VBUS was detected. Wait 100ms for battery management to detect USB power source.  Then we can attach the device */
+            vTaskDelay(100 / portTICK_PERIOD_MS);
             USB_DEVICE_Attach(g_BoardRuntimeConfig.usbSettings.deviceHandle);
             break;
 

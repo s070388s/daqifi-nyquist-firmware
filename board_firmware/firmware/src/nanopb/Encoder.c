@@ -15,7 +15,7 @@ size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* 
 
     DaqifiOutMessage message = DaqifiOutMessage_init_default;
     size_t i=0;
-    for (i=0; i<fields->Size; ++i)
+    for (i=0; i<fields->Size; i++)
     {
         switch(fields->Data[i])
         {
@@ -527,7 +527,7 @@ size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* 
                 WifiSettings* wifiSettings = &state->wifiSettings.settings.wifi;
                 message.wifi_inf_mode = wifiSettings->networkType;
                 break;
-            }              
+            }      
             case DaqifiOutMessage_av_ssid_tag:
             {
                 uint8_t index;

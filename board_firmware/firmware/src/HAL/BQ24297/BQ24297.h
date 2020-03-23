@@ -71,7 +71,7 @@ typedef struct
   typedef struct sBQ24297Data{
 	unsigned char INT_Val;
 	unsigned char STAT_Val;
-    bool intFlag;
+    volatile bool intFlag;
     bool chargeAllowed;
     bool initComplete;
     BQ24297_STATUS status;
@@ -117,6 +117,8 @@ typedef struct
     void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
     
     void BQ24297_ForceDPDM(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+    
+    void BQ24297_AutoSetILim(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data);
 
 
     

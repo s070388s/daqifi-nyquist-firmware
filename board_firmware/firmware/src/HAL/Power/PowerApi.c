@@ -307,10 +307,7 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
     {
         BQ24297_InitSettings(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
     }
-    
-    // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
-    BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
-    
+
     // Update power settings based on BQ24297 interrupt change
     if (PowerData->BQ24297Data.intFlag)
     {
@@ -324,22 +321,28 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
          * -On temperature fault
          * -Safety timer timeout
          */
-        BQ24297_ForceDPDM(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &PowerData->BQ24297Data);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+        // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
+        BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
         Power_Update_Settings(PowerConfig, PowerData, powerWriteVars);
         PowerData->BQ24297Data.intFlag = false; // Clear flag
     }
     
     // Call update state
+    // TODO - perhaps put this in its own task to call only once per minute?
+    // As is, it appears to cause LED blinking to be errant
     Power_UpdateState(PowerConfig, PowerData, powerWriteVars);
 }
 
 void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-    //  Change charging/other power settings based on current status
+    // Change charging/other power settings based on current status
+       
+    // Check new power source and set parameters accordingly
+    BQ24297_AutoSetILim(config.BQ24297Config, &vars->BQ24297WriteVars, &data->BQ24297Data);
     
-    // Enable/update charging rate
+    // Enable/disable charging
     BQ24297_ChargeEnable(config.BQ24297Config, &vars->BQ24297WriteVars, &data->BQ24297Data, data->BQ24297Data.status.batPresent);
-    
 }
 
 void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool sleep)
