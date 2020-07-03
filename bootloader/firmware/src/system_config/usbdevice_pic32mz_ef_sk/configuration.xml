@@ -286,7 +286,7 @@
       <Template dnOrder="0">
         <Name dnOrder="0">system_interrupt.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
-        <Checksum dnOrder="2">15BF6F404507520B8C183E17CE27D046</Checksum>
+        <Checksum dnOrder="2">E271DECB6BE73A36BCA418F7B269F565</Checksum>
       </Template>
       <Template dnOrder="1">
         <Name dnOrder="0">sys_devcon_pic32mz.c</Name>
@@ -305,7 +305,7 @@
       <Template dnOrder="4">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
-        <Checksum dnOrder="2">1329C490A2359857D274E7DD9FA9C2D5</Checksum>
+        <Checksum dnOrder="2">56EE7A40C71CA9B3295715105A05FAD8</Checksum>
       </Template>
       <Template dnOrder="5">
         <Name dnOrder="0">system_tasks.c</Name>
@@ -349,7 +349,7 @@
       <Template dnOrder="13">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/ports/src</Path>
-        <Checksum dnOrder="2">FA986A6635EA85C17FB02A4694D5E187</Checksum>
+        <Checksum dnOrder="2">9560F16C807027124C8D38874DEE9CFA</Checksum>
       </Template>
       <Template dnOrder="14">
         <Name dnOrder="0">system_exceptions.c</Name>
@@ -368,7 +368,7 @@
       <Template dnOrder="17">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
-        <Checksum dnOrder="2">EC01CC21E4E78648AFE985BE457C6A80</Checksum>
+        <Checksum dnOrder="2">5C985D16ECB111A09FB3987F8AD33541</Checksum>
         <ProjectFileChecksum dnOrder="3">E23FC5967097F7E642A6DB3905C264E7</ProjectFileChecksum>
       </Template>
     </Templates>

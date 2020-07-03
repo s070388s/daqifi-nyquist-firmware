@@ -1885,7 +1885,7 @@
       <Template dnOrder="2">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">FC891F57628A34AF2D3F24F209F853AD</Checksum>
+        <Checksum dnOrder="2">B9A422339CFD5BCDE1C59034A10A7AB7</Checksum>
         <ProjectFileChecksum dnOrder="3">1F5125529BBB1C620E1E6B057099F18A</ProjectFileChecksum>
       </Template>
       <Template dnOrder="3">
@@ -1983,7 +1983,7 @@
       <Template dnOrder="21">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">C03D2F858D403CB20AF73FF99822E7A0</Checksum>
+        <Checksum dnOrder="2">A9D5F2A3EE80A47F19053C274EA5F2E4</Checksum>
         <ProjectFileChecksum dnOrder="3">52CB7566A977DDFA9C5914356301C0FC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="22">
