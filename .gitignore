@@ -20,3 +20,6 @@
 
 # /board_firmware/nanopb/nanopb.X/dist/PIC32MZ2048EFM144/
 /board_firmware/nanopb/nanopb.X/dist/PIC32MZ2048EFM144/debug
+/board_firmware/libscpi/libscpi.X/dist/
+/board_firmware/microrl/microrl.X/dist/
+/board_firmware/firmware/DAQiFi_3_0.X/dist/
