@@ -85,10 +85,10 @@ bool AInSampleList_PushBack(AInSampleList* list, const AInSample* data){
     
     (void)list;
     
-    queueResult = xQueueSend( \
+    queueResult = xQueueSendFromISR( \
                     analogInputsQueue, \
                     data, \
-                    AINSAMPLE_QUEUE_TICKS_TO_WAIT );
+                    NULL );
     return ( queueResult == pdTRUE ) ? true : false; 
 }
 

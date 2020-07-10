@@ -74,10 +74,10 @@ bool DIOSampleList_PushBack(DIOSampleList* list, const DIOSample* data){
     
     (void)list;
     
-    queueResult = xQueueSend( \
+    queueResult = xQueueSendFromISR( \
                     DIOQueue, \
                     data, \
-                    DIOSAMPLE_QUEUE_TICKS_TO_WAIT );
+                    NULL );
     return ( queueResult == pdTRUE ) ? true : false; 
 }
 
