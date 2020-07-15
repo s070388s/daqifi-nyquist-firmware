@@ -63,6 +63,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/board/BoardConfig.h"
 #include "UsbCdc/UsbCdc.h"
 #include "HAL/Wifi/WifiApi.h"
+#include "HAL/ADC.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -82,7 +83,7 @@ void _TCPIP_Tasks(void);
 void _NET_PRES_Tasks(void);
 static void _APP_Tasks(void);
 void _POWER_AND_UI_Tasks(void);
-
+void _ADC_Deferred_Interrupt_Task( void );
 
 // *****************************************************************************
 // *****************************************************************************
@@ -96,6 +97,10 @@ static TaskHandle_t tcpipHandle;
 static TaskHandle_t appHandle;
 static TaskHandle_t netpHandle;
 static TaskHandle_t powerUIHandle;
+//! ADC Interrupt Task Handle
+static TaskHandle_t ADCInterruptHandle;
+//! Queue used for deferring ADC interrupts
+static QueueHandle_t ADCInterruptQueue;
 /*******************************************************************************
   Function:
     void SYS_Tasks ( void )
@@ -148,8 +153,12 @@ void SYS_Tasks ( void )
     /* Create OS Thread for power Tasks. */
     xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
                 "POWER Tasks",
-                1024, NULL, 9, &powerUIHandle);    
+                1024, NULL, 9, &powerUIHandle);   
     
+    xTaskCreate((TaskFunction_t) _ADC_Deferred_Interrupt_Task,
+                "ADC Interrupt",
+                1024, NULL, 9, &ADCInterruptHandle);   
+      
     /**************
      * Start RTOS * 
      **************/
@@ -173,12 +182,12 @@ static void _SYS_Tasks ( void)
     volatile UBaseType_t uxHighWaterMark4 = 0;
     volatile UBaseType_t uxHighWaterMark5 = 0;
     
-//    UNUSED(uxHighWaterMark0);
-//    UNUSED(uxHighWaterMark1);
-//    UNUSED(uxHighWaterMark2);
-//    UNUSED(uxHighWaterMark3);
-//    UNUSED(uxHighWaterMark4);
-//    UNUSED(uxHighWaterMark5);
+    (void)uxHighWaterMark0;
+    (void)uxHighWaterMark1;
+    (void)uxHighWaterMark2;
+    (void)uxHighWaterMark3;
+    (void)uxHighWaterMark4;
+    (void)uxHighWaterMark5;
     
     while(1)
     {
@@ -209,8 +218,6 @@ static void _SYS_Tasks ( void)
     }
 }
 
- 
- 
 void _DRV_SDCARD_Tasks(void)
 {
     while(1)
@@ -295,6 +302,28 @@ void _POWER_AND_UI_Tasks(void)
     }
 }
 
+/*! Task for ADC deferred interrupt*/
+void _ADC_Deferred_Interrupt_Task( void ){
+    uint8_t data;
+    ADCInterruptQueue = xQueueCreate( 10, sizeof(uint8_t) );
+    while( 1 ){
+        xQueueReceive( \
+                    ADCInterruptQueue, \
+                    &data, \
+                    0xFFFFFFFF );
+        const AInModule* module = ADC_FindModule( &g_BoardConfig.AInModules, AIn_MC12bADC );
+        ADC_ConversionComplete(module);
+    }
+}
+
+/*! Function to be called from the ISR for deferring the ADC interrupt */
+void _ADC_Defer_Interrupt( void ){
+    uint8_t data = pdPASS;
+    xQueueSendFromISR( \
+                    ADCInterruptQueue, \
+                    &data, \
+                    NULL );
+}
 /*******************************************************************************
  End of File
  */

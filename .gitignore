@@ -23,3 +23,5 @@
 /board_firmware/libscpi/libscpi.X/dist/
 /board_firmware/microrl/microrl.X/dist/
 /board_firmware/firmware/DAQiFi_3_0.X/dist/
+/bootloader/firmware/basic.X/build/
+/bootloader/firmware/basic.X/dist/

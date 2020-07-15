@@ -247,8 +247,9 @@ void IntHandlerDrvAdcEOS(void)
         //UNUSED(dummyADCCON2);
         
         // Tell the app to read the results
-        const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
-        ADC_ConversionComplete(module);
+        /*const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
+        ADC_ConversionComplete(module);*/
+        _ADC_Defer_Interrupt();
     }
     
     --g_BoardData.InISR;
