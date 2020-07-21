@@ -4,6 +4,7 @@
 #ifndef PB_DAQIFIOUTMESSAGE_PB_H_INCLUDED
 #define PB_DAQIFIOUTMESSAGE_PB_H_INCLUDED
 #include <pb.h>
+#include "HAL/NVM/DaqifiSettings.h"
 
 /* @@protoc_insertion_point(includes) */
 #if PB_PROTO_HEADER_VERSION != 30
@@ -151,13 +152,13 @@ typedef struct _DaqifiOutMessage {
     bool has_wifi_inf_mode;
     uint32_t wifi_inf_mode;
     pb_size_t av_ssid_count;
-    char av_ssid[8][34];
+    char av_ssid[ MAX_AV_NETWORK_SSID ][34];
     pb_size_t av_ssid_strength_count;
-    uint32_t av_ssid_strength[8];
+    uint32_t av_ssid_strength[ MAX_AV_NETWORK_SSID ];
     pb_size_t av_wifi_security_mode_count;
-    uint32_t av_wifi_security_mode[8];
+    uint32_t av_wifi_security_mode[ MAX_AV_NETWORK_SSID ];
     pb_size_t av_wifi_inf_mode_count;
-    uint32_t av_wifi_inf_mode[8];
+    uint32_t av_wifi_inf_mode[ MAX_AV_NETWORK_SSID ];
     bool has_device_pn;
     char device_pn[16];
     bool has_device_hw_rev;

@@ -17,7 +17,7 @@
 #include "crypto/crypto.h"
 #include "../../state/runtime/AInRuntimeConfig.h"
 
-#define MAX_AV_NETWORK_SSID 8
+#define MAX_AV_NETWORK_SSID 50//8
 
 #ifdef	__cplusplus
 extern "C" {

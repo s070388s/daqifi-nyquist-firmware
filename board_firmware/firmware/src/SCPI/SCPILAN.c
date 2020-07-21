@@ -678,29 +678,75 @@ scpi_result_t SCPI_LANAVSsidGet(scpi_t * context)
 
 scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
 {
-//    uint8_t index = 0;
-//    uint16_t numberOfResults = 0;
-//    WDRV_SCAN_RESULT scanResult;
-//    uint8_t maxSSIDs = sizeof(g_BoardData.wifiSettings.settings.wifi.av_ssid) / sizeof(g_BoardData.wifiSettings.settings.wifi.av_ssid[0]);
-//    
-//    if(WDRV_EXT_ScanIsInProgress()) return SCPI_RES_OK; // If scan is in progress, exit and return nothing
-//    if (WDRV_ScanStart() == WDRV_SUCCESS)
-//    {
-//        while(WDRV_EXT_ScanIsInProgress());
-//        WDRV_EXT_CmdScanGet(&numberOfResults);
-//        if(numberOfResults>maxSSIDs) numberOfResults = maxSSIDs;
-//        g_BoardData.wifiSettings.settings.wifi.av_num = numberOfResults;    // Set number of results in the global settings structure
-//        
-//        for(index = 0;index<numberOfResults;index++)
-//        {
-//            WDRV_EXT_ScanResultGet(index, &scanResult);
-//            scanResult.ssid[scanResult.ssidLen] = '\0';
-//            strcpy(g_BoardData.wifiSettings.settings.wifi.av_ssid[index], (const char*) scanResult.ssid);   // Store SSID
-//            g_BoardData.wifiSettings.settings.wifi.av_ssid_str[index] = scanResult.rssi;                    // Store strength
-//            g_BoardData.wifiSettings.settings.wifi.av_networkType[index] = scanResult.bssType;              // Store network type
-//            g_BoardData.wifiSettings.settings.wifi.av_securityMode[index] = scanResult.apConfig;            // Store network security settings
-//        }
-//    }
-
+    uint8_t index = 0;
+    uint16_t numberOfResults = 0;
+    WDRV_SCAN_RESULT scanResult;
+    uint8_t maxSSIDs = MAX_AV_NETWORK_SSID;
+    uint8_t backSpace = 8;
+    int8_t scanResultError;
+    
+    if(WDRV_EXT_ScanIsInProgress()){
+        context->interface->write( context, (const char*) "SCAN ALREADY IN PROGRESS!!\r\n", 1 );
+        context->interface->flush(context);
+        return SCPI_RES_ERR; // If scan is in progress, exit and return nothing
+    }
+    if (WDRV_ScanStart() == WDRV_SUCCESS)
+    {
+        do{
+            context->interface->write( context, (const char*) "/", 1 );
+            context->interface->flush(context);
+            vTaskDelay( 15 );
+            context->interface->write( context, (const char*) &backSpace, 1 );
+            context->interface->flush(context);
+            context->interface->write( context, (const char*) "-", 1 );
+            context->interface->flush(context);
+            vTaskDelay( 15 ); 
+            context->interface->write( context, (const char*) &backSpace, 1 );
+            context->interface->flush(context);
+            context->interface->write( context, (const char*) "\\", 1 );
+            context->interface->flush(context);
+            vTaskDelay( 15 );
+            context->interface->write( context, (const char*) &backSpace, 1 );
+            context->interface->flush(context);
+            context->interface->write( context, (const char*) "|", 1 );
+            context->interface->flush(context);
+            vTaskDelay( 15 );
+            context->interface->write( context, (const char*) &backSpace, 1 );
+            context->interface->flush(context);
+            context->interface->write( context, (const char*) ".", 1 );
+            context->interface->flush(context);
+        }while(WDRV_EXT_ScanIsInProgress());
+        
+        context->interface->write( context, (const char*) "\r\n", 2 );
+        context->interface->flush(context);
+        WDRV_EXT_CmdScanGet(&numberOfResults);
+        if(numberOfResults>maxSSIDs) numberOfResults = maxSSIDs;
+        g_BoardData.wifiSettings.settings.wifi.av_num = numberOfResults;    // Set number of results in the global settings structure
+        
+        for(index = 0;index<numberOfResults;index++)
+        {          
+            if( WDRV_EXT_ScanResultGet(index, &scanResult) != 0 ){
+                context->interface->write( context, "ERROR\r\n", strlen( "ERROR\r\n" ) );
+                context->interface->flush(context);
+                nm_drv_init();
+                
+                return SCPI_RES_ERR;
+            }            
+            
+            if( ( scanResult.ssidLen == 0 ) || ( scanResult.ssidLen >= WDRV_MAX_SSID_LENGTH ) ){            
+                continue;
+            }                 
+            strcpy(g_BoardData.wifiSettings.settings.wifi.av_ssid[index], (const char*) scanResult.ssid);   // Store SSID    
+            
+            context->interface->write( context, (const char*) scanResult.ssid, strlen( (const char*) scanResult.ssid ) );
+            context->interface->write( context, (const char*) "\r\n", 2 );
+            context->interface->flush(context);
+            
+            g_BoardData.wifiSettings.settings.wifi.av_ssid_str[index] = scanResult.rssi;                    // Store strength
+            g_BoardData.wifiSettings.settings.wifi.av_networkType[index] = scanResult.bssType;              // Store network type
+            g_BoardData.wifiSettings.settings.wifi.av_securityMode[index] = scanResult.apConfig;            // Store network security settings
+            vTaskDelay( 25 );
+        }            
+    }
     return SCPI_RES_OK;   
 }
