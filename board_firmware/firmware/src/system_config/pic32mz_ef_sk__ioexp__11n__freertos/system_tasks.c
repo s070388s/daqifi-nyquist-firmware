@@ -84,6 +84,7 @@ void _NET_PRES_Tasks(void);
 static void _APP_Tasks(void);
 void _POWER_AND_UI_Tasks(void);
 void _ADC_Deferred_Interrupt_Task( void );
+void _Streaming_Deferred_Interrupt_Task( void );
 
 // *****************************************************************************
 // *****************************************************************************
@@ -99,8 +100,24 @@ static TaskHandle_t netpHandle;
 static TaskHandle_t powerUIHandle;
 //! ADC Interrupt Task Handle
 static TaskHandle_t ADCInterruptHandle;
+//! Streaming Interrupt Task Handle
+static TaskHandle_t streamingInterruptHandle;
 //! Queue used for deferring ADC interrupts
 static QueueHandle_t ADCInterruptQueue;
+//! Queue used for deferring streaming interrupts
+static QueueHandle_t streamingInterruptQueue;
+
+
+static void Streaming_TriggerADC(AInModule* module)
+{
+    if (module->Type == AIn_MC12bADC)
+    {
+        
+    }
+    
+    ADC_TriggerConversion(module);
+}
+
 /*******************************************************************************
   Function:
     void SYS_Tasks ( void )
@@ -158,6 +175,10 @@ void SYS_Tasks ( void )
     xTaskCreate((TaskFunction_t) _ADC_Deferred_Interrupt_Task,
                 "ADC Interrupt",
                 1024, NULL, 9, &ADCInterruptHandle);   
+    
+    xTaskCreate((TaskFunction_t) _Streaming_Deferred_Interrupt_Task,
+                "Stream Interrupt",
+                2048, NULL, 4, &streamingInterruptHandle);   
       
     /**************
      * Start RTOS * 
@@ -323,6 +344,48 @@ void _ADC_Defer_Interrupt( void ){
                     ADCInterruptQueue, \
                     &data, \
                     NULL );
+}
+
+void _Streaming_Deferred_Interrupt_Task( void ){
+    
+    uint8_t data;
+    uint8_t i=0;
+    
+    streamingInterruptQueue = xQueueCreate( 10, sizeof(uint8_t) );
+    while( 1 ){
+        xQueueReceive( \
+                    streamingInterruptQueue, \
+                    &data, \
+                    0xFFFFFFFF );
+        
+        for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
+        {
+            // Only trigger conversions if the previous conversion is complete
+            if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
+                g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
+            {
+                Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
+            }
+
+        }
+
+        if (g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with DIOPrescale
+        {
+            DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);
+        }
+
+        g_BoardRuntimeConfig.StreamingConfig.StreamCount = (g_BoardRuntimeConfig.StreamingConfig.StreamCount + 1) % g_BoardRuntimeConfig.StreamingConfig.MaxStreamCount;
+    }
+}
+
+void Streaming_Defer_Interrupt( void ){
+    uint8_t data = pdPASS;
+    xQueueSendFromISR( \
+                    streamingInterruptQueue, \
+                    &data, \
+                    NULL );
+    
+    
 }
 /*******************************************************************************
  End of File

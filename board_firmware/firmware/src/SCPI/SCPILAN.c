@@ -685,7 +685,7 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
     uint8_t maxSSIDs = MAX_AV_NETWORK_SSID;
     const uint8_t backSpace = 8;
     int8_t scanResultError;
-    int32_t scanTimeout = 1000; // 1 second of timeout for network scan
+    int32_t scanTimeout = 2000; // 1 second of timeout for network scan
     
     if( g_wdrv_scanStatus.scanInProgress ){
         context->interface->write( context, (const char*) "SCAN ALREADY IN PROGRESS!!\r\n", 1 );

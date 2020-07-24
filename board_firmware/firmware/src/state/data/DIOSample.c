@@ -41,7 +41,7 @@ bool DIOSampleList_PushBack(DIOSampleList* list, const DIOSample* data){
     
     (void)list;
     
-    queueResult = xQueueSendFromISR( \
+    queueResult = xQueueSend( \
                     DIOQueue, \
                     data, \
                     NULL );

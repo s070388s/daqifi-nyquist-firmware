@@ -10,16 +10,6 @@
 #define UNUSED(x) (void)(x)
 void Streaming_StuffDummyData (void); // Function for debugging - fills buffer with dummy data
 
-static void Streaming_TriggerADC(AInModule* module)
-{
-    if (module->Type == AIn_MC12bADC)
-    {
-        
-    }
-    
-    ADC_TriggerConversion(module);
-}
-
 static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
 {
     static bool inHandler = false;
@@ -42,24 +32,7 @@ static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
     //inHandler = false;
     //return;
  
-    uint8_t i=0;
-    for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
-    {
-        // Only trigger conversions if the previous conversion is complete
-        if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
-            g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
-        {
-            Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
-        }
-
-    }
-
-    if (g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with DIOPrescale
-    {
-        DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);
-    }
-    
-    g_BoardRuntimeConfig.StreamingConfig.StreamCount = (g_BoardRuntimeConfig.StreamingConfig.StreamCount + 1) % g_BoardRuntimeConfig.StreamingConfig.MaxStreamCount;
+    Streaming_Defer_Interrupt();
     
     inHandler = false;
 }

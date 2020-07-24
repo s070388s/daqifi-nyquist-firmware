@@ -48,7 +48,7 @@ bool AInSampleList_PushBack(AInSampleList* list, const AInSample* data){
     
     (void)list;
     
-    queueResult = xQueueSendFromISR( \
+    queueResult = xQueueSend( \
                     analogInputsQueue, \
                     data, \
                     NULL );
