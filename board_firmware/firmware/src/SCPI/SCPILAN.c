@@ -15,6 +15,7 @@
 #include "state/board/BoardConfig.h"
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "HAL/Wifi/WifiApi.h"
+#include "wdrv_winc1500_main.h"
 
 extern WF_CONFIG g_wifi_cfg;
 
@@ -682,10 +683,11 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
     uint16_t numberOfResults = 0;
     WDRV_SCAN_RESULT scanResult;
     uint8_t maxSSIDs = MAX_AV_NETWORK_SSID;
-    uint8_t backSpace = 8;
+    const uint8_t backSpace = 8;
     int8_t scanResultError;
+    int32_t scanTimeout = 1000; // 1 second of timeout for network scan
     
-    if(WDRV_EXT_ScanIsInProgress()){
+    if( g_wdrv_scanStatus.scanInProgress ){
         context->interface->write( context, (const char*) "SCAN ALREADY IN PROGRESS!!\r\n", 1 );
         context->interface->flush(context);
         return SCPI_RES_ERR; // If scan is in progress, exit and return nothing
@@ -715,7 +717,8 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
             context->interface->flush(context);
             context->interface->write( context, (const char*) ".", 1 );
             context->interface->flush(context);
-        }while(WDRV_EXT_ScanIsInProgress());
+            scanTimeout -= 4* 15;
+        }while( ( numberOfResults != maxSSIDs ) && ( scanTimeout > 0 ) );
         
         context->interface->write( context, (const char*) "\r\n", 2 );
         context->interface->flush(context);
@@ -725,13 +728,16 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
         
         for(index = 0;index<numberOfResults;index++)
         {          
+            WDRV_EXT_ScanResultGet(index, &scanResult);
+            /*
             if( WDRV_EXT_ScanResultGet(index, &scanResult) != 0 ){
                 context->interface->write( context, "ERROR\r\n", strlen( "ERROR\r\n" ) );
                 context->interface->flush(context);
                 nm_drv_init();
                 
                 return SCPI_RES_ERR;
-            }            
+            } 
+             */           
             
             if( ( scanResult.ssidLen == 0 ) || ( scanResult.ssidLen >= WDRV_MAX_SSID_LENGTH ) ){            
                 continue;
