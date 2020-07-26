@@ -165,7 +165,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                2048, NULL, 2, &appHandle);
+                2048, NULL, 9, &appHandle);
     
     /* Create OS Thread for power Tasks. */
     xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
@@ -351,7 +351,7 @@ void _Streaming_Deferred_Interrupt_Task( void ){
     uint8_t data;
     uint8_t i=0;
     
-    streamingInterruptQueue = xQueueCreate( 10, sizeof(uint8_t) );
+    streamingInterruptQueue = xQueueCreate( 1000, sizeof(uint8_t) );
     while( 1 ){
         xQueueReceive( \
                     streamingInterruptQueue, \
