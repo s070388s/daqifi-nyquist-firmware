@@ -4,8 +4,9 @@ void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ242
 {
     // Battery management initialization (hardware interface)
     
+    // ***Disable I2C calls*** as Harmony 2.06 doesn't have a working, interrupt-safe implementation
     // Open the I2C Driver for Master
-    data->I2C_Handle = DRV_I2C_Open( config.I2C_Index, DRV_IO_INTENT_READWRITE );
+    // data->I2C_Handle = DRV_I2C_Open( config.I2C_Index, DRV_IO_INTENT_READWRITE );
     
     // Set I/O such that we can power up when needed
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.OTG_Ch, config.OTG_Bit, write.OTG_Val);
@@ -63,6 +64,9 @@ void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297D
     static uintptr_t I2CWriteBufferHandle;
     uint8_t I2CData[2];
     
+    // ***Disable I2C calls*** as Harmony 2.06 doesn't have a working, interrupt-safe implementation
+    return;
+    
     // Build data packet
     I2CData[0] = reg;
     I2CData[1] = txData;
@@ -93,6 +97,9 @@ uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ2429
     
     uint8_t I2CData[1];
     uint8_t rxData = 0;
+    
+    // ***Disable I2C calls*** as Harmony 2.06 doesn't have a working, interrupt-safe implementation
+    return(0);
     
     // Build data packet
     I2CData[0] = reg;
