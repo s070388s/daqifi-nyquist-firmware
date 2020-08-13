@@ -748,7 +748,7 @@ void microrl_insert_char (microrl_t * pThis, int ch)
                     }
                     else
                     {
-                        if (pThis->echoOn > 0)
+                        if (pThis->echoOn > -1)
                         {
                             terminal_print(pThis, 1, (char*)&ch, 1);
                         }

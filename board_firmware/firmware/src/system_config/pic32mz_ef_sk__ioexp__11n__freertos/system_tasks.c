@@ -138,9 +138,9 @@ void SYS_Tasks ( void )
  
     /* Create task for gfx state machine*/
     /* Create OS Thread for DRV_SDCARD Tasks. */
-    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
-                "DRV_SDCARD Tasks",
-                1024, NULL, 2, NULL);
+//    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
+//                "DRV_SDCARD Tasks",
+//                1024, NULL, 2, NULL);
 
 
  
@@ -160,7 +160,7 @@ void SYS_Tasks ( void )
     /* Create OS Thread for Net Pres Tasks. */
     xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
                 "Net Pres Tasks",
-                1024, NULL, 2, &netpHandle);
+                2048, NULL, 2, &netpHandle); // 1024
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
