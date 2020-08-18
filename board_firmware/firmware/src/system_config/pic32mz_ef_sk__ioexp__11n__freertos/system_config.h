@@ -354,7 +354,7 @@ int LogMessage(const char* format, ...);
 #define DRV_SPI_COMM_WIDTH_IDX0 			SPI_COMMUNICATION_WIDTH_8BITS
 #define DRV_SPI_CLOCK_SOURCE_IDX0 		    SPI_BAUD_RATE_PBCLK_CLOCK
 #define DRV_SPI_SPI_CLOCK_IDX0 				CLK_BUS_PERIPHERAL_2
-#define DRV_SPI_BAUD_RATE_IDX0 				40000000
+#define DRV_SPI_BAUD_RATE_IDX0 				10000000
 #define DRV_SPI_BUFFER_TYPE_IDX0 			DRV_SPI_BUFFER_TYPE_ENHANCED
 #define DRV_SPI_CLOCK_MODE_IDX0 			DRV_SPI_CLOCK_MODE_IDLE_LOW_EDGE_FALL
 #define DRV_SPI_INPUT_PHASE_IDX0 			SPI_INPUT_SAMPLING_PHASE_AT_END
@@ -543,11 +543,11 @@ int LogMessage(const char* format, ...);
 #define TCPIP_STACK_DRAM_SIZE                       39250
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
-#define TCPIP_STACK_MALLOC_FUNC                     malloc
+#define TCPIP_STACK_MALLOC_FUNC                     pvPortMalloc
 
-#define TCPIP_STACK_CALLOC_FUNC                     calloc
+#define TCPIP_STACK_CALLOC_FUNC                     pvPortCalloc
 
-#define TCPIP_STACK_FREE_FUNC                       free
+#define TCPIP_STACK_FREE_FUNC                       vPortFree
 
 
 #define TCPIP_STACK_DRAM_DEBUG_ENABLE

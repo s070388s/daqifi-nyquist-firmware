@@ -83,7 +83,13 @@ static size_t TcpServer_Write(TcpClientData* client, const char* data, size_t le
  */
 static bool TcpServer_Flush(TcpClientData* client)
 {
-    int length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
+    int length;
+    do{
+        length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
+        if( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) ){
+            vTaskDelay( 1000 );
+        }
+    }while( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) );
     if (length == SOCKET_ERROR)
     {
         switch(errno)

@@ -161,7 +161,7 @@ static bool InitBuffer(char** buffer, uint8_t bufferLen)
 {
     if (*buffer == NULL)
     {
-        *buffer = malloc(bufferLen);
+        *buffer = pvPortMalloc(bufferLen);
     }
     
     if (*buffer == NULL)
