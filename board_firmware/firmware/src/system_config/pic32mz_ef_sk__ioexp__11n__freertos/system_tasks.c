@@ -102,10 +102,6 @@ static TaskHandle_t powerUIHandle;
 static TaskHandle_t ADCInterruptHandle;
 //! Streaming Interrupt Task Handle
 static TaskHandle_t streamingInterruptHandle;
-//! Queue used for deferring ADC interrupts
-static QueueHandle_t ADCInterruptQueue;
-//! Queue used for deferring streaming interrupts
-static QueueHandle_t streamingInterruptQueue;
 
 
 static void Streaming_TriggerADC(AInModule* module)
@@ -325,13 +321,12 @@ void _POWER_AND_UI_Tasks(void)
 
 /*! Task for ADC deferred interrupt*/
 void _ADC_Deferred_Interrupt_Task( void ){
-    uint8_t data;
-    ADCInterruptQueue = xQueueCreate( 10, sizeof(uint8_t) );
+    uint32_t ulNotifiedValue;
+    const TickType_t xBlockTime = 2000;
+    
     while( 1 ){
-        xQueueReceive( \
-                    ADCInterruptQueue, \
-                    &data, \
-                    0xFFFFFFFF );
+        ulNotifiedValue = ulTaskNotifyTake( pdFALSE,
+                                            xBlockTime );
         const AInModule* module = ADC_FindModule( &g_BoardConfig.AInModules, AIn_MC12bADC );
         ADC_ConversionComplete(module);
     }
@@ -339,24 +334,19 @@ void _ADC_Deferred_Interrupt_Task( void ){
 
 /*! Function to be called from the ISR for deferring the ADC interrupt */
 void _ADC_Defer_Interrupt( void ){
-    uint8_t data = pdPASS;
-    xQueueSendFromISR( \
-                    ADCInterruptQueue, \
-                    &data, \
-                    NULL );
+    BaseType_t xHigherPriorityTaskWoken;
+    vTaskNotifyGiveFromISR( ADCInterruptHandle, &xHigherPriorityTaskWoken );
 }
 
 void _Streaming_Deferred_Interrupt_Task( void ){
     
-    uint8_t data;
     uint8_t i=0;
-    
-    streamingInterruptQueue = xQueueCreate( 1000, sizeof(uint8_t) );
+    const TickType_t xBlockTime = 2000;
+    uint32_t ulNotifiedValue;
+
     while( 1 ){
-        xQueueReceive( \
-                    streamingInterruptQueue, \
-                    &data, \
-                    0xFFFFFFFF );
+        ulNotifiedValue = ulTaskNotifyTake( pdFALSE,
+                                            xBlockTime );
         
         for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
         {
@@ -379,11 +369,8 @@ void _Streaming_Deferred_Interrupt_Task( void ){
 }
 
 void Streaming_Defer_Interrupt( void ){
-    uint8_t data = pdPASS;
-    xQueueSendFromISR( \
-                    streamingInterruptQueue, \
-                    &data, \
-                    NULL );
+    BaseType_t xHigherPriorityTaskWoken;
+    vTaskNotifyGiveFromISR( streamingInterruptHandle, &xHigherPriorityTaskWoken );
     
     
 }
