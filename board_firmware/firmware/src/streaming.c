@@ -250,7 +250,7 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
                 maxSize = 0;
             }
         }
-        vTaskDelay(1);
+        //vTaskDelay(1);
     }
 }
 
