@@ -34,6 +34,7 @@ void DIOSampleList_Destroy(DIOSampleList* list)
 
 bool DIOSampleList_PushBack(DIOSampleList* list, const DIOSample* data){
     BaseType_t queueResult;
+    DIOSample dummyData;
     
     if( data == NULL ){
         return false;
@@ -46,7 +47,11 @@ bool DIOSampleList_PushBack(DIOSampleList* list, const DIOSample* data){
                     data, \
                     NULL );
     if( queueResult != pdTRUE ){
-        xQueueReset( DIOQueue );
+        //xQueueReset( DIOQueue );
+        queueResult = xQueueReceive( \
+                    DIOQueue, \
+                    &dummyData, \
+                    DIOSAMPLE_QUEUE_TICKS_TO_WAIT );
     }
     return ( queueResult == pdTRUE ) ? true : false; 
 }
