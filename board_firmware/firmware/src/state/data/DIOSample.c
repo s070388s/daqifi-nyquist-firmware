@@ -45,6 +45,9 @@ bool DIOSampleList_PushBack(DIOSampleList* list, const DIOSample* data){
                     DIOQueue, \
                     data, \
                     NULL );
+    if( queueResult != pdTRUE ){
+        xQueueReset( DIOQueue );
+    }
     return ( queueResult == pdTRUE ) ? true : false; 
 }
 

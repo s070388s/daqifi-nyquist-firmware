@@ -89,6 +89,7 @@ static bool TcpServer_Flush(TcpClientData* client)
         if( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) ){
             vTaskDelay( 1000 );
         }
+
     }while( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) );
     if (length == SOCKET_ERROR)
     {
