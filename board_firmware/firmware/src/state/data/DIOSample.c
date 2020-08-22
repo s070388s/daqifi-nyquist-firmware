@@ -46,13 +46,13 @@ bool DIOSampleList_PushBack(DIOSampleList* list, const DIOSample* data){
                     DIOQueue, \
                     data, \
                     NULL );
-    if( queueResult != pdTRUE ){
+    /*if( queueResult != pdTRUE ){
         //xQueueReset( DIOQueue );
         queueResult = xQueueReceive( \
                     DIOQueue, \
                     &dummyData, \
                     DIOSAMPLE_QUEUE_TICKS_TO_WAIT );
-    }
+    }*/
     return ( queueResult == pdTRUE ) ? true : false; 
 }
 
@@ -103,9 +103,18 @@ size_t DIOSampleList_Size(DIOSampleList* list)
 bool DIOSampleList_IsEmpty(DIOSampleList* list)
 {
     (void)list;
+    DIOSample data;
+    BaseType_t queueResult;
     
-    if( DIOSampleList_Size(NULL) == queueSize ){
+    queueResult = xQueuePeek( \
+                    DIOQueue, \
+                    &data, \
+                    1 );
+    /*if( DIOSampleList_Size(NULL) == queueSize ){
         return true;
+    }*/
+    if( queueResult == pdTRUE ){
+        return false;
     }
-    return false;
+    return true;
 }

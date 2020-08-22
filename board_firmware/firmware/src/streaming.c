@@ -8,6 +8,10 @@
 #include "Util/Logger.h"
 
 #define UNUSED(x) (void)(x)
+
+#define BUFFER_SIZE 2048
+uint8_t buffer[BUFFER_SIZE];
+    
 void Streaming_StuffDummyData (void); // Function for debugging - fills buffer with dummy data
 
 static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
@@ -103,8 +107,6 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         return;
     }
     
-    const size_t BUFFER_SIZE = 2048;
-    uint8_t buffer[BUFFER_SIZE];
     bool AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
     bool DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
     
@@ -248,6 +250,7 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
                 maxSize = 0;
             }
         }
+        vTaskDelay(1);
     }
 }
 
