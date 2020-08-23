@@ -21,6 +21,9 @@ extern __attribute__((section(".bss.errno"))) int errno;
 #define WIFI_INTERFACE_NAME "WINC1500"
 #endif
 
+//! Timeout for waiting when WiFi device is full and returning EWOULDBLOCK error
+#define TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT         10
+
 #define UNUSED(x) (void)(x)
 
 // Function Prototypes
@@ -87,7 +90,7 @@ static bool TcpServer_Flush(TcpClientData* client)
     do{
         length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
         if( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) ){
-            vTaskDelay( 1000 );
+            vTaskDelay( TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT );
         }
 
     }while( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) );
