@@ -26,6 +26,8 @@ extern __attribute__((section(".bss.errno"))) int errno;
 
 #define UNUSED(x) (void)(x)
 
+static uint8_t tcpServerBlocked = 0;
+
 // Function Prototypes
 static void TcpServer_InitializeClient(TcpClientData* client);
 static bool TcpServer_Flush(TcpClientData* client);
@@ -87,13 +89,21 @@ static size_t TcpServer_Write(TcpClientData* client, const char* data, size_t le
 static bool TcpServer_Flush(TcpClientData* client)
 {
     int length;
+    uint8_t securityCounter = 0;
+    
+    tcpServerBlocked = 1;
     do{
         length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
         if( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) ){
             vTaskDelay( TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT );
+            securityCounter++;
+            if( securityCounter > 100 ){
+                errno = ECONNRESET;
+            }
         }
 
     }while( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) );
+    tcpServerBlocked = 0;
     if (length == SOCKET_ERROR)
     {
         switch(errno)
@@ -514,4 +524,8 @@ void TcpServer_ProcessState()
         g_BoardRuntimeConfig.serverData.state = IP_SERVER_DISCONNECT;
         break;
     }
+}
+
+uint8_t TCP_Server_Is_Blocked( void ){
+    return tcpServerBlocked;
 }

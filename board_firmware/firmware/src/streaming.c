@@ -233,12 +233,14 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
 
                 if (hasWifi)
                 {
-                    for (i=0; i<WIFI_MAX_CLIENT; ++i)
-                    {
-                        if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
+                    if( TCP_Server_Is_Blocked() == 0 ){
+                        for (i=0; i<WIFI_MAX_CLIENT; ++i)
                         {
-                            memcpy(runtimeConfig->serverData.clients[i].writeBuffer + runtimeConfig->serverData.clients[i].writeBufferLength, buffer, size);
-                            runtimeConfig->serverData.clients[i].writeBufferLength += size;
+                            if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
+                            {
+                                memcpy(runtimeConfig->serverData.clients[i].writeBuffer + runtimeConfig->serverData.clients[i].writeBufferLength, buffer, size);
+                                runtimeConfig->serverData.clients[i].writeBufferLength += size;
+                            }
                         }
                     }
                 }

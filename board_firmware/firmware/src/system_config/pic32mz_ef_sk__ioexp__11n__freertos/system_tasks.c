@@ -322,7 +322,7 @@ void _POWER_AND_UI_Tasks(void)
 /*! Task for ADC deferred interrupt*/
 void _ADC_Deferred_Interrupt_Task( void ){
     uint32_t ulNotifiedValue;
-    const TickType_t xBlockTime = 2000;
+    const TickType_t xBlockTime = portMAX_DELAY;
     
     while( 1 ){
         ulNotifiedValue = ulTaskNotifyTake( pdFALSE,
@@ -334,14 +334,15 @@ void _ADC_Deferred_Interrupt_Task( void ){
 
 /*! Function to be called from the ISR for deferring the ADC interrupt */
 void _ADC_Defer_Interrupt( void ){
-    BaseType_t xHigherPriorityTaskWoken;
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     vTaskNotifyGiveFromISR( ADCInterruptHandle, &xHigherPriorityTaskWoken );
+    portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 }
 
 void _Streaming_Deferred_Interrupt_Task( void ){
     
     uint8_t i=0;
-    const TickType_t xBlockTime = 2000;
+    const TickType_t xBlockTime = portMAX_DELAY;
     uint32_t ulNotifiedValue;
 
     while( 1 ){
@@ -369,9 +370,9 @@ void _Streaming_Deferred_Interrupt_Task( void ){
 }
 
 void Streaming_Defer_Interrupt( void ){
-    BaseType_t xHigherPriorityTaskWoken;
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     vTaskNotifyGiveFromISR( streamingInterruptHandle, &xHigherPriorityTaskWoken );
-    
+    portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
     
 }
 /*******************************************************************************

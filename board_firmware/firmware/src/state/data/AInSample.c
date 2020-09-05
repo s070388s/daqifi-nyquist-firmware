@@ -101,10 +101,18 @@ size_t AInSampleList_Size(AInSampleList* list)
 
 bool AInSampleList_IsEmpty(AInSampleList* list)
 {
+    AInSample data;
+    BaseType_t queueResult;
+    
     (void)list;
     
-    if( AInSampleList_Size(NULL) == queueSize ){
-        return true;
+    queueResult = xQueuePeek( \
+                    analogInputsQueue, \
+                    &data, \
+                    1 );
+    
+    if( queueResult == pdTRUE ){
+        return false;
     }
-    return false;
+    return true;
 }
