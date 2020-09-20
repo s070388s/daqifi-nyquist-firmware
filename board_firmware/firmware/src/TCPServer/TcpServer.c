@@ -89,17 +89,18 @@ static size_t TcpServer_Write(TcpClientData* client, const char* data, size_t le
 static bool TcpServer_Flush(TcpClientData* client)
 {
     int length;
-    uint8_t securityCounter = 0;
+//    uint8_t securityCounter = 0;
     
     tcpServerBlocked = 1;
+    int i = 0;
     do{
-        length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
+        length = send(client->client, (char*)client->writeBuffer +i, client->writeBufferLength, 0);
         if( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) ){
             vTaskDelay( TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT );
-            securityCounter++;
-            if( securityCounter > 100 ){
-                errno = ECONNRESET;
-            }
+//            securityCounter++;
+//            if( securityCounter > 100 ){
+//                errno = ECONNRESET;
+//            }
         }
 
     }while( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) );

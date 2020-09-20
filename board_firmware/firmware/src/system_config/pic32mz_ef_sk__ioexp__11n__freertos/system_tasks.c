@@ -151,12 +151,12 @@ void SYS_Tasks ( void )
     /* Create OS Thread for TCPIP Tasks. */
     xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
                 "TCPIP Tasks",
-                4096, NULL, 1, &tcpipHandle);
+                4096, NULL, 9, &tcpipHandle);
 
     /* Create OS Thread for Net Pres Tasks. */
     xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
                 "Net Pres Tasks",
-                1024, NULL, 2, &netpHandle);
+                1024, NULL, 9, &netpHandle);
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
