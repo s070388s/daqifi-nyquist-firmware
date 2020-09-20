@@ -334,11 +334,17 @@ void ADC_ConversionComplete(const AInModule* module)
        
     // Read samples
     ADC_ReadSamples(&samples, module, &g_BoardRuntimeConfig.AInModules.Data[moduleId]);
-    
+   
+    if( samples.Size > MAX_AIN_CHANNEL ){
+        samples.Size = MAX_AIN_CHANNEL;
+    }
     // Copy samples to the data list
-    for (i=0; i<samples.Size; ++i)
+    for (i=0; i<samples.Size; i++)
     {
         size_t channelIndex = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, samples.Data[i].Channel);
+        if(channelIndex == (size_t)-1 ){
+            break;
+        }
         AInChannel* channel = &g_BoardConfig.AInChannels.Data[channelIndex];
         if (g_BoardRuntimeConfig.StreamingConfig.IsEnabled && g_BoardRuntimeConfig.AInChannels.Data[channelIndex].IsEnabled)
         {
