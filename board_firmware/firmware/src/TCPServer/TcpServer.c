@@ -22,7 +22,7 @@ extern __attribute__((section(".bss.errno"))) int errno;
 #endif
 
 //! Timeout for waiting when WiFi device is full and returning EWOULDBLOCK error
-#define TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT         10
+#define TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT         100
 
 #define UNUSED(x) (void)(x)
 
