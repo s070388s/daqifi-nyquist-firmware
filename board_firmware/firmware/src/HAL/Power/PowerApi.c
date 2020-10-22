@@ -228,17 +228,17 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
             if(data->requestedPowerState == DO_POWER_UP)
             {
                 // Code below is commented out when I2C is disabled
-                //if(!data->BQ24297Data.status.vsysStat || data->BQ24297Data.status.pgStat)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
+                if(!data->BQ24297Data.status.vsysStat || data->BQ24297Data.status.pgStat)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
                 {
                     Power_Up(config, data, vars);
                 }
                 // Code below is commented out when I2C is disabled
-                //else
-//                {
-//                    // Otherwise insufficient power.  Notify user and power down
-//                    data->powerDnAllowed = false; // This will turn true after the LED sequence completes
-//                    data->powerState = POWER_DOWN;
-//                }
+                else
+                {
+                    // Otherwise insufficient power.  Notify user and power down
+                    data->powerDnAllowed = false; // This will turn true after the LED sequence completes
+                    data->powerState = POWER_DOWN;
+                }
             }
             break;
             
@@ -273,8 +273,8 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
             {
                 // Code below is commented out when I2C is disabled
                 // Insufficient power.  Notify user and power down.
-                //data->powerDnAllowed = false;   // This will turn true after the LED sequence completes
-                //data->powerState = POWER_DOWN;
+                data->powerDnAllowed = false;   // This will turn true after the LED sequence completes
+                data->powerState = POWER_DOWN;
             }
 
             break;
