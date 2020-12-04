@@ -1571,7 +1571,7 @@
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
-                  value="FORCE_BOOTLOADER_FLAG_ADDR=&quot;0x8007FFE0&quot;;FORCE_BOOTLOADER_FLAG_VALUE=&quot;0x04CEB007&quot;;DAQIFI_DIO_DEBUG=0"/>
+                  value="FORCE_BOOTLOADER_FLAG_ADDR=&quot;0x8007FFE0&quot;;FORCE_BOOTLOADER_FLAG_VALUE=&quot;0x04CEB007&quot;;DAQIFI_DIO_DEBUG=0;HAVE_STDBOOL"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
         <property key="toplevel-reordering" value=""/>
