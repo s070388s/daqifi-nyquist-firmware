@@ -543,11 +543,11 @@ int LogMessage(const char* format, ...);
 #define TCPIP_STACK_DRAM_SIZE                       39250
 #define TCPIP_STACK_DRAM_RUN_LIMIT                  2048
 
-#define TCPIP_STACK_MALLOC_FUNC                     pvPortMalloc
+#define TCPIP_STACK_MALLOC_FUNC                     malloc
 
-#define TCPIP_STACK_CALLOC_FUNC                     pvPortCalloc
+#define TCPIP_STACK_CALLOC_FUNC                     calloc
 
-#define TCPIP_STACK_FREE_FUNC                       vPortFree
+#define TCPIP_STACK_FREE_FUNC                       free
 
 
 #define TCPIP_STACK_DRAM_DEBUG_ENABLE
