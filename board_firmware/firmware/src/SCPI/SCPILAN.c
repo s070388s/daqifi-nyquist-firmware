@@ -687,6 +687,49 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
     int8_t scanResultError;
     int32_t scanTimeout = 2000; // 1 second of timeout for network scan
     
+    if( g_BoardRuntimeConfig.wifiSettings.settings.wifi.networkType != 1 ){
+        context->interface->write( context, \
+                (const char*) "No SSID found, WiFi needs to restart\r\n", \
+                strlen( "No SSID found, WiFi needs to restart\r\n" ) );
+        context->interface->flush(context);
+        context->interface->write( context, \
+                (const char*) "Please Wait\r\n", \
+                strlen( "Please Wait\r\n" ) );
+        context->interface->flush(context);
+        
+        g_BoardRuntimeConfig.wifiSettings.settings.wifi.networkType = 1;
+        WifiApplyNetworkSettings(&g_BoardRuntimeConfig.wifiSettings.settings.wifi);
+        WifiInit( &g_BoardRuntimeConfig.wifiSettings.settings.wifi );
+        // After WiFi initialization with new settings, it is needed a timeout so
+        // APP_Task is able to run the WiFi state machine
+        uint32_t timeout = 0;
+        char stringBuffer[ 4 ];
+        while( timeout < 25000 ){
+            if( timeout != 0 ){
+                context->interface->write( context, (const char*) &backSpace, 1 );
+                context->interface->write( context, (const char*) &backSpace, 1 );
+            }
+            if( timeout > 2500 ){
+                context->interface->write( context, (const char*) &backSpace, 1 );
+            }
+            sprintf( stringBuffer, "%d%%", timeout / 250 );
+            context->interface->write( context, \
+                    (const char*) stringBuffer, \
+                    strlen( stringBuffer ) );
+            context->interface->flush(context);
+            vTaskDelay( 250 );
+            timeout += 250;
+        }
+        context->interface->write( context, (const char*) &backSpace, 1 );
+        context->interface->write( context, (const char*) &backSpace, 1 );
+        context->interface->write( context, (const char*) &backSpace, 1 );
+        context->interface->write( context, "100%\r\n", strlen( "100%\r\n" ) );
+        context->interface->write( context, \
+                (const char*) "WiFi Reset Completed. Ready for SSID scan\r\n\r\n",\
+                strlen( "WiFi Reset Completed. Ready for SSID scan\r\n\r\n" ) );
+        context->interface->flush(context);
+    }
+    
     if( g_wdrv_scanStatus.scanInProgress ){
         context->interface->write( context, (const char*) "SCAN ALREADY IN PROGRESS!!\r\n", 1 );
         context->interface->flush(context);
@@ -699,22 +742,18 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
             context->interface->flush(context);
             vTaskDelay( 15 );
             context->interface->write( context, (const char*) &backSpace, 1 );
-            context->interface->flush(context);
             context->interface->write( context, (const char*) "-", 1 );
             context->interface->flush(context);
             vTaskDelay( 15 ); 
             context->interface->write( context, (const char*) &backSpace, 1 );
-            context->interface->flush(context);
             context->interface->write( context, (const char*) "\\", 1 );
             context->interface->flush(context);
             vTaskDelay( 15 );
             context->interface->write( context, (const char*) &backSpace, 1 );
-            context->interface->flush(context);
             context->interface->write( context, (const char*) "|", 1 );
             context->interface->flush(context);
             vTaskDelay( 15 );
             context->interface->write( context, (const char*) &backSpace, 1 );
-            context->interface->flush(context);
             context->interface->write( context, (const char*) ".", 1 );
             context->interface->flush(context);
             scanTimeout -= 4* 15;
