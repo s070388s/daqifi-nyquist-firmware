@@ -6,6 +6,7 @@
 #include "nanopb/DaqifiOutMessage.pb.h"
 #include "nanopb/Encoder.h"
 #include "Util/Logger.h"
+#include "TcpServer/TcpServer.h"
 
 #define UNUSED(x) (void)(x)
 

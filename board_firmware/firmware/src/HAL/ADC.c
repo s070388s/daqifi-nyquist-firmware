@@ -316,7 +316,6 @@ void ADC_ConversionComplete(const AInModule* module)
     AInSampleArray samples;
     samples.Size = 0;
     int i=0;
-    bool result = false;
     
     #if(DAQIFI_DIO_DEBUG == 1)
     {       
@@ -354,7 +353,7 @@ void ADC_ConversionComplete(const AInModule* module)
             }
             else
             {
-                result = AInSampleList_PushBack(&g_BoardData.AInSamples, &samples.Data[i]);  // If not the internal ADC, send to streaming
+                AInSampleList_PushBack(&g_BoardData.AInSamples, &samples.Data[i]);  // If not the internal ADC, send to streaming
                 #if(DAQIFI_DIO_DEBUG == 1)
                 {
                     // Toggle DIO pin for diagnostic use

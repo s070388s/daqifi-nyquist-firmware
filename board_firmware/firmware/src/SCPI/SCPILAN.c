@@ -684,7 +684,6 @@ scpi_result_t SCPI_LANAVSsidScan(scpi_t * context)
     WDRV_SCAN_RESULT scanResult;
     uint8_t maxSSIDs = MAX_AV_NETWORK_SSID;
     const uint8_t backSpace = 8;
-    int8_t scanResultError;
     int32_t scanTimeout = 2000; // 1 second of timeout for network scan
     
     if( g_BoardRuntimeConfig.wifiSettings.settings.wifi.networkType != 1 ){

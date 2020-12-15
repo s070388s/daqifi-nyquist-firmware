@@ -51,7 +51,7 @@ bool AInSampleList_PushBack(AInSampleList* list, const AInSample* data){
     queueResult = xQueueSend( \
                     analogInputsQueue, \
                     data, \
-                    NULL );
+                    (TickType_t)0 );
     return ( queueResult == pdTRUE ) ? true : false; 
 }
 

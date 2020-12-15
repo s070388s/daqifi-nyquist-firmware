@@ -527,6 +527,10 @@ void TcpServer_ProcessState()
     }
 }
 
+/*! Used for knowing if TCP Server is trying to flush data
+* so we should not try yo put additional data on the buffer
+* @return 1 When bloked, 0 when it is not
+*/
 uint8_t TCP_Server_Is_Blocked( void ){
     return tcpServerBlocked;
 }

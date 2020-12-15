@@ -64,6 +64,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "UsbCdc/UsbCdc.h"
 #include "HAL/Wifi/WifiApi.h"
 #include "HAL/ADC.h"
+#include "HAL/DIO.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -321,11 +322,10 @@ void _POWER_AND_UI_Tasks(void)
 
 /*! Task for ADC deferred interrupt*/
 void _ADC_Deferred_Interrupt_Task( void ){
-    uint32_t ulNotifiedValue;
     const TickType_t xBlockTime = portMAX_DELAY;
     
     while( 1 ){
-        ulNotifiedValue = ulTaskNotifyTake( pdFALSE,
+        ulTaskNotifyTake( pdFALSE,
                                             xBlockTime );
         const AInModule* module = ADC_FindModule( &g_BoardConfig.AInModules, AIn_MC12bADC );
         ADC_ConversionComplete(module);
@@ -343,11 +343,9 @@ void _Streaming_Deferred_Interrupt_Task( void ){
     
     uint8_t i=0;
     const TickType_t xBlockTime = portMAX_DELAY;
-    uint32_t ulNotifiedValue;
 
     while( 1 ){
-        ulNotifiedValue = ulTaskNotifyTake( pdFALSE,
-                                            xBlockTime );
+        ulTaskNotifyTake( pdFALSE, xBlockTime );
         
         for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
         {
