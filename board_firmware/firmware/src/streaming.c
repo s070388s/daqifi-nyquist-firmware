@@ -157,8 +157,8 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         {
             if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
             {
-                 wifiSize = min(wifiSize, WIFI_BUFFER_SIZE - runtimeConfig->serverData.clients[i].writeBufferLength);
-                 hasWifi = true;
+                wifiSize = min(wifiSize, WIFI_BUFFER_SIZE - runtimeConfig->serverData.clients[i].writeBufferLength);
+                hasWifi = true;
             }
         }
     }
