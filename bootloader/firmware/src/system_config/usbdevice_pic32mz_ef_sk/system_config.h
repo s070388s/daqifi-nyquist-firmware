@@ -81,14 +81,14 @@ extern "C" {
 // *****************************************************************************
 /* Clock System Service Configuration Options
 */
-#define SYS_CLK_FREQ                        200000000ul
-#define SYS_CLK_BUS_PERIPHERAL_1            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_2            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_3            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_4            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_5            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_7            200000000ul
-#define SYS_CLK_BUS_PERIPHERAL_8            100000000ul
+#define SYS_CLK_FREQ                        50000000ul
+#define SYS_CLK_BUS_PERIPHERAL_1            25000000ul
+#define SYS_CLK_BUS_PERIPHERAL_2            25000000ul
+#define SYS_CLK_BUS_PERIPHERAL_3            25000000ul
+#define SYS_CLK_BUS_PERIPHERAL_4            25000000ul
+#define SYS_CLK_BUS_PERIPHERAL_5            25000000ul
+#define SYS_CLK_BUS_PERIPHERAL_7            50000000ul
+#define SYS_CLK_BUS_PERIPHERAL_8            25000000ul
 #define SYS_CLK_CONFIG_PRIMARY_XTAL         24000000ul
 #define SYS_CLK_CONFIG_SECONDARY_XTAL       0ul
 #define SYS_CLK_CONFIG_FREQ_ERROR_LIMIT     10

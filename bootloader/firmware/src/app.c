@@ -85,17 +85,14 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #define UNUSED(x) (void)(x)
 
-#define BOOT_RESET_DELAY 5      // Delay for user to press button to enter bootloader (timer is ~0.9sec per integer)
-#define BOOT_POWER_DELAY 5      // Delay for user to press button to power off board      
-
 #define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFE0 // Address must match what is defined in the project preprocessor definition (0x8007FFE0 is the last 16 bytes of data mem)
 #define FORCE_BOOOT_VALUE 0x04CEB007    // magic force bootloader value
 
 #define TIMER_PERIOD (uint32_t)500   //mS
-#define SYS_TIMER
-#define BOOTLOADER_PRIME_WINDOW     (uint32_t)5000   //mSeconds
-#define BOOTLOADER_FORCE_DURATION   (uint32_t)5000   //mSeconds
-#define BOOTLOADER_POWER_DURATION   (uint32_t)5000/TIMER_PERIOD   //mSeconds
+#define BOOTLOADER_PRIME_WINDOW     (uint32_t)5000   //mSeconds duration where user may press button to enter bootloader
+#define BOOTLOADER_FORCE_DURATION   (uint32_t)1000   //mSeconds required for user to press button to enter bootloader
+#define BOOTLOADER_POWER_OFF_DURATION   (uint32_t)5000/TIMER_PERIOD   //mSeconds delay for user to press button to power off board  
+#define BOOTLOADER_BLINK_DURATION   (uint32_t)100   //mSeconds
 
 APP_DATA appData;
 static SYS_TMR_HANDLE m_TimerCallback;
@@ -230,8 +227,8 @@ int APP_StartApp(void)
 /* TODO:  Add any necessary local functions.
 */
 
-// CP0 runs at SYS_CLK_FREQ/2.  So, to change that to ms, divide by 1000
-#define ms_SCALE (SYS_CLK_FREQ/2/1000)
+// CP0 runs at SYS_CLK_FREQ/2.  So, to change that to 1kHz (1/1ms), divide by 1000
+#define ms_SCALE (uint32_t)(SYS_CLK_FREQ/2/1000)
 
 void DelayMs(uint32_t msDelay)
 {
@@ -316,7 +313,7 @@ void APP_Initialize ( void )
     reasonType = SYS_RESET_ReasonGet();
     if(reasonType & RESET_REASON_MCLR)
     {
-        // If the processor has been reset from the MCLR pin, turn on LED to indicate a reset has occurred 
+        // If the processor has been reset from the MCLR pin, turn on LEDs to indicate a reset has occurred 
         // and check to see if we should enter bootloader
         PLIB_PORTS_PinSet(0, LED_WHITE_PORT, LED_WHITE_PIN);
         PLIB_PORTS_PinSet(0, LED_BLUE_PORT, LED_BLUE_PIN);
@@ -327,8 +324,14 @@ void APP_Initialize ( void )
         if(PLIB_PORTS_PinGet(0, BUTTON_PORT, BUTTON_PIN))
         {
             DelayMs(BOOTLOADER_FORCE_DURATION);
-            // Once we've timed out the BOOTLOADER_FORCE_DURATION and the user is still holding the button and we are powered via external power (low = powered)
-            if(PLIB_PORTS_PinGet(0, BUTTON_PORT, BUTTON_PIN)) forceBootloader = true; 
+            // Once we've timed out the BOOTLOADER_FORCE_DURATION and the user is still holding the button
+            while(PLIB_PORTS_PinGet(0, BUTTON_PORT, BUTTON_PIN))
+            {   
+                forceBootloader = true; 
+                PLIB_PORTS_PinToggle(0, LED_WHITE_PORT, LED_WHITE_PIN);
+                PLIB_PORTS_PinToggle(0, LED_BLUE_PORT, LED_BLUE_PIN);
+                DelayMs(BOOTLOADER_BLINK_DURATION);
+            }
         }
         
         // Clear the reset reason status flag
@@ -386,7 +389,7 @@ void APP_Tasks ( void )
                 if (!timerPowerTriggered) timerPowerStartCount = g_timerCount;   // Set the start count of the timer if not already started
                 timerPowerTriggered = true;
 
-                if((g_timerCount-timerPowerStartCount)>BOOTLOADER_POWER_DURATION)
+                if((g_timerCount-timerPowerStartCount)>BOOTLOADER_POWER_OFF_DURATION)
                 {
                     PLIB_PORTS_PinClear(0, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN); // Disable the 3.3V power rail
                     PLIB_PORTS_PinClear(0, LED_WHITE_PORT, LED_WHITE_PIN);    // Turn off LED1
