@@ -323,11 +323,15 @@ void _POWER_AND_UI_Tasks(void)
 /*! Task for ADC deferred interrupt*/
 void _ADC_Deferred_Interrupt_Task( void ){
     const TickType_t xBlockTime = portMAX_DELAY;
+    const AInModule* module = NULL;
+    
+    do{
+        vTaskDelay( 1 );
+        module = ADC_FindModule( &g_BoardConfig.AInModules, AIn_MC12bADC );
+    }while( module == NULL);
     
     while( 1 ){
-        ulTaskNotifyTake( pdFALSE,
-                                            xBlockTime );
-        const AInModule* module = ADC_FindModule( &g_BoardConfig.AInModules, AIn_MC12bADC );
+        ulTaskNotifyTake( pdFALSE, xBlockTime );        
         ADC_ConversionComplete(module);
     }
 }

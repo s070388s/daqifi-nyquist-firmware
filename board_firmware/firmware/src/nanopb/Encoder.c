@@ -27,24 +27,37 @@ size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* 
                 message.analog_in_data_count = 0;
              
                 AInSample aInData;
-                AInSampleList_PeekFront(&state->AInSamples, &aInData);
-                uint32_t firstTimestamp = aInData.Timestamp;
+                //AInSampleList_PeekFront(&state->AInSamples, &aInData);
+                //uint32_t firstTimestamp = aInData.Timestamp;
                 uint32_t index = 0;
                 // As long as the time stamp matches the first of the list and array has data, pull those samples
-                while (aInData.Timestamp == firstTimestamp && !AInSampleList_IsEmpty(&state->AInSamples))
-                {
-                    AInSampleList_PopFront(&state->AInSamples, &aInData);
-                    message.analog_in_data[index++] = aInData.Value;
-                    message.analog_in_data_count++;
-                    // Check next value to be evaluated in the while test
-                    AInSampleList_PeekFront(&state->AInSamples, &aInData);
-                    // Added to catch error when forcing data through without generating real data
-					//if (message.analog_in_data_count++ > 16)
-                    //{
-                    //    message.analog_in_data_count = 16;
-                    //}
+                //while (aInData.Timestamp == firstTimestamp && !AInSampleList_IsEmpty(&state->AInSamples))
+                while( AInSampleList_IsEmpty( &state->AInSamples ) == false ){
+                    if( AInSampleList_PopFront(&state->AInSamples, &aInData) ){
+                        message.analog_in_data[index++] = aInData.Value;
+                        message.analog_in_data_count++;
+                        // Check next value to be evaluated in the while test
+                        AInSampleList_PeekFront(&state->AInSamples, &aInData);
+                        // Added to catch error when forcing data through without generating real data
+                        //if (message.analog_in_data_count++ > 16)
+                        //{
+                        //    message.analog_in_data_count = 16;
+                        //}
+                    }
+                    else{
+                        /*
+                         * Something weird happened. The Queue is not empty but there
+                         * is an error poping data from the queue.
+                         * In this case, restart the queue
+                         */
+                        AInSampleList_Destroy( &state->AInSamples );
+                        AInSampleList_Initialize( \
+                                                    &state->AInSamples, \
+                                                    MAX_AIN_SAMPLE_COUNT, \
+                                                    false, \
+                                                    NULL );
+                    }
                 }
-                
                 break;
             case DaqifiOutMessage_analog_in_data_float_tag:
                 message.analog_in_data_float_count = 0;

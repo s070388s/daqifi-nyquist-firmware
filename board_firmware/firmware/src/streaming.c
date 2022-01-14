@@ -244,13 +244,17 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
                             }
                         }
                     }
+                    else{
+                        maxSize = 0;
+                        continue;
+                    }
                 }
                 maxSize = maxSize - size;
             }else
             {
                 // We don't have enough available buffer to encode another message
                 // Set maxSize to 0 to break out of loop
-                maxSize = 0;
+                maxSize = 0;                
             }
         }
     }
