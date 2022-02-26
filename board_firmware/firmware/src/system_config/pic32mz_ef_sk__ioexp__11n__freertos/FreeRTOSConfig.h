@@ -76,9 +76,9 @@
 #define configUSE_MALLOC_FAILED_HOOK            1
 
 /* Run time and task stats gathering related definitions. */
-#define configGENERATE_RUN_TIME_STATS           0
-#define configUSE_TRACE_FACILITY                0
-#define configUSE_STATS_FORMATTING_FUNCTIONS    0
+#define configGENERATE_RUN_TIME_STATS           1       // keep this for run-time statistics
+#define configUSE_TRACE_FACILITY                1       // keep this for run-time statistics
+#define configUSE_STATS_FORMATTING_FUNCTIONS    1       // keep this for run-time statistics
 
 /* Co-routine related definitions. */
 #define configUSE_CO_ROUTINES                   0
@@ -125,5 +125,19 @@ Only API functions that end in ...FromISR() can be used within interrupts. */
 #define INCLUDE_xTimerPendFunctionCall          0
 #define INCLUDE_xTaskAbortDelay                 0
 #define INCLUDE_xTaskGetHandle                  0
+    
+#if 1   
+    //keep this section for run-time statistics
+    #define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()    runTimeStatsTimer89_init()
+    #define portGET_RUN_TIME_COUNTER_VALUE()			runTimeStatsTimer89_counter()
+    #define configLIST_VOLATILE volatile
+    #define configRECORD_STACK_HIGH_ADDRESS             1
+
+    /* Microchip MPLAB X IDE */
+    #ifndef __LANGUAGE_ASSEMBLY
+    extern void runTimeStatsTimer89_init(void);
+    extern unsigned long runTimeStatsTimer89_counter(void);
+    #endif
+#endif
 
 #endif /* FREERTOS_CONFIG_H */

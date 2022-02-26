@@ -542,6 +542,32 @@ scpi_result_t SCPI_GetSerialNumber(scpi_t * context)
     return SCPI_RES_OK;
 }
 
+scpi_result_t SCPI_GetFreeRtosStats(scpi_t * context)
+{
+    char* pcWriteBuffer;
+    int len;
+    
+    pcWriteBuffer = pvPortMalloc(1000);
+    
+    if(pcWriteBuffer!=NULL){
+        // generate run-time stats string into the buffer
+        vTaskGetRunTimeStats(pcWriteBuffer);
+        
+        len = strlen(pcWriteBuffer);
+        if (len > 0){
+            context->interface->write(context, pcWriteBuffer,len);
+        }
+        
+        vPortFree(pcWriteBuffer);
+    }
+    return SCPI_RES_OK;
+}
+
+scpi_result_t SCPI_GetRunTimeStats(scpi_t * context)
+{
+    
+}
+
 
 static const scpi_command_t scpi_commands[] = {
     // Build into libscpi
@@ -679,7 +705,9 @@ static const scpi_command_t scpi_commands[] = {
     {.pattern = "SYSTem:STReam:FORmat?", .callback = SCPI_GetStreamFormat, },
     
     // Testing
-    {.pattern = "BENCHmark?", .callback = SCPI_NotImplemented, },
+    {.pattern = "BENCHmark?",     .callback = SCPI_NotImplemented,},
+    {.pattern = "Diagnostic:FreeRTOSStats?", .callback = SCPI_GetFreeRtosStats,},
+    {.pattern = "Diagnostic:RunTimeStats?",  .callback = SCPI_NotImplemented,},
     
     {.pattern = NULL, .callback = SCPI_NotImplemented, },
 };

@@ -107,48 +107,42 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1472/pb_common.o: ../pb_common.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/_ext/1472/pb_common.o: ../pb_common.c  .generated_files/flags/PIC32MZ2048EFM144/37ef34bf95eca03f1e248320a1b0b9a88ff9a86 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_common.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_common.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/_ext/1472/pb_common.o.d" -o ${OBJECTDIR}/_ext/1472/pb_common.o ../pb_common.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pb_common.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pb_common.o.d" -o ${OBJECTDIR}/_ext/1472/pb_common.o ../pb_common.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
-${OBJECTDIR}/_ext/1472/pb_decode.o: ../pb_decode.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/_ext/1472/pb_decode.o: ../pb_decode.c  .generated_files/flags/PIC32MZ2048EFM144/b2825f6084e4995a2740b10a462cfef3a2070045 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_decode.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_decode.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/_ext/1472/pb_decode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_decode.o ../pb_decode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pb_decode.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pb_decode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_decode.o ../pb_decode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
-${OBJECTDIR}/_ext/1472/pb_encode.o: ../pb_encode.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/_ext/1472/pb_encode.o: ../pb_encode.c  .generated_files/flags/PIC32MZ2048EFM144/8c73fe5e5962eec5685e8820062dec3d0cde1367 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_encode.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_encode.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/_ext/1472/pb_encode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_encode.o ../pb_encode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pb_encode.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pb_encode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_encode.o ../pb_encode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
 else
-${OBJECTDIR}/_ext/1472/pb_common.o: ../pb_common.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/_ext/1472/pb_common.o: ../pb_common.c  .generated_files/flags/PIC32MZ2048EFM144/887a551764965ac7fae1257eb82ed81e81631715 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_common.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_common.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/_ext/1472/pb_common.o.d" -o ${OBJECTDIR}/_ext/1472/pb_common.o ../pb_common.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pb_common.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pb_common.o.d" -o ${OBJECTDIR}/_ext/1472/pb_common.o ../pb_common.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
-${OBJECTDIR}/_ext/1472/pb_decode.o: ../pb_decode.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/_ext/1472/pb_decode.o: ../pb_decode.c  .generated_files/flags/PIC32MZ2048EFM144/ff531d03cb6feae057663611568e824d36d0e6b4 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_decode.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_decode.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/_ext/1472/pb_decode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_decode.o ../pb_decode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pb_decode.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pb_decode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_decode.o ../pb_decode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
-${OBJECTDIR}/_ext/1472/pb_encode.o: ../pb_encode.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/_ext/1472/pb_encode.o: ../pb_encode.c  .generated_files/flags/PIC32MZ2048EFM144/459c7cdc5ba0a3948fbacce1017bf84634e1ac1e .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_encode.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/pb_encode.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/_ext/1472/pb_encode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_encode.o ../pb_encode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/pb_encode.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1472/pb_encode.o.d" -o ${OBJECTDIR}/_ext/1472/pb_encode.o ../pb_encode.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
 endif
 
