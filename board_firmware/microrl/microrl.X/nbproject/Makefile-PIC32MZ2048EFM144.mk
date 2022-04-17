@@ -30,12 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=a
 DEBUGGABLE_SUFFIX=
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/microrl.X.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=a
 DEBUGGABLE_SUFFIX=
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/microrl.X.${OUTPUT_SUFFIX}
 endif
 
 ifeq ($(COMPARE_BUILD), true)
@@ -88,7 +88,7 @@ FIXDEPS=fixDeps
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
-	${MAKE}  -f nbproject/Makefile-PIC32MZ2048EFM144.mk dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-PIC32MZ2048EFM144.mk ${DISTDIR}/microrl.X.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=32MZ2048EFM144
 MP_LINKER_FILE_OPTION=
@@ -107,18 +107,18 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1360937237/microrl.o: ../src/microrl.c  .generated_files/flags/PIC32MZ2048EFM144/276c4a3022de7e342bb34022dbb8b8c5e58731c0 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
+${OBJECTDIR}/_ext/1360937237/microrl.o: ../src/microrl.c  .generated_files/flags/PIC32MZ2048EFM144/a0a4e43aed5a9731de633a8ab32a9f40595a75be .generated_files/flags/PIC32MZ2048EFM144/6a3a8b14b0030ef685ef523278bac81734aa6a18
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/microrl.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/microrl.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/microrl.o.d" -o ${OBJECTDIR}/_ext/1360937237/microrl.o ../src/microrl.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"../src" -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/microrl.o.d" -o ${OBJECTDIR}/_ext/1360937237/microrl.o ../src/microrl.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
 else
-${OBJECTDIR}/_ext/1360937237/microrl.o: ../src/microrl.c  .generated_files/flags/PIC32MZ2048EFM144/f0ed970b6ac007a06674ba09f11d871de0e48867 .generated_files/flags/PIC32MZ2048EFM144/707457b5383574c8bb88f3ba8030f39eb185905a
+${OBJECTDIR}/_ext/1360937237/microrl.o: ../src/microrl.c  .generated_files/flags/PIC32MZ2048EFM144/5700415084ad179d7a8c5e53bb28862945eca628 .generated_files/flags/PIC32MZ2048EFM144/6a3a8b14b0030ef685ef523278bac81734aa6a18
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/microrl.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/microrl.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/microrl.o.d" -o ${OBJECTDIR}/_ext/1360937237/microrl.o ../src/microrl.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -I"../src" -O1 -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/microrl.o.d" -o ${OBJECTDIR}/_ext/1360937237/microrl.o ../src/microrl.c    -DXPRJ_PIC32MZ2048EFM144=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)    
 	
 endif
 
@@ -131,13 +131,13 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: archive
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
-	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_AR} $(MP_EXTRA_AR_PRE)  r dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    
+${DISTDIR}/microrl.X.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+	@${MKDIR} ${DISTDIR} 
+	${MP_AR} $(MP_EXTRA_AR_PRE)  r ${DISTDIR}/microrl.X.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
-	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_AR} $(MP_EXTRA_AR_PRE)  r dist/${CND_CONF}/${IMAGE_TYPE}/microrl.X.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    
+${DISTDIR}/microrl.X.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+	@${MKDIR} ${DISTDIR} 
+	${MP_AR} $(MP_EXTRA_AR_PRE)  r ${DISTDIR}/microrl.X.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    
 endif
 
 
@@ -150,8 +150,8 @@ endif
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r build/PIC32MZ2048EFM144
-	${RM} -r dist/PIC32MZ2048EFM144
+	${RM} -r ${OBJECTDIR}
+	${RM} -r ${DISTDIR}
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -51,6 +51,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/board/BoardConfig.h"
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "state/data/BoardData.h"
+#include "state/data/RunTimeStats.h"
 
 const char BOARD_HARDWARE_REV[16] = "2.0";
 const char BOARD_FIRMWARE_REV[16] = "1.0.3";
@@ -160,6 +161,54 @@ unsigned long runTimeStatsTimer89_counter(void)
     return (TMR9 <<16 | TMR8); // The 32-bit timer will overflow every 10995 secs.
 }
 
+
+void StressTest_Tasks()
+{
+    static uint32_t loop = 0xFFFFFFFF; //disable on start up
+    static uint8_t i = 0;
+    uint32_t diffTicks   = 0;
+    const char array [] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+    if(runTimeStats.StressTest_Usb.restart){
+        loop = 0;
+        i    = 0;
+        runTimeStats.StressTest_Usb.restart           = false;
+        runTimeStats.StressTest_Usb.dataRatePerSecond = 0;
+        runTimeStats.StressTest_Usb.bytesWritten      = 0;
+        runTimeStats.StressTest_Usb.startticks        = SYS_TMR_TickCountGet();
+    }
+
+    if(loop< 10000){ // max loop = 10000 * 1ms = 10 seconds
+        if(i>= (sizeof(array)-1)){
+            i = 0;
+        }
+        memset(runTimeStats.StressTest_Usb.buf,array[i++], runTimeStats.StressTest_Usb.bufsize);
+        runTimeStats.StressTest_Usb.buf[runTimeStats.StressTest_Usb.bufsize - 2] = 0x0d;
+        runTimeStats.StressTest_Usb.buf[runTimeStats.StressTest_Usb.bufsize - 1] = 0x0a;
+        runTimeStats.StressTest_Usb.bytesWritten += UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings,
+                                                                         (char*)runTimeStats.StressTest_Usb.buf, 
+                                                                         runTimeStats.StressTest_Usb.bufsize);
+        loop++;
+    }
+    else if(loop == 10000){
+        diffTicks = SYS_TMR_TickCountGet() -  runTimeStats.StressTest_Usb.startticks;
+        runTimeStats.StressTest_Usb.dataRatePerSecond = (((float)runTimeStats.StressTest_Usb.bytesWritten/diffTicks) * (float)SYS_TMR_TickCounterFrequencyGet())/1000.0;
+        
+        sprintf((char*)runTimeStats.StressTest_Usb.buf,"\r\nUSB Test:\r\n"
+                                                "\tBytes Written = %lu\r\n"
+                                                "\tData Rate = %0.2f kByte/s, %0.2f kbit/s\r\n", 
+                                                runTimeStats.StressTest_Usb.bytesWritten, 
+                                                runTimeStats.StressTest_Usb.dataRatePerSecond,
+                                                runTimeStats.StressTest_Usb.dataRatePerSecond*8);
+        UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings,
+                                                (char*)runTimeStats.StressTest_Usb.buf, 
+                                                strlen((char*)runTimeStats.StressTest_Usb.buf));
+        
+        runTimeStats.StressTest_Usb.startticks = 0;
+        loop = 0xFFFFFFFF;
+    }
+}
+
 /*******************************************************************************
   Function:
     void APP_Initialize(void)
@@ -225,6 +274,19 @@ void APP_Initialize(void)
 	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
+    
+    DBG_DIO_0_TRIS;
+    DBG_DIO_0_SET(0);
+    DBG_DIO_1_TRIS;
+    DBG_DIO_1_SET(0);
+    DBG_DIO_2_TRIS;
+    DBG_DIO_2_SET(0);
+    DBG_DIO_3_TRIS;
+    DBG_DIO_3_SET(0);
+    DBG_DIO_4_TRIS;
+    DBG_DIO_4_SET(0);
+    DBG_DIO_5_TRIS;
+    DBG_DIO_5_SET(0);
 }
 
 
@@ -237,8 +299,13 @@ void APP_Initialize(void)
  */
 void APP_Tasks(void)
 {   
+
+    //StressTest_Tasks();
+    
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+    
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+
     
     // Don't do anything else until the board powers on
     if (g_BoardData.PowerData.powerState == MICRO_ON)

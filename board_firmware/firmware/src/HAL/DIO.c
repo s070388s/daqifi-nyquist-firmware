@@ -3,6 +3,7 @@
 #include "system_config.h"
 #include "system_definitions.h"
 #include "state/runtime/BoardRuntimeConfig.h"
+#include "state/board/BoardConfig.h"
 
 bool DIO_InitHardware(const DIOArray* boardConfig)
 {
@@ -38,6 +39,8 @@ bool DIO_WriteStateAll(const DIOArray* boardConfig, DIORuntimeArray* runtimeConf
     return result;
 }
 
+// boardConfig = module name and pin number
+// runtime config = input /output 
 bool DIO_WriteStateSingle(const DIOConfig* boardConfig, DIORuntimeConfig* runtimeConfig)
 {
 
@@ -110,7 +113,11 @@ void DIO_Tasks(const DIOArray* boardConfig, BoardRuntimeConfig* runtimeConfig, D
             streamingSample.Mask = 0xFFFF;
             streamingSample.Values = latest->Values;
             streamingSample.Timestamp = latest->Timestamp;
-            DIOSampleList_PushBack(streamingSamples, &streamingSample);
+            if(DIOSampleList_PushBack(streamingSamples, &streamingSample) == false){
+                DBG_DIO_4_TOG();
+            }
+          
+            DBG_DIO_3_TOG();
         }
     }
     

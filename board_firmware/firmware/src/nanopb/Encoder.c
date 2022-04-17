@@ -8,10 +8,323 @@
 #include "DaqifiOutMessage.pb.h"
 #include "state/board/BoardConfig.h"
 
+
+int Nanopb_EncodeLength(const NanopbFlagsArray* fields)
+{
+    int i;
+    int len = 0;
+    DaqifiOutMessage* out;
+    
+    for (i=0; i<fields->Size; i++)
+    {
+        switch(fields->Data[i])
+        {
+            case DaqifiOutMessage_msg_time_stamp_tag:
+                len += sizeof(out->has_msg_time_stamp);
+                len += sizeof(out->msg_time_stamp);
+                break;
+                
+            case DaqifiOutMessage_analog_in_data_tag:
+                len += sizeof(out->analog_in_data_count);
+                len += sizeof(out->analog_in_data);
+                break;
+                
+            case DaqifiOutMessage_analog_in_data_float_tag:
+                len += sizeof(out->analog_in_data_float_count);
+                len += sizeof(out->analog_in_data_float);
+                break;
+                
+            case DaqifiOutMessage_analog_in_data_ts_tag:
+                len += sizeof(out->analog_in_data_ts_count);
+                len += sizeof(out->analog_in_data_ts);
+                break;
+                
+            case DaqifiOutMessage_digital_data_tag:
+                len += sizeof(out->has_digital_data);
+                len += sizeof(out->digital_data);
+                break;
+   
+            case DaqifiOutMessage_digital_data_ts_tag:
+                len += sizeof(out->digital_data_ts_count);
+                len += sizeof(out->digital_data_ts);
+                break;
+            case DaqifiOutMessage_analog_out_data_tag:
+                len += sizeof(out->analog_out_data_count);
+                len += sizeof(out->analog_out_data);
+                break;
+                
+            case DaqifiOutMessage_device_status_tag:
+                len += sizeof(out->has_device_status);
+                len += sizeof(out->device_status);
+                break;
+                
+            case DaqifiOutMessage_pwr_status_tag:
+                len += sizeof(out->has_pwr_status);
+                len += sizeof(out->pwr_status);
+                break;
+                
+            case DaqifiOutMessage_batt_status_tag:
+                len += sizeof(out->has_batt_status);
+                len += sizeof(out->batt_status);
+                break;
+                
+            case DaqifiOutMessage_temp_status_tag:
+                len += sizeof(out->has_temp_status);
+                len += sizeof(out->temp_status);
+                break;
+                
+            case DaqifiOutMessage_timestamp_freq_tag:
+                len += sizeof(out->has_timestamp_freq);
+                len += sizeof(out->timestamp_freq);
+				break;
+                
+            case DaqifiOutMessage_analog_in_port_num_tag:
+                len += sizeof(out->has_analog_in_port_num);
+                len += sizeof(out->analog_in_port_num); 
+            break;
+            
+            case DaqifiOutMessage_analog_in_port_num_priv_tag:
+                len += sizeof(out->has_analog_in_port_num_priv);
+                len += sizeof(out->analog_in_port_num_priv);
+                break;
+            
+            case DaqifiOutMessage_analog_in_port_type_tag:
+                len += sizeof(out->has_analog_in_port_type);
+                break;
+                
+            case DaqifiOutMessage_analog_in_port_av_rse_tag:
+                len += sizeof(out->has_analog_in_port_av_rse);
+                len += sizeof(out->analog_in_port_av_rse);
+                break;
+                
+            case DaqifiOutMessage_analog_in_port_rse_tag:
+                len += sizeof(out->has_analog_in_port_rse);
+                len += sizeof(out->analog_in_port_rse);
+				break;
+
+            case DaqifiOutMessage_analog_in_port_enabled_tag:             
+                len += sizeof(out->has_analog_in_port_enabled);
+                len += sizeof(out->analog_in_port_enabled);
+                break;
+                
+            case DaqifiOutMessage_analog_in_port_av_range_tag:
+                len += sizeof(out->analog_in_port_av_range);
+                len += sizeof(out->analog_in_port_av_range_count);
+                break;
+       
+            case DaqifiOutMessage_analog_in_port_av_range_priv_tag:
+                len += sizeof(out->analog_in_port_av_range_priv_count);
+                len += sizeof(out->analog_in_port_av_range_priv);
+                break;
+                
+            case DaqifiOutMessage_analog_in_port_range_tag:
+                len += sizeof(out->analog_in_port_range);
+                len += sizeof(out->analog_in_port_range_count);
+				break;
+            
+            case DaqifiOutMessage_analog_in_port_range_priv_tag:
+                len += sizeof(out->analog_in_port_range_priv);
+                len += sizeof(out->analog_in_port_range_priv_count);
+				break;
+            
+            case DaqifiOutMessage_analog_in_res_tag:
+                len += sizeof(out->has_analog_in_res);
+                len += sizeof(out->analog_in_res);
+				break;
+                
+            case DaqifiOutMessage_analog_in_res_priv_tag:
+                len += sizeof(out->has_analog_in_res_priv);
+                len += sizeof(out->analog_in_res_priv);
+				break;
+                
+            case DaqifiOutMessage_analog_in_int_scale_m_tag:
+                len += sizeof(out->analog_in_int_scale_m);
+                len += sizeof(out->analog_in_int_scale_m_count);
+				break;
+  
+            case DaqifiOutMessage_analog_in_int_scale_m_priv_tag:     
+                len += sizeof(out->analog_in_int_scale_m_priv);
+                len += sizeof(out->analog_in_int_scale_m_priv_count);
+				break;
+  
+            case DaqifiOutMessage_analog_in_cal_m_tag:  
+                len += sizeof(out->analog_in_cal_m);
+                len += sizeof(out->analog_in_cal_m_count);
+				break;
+ 
+            case DaqifiOutMessage_analog_in_cal_b_tag:        
+                len += sizeof(out->analog_in_cal_b);
+                len += sizeof(out->analog_in_cal_b_count);
+				break;
+ 
+            case DaqifiOutMessage_analog_in_cal_m_priv_tag:
+                len += sizeof(out->analog_in_cal_m_priv);
+                len += sizeof(out->analog_in_cal_m_priv_count);
+				break;
+               
+            case DaqifiOutMessage_analog_in_cal_b_priv_tag:
+                len += sizeof(out->analog_in_cal_b_priv_count);
+                len += sizeof(out->analog_in_cal_b_priv);
+				break;
+                           
+            case DaqifiOutMessage_digital_port_num_tag:
+                len += sizeof(out->has_digital_port_num);
+                len += sizeof(out->digital_port_num);
+				break;
+                
+            case DaqifiOutMessage_digital_port_dir_tag:
+                len += sizeof(out->has_digital_port_dir);
+                len += sizeof(out->digital_port_dir);
+				break;
+
+            case DaqifiOutMessage_analog_out_res_tag:
+                len += sizeof(out->has_analog_out_res);
+                len += sizeof(out->analog_out_res);
+				break;                   
+                
+            case DaqifiOutMessage_ip_addr_tag:
+                len += sizeof(out->has_ip_addr);
+                len += sizeof(out->ip_addr);
+                break;
+            
+            case DaqifiOutMessage_net_mask_tag:
+                len += sizeof(out->has_net_mask);
+                len += sizeof(out->net_mask);
+                break;
+
+            case DaqifiOutMessage_gateway_tag:
+                len += sizeof(out->has_gateway);
+                len += sizeof(out->gateway);
+				break;
+    
+            case DaqifiOutMessage_primary_dns_tag:
+                len += sizeof(out->has_primary_dns);
+                len += sizeof(out->primary_dns);
+				break;
+            
+            case DaqifiOutMessage_secondary_dns_tag:
+                len += sizeof(out->has_secondary_dns);
+                len += sizeof(out->secondary_dns.bytes);
+				break;
+            
+            case DaqifiOutMessage_mac_addr_tag:
+                len += sizeof(out->has_mac_addr);
+                len += sizeof(out->mac_addr);    
+                break;
+             
+            case DaqifiOutMessage_ip_addr_v6_tag:
+                len += sizeof(out->has_ip_addr_v6);
+                len += sizeof(out->ip_addr_v6);
+                break;
+            
+            case DaqifiOutMessage_sub_pre_length_v6_tag:
+                len += sizeof(out->has_sub_pre_length_v6);
+                len += sizeof(out->sub_pre_length_v6);
+				break;
+                
+            case DaqifiOutMessage_gateway_v6_tag:
+                len += sizeof(out->has_gateway_v6);
+                len += sizeof(out->gateway_v6);
+				break;
+                
+            case DaqifiOutMessage_primary_dns_v6_tag:
+                len += sizeof(out->has_primary_dns_v6);
+				len += sizeof(out->primary_dns_v6);
+                break;
+                
+            case DaqifiOutMessage_secondary_dns_v6_tag:
+                len += sizeof(out->has_secondary_dns_v6);
+                len += sizeof(out->secondary_dns_v6);
+				break;
+                
+            case DaqifiOutMessage_eui_64_tag:
+                len += sizeof(out->has_eui_64);
+                len += sizeof(out->eui_64);
+				break;
+            
+            case DaqifiOutMessage_host_name_tag:
+                len += sizeof(out->has_host_name);
+                len += sizeof(out->host_name);
+                break;
+            
+            case DaqifiOutMessage_device_port_tag:
+                len += sizeof(out->has_device_port);
+                len += sizeof(out->device_port);
+                break;
+            
+            case DaqifiOutMessage_friendly_device_name_tag:
+                len += sizeof(out->has_friendly_device_name);
+                len += sizeof(out->friendly_device_name);
+                break;
+                
+            case DaqifiOutMessage_ssid_tag:
+                len += sizeof(out->has_ssid);
+                len += sizeof(out->ssid);
+                break;
+            
+            case DaqifiOutMessage_wifi_security_mode_tag:
+                len += sizeof(out->has_wifi_security_mode);
+                len += sizeof(out->wifi_security_mode);
+                break;
+  
+            case DaqifiOutMessage_wifi_inf_mode_tag:            
+                len += sizeof(out->has_wifi_inf_mode);
+                len += sizeof(out->wifi_inf_mode);
+                break;
+          
+            case DaqifiOutMessage_av_ssid_tag:
+                len += sizeof(out->av_ssid_count);
+                len += sizeof(out->av_ssid);
+                break;
+         
+            case DaqifiOutMessage_av_ssid_strength_tag:
+                len += sizeof(out->av_ssid_strength_count);
+                len += sizeof(out->av_ssid_strength);
+                break;
+                                  
+            case DaqifiOutMessage_av_wifi_security_mode_tag:
+                len += sizeof(out->av_wifi_security_mode_count);
+                len += sizeof(out->av_wifi_security_mode);
+                break;
+
+            case DaqifiOutMessage_av_wifi_inf_mode_tag:
+                len += sizeof(out->av_wifi_inf_mode_count);
+                len += sizeof(out->av_wifi_inf_mode);     
+                break;
+  
+            case DaqifiOutMessage_device_pn_tag:
+                len += sizeof(out->has_device_pn);
+                len += sizeof(out->device_pn);
+                break;
+           
+            case DaqifiOutMessage_device_hw_rev_tag:
+                len += sizeof(out->has_device_hw_rev);
+                len += sizeof(out->device_hw_rev);
+				break;
+                
+            case DaqifiOutMessage_device_fw_rev_tag:
+                len += sizeof(out->has_device_fw_rev);
+                len += sizeof(out->device_fw_rev);
+                break;
+                
+            case DaqifiOutMessage_device_sn_tag:
+                len += sizeof(out->has_device_sn);
+                len += sizeof(out->device_sn);
+                break;
+                
+            default:
+                // Skip unknown fields
+                break;
+        }
+    }
+    
+    return len;
+}
+
 size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen)
 {
     // If we cannot encode a whole message, bail out
-    if (bufferLen < DaqifiOutMessage_size) return 0;
+    if (bufferLen < Nanopb_EncodeLength(fields)) return 0;
 
     DaqifiOutMessage message = DaqifiOutMessage_init_default;
     size_t i=0;
@@ -69,8 +382,10 @@ size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* 
             {
                 message.has_digital_data = false;
                 DIOSample DIOdata;
+               
                 if(DIOSampleList_PopFront(&state->DIOSamples, &DIOdata))
                 {
+                    DBG_DIO_1_TOG();
                     memcpy(message.digital_data.bytes, &DIOdata.Values, sizeof(message.digital_data.bytes));
                     message.digital_data.size = sizeof(message.digital_data.bytes);
                     message.has_digital_data = true; 

@@ -9,6 +9,7 @@
 #include "state/board/BoardConfig.h"
 #include "state/data/BoardData.h"
 #include "state/runtime/BoardRuntimeConfig.h"
+#include "state/data/RunTimeStats.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -188,23 +189,47 @@ void UsbCdc_EventHandler ( USB_DEVICE_EVENT event, void * eventData, uintptr_t c
     }
 }
 
+int UsbCdc_Wrapper_Write(uint8_t* buf, uint16_t len)
+{    
+    runTimeStats.usbCdcTransferStartCount++;
+    memcpy(&g_BoardRuntimeConfig.usbSettings.writeBuffer,buf,len);
+    
+    USB_DEVICE_CDC_RESULT writeResult = USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
+                                &g_BoardRuntimeConfig.usbSettings.writeTransferHandle, 
+                                &g_BoardRuntimeConfig.usbSettings.writeBuffer, 
+                                len, 
+                                USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
+    runTimeStats.NumBytesWrittenUsbCdc += len;
+    
+    return writeResult;
+}
+
 /**
  * Enqueues client data for writing 
  */
 static bool UsbCdc_BeginWrite(UsbCdcData* client)
 {
+
+    USB_DEVICE_CDC_RESULT writeResult;
+    
     if (client->state != USB_CDC_STATE_PROCESS)
     {
         return false;
     }
     
-    if(client->writeTransferHandle == USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID &&
-       client->writeBufferLength > 0)
+    // make sure there is no write transfer in progress
+    if((client->writeTransferHandle == USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID)
+    && (CircularBuf_NumBytesAvailable(&client->wCirbuf)>0))
     {
-        USB_DEVICE_CDC_RESULT writeResult = USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
-            &client->writeTransferHandle, client->writeBuffer, client->writeBufferLength,
-            USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-
+       
+        xSemaphoreTake(client->wMutex, portMAX_DELAY);
+        CircularBuf_ProcessBytes(&client->wCirbuf, NULL, USB_WBUFFER_SIZE, &writeResult);
+        xSemaphoreGive(client->wMutex);
+        
+        if(writeResult != USB_DEVICE_CDC_RESULT_OK){
+            //while(1);
+        }
+        
         switch (writeResult)
         {
         case USB_DEVICE_CDC_RESULT_OK:
@@ -269,13 +294,7 @@ static bool UsbCdc_WaitForWrite(UsbCdcData* client)
 static bool UsbCdc_FinalizeWrite(UsbCdcData* client)
 {
     client->writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
-    if (client->writeBufferLength > 0)
-    {
-        client->writeBufferLength = 0;
-        return true; 
-    }
-    
-    return false;
+    return true; 
 }
 
 /**
@@ -293,8 +312,7 @@ static bool UsbCdc_BeginRead(UsbCdcData* client)
        g_BoardRuntimeConfig.usbSettings.readBufferLength == 0)
     {
         USB_DEVICE_CDC_RESULT readResult = USB_DEVICE_CDC_Read (USB_DEVICE_CDC_INDEX_0,
-            &g_BoardRuntimeConfig.usbSettings.readTransferHandle, g_BoardRuntimeConfig.usbSettings.readBuffer,
-            USB_BUFFER_SIZE);
+            &g_BoardRuntimeConfig.usbSettings.readTransferHandle, client->readBuffer, USB_RBUFFER_SIZE);
 
         switch (readResult)
         {
@@ -375,39 +393,29 @@ static bool UsbCdc_FinalizeRead(UsbCdcData* client)
     return false;
 }
 
-size_t UsbCdc_Write(UsbCdcData* client, const char* data, size_t len)
+size_t UsbCdc_WriteToBuffer(UsbCdcData* client, const char* data, size_t len)
 {
-    size_t current = 0;
-    while (current < len)
-    {
-        size_t remainder = len - current;
-        size_t size = min(remainder, USB_BUFFER_SIZE - client->writeBufferLength);
-        memcpy(client->writeBuffer + client->writeBufferLength, data + current, size);
-        client->writeBufferLength += size;
-        
-        if (size < remainder)
-        {
-            if (!UsbCdc_BeginWrite(client))
-            {
-                break;
-            }
-            
-            if (!UsbCdc_WaitForWrite(client))
-            {
-                break;
-            }
-        }
-        
-        current += size;
+    size_t bytesAdded = 0;
+    
+    if(len==0)return 0;
+    
+    while(CircularBuf_NumBytesFree(&client->wCirbuf)<len){
+        vTaskDelay(100);
     }
+    
+    //Obtain ownership of the mutex object
+    xSemaphoreTake(client->wMutex, portMAX_DELAY);
+    bytesAdded = CircularBuf_AddBytes(&client->wCirbuf, data, len);
+    xSemaphoreGive(client->wMutex);
 
-    return current;
+    return bytesAdded;
 }
 
+/*
 size_t UsbCdc_WriteDefault(const char* data, size_t len)
 {
     return UsbCdc_Write(&g_BoardRuntimeConfig.usbSettings, data, len);
-}
+}*/
 
 /**
  * Flushes data from the provided client
@@ -430,8 +438,8 @@ static bool UsbCdc_Flush(UsbCdcData* client)
 static size_t SCPI_USB_Write(scpi_t * context, const char* data, size_t len)
 {
     UNUSED(context);
-    
-    return UsbCdc_Write(&g_BoardRuntimeConfig.usbSettings, data, len);
+    runTimeStats.NumBytesScpiToUsbBuf += UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings, data, len);
+    return len;
 }
 
 /**
@@ -509,8 +517,7 @@ static scpi_interface_t scpi_interface = {
 static void microrl_echo(microrl_t* context, size_t textLen, const char* text)
 {
     UNUSED(context);
-    
-    UsbCdc_Write(&g_BoardRuntimeConfig.usbSettings, text, textLen);
+    runTimeStats.NumBytesScpiToUsbBuf += UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings,text, textLen);
 }
 
 /**
@@ -547,12 +554,25 @@ void UsbCdc_Initialize()
     g_BoardRuntimeConfig.usbSettings.readTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
     g_BoardRuntimeConfig.usbSettings.writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
     g_BoardRuntimeConfig.usbSettings.readBufferLength = 0;
-    g_BoardRuntimeConfig.usbSettings.writeBufferLength = 0;
     
     microrl_init(&g_BoardRuntimeConfig.usbSettings.console, microrl_echo);
     microrl_set_echo(&g_BoardRuntimeConfig.usbSettings.console, true);
     microrl_set_execute_callback(&g_BoardRuntimeConfig.usbSettings.console, microrl_commandComplete);
     g_BoardRuntimeConfig.usbSettings.scpiContext = CreateSCPIContext(&scpi_interface, &g_BoardRuntimeConfig.usbSettings);
+    
+    // reset circular buffer variables to known state. 
+    CircularBuf_Init(&g_BoardRuntimeConfig.usbSettings.wCirbuf, UsbCdc_Wrapper_Write, (USB_WBUFFER_SIZE*2));
+     /* Create a mutex type semaphore. */
+    g_BoardRuntimeConfig.usbSettings.wMutex = xSemaphoreCreateMutex();
+
+    if( g_BoardRuntimeConfig.usbSettings.wMutex == NULL ){
+        /* The semaphore was created successfully and
+        can be used. */
+    }
+       
+    //Release ownership of the mutex object
+    xSemaphoreGive(g_BoardRuntimeConfig.usbSettings.wMutex);
+    
 }
 
 void UsbCdc_ProcessState()
@@ -628,8 +648,7 @@ void UsbCdc_ProcessState()
             g_BoardRuntimeConfig.usbSettings.readTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
             g_BoardRuntimeConfig.usbSettings.writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
             g_BoardRuntimeConfig.usbSettings.readBufferLength = 0;
-            g_BoardRuntimeConfig.usbSettings.writeBufferLength = 0; 
-        
+
             g_BoardRuntimeConfig.usbSettings.state = USB_CDC_STATE_INIT;
             
             break;

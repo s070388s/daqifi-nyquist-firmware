@@ -18,7 +18,9 @@ RunTimeData runTimeStats;
 
 void RunTimeStats_Initialize(void)
 {
-    runTimeStats.usbCdcTotalLength = 0;
+    runTimeStats.NumBytesWrittenUsbCdc         = 0;
+    runTimeStats.NumBytesStreamToUsbBuf = 0;
+    runTimeStats.NumBytesScpiToUsbBuf   = 0;
 }
 
 

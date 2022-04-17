@@ -20,6 +20,7 @@
 #include "state/data/BoardData.h"
 #include "state/board/BoardConfig.h"
 #include "state/runtime/BoardRuntimeConfig.h"
+#include "state/data/RunTimeStats.h"
 #include "HAL/DIO.h"
 #include "SCPI/SCPIADC.h"
 #include "SCPI/SCPIDIO.h"
@@ -380,6 +381,40 @@ static scpi_result_t SCPI_SetPowerState(scpi_t * context)
     return SCPI_RES_OK;
 }
 
+
+static scpi_result_t SCPI_StartUsbTest(scpi_t * context)
+{
+    uint32_t bufsize;
+    if (SCPI_ParamUInt32(context, &bufsize, FALSE))
+    {
+        // make sure there is no test running when setting parameters
+        if (runTimeStats.StressTest_Usb.startticks == 0){
+            runTimeStats.StressTest_Usb.bufsize = bufsize;
+            runTimeStats.StressTest_Usb.restart = true;
+        }
+        else
+        {
+            return SCPI_RES_ERR;
+        }
+    }
+    else
+    {
+        //No buf size given just test with default buffer size
+          
+        // make sure there is no test running when setting parameters
+        if (runTimeStats.StressTest_Usb.startticks == 0){
+            runTimeStats.StressTest_Usb.bufsize = 1000;
+            runTimeStats.StressTest_Usb.restart = true;
+        }
+        else
+        {
+            return SCPI_RES_ERR;
+        }
+    }
+    
+    return SCPI_RES_OK;
+}
+
 static scpi_result_t SCPI_StartStreaming(scpi_t * context)
 {
     int32_t freq;
@@ -387,7 +422,7 @@ static scpi_result_t SCPI_StartStreaming(scpi_t * context)
     
     if (SCPI_ParamInt32(context, &freq, FALSE))
     {
-        if (freq >= 1 && freq <= 1000)
+        if (freq >= 1 && freq <= 1000)///ToDo
         {
             g_BoardRuntimeConfig.StreamingConfig.ClockDivider = clkFreq / freq; // calculate the divider needed
             g_BoardRuntimeConfig.StreamingConfig.TSClockDivider = 0xFFFFFFFF; // Set timer to maximum period
@@ -565,7 +600,32 @@ scpi_result_t SCPI_GetFreeRtosStats(scpi_t * context)
 
 scpi_result_t SCPI_GetRunTimeStats(scpi_t * context)
 {
+    char* pcWriteBuffer;
+
+    pcWriteBuffer = pvPortMalloc(1000);
     
+    if(pcWriteBuffer!=NULL){
+        
+        int len = 0;
+    
+        // generate run-time stats string into the buffer
+        sprintf(pcWriteBuffer, "USB CDC Interface\r\n"
+                "\t cdc write = %lu bytes\r\n"
+                "\t stream = %lu bytes\r\n"
+                "\t scpi = %lu bytes\r\n", 
+                runTimeStats.NumBytesWrittenUsbCdc, 
+                runTimeStats.NumBytesStreamToUsbBuf,
+                runTimeStats.NumBytesScpiToUsbBuf);
+        
+        len = strlen(pcWriteBuffer);
+        if (len > 0){
+            context->interface->write(context, pcWriteBuffer,len);
+        }
+        
+        vPortFree(pcWriteBuffer);
+    }
+    
+    return SCPI_RES_OK;
 }
 
 
@@ -707,8 +767,8 @@ static const scpi_command_t scpi_commands[] = {
     // Testing
     {.pattern = "BENCHmark?",     .callback = SCPI_NotImplemented,},
     {.pattern = "Diagnostic:FreeRTOSStats?", .callback = SCPI_GetFreeRtosStats,},
-    {.pattern = "Diagnostic:RunTimeStats?",  .callback = SCPI_NotImplemented,},
-    
+    {.pattern = "Diagnostic:RunTimeStats?",  .callback = SCPI_GetRunTimeStats,},
+    {.pattern = "test:usb", .callback = SCPI_StartUsbTest,},
     {.pattern = NULL, .callback = SCPI_NotImplemented, },
 };
 

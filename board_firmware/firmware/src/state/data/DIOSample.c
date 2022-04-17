@@ -3,7 +3,7 @@
 #include "queue.h"
 
 //! Ticks to wait for QUEUE OPERATIONS
-#define DIOSAMPLE_QUEUE_TICKS_TO_WAIT               1000
+#define DIOSAMPLE_QUEUE_TICKS_TO_WAIT               0//1000
 
 //! Queue handler for DIO values
 static QueueHandle_t DIOQueue;
@@ -102,7 +102,7 @@ bool DIOSampleList_IsEmpty(DIOSampleList* list)
     queueResult = xQueuePeek( \
                     DIOQueue, \
                     &data, \
-                    1 );
+                    0 );
     /*if( DIOSampleList_Size(NULL) == queueSize ){
         return true;
     }*/

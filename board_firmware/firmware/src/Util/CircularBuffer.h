@@ -1,22 +1,5 @@
-/* ************************************************************************** */
-/** Descriptive File Name
-
-  @Company
-    Company Name
-
-  @File Name
-    filename.h
-
-  @Summary
-    Brief description of the file.
-
-  @Description
-    Describe the purpose of this file.
- */
-/* ************************************************************************** */
-
-#ifndef _RUNTIMESTATS_H    /* Guard against multiple inclusion */
-#define _RUNTIMESTATS_H
+#ifndef _CIRCULAR_BUFFER_H    /* Guard against multiple inclusion */
+#define _CIRCULAR_BUFFER_H
 
 
 /* ************************************************************************** */
@@ -47,27 +30,22 @@ extern "C" {
     /*  A brief description of a section can be given directly below the section
         banner.
      */
-    typedef struct s_RunTimeData
-    {
-        uint32_t NumBytesWrittenUsbCdc;
-        uint32_t NumBytesStreamToUsbBuf;
-        uint32_t NumBytesScpiToUsbBuf;
-        uint32_t usbCdcTransferStartCount;
-        uint32_t usbCdcTransferCompleteCount;
-        
-        struct{
-            uint32_t startticks;
-            uint32_t bytesWritten;
-            float    dataRatePerSecond; //kbytes per second
-            uint16_t bufsize;
-            uint8_t  buf[1000];
-            bool     restart;
-        }StressTest_Usb;
-    }RunTimeData;
-    
-    extern RunTimeData runTimeStats;
-    
-    void RunTimeStats_Initialize(void);
+typedef struct s_CircularBuf
+{
+    uint8_t*    insertPtr;
+    uint8_t*    removePtr;
+    uint16_t    totalBytes;
+    uint8_t*    buf_ptr;
+    uint16_t    buf_size;
+    int        (*process_callback)(uint8_t*, uint16_t);
+}CircularBuf;
+
+
+void     CircularBuf_Init(CircularBuf*, int (*fp)(uint8_t*,uint16_t), uint16_t);
+uint16_t CircularBuf_AddBytes(CircularBuf*, uint8_t*, uint16_t);
+uint16_t CircularBuf_NumBytesAvailable(CircularBuf*);
+uint16_t CircularBuf_NumBytesFree(CircularBuf*);
+uint16_t CircularBuf_ProcessBytes(CircularBuf*,uint8_t*, uint16_t,int*);
     /* Provide C++ Compatibility */
 #ifdef __cplusplus
 }

@@ -109,7 +109,7 @@ bool AInSampleList_IsEmpty(AInSampleList* list)
     queueResult = xQueuePeek( \
                     analogInputsQueue, \
                     &data, \
-                    1 );
+                    0 );
     
     if( queueResult == pdTRUE ){
         return false;
