@@ -1,0 +1,22 @@
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\bin\x64\Debug\Serial Port Logger.exe.config
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\bin\x64\Debug\Serial Port Logger.exe
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\bin\x64\Debug\Serial Port Logger.pdb
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Nyquist Comm Test.csprojAssemblyReference.cache
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Serial_Port_Logger.Form1.resources
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Serial_Port_Logger.Properties.Resources.resources
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Serial_Port_Logger.StreamCommand.resources
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Nyquist Comm Test.csproj.GenerateResource.cache
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Nyquist Comm Test.csproj.CoreCompileInputs.cache
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Serial Port Logger.exe
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\Serial Port Logger\obj\x64\Debug\Serial Port Logger.pdb
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Serial_Port_Logger.Form1.resources
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Serial_Port_Logger.Properties.Resources.resources
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Serial_Port_Logger.StreamCommand.resources
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Nyquist Comm Test.csproj.GenerateResource.cache
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Nyquist Comm Test.csproj.CoreCompileInputs.cache
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\bin\x64\Debug\Nyquist_Comm_Test.exe.config
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\bin\x64\Debug\Nyquist_Comm_Test.exe
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\bin\x64\Debug\Nyquist_Comm_Test.pdb
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Nyquist_Comm_Test.exe
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Nyquist_Comm_Test.pdb
+C:\github\TacunaSystems\nyquist\apps\nyquist-firmware.git\utilities\communication_test\nyquist_comm_test\obj\x64\Debug\Nyquist Comm Test.csprojAssemblyReference.cache

@@ -1,0 +1,31 @@
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\bin\Debug\IRTransfer App.exe
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\bin\Debug\IRTransfer App.pdb
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\IRTransfer_App.Form1.resources
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\IRTransfer_App.Properties.Resources.resources
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\IRTransfer App.exe
+C:\Users\whkang\Documents\Visual Studio 2010\Projects\IRTransfer App\IRTransfer App\obj\x86\Debug\IRTransfer App.pdb
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\bin\Debug\IRTransfer App.exe
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\bin\Debug\IRTransfer App.pdb
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\bin\Debug\CFIRProcessor.dll
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\bin\Debug\CFIRProcessor.pdb
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\IRTransfer_App.Form1.resources
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\IRTransfer_App.Properties.Resources.resources
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\IRTransfer App.exe
+D:\GitHub\Firmware\CF_Application_Firmware\IRLEARNER\CFIRUpdater App\IRTransfer App\obj\x86\Debug\IRTransfer App.pdb
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Debug\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Debug\IRX_Updater.pdb
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Debug\CFIRProcessor.dll
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Debug\CFIRProcessor.pdb
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\IRTransfer_App.Form1.resources
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\IRX_Updater.Properties.Resources.resources
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Debug\IRX_Updater.pdb

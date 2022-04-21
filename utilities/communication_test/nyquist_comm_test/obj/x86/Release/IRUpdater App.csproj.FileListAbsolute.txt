@@ -1,0 +1,33 @@
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\ResolveAssemblyReference.cache
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRTransfer_App.Form1.resources
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRX_Updater.Properties.Resources.resources
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\GenerateResource.read.1.tlog
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\GenerateResource.write.1.tlog
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\IRX_Updater.pdb
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\CFIRProcessor.dll
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\CFIRProcessor.pdb
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRX_Updater.pdb
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\IRX_Updater.exe
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\IRX_Updater.pdb
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\CFIRProcessor.dll
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\bin\Release\CFIRProcessor.pdb
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\ResolveAssemblyReference.cache
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRTransfer_App.Form1.resources
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRX_Updater.Properties.Resources.resources
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\GenerateResource.read.1.tlog
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\GenerateResource.write.1.tlog
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRX_Updater.exe
+D:\GitHub-weehau\Firmware\Utilities\IRX Updater\IRTransfer App\obj\x86\Release\IRX_Updater.pdb
+D:\GitHub\Firmware\Utilities\IRX Updater - Copy\IRTransfer App\obj\x86\Release\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\IRX Updater - Copy\IRTransfer App\obj\x86\Release\IRX_Updater.pdb
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\IRX_Updater.pdb
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\ResolveAssemblyReference.cache
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\IRTransfer_App.Form1.resources
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\IRX_Updater.Properties.Resources.resources
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\GenerateResource.read.1.tlog
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\obj\x86\Release\GenerateResource.write.1.tlog
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\bin\Release\IRX_Updater.exe
+D:\GitHub\Firmware\Utilities\Serial Port Logger\IRTransfer App\bin\Release\IRX_Updater.pdb
