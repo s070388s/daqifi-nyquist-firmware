@@ -9,7 +9,7 @@
 #include "state/board/BoardConfig.h"
 #include "state/data/BoardData.h"
 #include "state/runtime/BoardRuntimeConfig.h"
-#include "state/data/RunTimeStats.h"
+#include "commTest.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -191,7 +191,7 @@ void UsbCdc_EventHandler ( USB_DEVICE_EVENT event, void * eventData, uintptr_t c
 
 int UsbCdc_Wrapper_Write(uint8_t* buf, uint16_t len)
 {    
-    runTimeStats.usbCdcTransferStartCount++;
+
     memcpy(&g_BoardRuntimeConfig.usbSettings.writeBuffer,buf,len);
     
     USB_DEVICE_CDC_RESULT writeResult = USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
@@ -199,7 +199,6 @@ int UsbCdc_Wrapper_Write(uint8_t* buf, uint16_t len)
                                 &g_BoardRuntimeConfig.usbSettings.writeBuffer, 
                                 len, 
                                 USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-    runTimeStats.NumBytesWrittenUsbCdc += len;
     
     return writeResult;
 }
@@ -398,9 +397,16 @@ size_t UsbCdc_WriteToBuffer(UsbCdcData* client, const char* data, size_t len)
     size_t bytesAdded = 0;
     
     if(len==0)return 0;
-    
+  
+#if 0
     while(CircularBuf_NumBytesFree(&client->wCirbuf)<len){
-        vTaskDelay(100);
+        vTaskDelay(10);
+    }
+#endif
+    // if the data to write can't fit into the buffer entirely, discard it. 
+    if(CircularBuf_NumBytesFree(&client->wCirbuf)<len){
+        commTest.USBOverflow++;
+        return 0;  
     }
     
     //Obtain ownership of the mutex object
@@ -438,7 +444,7 @@ static bool UsbCdc_Flush(UsbCdcData* client)
 static size_t SCPI_USB_Write(scpi_t * context, const char* data, size_t len)
 {
     UNUSED(context);
-    runTimeStats.NumBytesScpiToUsbBuf += UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings, data, len);
+    UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings, data, len);
     return len;
 }
 
@@ -517,7 +523,7 @@ static scpi_interface_t scpi_interface = {
 static void microrl_echo(microrl_t* context, size_t textLen, const char* text)
 {
     UNUSED(context);
-    runTimeStats.NumBytesScpiToUsbBuf += UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings,text, textLen);
+    UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings,text, textLen);
 }
 
 /**

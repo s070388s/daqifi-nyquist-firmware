@@ -7,16 +7,14 @@
 #include "nanopb/Encoder.h"
 #include "Util/Logger.h"
 #include "TcpServer/TcpServer.h"
-#include "state/data/RunTimeStats.h"
 #include "Util/CircularBuffer.h"
+#include "commTest.h"
 
 #define UNUSED(x) (void)(x)
 
 #define BUFFER_SIZE  USB_WBUFFER_SIZE//2048
 uint8_t buffer[BUFFER_SIZE];
 size_t loop = 0;
-    
-static void Streaming_FillTestData(char* buffer, uint16_t len);
 void Streaming_StuffDummyData (void); // Function for debugging - fills buffer with dummy data
 
 static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
@@ -62,7 +60,7 @@ void Streaming_Init(const StreamingConfig* config, StreamingRuntimeConfig* runti
 void Streaming_Start(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)
 {
     UNUSED(config);
-    
+   
     if (!runtimeConfig->Running)
     {       
         DRV_TMR_AlarmRegister(runtimeConfig->TimerHandle,
@@ -191,7 +189,12 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
             else{
                 DBG_DIO_5_SET(1);
                 size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
-                //Streaming_FillTestData(buffer,size);
+                
+                if(commTest.fillStreamBufWithTestData)
+                {
+                    CommTest_FillTestData(buffer, size);
+                }
+                
                 DBG_DIO_5_SET(0);
             }
 
@@ -199,7 +202,7 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
             if (size > 0){
 
                 if (hasUsb){
-                    runTimeStats.NumBytesStreamToUsbBuf += UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings, buffer, size);
+                    UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings, buffer, size);
                 }
 
                 if (hasWifi){
@@ -266,32 +269,4 @@ void Streaming_StuffDummyData (void)
         data.Channel = i;
         AInSampleList_PushBack(&g_BoardData.AInSamples, &data); 
     }
-}
-
-static void Streaming_FillTestData(char* buffer, uint16_t len)
-{
-    static uint16_t counter = 0;
-    int i;
-    uint32_t timestamp = xTaskGetTickCount();
-    uint16_t chksum16=0;
-    // byte[0]        = #                               // 1 bytes
-    // byte[1] - [4]  = timer tick                      // 4 bytes
-    // byte[5] - [6]  = counter                         // 2 bytes
-    // byte[7] - [n]  = padding with .                  // n bytes
-    // byte[n+1] - [n+2] = checksum 16                  // 2 bytes
-    // byte[n+3] - [n+4] = \r\n                         // 2 bytes
-    configASSERT(len>=11); //minimun length required is 11
-    
-    memset(buffer, '.', len);
-    buffer[0] = '#';
-    memcpy(buffer+1, (uint8_t*)&timestamp, sizeof(uint32_t));
-    memcpy(buffer+5, (uint8_t*)&counter, sizeof(uint16_t));
-    for(i=0;i<(len-4);i++){
-        chksum16+= buffer[i];
-    }
-    memcpy(buffer+(len-4), (uint16_t*)&chksum16, sizeof(uint16_t));
-    buffer[len-2] = '\r';
-    buffer[len-1] = '\n';
-    counter++;
-   
 }

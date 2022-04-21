@@ -4,6 +4,7 @@
 #include "system_definitions.h"
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "state/board/BoardConfig.h"
+#include "commTest.h"
 
 bool DIO_InitHardware(const DIOArray* boardConfig)
 {
@@ -113,11 +114,9 @@ void DIO_Tasks(const DIOArray* boardConfig, BoardRuntimeConfig* runtimeConfig, D
             streamingSample.Mask = 0xFFFF;
             streamingSample.Values = latest->Values;
             streamingSample.Timestamp = latest->Timestamp;
-            if(DIOSampleList_PushBack(streamingSamples, &streamingSample) == false){
-                DBG_DIO_4_TOG();
+            if(!DIOSampleList_PushBack(streamingSamples, &streamingSample)){
+                commTest.DIOSampleListOverflow++;
             }
-          
-            DBG_DIO_3_TOG();
         }
     }
     

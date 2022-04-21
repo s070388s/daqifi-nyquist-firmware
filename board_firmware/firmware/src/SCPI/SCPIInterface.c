@@ -20,12 +20,12 @@
 #include "state/data/BoardData.h"
 #include "state/board/BoardConfig.h"
 #include "state/runtime/BoardRuntimeConfig.h"
-#include "state/data/RunTimeStats.h"
 #include "HAL/DIO.h"
 #include "SCPI/SCPIADC.h"
 #include "SCPI/SCPIDIO.h"
 #include "SCPI/SCPILAN.h"
 #include "streaming.h"
+#include "commTest.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -381,39 +381,95 @@ static scpi_result_t SCPI_SetPowerState(scpi_t * context)
     return SCPI_RES_OK;
 }
 
+static scpi_result_t SCPI_SetCommTestType(scpi_t * context)
+{
+    uint32_t type;
+    if (SCPI_ParamUInt32(context, &type, FALSE))
+    {
+        if(type<2){
+            commTest.type = type;
+        }
+        else{
+            return SCPI_RES_ERR;
+        }
+    }
+    else
+    {
+        return SCPI_RES_ERR;
+    }
+    
+    return SCPI_RES_OK;
+}
 
-static scpi_result_t SCPI_StartUsbTest(scpi_t * context)
+static scpi_result_t SCPI_SetCommTestBufSize(scpi_t * context)
 {
     uint32_t bufsize;
     if (SCPI_ParamUInt32(context, &bufsize, FALSE))
     {
-        // make sure there is no test running when setting parameters
-        if (runTimeStats.StressTest_Usb.startticks == 0){
-            runTimeStats.StressTest_Usb.bufsize = bufsize;
-            runTimeStats.StressTest_Usb.restart = true;
+        // We will limit the buffer size to 1000 bytes for now. 
+        if(bufsize<=1000){
+            commTest.bufsize = bufsize;
         }
-        else
-        {
+        else{
             return SCPI_RES_ERR;
         }
     }
     else
     {
         //No buf size given just test with default buffer size
-          
-        // make sure there is no test running when setting parameters
-        if (runTimeStats.StressTest_Usb.startticks == 0){
-            runTimeStats.StressTest_Usb.bufsize = 1000;
-            runTimeStats.StressTest_Usb.restart = true;
-        }
-        else
-        {
-            return SCPI_RES_ERR;
-        }
+        commTest.bufsize = 1000;
     }
     
     return SCPI_RES_OK;
 }
+
+static scpi_result_t SCPI_SetCommTestEnable(scpi_t * context)
+{
+    uint32_t enable;
+    if (SCPI_ParamUInt32(context, &enable, FALSE))
+    {
+        commTest.enable = enable;
+    }
+    else
+    {
+        return SCPI_RES_ERR;
+    }
+    
+    return SCPI_RES_OK;
+}
+
+static scpi_result_t SCPI_ClearCommTestStats(scpi_t * context)
+{
+    memset(commTest.stats,0, sizeof(commTest.stats));
+    return SCPI_RES_OK;
+}
+
+scpi_result_t SCPI_GetCommTestStats(scpi_t * context)
+{
+    char* output;
+    int i;
+    char* stats_str[] = {"CommTest:Stats:USBOverflow %lu\r\n",
+                          "CommTest:Stats:TCPOverflow %lu\r\n",
+                          "CommTest:Stats:DIOSampleListOverflow %lu\r\n",
+                          "CommTest:Stats:AinSampleListOverflow %lu\r\n"};
+    
+    output = pvPortMalloc(100);
+    
+    if(output!=NULL){
+        // generate run-time stats string into the buffer
+        for(i=0; i<4; i++){       
+            sprintf(output, stats_str[i], commTest.stats[i]);
+       
+            if (strlen(output) > 0){
+                context->interface->write(context,output, strlen(output));
+            }
+        }
+        
+        vPortFree(output);
+    }
+    return SCPI_RES_OK;
+}
+
 
 static scpi_result_t SCPI_StartStreaming(scpi_t * context)
 {
@@ -474,6 +530,18 @@ static scpi_result_t SCPI_SetStreamFormat(scpi_t * context)
         g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_Json;
     }
     
+    return SCPI_RES_OK;
+}
+
+
+static scpi_result_t SCPI_SetStreamFillTestData(scpi_t * context)
+{
+    int param1;
+    if (!SCPI_ParamInt32(context, &param1, TRUE))
+    {
+        return SCPI_RES_ERR;
+    }
+    commTest.fillStreamBufWithTestData = param1; 
     return SCPI_RES_OK;
 }
 
@@ -597,37 +665,6 @@ scpi_result_t SCPI_GetFreeRtosStats(scpi_t * context)
     }
     return SCPI_RES_OK;
 }
-
-scpi_result_t SCPI_GetRunTimeStats(scpi_t * context)
-{
-    char* pcWriteBuffer;
-
-    pcWriteBuffer = pvPortMalloc(1000);
-    
-    if(pcWriteBuffer!=NULL){
-        
-        int len = 0;
-    
-        // generate run-time stats string into the buffer
-        sprintf(pcWriteBuffer, "USB CDC Interface\r\n"
-                "\t cdc write = %lu bytes\r\n"
-                "\t stream = %lu bytes\r\n"
-                "\t scpi = %lu bytes\r\n", 
-                runTimeStats.NumBytesWrittenUsbCdc, 
-                runTimeStats.NumBytesStreamToUsbBuf,
-                runTimeStats.NumBytesScpiToUsbBuf);
-        
-        len = strlen(pcWriteBuffer);
-        if (len > 0){
-            context->interface->write(context, pcWriteBuffer,len);
-        }
-        
-        vPortFree(pcWriteBuffer);
-    }
-    
-    return SCPI_RES_OK;
-}
-
 
 static const scpi_command_t scpi_commands[] = {
     // Build into libscpi
@@ -757,18 +794,20 @@ static const scpi_command_t scpi_commands[] = {
     {.pattern = "OUTPut:SPI:WRIte", .callback = SCPI_NotImplemented, },
     
     // Streaming
-    {.pattern = "SYSTem:StartStreamData", .callback = SCPI_StartStreaming, },
+    {.pattern = "SYSTem:StartStreamData", .callback = SCPI_StartStreaming, },  
     {.pattern = "SYSTem:StopStreamData", .callback = SCPI_StopStreaming, },
-    {.pattern = "SYSTem:StreamData?", .callback = SCPI_IsStreaming, },
-    
+    {.pattern = "SYSTem:StreamData?", .callback = SCPI_IsStreaming, },   
     {.pattern = "SYSTem:STReam:FORmat", .callback = SCPI_SetStreamFormat, }, // 0 = pb = default, 1 = text (json)
     {.pattern = "SYSTem:STReam:FORmat?", .callback = SCPI_GetStreamFormat, },
-    
+    {.pattern = "SYSTem:STream:FillTestData", .callback = SCPI_SetStreamFillTestData,},
     // Testing
-    {.pattern = "BENCHmark?",     .callback = SCPI_NotImplemented,},
+    {.pattern = "BENCHmark?",       .callback = SCPI_NotImplemented,},
     {.pattern = "Diagnostic:FreeRTOSStats?", .callback = SCPI_GetFreeRtosStats,},
-    {.pattern = "Diagnostic:RunTimeStats?",  .callback = SCPI_GetRunTimeStats,},
-    {.pattern = "test:usb", .callback = SCPI_StartUsbTest,},
+    {.pattern = "COMMTest:Type",    .callback = SCPI_SetCommTestType,},   // 0 = usb, 1 = TCP
+    {.pattern = "COMMTest:BufSize", .callback = SCPI_SetCommTestBufSize,},
+    {.pattern = "COMMTest:Enable",  .callback = SCPI_SetCommTestEnable,},  
+    {.pattern = "COMMTest:Stats?",  .callback = SCPI_GetCommTestStats,},  
+    {.pattern = "COMMTest:ClearStats",  .callback = SCPI_ClearCommTestStats,},  
     {.pattern = NULL, .callback = SCPI_NotImplemented, },
 };
 

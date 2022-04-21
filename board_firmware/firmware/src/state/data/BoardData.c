@@ -18,7 +18,6 @@ void InitializeBoardData(BoardData* boardData)
     boardData->AInLatest.Size = MAX_AIN_DATA_MOD;
     AInSampleList_Initialize(&boardData->AInSamples, MAX_AIN_SAMPLE_COUNT, false, &g_NullLockProvider);
     
-    RunTimeStats_Initialize();
     
     // Set default battery values for debugging - allows power on without ADC active
     // TODO: This should be omitted for production
