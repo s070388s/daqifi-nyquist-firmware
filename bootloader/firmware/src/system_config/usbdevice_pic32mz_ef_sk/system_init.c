@@ -49,7 +49,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_config.h"
 #include "system_definitions.h"
 
-#define SYS_CLK_DIV_PWR_SAVE    2
+
 // ****************************************************************************
 // ****************************************************************************
 // Section: Configuration Bits
@@ -59,7 +59,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 /*** DEVCFG0 ***/
 
-#pragma config DEBUG =      ON
+#pragma config DEBUG =      OFF
 #pragma config JTAGEN =     OFF
 #pragma config ICESEL =     ICS_PGx1
 #pragma config TRCEN =      OFF
@@ -582,15 +582,6 @@ void SYS_Initialize ( void* data )
     SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)NULL);
     SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
 
-    // Divide system frequency by value below to save power
-    SYS_DEVCON_SystemUnlock();
-    SLEWCONbits.SYSDIV = SYS_CLK_DIV_PWR_SAVE;
-    SYS_DEVCON_SystemLock();
-    
-    // We still have to call SYS_CLK_SystemFrequencySet after setting SYSDIV above for some reason
-    // and the frequency must be 200MHz to avoid crashing (even though we are actually
-    // dividing the full speed (200MHz by a divider, SYS_CLK_DIV_PWR_SAVE)
-    SYS_CLK_SystemFrequencySet (SYS_CLK_SOURCE_PRIMARY_SYSPLL, 200000000, true);
     /* Initialize Drivers */
 
     sysObj.drvTmr0 = DRV_TMR_Initialize(DRV_TMR_INDEX_0, (SYS_MODULE_INIT *)&drvTmr0InitData);
