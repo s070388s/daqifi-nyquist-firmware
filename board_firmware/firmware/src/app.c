@@ -251,7 +251,6 @@ void APP_Initialize(void)
  */
 void APP_Tasks(void)
 {   
-    CommTest_Tasks();
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);

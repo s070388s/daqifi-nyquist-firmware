@@ -190,10 +190,18 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
                 DBG_DIO_5_SET(1);
                 size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
                 
-                if(commTest.fillStreamBufWithTestData)
-                {
-                    CommTest_FillTestData(buffer, size);
+
+                if(runtimeConfig->StreamingConfig.Encoding == Streaming_TestData){
+  
+                    // if TestData_Len is specified, overwrite the buffer length
+                    if(commTest.TestData_len>0)
+                    size = commTest.TestData_len;
+                    
+                    if(CommTest_FillTestData(buffer, size)==false){
+                        size = 0;//discard the frame 
+                    }
                 }
+             
                 
                 DBG_DIO_5_SET(0);
             }

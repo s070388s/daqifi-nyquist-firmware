@@ -59,7 +59,6 @@ COMMTEST commTest;
   @Remarks
     Any additional remarks
  */
-int global_data;
 static uint16_t counter = 0;    
 
 /* ************************************************************************** */
@@ -87,7 +86,7 @@ static uint16_t counter = 0;
     banner.
  */
 
-void CommTest_FillTestData(uint8_t* buffer, uint16_t len)
+bool CommTest_FillTestData(uint8_t* buffer, uint16_t len)
 {
 
     int i;
@@ -103,8 +102,9 @@ void CommTest_FillTestData(uint8_t* buffer, uint16_t len)
     // byte[n+4]         = \n                              // 2 bytes
     
     min_size = sizeof(char) + sizeof(timestamp) + sizeof(counter) + sizeof(chksum16) + (2*sizeof(char));
-    configASSERT(len>=min_size); //minimun length required is 11
-     
+    if(len<min_size) //minimun length required is 11
+    return false;
+        
     memset(buffer, '.', len);
     buffer[0] = '#';
     memcpy(buffer+1, (uint8_t*)&timestamp, sizeof(uint32_t));
@@ -116,18 +116,8 @@ void CommTest_FillTestData(uint8_t* buffer, uint16_t len)
     buffer[len-2] = '\r';
     buffer[len-1] = '\n';
     counter++;
-   
+    return true;
 }
-
-void CommTest_Tasks(void)
-{
-    if(commTest.enable && commTest.bufsize){
-         
-        CommTest_FillTestData(commTest.buf, commTest.bufsize);
-        UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings,(char*)commTest.buf, commTest.bufsize);
-    }
-}
-
 /* *****************************************************************************
  End of File
  */

@@ -397,12 +397,11 @@ size_t UsbCdc_WriteToBuffer(UsbCdcData* client, const char* data, size_t len)
     size_t bytesAdded = 0;
     
     if(len==0)return 0;
-  
-#if 0
+
     while(CircularBuf_NumBytesFree(&client->wCirbuf)<len){
         vTaskDelay(10);
     }
-#endif
+
     // if the data to write can't fit into the buffer entirely, discard it. 
     if(CircularBuf_NumBytesFree(&client->wCirbuf)<len){
         commTest.USBOverflow++;

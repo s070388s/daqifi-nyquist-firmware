@@ -39,13 +39,8 @@ extern "C" {
 
     typedef struct
     {
-        uint16_t bufsize;
-        uint8_t  buf[1000];
-        bool     enable;  
-        bool     fillStreamBufWithTestData;
-        uint8_t  type;
-      
-        
+        uint16_t TestData_len;
+
         union{
             uint32_t stats[4];
             struct{
@@ -58,8 +53,7 @@ extern "C" {
     }COMMTEST;
 
     extern COMMTEST commTest;
-    void CommTest_Tasks(void);
-    void CommTest_FillTestData(uint8_t*, uint16_t);
+    bool CommTest_FillTestData(uint8_t*, uint16_t);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus

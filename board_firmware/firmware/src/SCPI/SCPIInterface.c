@@ -381,77 +381,20 @@ static scpi_result_t SCPI_SetPowerState(scpi_t * context)
     return SCPI_RES_OK;
 }
 
-static scpi_result_t SCPI_SetCommTestType(scpi_t * context)
-{
-    uint32_t type;
-    if (SCPI_ParamUInt32(context, &type, FALSE))
-    {
-        if(type<2){
-            commTest.type = type;
-        }
-        else{
-            return SCPI_RES_ERR;
-        }
-    }
-    else
-    {
-        return SCPI_RES_ERR;
-    }
-    
-    return SCPI_RES_OK;
-}
-
-static scpi_result_t SCPI_SetCommTestBufSize(scpi_t * context)
-{
-    uint32_t bufsize;
-    if (SCPI_ParamUInt32(context, &bufsize, FALSE))
-    {
-        // We will limit the buffer size to 1000 bytes for now. 
-        if(bufsize<=1000){
-            commTest.bufsize = bufsize;
-        }
-        else{
-            return SCPI_RES_ERR;
-        }
-    }
-    else
-    {
-        //No buf size given just test with default buffer size
-        commTest.bufsize = 1000;
-    }
-    
-    return SCPI_RES_OK;
-}
-
-static scpi_result_t SCPI_SetCommTestEnable(scpi_t * context)
-{
-    uint32_t enable;
-    if (SCPI_ParamUInt32(context, &enable, FALSE))
-    {
-        commTest.enable = enable;
-    }
-    else
-    {
-        return SCPI_RES_ERR;
-    }
-    
-    return SCPI_RES_OK;
-}
-
-static scpi_result_t SCPI_ClearCommTestStats(scpi_t * context)
+static scpi_result_t SCPI_ClearStreamStats(scpi_t * context)
 {
     memset(commTest.stats,0, sizeof(commTest.stats));
     return SCPI_RES_OK;
 }
 
-scpi_result_t SCPI_GetCommTestStats(scpi_t * context)
+scpi_result_t SCPI_GetStreamStats(scpi_t * context)
 {
     char* output;
     int i;
-    char* stats_str[] = {"CommTest:Stats:USBOverflow %lu\r\n",
-                          "CommTest:Stats:TCPOverflow %lu\r\n",
-                          "CommTest:Stats:DIOSampleListOverflow %lu\r\n",
-                          "CommTest:Stats:AinSampleListOverflow %lu\r\n"};
+    char* stats_str[] = {"SYSTem:STReam:Stats:USBOverflow %lu\r\n",
+                         "SYSTem:STReam:Stats:TCPOverflow %lu\r\n",
+                         "SYSTem:STReam:Stats:DIOSampleListOverflow %lu\r\n",
+                         "SYSTem:STReam:Stats:AinSampleListOverflow %lu\r\n"};
     
     output = pvPortMalloc(100);
     
@@ -515,35 +458,47 @@ static scpi_result_t SCPI_IsStreaming(scpi_t * context)
 
 static scpi_result_t SCPI_SetStreamFormat(scpi_t * context)
 {
-    int param1;
+    int param1, param2;
     if (!SCPI_ParamInt32(context, &param1, TRUE))
     {
         return SCPI_RES_ERR;
     }
     
-    if (param1 == 0)
+    if (param1 == Streaming_ProtoBuffer)
     {
         g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_ProtoBuffer;
     }
-    else
+    else if(param1 == Streaming_Json)
     {
         g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_Json;
+    }
+    else if(param1 == Streaming_TestData)
+    {
+        g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_TestData;
+        
+        if(SCPI_ParamInt32(context, &param2, FALSE) && (param2 <= 1000)){
+            commTest.TestData_len = param2;
+        }
+        else{
+            // TestData_len is not set. This indicates use dynamic length
+            commTest.TestData_len = 0;
+        }
     }
     
     return SCPI_RES_OK;
 }
 
-
-static scpi_result_t SCPI_SetStreamFillTestData(scpi_t * context)
-{
-    int param1;
-    if (!SCPI_ParamInt32(context, &param1, TRUE))
-    {
-        return SCPI_RES_ERR;
-    }
-    commTest.fillStreamBufWithTestData = param1; 
-    return SCPI_RES_OK;
-}
+//
+//static scpi_result_t SCPI_SetStreamFillTestData(scpi_t * context)
+//{
+//    int param1;
+//    if (!SCPI_ParamInt32(context, &param1, TRUE))
+//    {
+//        return SCPI_RES_ERR;
+//    }
+//    commTest.fillStreamBufWithTestData = param1; 
+//    return SCPI_RES_OK;
+//}
 
 static scpi_result_t SCPI_GetStreamFormat(scpi_t * context)
 {
@@ -794,20 +749,16 @@ static const scpi_command_t scpi_commands[] = {
     {.pattern = "OUTPut:SPI:WRIte", .callback = SCPI_NotImplemented, },
     
     // Streaming
-    {.pattern = "SYSTem:StartStreamData", .callback = SCPI_StartStreaming, },  
-    {.pattern = "SYSTem:StopStreamData", .callback = SCPI_StopStreaming, },
-    {.pattern = "SYSTem:StreamData?", .callback = SCPI_IsStreaming, },   
-    {.pattern = "SYSTem:STReam:FORmat", .callback = SCPI_SetStreamFormat, }, // 0 = pb = default, 1 = text (json)
-    {.pattern = "SYSTem:STReam:FORmat?", .callback = SCPI_GetStreamFormat, },
-    {.pattern = "SYSTem:STream:FillTestData", .callback = SCPI_SetStreamFillTestData,},
+    {.pattern = "SYSTem:StartStreamData",     .callback = SCPI_StartStreaming, },  
+    {.pattern = "SYSTem:StopStreamData",      .callback = SCPI_StopStreaming, },
+    {.pattern = "SYSTem:StreamData?",         .callback = SCPI_IsStreaming, },   
+    {.pattern = "SYSTem:STReam:FORmat",       .callback = SCPI_SetStreamFormat, }, // 0 = pb = default, 1 = text (json)
+    {.pattern = "SYSTem:STReam:FORmat?",      .callback = SCPI_GetStreamFormat, },
+    {.pattern = "SYSTem:STReam:Stats?",       .callback = SCPI_GetStreamStats,},  
+    {.pattern = "SYSTem:STReam:ClearStats",   .callback = SCPI_ClearStreamStats,},  
     // Testing
     {.pattern = "BENCHmark?",       .callback = SCPI_NotImplemented,},
     {.pattern = "Diagnostic:FreeRTOSStats?", .callback = SCPI_GetFreeRtosStats,},
-    {.pattern = "COMMTest:Type",    .callback = SCPI_SetCommTestType,},   // 0 = usb, 1 = TCP
-    {.pattern = "COMMTest:BufSize", .callback = SCPI_SetCommTestBufSize,},
-    {.pattern = "COMMTest:Enable",  .callback = SCPI_SetCommTestEnable,},  
-    {.pattern = "COMMTest:Stats?",  .callback = SCPI_GetCommTestStats,},  
-    {.pattern = "COMMTest:ClearStats",  .callback = SCPI_ClearCommTestStats,},  
     {.pattern = NULL, .callback = SCPI_NotImplemented, },
 };
 
