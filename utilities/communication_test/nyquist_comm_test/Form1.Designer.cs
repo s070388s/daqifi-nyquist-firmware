@@ -55,17 +55,43 @@
             this.stopStreamingCmd = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.TimeStampInstLbl = new System.Windows.Forms.Label();
+            this.TimeStampMaxLbl = new System.Windows.Forms.Label();
+            this.TimeStampMinLbl = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.AINSampleListOverflowLbl = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.UsbOverflowLbl = new System.Windows.Forms.Label();
             this.DIOSampleListOverflowLbl = new System.Windows.Forms.Label();
             this.TcpOverflowLbl = new System.Windows.Forms.Label();
-            this.UsbOverflowLbl = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.PacketLenMax = new System.Windows.Forms.Label();
             this.PacketLenInst = new System.Windows.Forms.Label();
             this.PacketLenMin = new System.Windows.Forms.Label();
-            this.PacketLenMax = new System.Windows.Forms.Label();
-            this.FrameDelayMin = new System.Windows.Forms.Label();
-            this.FrameDelayMax = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.FrameDelayInst = new System.Windows.Forms.Label();
+            this.FrameDelayMax = new System.Windows.Forms.Label();
+            this.FrameDelayMin = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.StreamRateInst = new System.Windows.Forms.Label();
+            this.StreamRateAve = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.GoodPacket = new System.Windows.Forms.Label();
@@ -77,47 +103,22 @@
             this.ElapseTime = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.StreamRateAve = new System.Windows.Forms.Label();
-            this.StreamRateInst = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.TimeStampInstLbl = new System.Windows.Forms.Label();
-            this.TimeStampMaxLbl = new System.Windows.Forms.Label();
-            this.TimeStampMinLbl = new System.Windows.Forms.Label();
+            this.resetStreamCmd = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel11.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel11
@@ -331,7 +332,8 @@
             // 
             this.txSettingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startStreamingCmd,
-            this.stopStreamingCmd});
+            this.stopStreamingCmd,
+            this.resetStreamCmd});
             this.txSettingToolStripMenuItem.Name = "txSettingToolStripMenuItem";
             this.txSettingToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
             this.txSettingToolStripMenuItem.Text = "Tx-Setting";
@@ -339,14 +341,14 @@
             // startStreamingCmd
             // 
             this.startStreamingCmd.Name = "startStreamingCmd";
-            this.startStreamingCmd.Size = new System.Drawing.Size(222, 26);
+            this.startStreamingCmd.Size = new System.Drawing.Size(283, 26);
             this.startStreamingCmd.Text = "Start Streaming Cmd";
             this.startStreamingCmd.Click += new System.EventHandler(this.startStreamingCmdToolStripMenuItem_Click);
             // 
             // stopStreamingCmd
             // 
             this.stopStreamingCmd.Name = "stopStreamingCmd";
-            this.stopStreamingCmd.Size = new System.Drawing.Size(222, 26);
+            this.stopStreamingCmd.Size = new System.Drawing.Size(283, 26);
             this.stopStreamingCmd.Text = "Stop Streaming Cmd";
             this.stopStreamingCmd.Click += new System.EventHandler(this.stopStreamingCmdToolStripMenuItem_Click);
             // 
@@ -404,6 +406,166 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(668, 565);
             this.tableLayoutPanel1.TabIndex = 55;
             // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(5, 469);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(243, 35);
+            this.label15.TabIndex = 58;
+            this.label15.Text = "Δ Timestamp field";
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
+            this.tableLayoutPanel6.Controls.Add(this.label17, 0, 2);
+            this.tableLayoutPanel6.Controls.Add(this.label19, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.label20, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.TimeStampInstLbl, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.TimeStampMaxLbl, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.TimeStampMinLbl, 1, 2);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(266, 472);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(398, 89);
+            this.tableLayoutPanel6.TabIndex = 61;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(5, 53);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(44, 25);
+            this.label17.TabIndex = 61;
+            this.label17.Text = "Min";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(5, 27);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(50, 25);
+            this.label19.TabIndex = 59;
+            this.label19.Text = "Max";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(5, 1);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(135, 25);
+            this.label20.TabIndex = 58;
+            this.label20.Text = "Instantaneous";
+            // 
+            // TimeStampInstLbl
+            // 
+            this.TimeStampInstLbl.AutoSize = true;
+            this.TimeStampInstLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeStampInstLbl.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.TimeStampInstLbl.Location = new System.Drawing.Point(199, 1);
+            this.TimeStampInstLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TimeStampInstLbl.Name = "TimeStampInstLbl";
+            this.TimeStampInstLbl.Size = new System.Drawing.Size(23, 25);
+            this.TimeStampInstLbl.TabIndex = 63;
+            this.TimeStampInstLbl.Text = "0";
+            // 
+            // TimeStampMaxLbl
+            // 
+            this.TimeStampMaxLbl.AutoSize = true;
+            this.TimeStampMaxLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeStampMaxLbl.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.TimeStampMaxLbl.Location = new System.Drawing.Point(199, 27);
+            this.TimeStampMaxLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TimeStampMaxLbl.Name = "TimeStampMaxLbl";
+            this.TimeStampMaxLbl.Size = new System.Drawing.Size(23, 25);
+            this.TimeStampMaxLbl.TabIndex = 64;
+            this.TimeStampMaxLbl.Text = "0";
+            // 
+            // TimeStampMinLbl
+            // 
+            this.TimeStampMinLbl.AutoSize = true;
+            this.TimeStampMinLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeStampMinLbl.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.TimeStampMinLbl.Location = new System.Drawing.Point(199, 53);
+            this.TimeStampMinLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TimeStampMinLbl.Name = "TimeStampMinLbl";
+            this.TimeStampMinLbl.Size = new System.Drawing.Size(23, 25);
+            this.TimeStampMinLbl.TabIndex = 65;
+            this.TimeStampMinLbl.Text = "0";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
+            this.tableLayoutPanel5.Controls.Add(this.label28, 0, 3);
+            this.tableLayoutPanel5.Controls.Add(this.label10, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label12, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.AINSampleListOverflowLbl, 1, 3);
+            this.tableLayoutPanel5.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.UsbOverflowLbl, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.DIOSampleListOverflowLbl, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.TcpOverflowLbl, 1, 1);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(266, 355);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 4;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(398, 107);
+            this.tableLayoutPanel5.TabIndex = 69;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(5, 79);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(80, 25);
+            this.label28.TabIndex = 69;
+            this.label28.Text = "AIN List";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(5, 53);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 25);
+            this.label10.TabIndex = 62;
+            this.label10.Text = "DIO List";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(5, 27);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(53, 25);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "TCP";
+            // 
             // AINSampleListOverflowLbl
             // 
             this.AINSampleListOverflowLbl.AutoSize = true;
@@ -415,6 +577,29 @@
             this.AINSampleListOverflowLbl.Size = new System.Drawing.Size(23, 25);
             this.AINSampleListOverflowLbl.TabIndex = 59;
             this.AINSampleListOverflowLbl.Text = "0";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(5, 1);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(53, 25);
+            this.label13.TabIndex = 58;
+            this.label13.Text = "USB";
+            // 
+            // UsbOverflowLbl
+            // 
+            this.UsbOverflowLbl.AutoSize = true;
+            this.UsbOverflowLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UsbOverflowLbl.ForeColor = System.Drawing.Color.Red;
+            this.UsbOverflowLbl.Location = new System.Drawing.Point(199, 1);
+            this.UsbOverflowLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.UsbOverflowLbl.Name = "UsbOverflowLbl";
+            this.UsbOverflowLbl.Size = new System.Drawing.Size(23, 25);
+            this.UsbOverflowLbl.TabIndex = 57;
+            this.UsbOverflowLbl.Text = "0";
             // 
             // DIOSampleListOverflowLbl
             // 
@@ -440,28 +625,73 @@
             this.TcpOverflowLbl.TabIndex = 58;
             this.TcpOverflowLbl.Text = "0";
             // 
-            // UsbOverflowLbl
+            // tableLayoutPanel3
             // 
-            this.UsbOverflowLbl.AutoSize = true;
-            this.UsbOverflowLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UsbOverflowLbl.ForeColor = System.Drawing.Color.Red;
-            this.UsbOverflowLbl.Location = new System.Drawing.Point(199, 1);
-            this.UsbOverflowLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.UsbOverflowLbl.Name = "UsbOverflowLbl";
-            this.UsbOverflowLbl.Size = new System.Drawing.Size(23, 25);
-            this.UsbOverflowLbl.TabIndex = 57;
-            this.UsbOverflowLbl.Text = "0";
+            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
+            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.label5, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label18, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.PacketLenMax, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.PacketLenInst, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.PacketLenMin, 1, 2);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(266, 268);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(398, 78);
+            this.tableLayoutPanel3.TabIndex = 58;
             // 
-            // label7
+            // label9
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(5, 352);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(154, 25);
-            this.label7.TabIndex = 69;
-            this.label7.Text = "Overflow Events";
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(5, 53);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 25);
+            this.label9.TabIndex = 62;
+            this.label9.Text = "Min";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(5, 27);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(50, 25);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Max";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(5, 1);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(135, 25);
+            this.label18.TabIndex = 58;
+            this.label18.Text = "Instantaneous";
+            // 
+            // PacketLenMax
+            // 
+            this.PacketLenMax.AutoSize = true;
+            this.PacketLenMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PacketLenMax.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.PacketLenMax.Location = new System.Drawing.Point(199, 27);
+            this.PacketLenMax.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.PacketLenMax.Name = "PacketLenMax";
+            this.PacketLenMax.Size = new System.Drawing.Size(23, 25);
+            this.PacketLenMax.TabIndex = 66;
+            this.PacketLenMax.Text = "0";
             // 
             // PacketLenInst
             // 
@@ -487,29 +717,73 @@
             this.PacketLenMin.TabIndex = 67;
             this.PacketLenMin.Text = "0";
             // 
-            // PacketLenMax
+            // tableLayoutPanel4
             // 
-            this.PacketLenMax.AutoSize = true;
-            this.PacketLenMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PacketLenMax.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.PacketLenMax.Location = new System.Drawing.Point(199, 27);
-            this.PacketLenMax.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.PacketLenMax.Name = "PacketLenMax";
-            this.PacketLenMax.Size = new System.Drawing.Size(23, 25);
-            this.PacketLenMax.TabIndex = 66;
-            this.PacketLenMax.Text = "0";
+            this.tableLayoutPanel4.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
+            this.tableLayoutPanel4.Controls.Add(this.label24, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.label22, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label23, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.FrameDelayInst, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.FrameDelayMax, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.FrameDelayMin, 1, 2);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(266, 166);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(398, 93);
+            this.tableLayoutPanel4.TabIndex = 60;
             // 
-            // FrameDelayMin
+            // label24
             // 
-            this.FrameDelayMin.AutoSize = true;
-            this.FrameDelayMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FrameDelayMin.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.FrameDelayMin.Location = new System.Drawing.Point(199, 53);
-            this.FrameDelayMin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.FrameDelayMin.Name = "FrameDelayMin";
-            this.FrameDelayMin.Size = new System.Drawing.Size(23, 25);
-            this.FrameDelayMin.TabIndex = 65;
-            this.FrameDelayMin.Text = "0";
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(5, 53);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(44, 25);
+            this.label24.TabIndex = 61;
+            this.label24.Text = "Min";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(5, 27);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(50, 25);
+            this.label22.TabIndex = 59;
+            this.label22.Text = "Max";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(5, 1);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(135, 25);
+            this.label23.TabIndex = 58;
+            this.label23.Text = "Instantaneous";
+            // 
+            // FrameDelayInst
+            // 
+            this.FrameDelayInst.AutoSize = true;
+            this.FrameDelayInst.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FrameDelayInst.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.FrameDelayInst.Location = new System.Drawing.Point(199, 1);
+            this.FrameDelayInst.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FrameDelayInst.Name = "FrameDelayInst";
+            this.FrameDelayInst.Size = new System.Drawing.Size(23, 25);
+            this.FrameDelayInst.TabIndex = 63;
+            this.FrameDelayInst.Text = "0";
             // 
             // FrameDelayMax
             // 
@@ -523,17 +797,93 @@
             this.FrameDelayMax.TabIndex = 64;
             this.FrameDelayMax.Text = "0";
             // 
-            // FrameDelayInst
+            // FrameDelayMin
             // 
-            this.FrameDelayInst.AutoSize = true;
-            this.FrameDelayInst.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FrameDelayInst.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.FrameDelayInst.Location = new System.Drawing.Point(199, 1);
-            this.FrameDelayInst.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.FrameDelayInst.Name = "FrameDelayInst";
-            this.FrameDelayInst.Size = new System.Drawing.Size(23, 25);
-            this.FrameDelayInst.TabIndex = 63;
-            this.FrameDelayInst.Text = "0";
+            this.FrameDelayMin.AutoSize = true;
+            this.FrameDelayMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FrameDelayMin.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.FrameDelayMin.Location = new System.Drawing.Point(199, 53);
+            this.FrameDelayMin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FrameDelayMin.Name = "FrameDelayMin";
+            this.FrameDelayMin.Size = new System.Drawing.Size(23, 25);
+            this.FrameDelayMin.TabIndex = 65;
+            this.FrameDelayMin.Text = "0";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
+            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label16, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.StreamRateInst, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.StreamRateAve, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(266, 30);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(398, 50);
+            this.tableLayoutPanel2.TabIndex = 57;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(5, 1);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(86, 25);
+            this.label14.TabIndex = 58;
+            this.label14.Text = "Average";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(5, 27);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(135, 22);
+            this.label16.TabIndex = 59;
+            this.label16.Text = "Instantaneous";
+            // 
+            // StreamRateInst
+            // 
+            this.StreamRateInst.AutoSize = true;
+            this.StreamRateInst.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StreamRateInst.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.StreamRateInst.Location = new System.Drawing.Point(199, 27);
+            this.StreamRateInst.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.StreamRateInst.Name = "StreamRateInst";
+            this.StreamRateInst.Size = new System.Drawing.Size(23, 22);
+            this.StreamRateInst.TabIndex = 54;
+            this.StreamRateInst.Text = "0";
+            // 
+            // StreamRateAve
+            // 
+            this.StreamRateAve.AutoSize = true;
+            this.StreamRateAve.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StreamRateAve.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.StreamRateAve.Location = new System.Drawing.Point(199, 1);
+            this.StreamRateAve.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.StreamRateAve.Name = "StreamRateAve";
+            this.StreamRateAve.Size = new System.Drawing.Size(23, 25);
+            this.StreamRateAve.TabIndex = 52;
+            this.StreamRateAve.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(5, 352);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(154, 25);
+            this.label7.TabIndex = 69;
+            this.label7.Text = "Overflow Events";
             // 
             // label11
             // 
@@ -659,30 +1009,6 @@
             this.label4.TabIndex = 50;
             this.label4.Text = "DataRate";
             // 
-            // StreamRateAve
-            // 
-            this.StreamRateAve.AutoSize = true;
-            this.StreamRateAve.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StreamRateAve.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.StreamRateAve.Location = new System.Drawing.Point(193, 1);
-            this.StreamRateAve.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.StreamRateAve.Name = "StreamRateAve";
-            this.StreamRateAve.Size = new System.Drawing.Size(23, 25);
-            this.StreamRateAve.TabIndex = 52;
-            this.StreamRateAve.Text = "0";
-            // 
-            // StreamRateInst
-            // 
-            this.StreamRateInst.AutoSize = true;
-            this.StreamRateInst.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StreamRateInst.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.StreamRateInst.Location = new System.Drawing.Point(193, 27);
-            this.StreamRateInst.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.StreamRateInst.Name = "StreamRateInst";
-            this.StreamRateInst.Size = new System.Drawing.Size(23, 25);
-            this.StreamRateInst.TabIndex = 54;
-            this.StreamRateInst.Text = "0";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -715,329 +1041,12 @@
             this.tabPage2.Text = "TCP / IP";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel2
+            // resetStreamCmd
             // 
-            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
-            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label16, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.StreamRateInst, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.StreamRateAve, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(266, 30);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(398, 50);
-            this.tableLayoutPanel2.TabIndex = 57;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(6, -1);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(86, 25);
-            this.label14.TabIndex = 58;
-            this.label14.Text = "Average";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(5, 27);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(135, 25);
-            this.label16.TabIndex = 59;
-            this.label16.Text = "Instantaneous";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
-            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.label5, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label18, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.PacketLenMax, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.PacketLenInst, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.PacketLenMin, 1, 2);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(266, 268);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(398, 78);
-            this.tableLayoutPanel3.TabIndex = 58;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(5, 27);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 25);
-            this.label5.TabIndex = 59;
-            this.label5.Text = "Max";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(5, 1);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(135, 25);
-            this.label18.TabIndex = 58;
-            this.label18.Text = "Instantaneous";
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
-            this.tableLayoutPanel4.Controls.Add(this.label24, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.label22, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.label23, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.FrameDelayInst, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.FrameDelayMax, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.FrameDelayMin, 1, 2);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(266, 166);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(398, 93);
-            this.tableLayoutPanel4.TabIndex = 60;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(5, 27);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(50, 25);
-            this.label22.TabIndex = 59;
-            this.label22.Text = "Max";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(5, 1);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(135, 25);
-            this.label23.TabIndex = 58;
-            this.label23.Text = "Instantaneous";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(5, 53);
-            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(44, 25);
-            this.label24.TabIndex = 61;
-            this.label24.Text = "Min";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(5, 53);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 25);
-            this.label9.TabIndex = 62;
-            this.label9.Text = "Min";
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
-            this.tableLayoutPanel5.Controls.Add(this.label28, 0, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label10, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.label12, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.AINSampleListOverflowLbl, 1, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label13, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.UsbOverflowLbl, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.DIOSampleListOverflowLbl, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.TcpOverflowLbl, 1, 1);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(266, 355);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 4;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(398, 107);
-            this.tableLayoutPanel5.TabIndex = 69;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(5, 53);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(82, 25);
-            this.label10.TabIndex = 62;
-            this.label10.Text = "DIO List";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(5, 27);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 25);
-            this.label12.TabIndex = 59;
-            this.label12.Text = "TCP";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(5, 1);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(53, 25);
-            this.label13.TabIndex = 58;
-            this.label13.Text = "USB";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(5, 79);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(80, 25);
-            this.label28.TabIndex = 69;
-            this.label28.Text = "AIN List";
-            // 
-            // label15
-            // 
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(5, 469);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(243, 35);
-            this.label15.TabIndex = 58;
-            this.label15.Text = "Δ Timestamp field";
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.94895F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.05105F));
-            this.tableLayoutPanel6.Controls.Add(this.label17, 0, 2);
-            this.tableLayoutPanel6.Controls.Add(this.label19, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.label20, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.TimeStampInstLbl, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.TimeStampMaxLbl, 1, 1);
-            this.tableLayoutPanel6.Controls.Add(this.TimeStampMinLbl, 1, 2);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(266, 472);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 3;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(398, 89);
-            this.tableLayoutPanel6.TabIndex = 61;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(5, 53);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(44, 25);
-            this.label17.TabIndex = 61;
-            this.label17.Text = "Min";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(5, 27);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 25);
-            this.label19.TabIndex = 59;
-            this.label19.Text = "Max";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(5, 1);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(135, 25);
-            this.label20.TabIndex = 58;
-            this.label20.Text = "Instantaneous";
-            // 
-            // TimeStampInstLbl
-            // 
-            this.TimeStampInstLbl.AutoSize = true;
-            this.TimeStampInstLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeStampInstLbl.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.TimeStampInstLbl.Location = new System.Drawing.Point(199, 1);
-            this.TimeStampInstLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.TimeStampInstLbl.Name = "TimeStampInstLbl";
-            this.TimeStampInstLbl.Size = new System.Drawing.Size(23, 25);
-            this.TimeStampInstLbl.TabIndex = 63;
-            this.TimeStampInstLbl.Text = "0";
-            // 
-            // TimeStampMaxLbl
-            // 
-            this.TimeStampMaxLbl.AutoSize = true;
-            this.TimeStampMaxLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeStampMaxLbl.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.TimeStampMaxLbl.Location = new System.Drawing.Point(199, 27);
-            this.TimeStampMaxLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.TimeStampMaxLbl.Name = "TimeStampMaxLbl";
-            this.TimeStampMaxLbl.Size = new System.Drawing.Size(23, 25);
-            this.TimeStampMaxLbl.TabIndex = 64;
-            this.TimeStampMaxLbl.Text = "0";
-            // 
-            // TimeStampMinLbl
-            // 
-            this.TimeStampMinLbl.AutoSize = true;
-            this.TimeStampMinLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeStampMinLbl.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.TimeStampMinLbl.Location = new System.Drawing.Point(199, 53);
-            this.TimeStampMinLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.TimeStampMinLbl.Name = "TimeStampMinLbl";
-            this.TimeStampMinLbl.Size = new System.Drawing.Size(23, 25);
-            this.TimeStampMinLbl.TabIndex = 65;
-            this.TimeStampMinLbl.Text = "0";
+            this.resetStreamCmd.Name = "resetStreamCmd";
+            this.resetStreamCmd.Size = new System.Drawing.Size(283, 26);
+            this.resetStreamCmd.Text = "Reset Stream Cmd To Default ";
+            this.resetStreamCmd.Click += new System.EventHandler(this.resetStreamCmd_Click);
             // 
             // Form1
             // 
@@ -1068,18 +1077,18 @@
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1164,6 +1173,7 @@
         private System.Windows.Forms.Label TimeStampInstLbl;
         private System.Windows.Forms.Label TimeStampMaxLbl;
         private System.Windows.Forms.Label TimeStampMinLbl;
+        private System.Windows.Forms.ToolStripMenuItem resetStreamCmd;
     }
 }
 

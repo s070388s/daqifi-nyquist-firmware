@@ -20,19 +20,17 @@ namespace Serial_Port_Logger
 
     public partial class Form1 : Form
     {
-        const string COMMTEST_RESP_USB_OVERFLOW = "commtest:stats:usboverflow ";
-        const string COMMTEST_RESP_TCP_OVERFLOW = "commtest:stats:tcpoverflow ";
-        const string COMMTEST_RESP_DIO_OVERFLOW = "commtest:stats:diosamplelistoverflow ";
-        const string COMMTEST_RESP_AIN_OVERFLOW = "commtest:stats:ainsamplelistoverflow ";
-
+        const string COMMTEST_RESP_USB_OVERFLOW = "system:stream:stats:usboverflow ";
+        const string COMMTEST_RESP_TCP_OVERFLOW = "system:stream:stats:tcpoverflow ";
+        const string COMMTEST_RESP_DIO_OVERFLOW = "system:stream:stats:diosamplelistoverflow ";
+        const string COMMTEST_RESP_AIN_OVERFLOW = "system:stream:stats:ainsamplelistoverflow ";
+        const string DEFAULT_STARTSTREAM_CMD    = "Configure:Adc:Channel 65535\r\nSystem:Power:State 1\r\nSystem:Stream:ClearStats\r\nSystem:Stream:Format 2\r\nSystem:StartStreamData 1000";
+        const string DEFAULT_STOPSTREAM_CMD     = "System:StopStreamData\r\nSystem:Stream:Stats?\r\n";
         public int interval_ms = 0;
+
         // load the start / stop streamming commands with default values
-
-        //public string startStreamCommands = "SYSTem:ECHO 0\r\nEnable:Voltage:DC 249\r\nDIO:Port:Enable 1\r\nSystem:StartStreamData 1000\r\n";
-        //public string stopStreamCommands  = "SYSTem:StopStreamData\r\n";
-
-        public string startStreamCommands = "COMMTest:Type 0\r\nCOMMTest:BufSize 100\r\nCOMMTest:ClearStats\r\nCOMMTest:Enable 1\r\n";
-        public string stopStreamCommands  = "COMMTest:Enable 0\r\nCOMMTest:Stats?\r\n";
+        public string startStreamCommands = DEFAULT_STARTSTREAM_CMD;
+        public string stopStreamCommands  = DEFAULT_STOPSTREAM_CMD;
 
         List<byte> COMBuf = new List<byte>();
         UInt32 goodpackets = 0, badpackets = 0, droppackets=0;
@@ -75,6 +73,13 @@ namespace Serial_Port_Logger
                 Thread.Sleep(200);
             }
 
+        }
+
+        private void resetStreamCmd_Click(object sender, EventArgs e)
+        {
+            this.startStreamCommands = Properties.Settings.Default.startstreamcommand = DEFAULT_STARTSTREAM_CMD;
+            this.stopStreamCommands = Properties.Settings.Default.stopstreamcommand = DEFAULT_STOPSTREAM_CMD;
+            Properties.Settings.Default.Save();
         }
 
 
@@ -435,7 +440,7 @@ namespace Serial_Port_Logger
                 // packets not starting with '#' will be decoded as normal scpi commands.
                 bufstr = System.Text.Encoding.UTF8.GetString(buf);
                 bufstr = bufstr.ToLower();
-                if(bufstr.StartsWith("enable")|| bufstr.StartsWith("daqifi") || bufstr.StartsWith("system") || bufstr.StartsWith("commtest"))
+                if(bufstr.StartsWith("enable")|| bufstr.StartsWith("daqifi") || bufstr.StartsWith("system"))
                 {
                     // remove the newline from each packet
                     bufstr = bufstr.Replace("\r\n","");
