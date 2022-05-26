@@ -352,7 +352,7 @@ void _Streaming_Deferred_Interrupt_Task( void ){
 
     while( 1 ){
         ulTaskNotifyTake( pdFALSE, xBlockTime );
-        DBG_DIO_0_TOG();
+
         for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
         {
             // Only trigger conversions if the previous conversion is complete

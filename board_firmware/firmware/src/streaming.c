@@ -107,7 +107,6 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
 {
     if (!runtimeConfig->StreamingConfig.IsEnabled)
     {
-        DBG_DIO_2_SET(0);
         return;
     }
 
@@ -128,10 +127,8 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         maxSize    = 0;
         
         if(AINDataAvailable || DIODataAvailable){
-            DBG_DIO_2_SET(1);
             flags.Data[flags.Size++] = DaqifiOutMessage_msg_time_stamp_tag;
         }else{
-            DBG_DIO_2_SET(0);
             return;
         }
          
@@ -165,7 +162,6 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         }
 
         if (maxSize < 128){
-            DBG_DIO_2_SET(0);
             return;
         }
         
@@ -187,10 +183,9 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
                 size = Json_Encode(boardData, &flags, buffer, maxSize);
             }
             else{
-                DBG_DIO_5_SET(1);
+
                 size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
                 
-
                 if(runtimeConfig->StreamingConfig.Encoding == Streaming_TestData){
   
                     // if TestData_Len is specified, overwrite the buffer length
@@ -201,9 +196,6 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
                         size = 0;//discard the frame 
                     }
                 }
-             
-                
-                DBG_DIO_5_SET(0);
             }
 
             // Write the packet out
@@ -240,7 +232,6 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
         }
     }while(1);
     
-    DBG_DIO_2_SET(0);
 }
 
 void TimestampTimer_Init(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)

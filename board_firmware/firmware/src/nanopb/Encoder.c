@@ -385,7 +385,6 @@ size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* 
                
                 if(DIOSampleList_PopFront(&state->DIOSamples, &DIOdata))
                 {
-                    DBG_DIO_1_TOG();
                     memcpy(message.digital_data.bytes, &DIOdata.Values, sizeof(message.digital_data.bytes));
                     message.digital_data.size = sizeof(message.digital_data.bytes);
                     message.has_digital_data = true; 

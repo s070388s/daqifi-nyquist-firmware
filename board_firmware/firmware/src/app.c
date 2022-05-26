@@ -143,7 +143,7 @@ void runTimeStatsTimer89_init(void)
     /* Setup Interrupt */   
     PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T9, INT_PRIORITY_LEVEL3);
     PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T9, INT_SUBPRIORITY_LEVEL3);
-    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_TIMER_9);//disable interrupt
+    PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_9);//disable interrupt
     PLIB_TMR_Start(TMR_ID_8);
 }
 
@@ -226,19 +226,6 @@ void APP_Initialize(void)
 	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
-    
-    DBG_DIO_0_TRIS;
-    DBG_DIO_0_SET(0);
-    DBG_DIO_1_TRIS;
-    DBG_DIO_1_SET(0);
-    DBG_DIO_2_TRIS;
-    DBG_DIO_2_SET(0);
-    DBG_DIO_3_TRIS;
-    DBG_DIO_3_SET(0);
-    DBG_DIO_4_TRIS;
-    DBG_DIO_4_SET(0);
-    DBG_DIO_5_TRIS;
-    DBG_DIO_5_SET(0);
 }
 
 

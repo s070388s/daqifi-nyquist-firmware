@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Collections;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Serial_Port_Logger
 {
@@ -20,10 +21,6 @@ namespace Serial_Port_Logger
 
     public partial class Form1 : Form
     {
-        const string COMMTEST_RESP_USB_OVERFLOW = "system:stream:stats:usboverflow ";
-        const string COMMTEST_RESP_TCP_OVERFLOW = "system:stream:stats:tcpoverflow ";
-        const string COMMTEST_RESP_DIO_OVERFLOW = "system:stream:stats:diosamplelistoverflow ";
-        const string COMMTEST_RESP_AIN_OVERFLOW = "system:stream:stats:ainsamplelistoverflow ";
         const string DEFAULT_STARTSTREAM_CMD    = "Configure:Adc:Channel 65535\r\nSystem:Power:State 1\r\nSystem:Stream:ClearStats\r\nSystem:Stream:Format 2\r\nSystem:StartStreamData 1000";
         const string DEFAULT_STOPSTREAM_CMD     = "System:StopStreamData\r\nSystem:Stream:Stats?\r\n";
         public int interval_ms = 0;
@@ -46,6 +43,7 @@ namespace Serial_Port_Logger
         double frameDelayMax = 0.0, frameDelayMin = 0.0, frameDelayInst = 0.0;
         UInt32 usbOverflow = 0, tcpOverflow = 0, dioSampleListOverflow = 0, ainSampleListOverflow = 0;
         UInt32 timeStampPrev, timeStampMax, timeStampMin, timeStampInst;
+        bool manualReceive = false;
       
 
         public Form1()
@@ -91,186 +89,35 @@ namespace Serial_Port_Logger
             if (stop) return;
 
             // communication test variables
-            if (UsbOverflowLbl.InvokeRequired)
+            if (this.InvokeRequired)
             {
                 this.Invoke(new EventHandler(delegate { UsbOverflowLbl.Text = usbOverflow.ToString(); }));
-            }
-            else
-            {
-                UsbOverflowLbl.Text = usbOverflow.ToString();
-            }
-
-            if (TcpOverflowLbl.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { TcpOverflowLbl.Text = tcpOverflow.ToString(); }));
-            }
-            else
-            {
-                TcpOverflowLbl.Text = tcpOverflow.ToString();
-            }
-
-            if (DIOSampleListOverflowLbl.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { DIOSampleListOverflowLbl.Text = dioSampleListOverflow.ToString(); }));
-            }
-            else
-            {
-                DIOSampleListOverflowLbl.Text = dioSampleListOverflow.ToString();
-            }
-
-            if (AINSampleListOverflowLbl.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { AINSampleListOverflowLbl.Text = ainSampleListOverflow.ToString(); }));
-            }
-            else
-            {
-                AINSampleListOverflowLbl.Text = ainSampleListOverflow.ToString();
-            }
-
-            // delta timestamp 
-
-            if (TimeStampMaxLbl.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { TimeStampMaxLbl.Text = timeStampMax.ToString(); }));
-            }
-            else
-            {
-                TimeStampMaxLbl.Text = timeStampMax.ToString();
-            }
-
-            if (TimeStampMinLbl.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { TimeStampMinLbl.Text = timeStampMin.ToString(); }));
-            }
-            else
-            {
-                TimeStampMinLbl.Text = timeStampMin.ToString();
-            }
-
-            if (TimeStampInstLbl.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { TimeStampInstLbl.Text = timeStampInst.ToString(); }));
-            }
-            else
-            {
-                TimeStampInstLbl.Text = timeStampInst.ToString();
-            }
-
-
-            if (GoodPacket.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { GoodPacket.Text = goodpackets.ToString(); }));
-            }
-            else
-            {
-                GoodPacket.Text = goodpackets.ToString();
-            }
-
-            if(BadPacket.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { BadPacket.Text = badpackets.ToString(); }));
-            }
-            else
-            {
-                BadPacket.Text = badpackets.ToString();
-            }
-
-            if (PacketLenMax.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { PacketLenMax.Text = packetLenMax.ToString(); }));
-            }
-            else
-            {
-                PacketLenMax.Text = packetLenMax.ToString();
-            }
-
-            if (PacketLenMin.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { PacketLenMin.Text = packetLenMin.ToString(); }));
-            }
-            else
-            {
-                PacketLenMin.Text = packetLenMin.ToString();
-            }
-
-            if (PacketLenInst.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { PacketLenInst.Text = packetLenInst.ToString(); }));
-            }
-            else
-            {
-                PacketLenInst.Text = packetLenInst.ToString();
-            }
-
-            if (PacketDrop.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { PacketDrop.Text = droppackets.ToString(); }));
-            }
-            else
-            {
-                PacketDrop.Text = droppackets.ToString();
-            }
-
-            if (ElapseTime.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { ElapseTime.Text = streamRateStopWatch.ElapsedMilliseconds.ToString() + " ms"; }));
-            }
-            else
-            {
-                ElapseTime.Text = streamRateStopWatch.ElapsedMilliseconds.ToString() + " ms";
-            }
-
-            if(FrameDelayInst.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { FrameDelayInst.Text = frameDelayInst.ToString() + " ms"; }));
-            }
-            else
-            {
-                FrameDelayInst.Text = frameDelayInst.ToString() + " ms";
-            }
-
-            if (FrameDelayMin.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { FrameDelayMin.Text = frameDelayMin.ToString() + " ms"; }));
-            }
-            else
-            {
-                FrameDelayMin.Text = frameDelayMin.ToString() + " ms";
-            }
-
-            if (FrameDelayMax.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { FrameDelayMax.Text = frameDelayMax.ToString() + " ms"; }));
-            }
-            else
-            {
-                FrameDelayMax.Text = frameDelayMax.ToString() + " ms";
-            }
-
-
-            if (StreamRateAve.InvokeRequired)
-            {
                 this.Invoke(new EventHandler(delegate { StreamRateAve.Text = (((float)bytesReceive * 8.0f) / streamRateStopWatch.ElapsedMilliseconds).ToString("F") + " kbit/s"; }));
-            }
-            else
-            {
-                StreamRateAve.Text = (((float)bytesReceive * 8.0f) / streamRateStopWatch.ElapsedMilliseconds).ToString("F") + " kbit/s";
-            }
 
-            if (stopwatchPrev != 0 && bytesReceivePrev != 0)
-            {
-                if (StreamRateInst.InvokeRequired)
+                if (stopwatchPrev != 0 && bytesReceivePrev != 0)
                 {
                     this.Invoke(new EventHandler(delegate { StreamRateInst.Text = (((float)(bytesReceive - bytesReceivePrev) * 8.0f) / (streamRateStopWatch.ElapsedMilliseconds - stopwatchPrev)).ToString("F") + " kbit/s"; }));
                 }
-                else
-                {
-                    StreamRateInst.Text = (((float)(bytesReceive - bytesReceivePrev) * 8.0f) / (streamRateStopWatch.ElapsedMilliseconds - stopwatchPrev)).ToString("F") + " kbit/s";
-                }
-            }
 
-            stopwatchPrev    = streamRateStopWatch.ElapsedMilliseconds;
-            bytesReceivePrev = bytesReceive;
+                stopwatchPrev = streamRateStopWatch.ElapsedMilliseconds;
+                bytesReceivePrev = bytesReceive;
+            }
         }
 
         private void RefreshBtn_Click(object sender, EventArgs e)
@@ -445,30 +292,30 @@ namespace Serial_Port_Logger
                     // remove the newline from each packet
                     bufstr = bufstr.Replace("\r\n","");
 
-                    if (bufstr.IndexOf(COMMTEST_RESP_USB_OVERFLOW) >= 0)
-                    {
-                        bufstr = bufstr.Replace(COMMTEST_RESP_USB_OVERFLOW, "");
-                        usbOverflow = UInt32.Parse(bufstr);
-                    }
-                    else if (bufstr.IndexOf(COMMTEST_RESP_TCP_OVERFLOW) >= 0)
-                    {
-                        bufstr = bufstr.Replace(COMMTEST_RESP_TCP_OVERFLOW, "");
-                        tcpOverflow = UInt32.Parse(bufstr);
-                    }
-                    else if (bufstr.IndexOf(COMMTEST_RESP_DIO_OVERFLOW) >= 0)
-                    {
-                        bufstr = bufstr.Replace(COMMTEST_RESP_DIO_OVERFLOW, "");
-                        dioSampleListOverflow = UInt32.Parse(bufstr);
-                    }
-                    else if (bufstr.IndexOf(COMMTEST_RESP_AIN_OVERFLOW) >= 0)
-                    {
-                        bufstr = bufstr.Replace(COMMTEST_RESP_AIN_OVERFLOW, "");
-                        ainSampleListOverflow = UInt32.Parse(bufstr);
-                    }
-                    else
-                    {
-                        // ignore nyquist scpi commands. we are not interested
-                    }
+                    //if (bufstr.IndexOf(COMMTEST_RESP_USB_OVERFLOW) >= 0)
+                    //{
+                    //    bufstr = bufstr.Replace(COMMTEST_RESP_USB_OVERFLOW, "");
+                    //    usbOverflow = UInt32.Parse(bufstr);
+                    //}
+                    //else if (bufstr.IndexOf(COMMTEST_RESP_TCP_OVERFLOW) >= 0)
+                    //{
+                    //    bufstr = bufstr.Replace(COMMTEST_RESP_TCP_OVERFLOW, "");
+                    //    tcpOverflow = UInt32.Parse(bufstr);
+                    //}
+                    //else if (bufstr.IndexOf(COMMTEST_RESP_DIO_OVERFLOW) >= 0)
+                    //{
+                    //    bufstr = bufstr.Replace(COMMTEST_RESP_DIO_OVERFLOW, "");
+                    //    dioSampleListOverflow = UInt32.Parse(bufstr);
+                    //}
+                    //else if (bufstr.IndexOf(COMMTEST_RESP_AIN_OVERFLOW) >= 0)
+                    //{
+                    //    bufstr = bufstr.Replace(COMMTEST_RESP_AIN_OVERFLOW, "");
+                    //    ainSampleListOverflow = UInt32.Parse(bufstr);
+                    //}
+                    //else
+                    //{
+                    //    // ignore nyquist scpi commands. we are not interested
+                    //}
                 }
                 else
                 {
@@ -484,8 +331,11 @@ namespace Serial_Port_Logger
         {
             int bytes_to_read;
             byte[] tempBuf = new byte[1000];
-        
+
+            if (manualReceive) return;
+
             bytes_to_read = serialPort1.BytesToRead;
+
 
             while(bytes_to_read > 0)
             {

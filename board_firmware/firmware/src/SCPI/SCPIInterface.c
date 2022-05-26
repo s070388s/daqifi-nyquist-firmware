@@ -389,27 +389,11 @@ static scpi_result_t SCPI_ClearStreamStats(scpi_t * context)
 
 scpi_result_t SCPI_GetStreamStats(scpi_t * context)
 {
-    char* output;
-    int i;
-    char* stats_str[] = {"SYSTem:STReam:Stats:USBOverflow %lu\r\n",
-                         "SYSTem:STReam:Stats:TCPOverflow %lu\r\n",
-                         "SYSTem:STReam:Stats:DIOSampleListOverflow %lu\r\n",
-                         "SYSTem:STReam:Stats:AinSampleListOverflow %lu\r\n"};
-    
-    output = pvPortMalloc(100);
-    
-    if(output!=NULL){
-        // generate run-time stats string into the buffer
-        for(i=0; i<4; i++){       
-            sprintf(output, stats_str[i], commTest.stats[i]);
-       
-            if (strlen(output) > 0){
-                context->interface->write(context,output, strlen(output));
-            }
-        }
-        
-        vPortFree(output);
-    }
+    SCPI_ResultInt32(context, commTest.stats[0]);
+    SCPI_ResultInt32(context, commTest.stats[1]);
+    SCPI_ResultInt32(context, commTest.stats[2]);
+    SCPI_ResultInt32(context, commTest.stats[3]);
+
     return SCPI_RES_OK;
 }
 
@@ -487,18 +471,6 @@ static scpi_result_t SCPI_SetStreamFormat(scpi_t * context)
     
     return SCPI_RES_OK;
 }
-
-//
-//static scpi_result_t SCPI_SetStreamFillTestData(scpi_t * context)
-//{
-//    int param1;
-//    if (!SCPI_ParamInt32(context, &param1, TRUE))
-//    {
-//        return SCPI_RES_ERR;
-//    }
-//    commTest.fillStreamBufWithTestData = param1; 
-//    return SCPI_RES_OK;
-//}
 
 static scpi_result_t SCPI_GetStreamFormat(scpi_t * context)
 {
@@ -755,10 +727,11 @@ static const scpi_command_t scpi_commands[] = {
     {.pattern = "SYSTem:STReam:FORmat",       .callback = SCPI_SetStreamFormat, }, // 0 = pb = default, 1 = text (json)
     {.pattern = "SYSTem:STReam:FORmat?",      .callback = SCPI_GetStreamFormat, },
     {.pattern = "SYSTem:STReam:Stats?",       .callback = SCPI_GetStreamStats,},  
-    {.pattern = "SYSTem:STReam:ClearStats",   .callback = SCPI_ClearStreamStats,},  
+    {.pattern = "SYSTem:STReam:ClearStats",   .callback = SCPI_ClearStreamStats,},
+    // FreeRTOS
+    {.pattern = "SYSTem:OS:Stats?",           .callback = SCPI_GetFreeRtosStats,},
     // Testing
     {.pattern = "BENCHmark?",       .callback = SCPI_NotImplemented,},
-    {.pattern = "Diagnostic:FreeRTOSStats?", .callback = SCPI_GetFreeRtosStats,},
     {.pattern = NULL, .callback = SCPI_NotImplemented, },
 };
 
