@@ -23,7 +23,7 @@
 #define BUTTON_POWER_OFF_TH (2000/UI_TASK_CALLING_PRD)  //  2 seconds (~1 second is required to power off)
 
 
-void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData)
+void Button_Tasks(tUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData)
 {
     static uint16_t buttonPressCount = 0;   // Number of times the function has consecutively detected a button press
     static bool oneShot = false;    // One shot variable to ensure only action is performed if the user holds the button for a long period of time
@@ -60,7 +60,7 @@ void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerDa
      
 }
 
-void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars, bool streamingFlag)
+void LED_Tasks(tUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars, bool streamingFlag)
 {
     static uint16_t sequenceNum = 0;
     static int8_t currentPattern = 0;

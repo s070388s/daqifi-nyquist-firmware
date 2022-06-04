@@ -60,7 +60,7 @@ extern "C" {
         sLEDIndication LED1_Ind;
         sLEDIndication LED2_Ind;
 
-    } sUIConfig;
+    } tUIConfig;
     
     typedef struct sUIReadVars {
         bool LED1;
@@ -98,7 +98,7 @@ extern "C" {
         Function should be called periodically (~100ms) from a FreeRTOS task
 
      */
-    void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData);
+    void Button_Tasks(tUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData);
     
         /**
       @Function
@@ -111,7 +111,7 @@ extern "C" {
         Function should be called periodically (100ms) from a FreeRTOS task
 
      */
-    void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars, bool streamingFlag);
+    void LED_Tasks(tUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars, bool streamingFlag);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus

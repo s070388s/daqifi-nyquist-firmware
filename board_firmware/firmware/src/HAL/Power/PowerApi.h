@@ -74,7 +74,7 @@ extern "C" {
        
        sBQ24297Config BQ24297Config;
 
-    } sPowerConfig;
+    } tPowerConfig;
 
     typedef struct sPowerData{
 
@@ -105,15 +105,15 @@ extern "C" {
 
     } sPowerWriteVars;
     
-    void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars);
-    void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
-    void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool connected);
-    void Power_Write(sPowerConfig config, sPowerWriteVars *vars);
-    void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
-    void Power_Down(sPowerConfig configs, sPowerData *data, sPowerWriteVars *vars);
-    void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_Init(tPowerConfig config, sPowerData *data, sPowerWriteVars vars);
+    void Power_Update_Settings(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_USB_Sleep_Update(tPowerConfig config, sPowerData *data, bool connected);
+    void Power_Write(tPowerConfig config, sPowerWriteVars *vars);
+    void Power_Up(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_Down(tPowerConfig configs, sPowerData *data, sPowerWriteVars *vars);
+    void Power_UpdateState(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
     void Power_UpdateChgPct(sPowerData *data);
-    void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerVars);
+    void Power_Tasks(tPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerVars);
     
 #ifdef	__cplusplus
 }

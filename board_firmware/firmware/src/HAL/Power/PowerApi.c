@@ -9,7 +9,7 @@
 #define BATT_LOW_TH 10.0 // 10% or ~3.2V
 #define BATT_LOW_HYST 10.0 // Battery must be charged at least this value higher than BATT_LOW_TH
 
-void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
+void Power_Init(tPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
     // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
     BQ24297_InitHardware(config.BQ24297Config, vars.BQ24297WriteVars, &(data->BQ24297Data));
@@ -21,7 +21,7 @@ void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_Vref_Ch, config.EN_Vref_Bit, vars.EN_Vref_Val);
 }
 
-void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
+void Power_Write(tPowerConfig config, sPowerWriteVars *vars)
 {    
     // Current power state values
 
@@ -57,7 +57,7 @@ void Power_Write(sPowerConfig config, sPowerWriteVars *vars)
 
 }
 
-void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
+void Power_Up(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
     //uint32_t achievedFrequencyHz=0;
     
@@ -168,7 +168,7 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 
 }
 
-void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
+void Power_Down(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
     // Turn off WiFi interface to save power
     WifiConnectionDown();
@@ -207,7 +207,7 @@ void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 }
 
 
-void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
+void Power_UpdateState(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
     // Set power state immediately if POWER_DOWN is requested
     if(data->requestedPowerState == DO_POWER_DOWN) data->powerState = POWER_DOWN;
@@ -300,7 +300,7 @@ void Power_UpdateChgPct(sPowerData *data)
     }
 }
 
-void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
+void Power_Tasks(tPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerWriteVars)
 {
     // If we haven't initialized the battery management settings, do so now
     if (PowerData->BQ24297Data.initComplete == false)
@@ -334,7 +334,7 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
     Power_UpdateState(PowerConfig, PowerData, powerWriteVars);
 }
 
-void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
+void Power_Update_Settings(tPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
     // Change charging/other power settings based on current status
        
@@ -345,7 +345,7 @@ void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVar
     BQ24297_ChargeEnable(config.BQ24297Config, &vars->BQ24297WriteVars, &data->BQ24297Data, data->BQ24297Data.status.batPresent);
 }
 
-void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool sleep)
+void Power_USB_Sleep_Update(tPowerConfig config, sPowerData *data, bool sleep)
 {
     data->USBSleep = sleep;
 }
