@@ -364,7 +364,7 @@ void ADC_ConversionComplete(const AInModule* module)
     g_BoardData.AInState.Data[moduleId].AInTaskState = AINTASK_IDLE;
 }
 
-void ADC_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, BoardData* boardData)
+void ADC_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, tBoardData* boardData)
 {
     size_t moduleIndex = 0;
     POWER_STATE powerState = boardData->PowerData.powerState;

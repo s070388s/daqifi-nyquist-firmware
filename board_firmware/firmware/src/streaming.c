@@ -123,7 +123,7 @@ void Streaming_UpdateState(const tBoardConfig* boardConfig, BoardRuntimeConfig* 
     Streaming_Start(&boardConfig->StreamingConfig, &runtimeConfig->StreamingConfig);
 }
     
-void Streaming_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, BoardData* boardData)
+void Streaming_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, tBoardData* boardData)
 {
     if (!runtimeConfig->StreamingConfig.IsEnabled)
     {

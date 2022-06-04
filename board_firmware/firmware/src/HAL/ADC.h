@@ -75,7 +75,7 @@ extern "C" {
      * @param runtimeConfig The runtime config to use
      * @param powerState The power state of the board
      */
-    void ADC_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, BoardData* boardData);
+    void ADC_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, tBoardData* boardData);
     
     /**
      * Locates an index for the given channel id

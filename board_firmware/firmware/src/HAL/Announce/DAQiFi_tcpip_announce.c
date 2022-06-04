@@ -14,7 +14,7 @@
 #include "tcpip/src/tcpip_private.h"
 
 extern const NanopbFlagsArray fields_discovery;
-extern size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen);
+extern size_t Nanopb_Encode(tBoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen);
 
 size_t DAQiFi_TCPIP_ANNOUNCE_Create(uint8_t *buffer, size_t bufferLen)
 {

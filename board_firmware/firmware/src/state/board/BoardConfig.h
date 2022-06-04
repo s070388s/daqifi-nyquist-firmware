@@ -109,9 +109,9 @@ extern const tBoardConfig g_NQ2BoardConfig;
  */
 extern const tBoardConfig g_NQ3BoardConfig;
 
-/*!
- * Initializes the g_BoardConfig structure for the current board
- * @param[in] pTopLevelSettings Board settings
+/*! Function used for initializaing the board
+ * @param[in] pTopLevelSettings Pointer to a data structure with the top level
+ * settings used to configure the board
  */
 void InitBoardConfig(TopLevelSettings* pTopLevelSettings);
 

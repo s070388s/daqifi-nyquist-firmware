@@ -8,7 +8,7 @@
 #include "DaqifiOutMessage.pb.h"
 #include "state/board/BoardConfig.h"
 
-size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen)
+size_t Nanopb_Encode(tBoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen)
 {
     // If we cannot encode a whole message, bail out
     if (bufferLen < DaqifiOutMessage_size) return 0;

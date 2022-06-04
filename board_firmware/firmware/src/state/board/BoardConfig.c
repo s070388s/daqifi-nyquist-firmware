@@ -1,8 +1,25 @@
+/*! @file BoardConfig.c
+ * @brief Implementation of the board configuration module
+ * 
+ * @author Javier Longares Abaiz
+ * j.longares@abluethinginthecloud.com
+ * 
+ * A Blue Thing In The Cloud S.L.U.
+ *   === When Technology becomes art ===
+ * www.abluethinginthecloud.com
+ *     
+ */
+
 #include "BoardConfig.h"
 
+//! Main board configuration variable
 tBoardConfig g_BoardConfig;
 
-void InitBoardConfig(TopLevelSettings* pTopLevelSettings)
+/*! Function used for initializaing the board
+ * @param[in] pTopLevelSettings Pointer to a data structure with the top level
+ * settings used to configure the board
+ */
+void InitBoardConfig( TopLevelSettings* pTopLevelSettings )
 {
     // Initialize variable to known state
     memset(&g_BoardConfig, 0, sizeof(g_BoardConfig));
@@ -23,8 +40,14 @@ void InitBoardConfig(TopLevelSettings* pTopLevelSettings)
     
     // Set board version information from settings memory
     g_BoardConfig.BoardVariant = pTopLevelSettings->boardVariant;
-    memcpy(&g_BoardConfig.boardFirmwareRev, &pTopLevelSettings->boardFirmwareRev, 16);
-    memcpy(&g_BoardConfig.boardHardwareRev, &pTopLevelSettings->boardHardwareRev, 16);
+    memcpy(                                                                 \
+                            &g_BoardConfig.boardFirmwareRev,                \
+                            &pTopLevelSettings->boardFirmwareRev,           \
+                            BOARDCONFIG_FIRMWARE_REVISION_SIZE );
+    memcpy(                                                                 \
+                            &g_BoardConfig.boardHardwareRev,                \
+                            &pTopLevelSettings->boardHardwareRev,           \
+                            BOARDCONFIG_HARDWARE_REVISION_SIZE );
     g_BoardConfig.boardSerialNumber = ((uint64_t)DEVSN1 << 32) | DEVSN0;
 }
 

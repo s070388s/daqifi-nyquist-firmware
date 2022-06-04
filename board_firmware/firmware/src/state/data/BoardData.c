@@ -1,10 +1,22 @@
+/*! @file BoardConfig.c
+ * @brief Implementation of the board data module
+ * 
+ * @author Javier Longares Abaiz
+ * j.longares@abluethinginthecloud.com
+ * 
+ * A Blue Thing In The Cloud S.L.U.
+ *   === When Technology becomes art ===
+ * www.abluethinginthecloud.com
+ *     
+ */
+
 #include "BoardData.h"
 
 #include "Util/NullLockProvider.h"
 #include "../../HAL/ADC.h"
-BoardData __attribute__((coherent)) g_BoardData;
+tBoardData __attribute__((coherent)) g_BoardData;
 
-void InitializeBoardData(BoardData* boardData)
+void InitializeBoardData(tBoardData* boardData)
 {    
     // Initialize variable to known state
     memset(&g_BoardData, 0, sizeof(g_BoardData));
@@ -39,4 +51,130 @@ void InitializeBoardData(BoardData* boardData)
     boardData->UIReadVars.button = false;
     boardData->wifiSettings.type = DaqifiSettings_Wifi;
     
+}
+
+
+/*! This function is used for getting a board data parameter
+ * @param[in] parameter Parameter to be get
+ * @param[in] index In case that the parameter is an array, an index can be 
+ * specified here for getting a specific member of the array
+ * @return Parameter which is part of the global Board Configuration structure
+ */
+const void *BoardData_Get(                                                  \
+                            enum eBoardData parameter,                      \
+                            uint8_t index )
+{
+    switch( parameter ){
+        case BOARDDATA_IN_ISR:
+            return &g_BoardData.InISR;
+        case BOARDDATA_DIO_LATEST:
+            return &g_BoardData.DIOLatest;
+        case BOARDDATA_DIO_SAMPLES:
+            return &g_BoardData.DIOSamples.List;
+        case BOARDATA_AIN_MODULE:
+            if( index < g_BoardData.AInState.Size ){
+                return &g_BoardData.AInState.Data[ index ];
+            }
+            return NULL;
+        case BOARDDATA_AIN_LATEST:
+            if( index < g_BoardData.AInLatest.Size ){
+                return &g_BoardData.AInLatest.Data[ index ];
+            }
+            return NULL;
+        case BOARDDATA_AIN_SAMPLES:
+            return &g_BoardData.AInSamples.List;
+        case BOARDATA_POWER_DATA:
+            return &g_BoardData.PowerData;
+        case BOARDDATA_UI_VARIABLES:
+            return &g_BoardData.UIReadVars;
+        case BOARDDATA_WIFI_SETTINGS:
+            return &g_BoardData.wifiSettings;
+        case BOARDDATA_STREAMING_TIMESTAMP:
+            return &g_BoardData.StreamTrigStamp;
+        case BOARDDATA_NUM_OF_FIELDS:
+        default:
+            return NULL;
+    }
+}
+
+/*! This function is used for setting a board data parameter
+ * @param[in] parameter Parameter to be set
+ * @param[in] index In case that the parameter is an array, an index can be 
+ * specified here for setting a specific member of the array
+ * @param[in] pSetValue Pointer to the configuration value to be set
+ */
+void BoardData_Set(                                                         \
+                            enum eBoardData parameter,                      \
+                            uint8_t index,                                  \
+                            const void *pSetValue )
+{
+    switch( parameter ){
+        case BOARDDATA_IN_ISR:
+            memcpy(                                                         \
+                            &g_BoardData.InISR,                             \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.InISR) );
+            break;
+        case BOARDDATA_DIO_LATEST:
+            memcpy(                                                         \
+                            &g_BoardData.DIOLatest,                         \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.DIOLatest) );
+            break;
+        case BOARDDATA_DIO_SAMPLES:
+            memcpy(                                                         \
+                            &g_BoardData.DIOSamples.List,                   \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.DIOSamples) );
+            break;
+        case BOARDATA_AIN_MODULE:
+            if( index < g_BoardData.AInState.Size ){
+                memcpy(                                                     \
+                            &g_BoardData.AInState.Data[ index ],            \
+                            pSetValue,                                      \
+                            sizeof(AInSample) );
+            }
+            break;
+        case BOARDDATA_AIN_LATEST:
+            if( index < g_BoardData.AInLatest.Size ){
+                memcpy(                                                     \
+                            &g_BoardData.AInLatest.Data[ index ],           \
+                            pSetValue,                                      \
+                            sizeof(AInSample) );
+            }
+            break;
+        case BOARDDATA_AIN_SAMPLES:
+            memcpy(                                                         \
+                            &g_BoardData.AInSamples.List,                   \
+                            pSetValue,                                      \
+                            sizeof(HeapList) );
+            break;
+        case BOARDATA_POWER_DATA:
+            memcpy(                                                         \
+                            &g_BoardData.PowerData,                         \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.PowerData) );
+            break;
+        case BOARDDATA_UI_VARIABLES:
+            memcpy(                                                         \
+                            &g_BoardData.UIReadVars,                        \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.UIReadVars) );
+            break;
+        case BOARDDATA_WIFI_SETTINGS:
+            memcpy(                                                         \
+                            &g_BoardData.wifiSettings,                      \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.wifiSettings) );
+            break;
+        case BOARDDATA_STREAMING_TIMESTAMP:
+            memcpy(                                                         \
+                            &g_BoardData.StreamTrigStamp,                   \
+                            pSetValue,                                      \
+                            sizeof(g_BoardData.StreamTrigStamp) );
+            break;
+        case BOARDDATA_NUM_OF_FIELDS:
+        default:
+            break;
+    }
 }
