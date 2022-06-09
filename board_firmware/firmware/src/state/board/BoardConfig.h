@@ -113,7 +113,7 @@ extern const tBoardConfig g_NQ3BoardConfig;
  * @param[in] pTopLevelSettings Pointer to a data structure with the top level
  * settings used to configure the board
  */
-void InitBoardConfig(TopLevelSettings* pTopLevelSettings);
+void BoardConfig_Init(TopLevelSettings* pTopLevelSettings);
 
 /*! This function is used for getting a board configuration parameter
  * @param[in] parameter Parameter to be get

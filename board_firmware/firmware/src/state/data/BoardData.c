@@ -16,40 +16,57 @@
 #include "../../HAL/ADC.h"
 tBoardData __attribute__((coherent)) g_BoardData;
 
-void InitializeBoardData(tBoardData* boardData)
+/*! Initializes the board data 
+ * @param[in] pBoardData Pointer to the data structure to be initialized
+ */
+void BoardData_Init( void )
 {    
+    tBoardData *pBoardData = &g_BoardData;
+    
     // Initialize variable to known state
-    memset(&g_BoardData, 0, sizeof(g_BoardData));
+    memset( &g_BoardData, 0, sizeof(g_BoardData) );
         
-    memset(&boardData->DIOLatest, 0, sizeof(DIOSample));
-    DIOSampleList_Initialize(&boardData->DIOSamples, MAX_DIO_SAMPLE_COUNT, false, &g_NullLockProvider);
+    memset( &pBoardData->DIOLatest, 0, sizeof(DIOSample) );
+    DIOSampleList_Initialize(                                               \
+                            &pBoardData->DIOSamples,                        \
+                            MAX_DIO_SAMPLE_COUNT,                           \
+                            false,                                          \
+                            &g_NullLockProvider);
     
-    memset(&boardData->AInState, 0, sizeof(AInModDataArray));
+    memset(&pBoardData->AInState, 0, sizeof(AInModDataArray));
     
-    memset(&boardData->AInLatest, 0, sizeof(AInSampleArray));
-    boardData->AInLatest.Size = MAX_AIN_DATA_MOD;
-    AInSampleList_Initialize(&boardData->AInSamples, MAX_AIN_SAMPLE_COUNT, false, &g_NullLockProvider);
+    memset(&pBoardData->AInLatest, 0, sizeof(AInSampleArray));
+    pBoardData->AInLatest.Size = MAX_AIN_DATA_MOD;
+    AInSampleList_Initialize(                                               \
+                            &pBoardData->AInSamples,                        \
+                            MAX_AIN_SAMPLE_COUNT,                           \
+                            false,                                          \
+                            &g_NullLockProvider );
     
-    // Set default battery values for debugging - allows power on without ADC active
+    // Set default battery values for debugging - allows power on without 
+    // ADC active
     // TODO: This should be omitted for production
-    // size_t index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_VBATT);
+    // size_t index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, 
+    // ADC_CHANNEL_VBATT);
     // boardData->AInLatest.Data[index].Value = 4095;
     
-    boardData->PowerData.powerState = MICRO_ON;
-    boardData->PowerData.battLow = false;
-    boardData->PowerData.battVoltage = 0.0;
-    boardData->PowerData.chargePct = 0;
-    boardData->PowerData.USBSleep = false;
-    boardData->PowerData.requestedPowerState = NO_CHANGE;       // Initialize to NO_CHANGE nominally for debugging, can use DO_POWER_UP to power immediately
-    boardData->PowerData.powerDnAllowed = false;
-    boardData->PowerData.externalPowerSource = NO_EXT_POWER;
-    boardData->PowerData.BQ24297Data.chargeAllowed = true;
+    pBoardData->PowerData.powerState = MICRO_ON;
+    pBoardData->PowerData.battLow = false;
+    pBoardData->PowerData.battVoltage = 0.0;
+    pBoardData->PowerData.chargePct = 0;
+    pBoardData->PowerData.USBSleep = false;
+    // Initialize to NO_CHANGE nominally for debugging, can use DO_POWER_UP to 
+    // power immediately
+    pBoardData->PowerData.requestedPowerState = NO_CHANGE;
+    pBoardData->PowerData.powerDnAllowed = false;
+    pBoardData->PowerData.externalPowerSource = NO_EXT_POWER;
+    pBoardData->PowerData.BQ24297Data.chargeAllowed = true;
    
     
-    boardData->UIReadVars.LED1 = false;
-    boardData->UIReadVars.LED2 = false;
-    boardData->UIReadVars.button = false;
-    boardData->wifiSettings.type = DaqifiSettings_Wifi;
+    pBoardData->UIReadVars.LED1 = false;
+    pBoardData->UIReadVars.LED2 = false;
+    pBoardData->UIReadVars.button = false;
+    pBoardData->wifiSettings.type = DaqifiSettings_Wifi;
     
 }
 
@@ -108,6 +125,10 @@ void BoardData_Set(                                                         \
                             uint8_t index,                                  \
                             const void *pSetValue )
 {
+    if( NULL == pSetValue ){
+        return;
+    }
+    
     switch( parameter ){
         case BOARDDATA_IN_ISR:
             memcpy(                                                         \

@@ -132,9 +132,9 @@ void APP_Initialize(void)
     }
     
     // Load board config structures with the correct board variant values
-    InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
-    InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
-    InitializeBoardData(&g_BoardData);
+    BoardConfig_Init(&tmpTopLevelSettings.settings.topLevelSettings);
+    BoardRunTimeConfig_Init(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
+    BoardData_Init();
     
     // Try to load WiFiSettings from NVM - if this fails, store default settings to NVM (first run after a program)
     DaqifiSettings tmpWifiSettings;

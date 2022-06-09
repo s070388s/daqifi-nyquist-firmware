@@ -19,7 +19,7 @@ tBoardConfig g_BoardConfig;
  * @param[in] pTopLevelSettings Pointer to a data structure with the top level
  * settings used to configure the board
  */
-void InitBoardConfig( TopLevelSettings* pTopLevelSettings )
+void BoardConfig_Init( TopLevelSettings* pTopLevelSettings )
 {
     // Initialize variable to known state
     memset(&g_BoardConfig, 0, sizeof(g_BoardConfig));
@@ -103,9 +103,10 @@ void BoardConfig_Set(                                                       \
                             uint8_t index,                                  \
                             const void *pSetValue )
 {
-    if( pSetValue == NULL ){
+    if( NULL == pSetValue ){
         return;
     }
+    
     switch( parameter ){
         case BOARDCONFIG_VARIANT:
             g_BoardConfig.BoardVariant = *((uint8_t *)pSetValue );

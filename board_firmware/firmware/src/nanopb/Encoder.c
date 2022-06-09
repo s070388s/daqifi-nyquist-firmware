@@ -622,7 +622,7 @@ size_t Nanopb_Encode(tBoardData* state, const NanopbFlagsArray* fields, uint8_t*
     }
 }
 
-uint8_array Nanopb_Decode(const uint8_t* buffer, const size_t bufferLen, const NanopbFlagsArray* fields, BoardRuntimeConfig* state)
+uint8_array Nanopb_Decode(const uint8_t* buffer, const size_t bufferLen, const NanopbFlagsArray* fields, tBoardRuntimeConfig* state)
 {
     DaqifiOutMessage message = DaqifiOutMessage_init_default;
     

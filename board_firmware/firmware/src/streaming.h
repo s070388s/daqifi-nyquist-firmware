@@ -31,7 +31,7 @@ extern "C" {
      * @param boardConfig The haardware configuration
      * @param runtimeConfig The runtime configuration
      */
-    void Streaming_UpdateState(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig);
+    void Streaming_UpdateState(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig);
     
     /**
      * Called to write streaming data to the underlying tasks
@@ -39,7 +39,7 @@ extern "C" {
      * @param runtimeConfig The runtime configuration
      * @param boardData The board data
      */
-    void Streaming_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, tBoardData* boardData);
+    void Streaming_Tasks(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig, tBoardData* boardData);
     
     /**
      * Initializes and starts the timestamp timer

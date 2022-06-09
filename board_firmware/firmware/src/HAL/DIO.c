@@ -82,7 +82,7 @@ bool DIO_ReadSampleByMask(DIOSample* sample, const DIOArray* boardConfig, DIORun
     return true;
 }
 
-void DIO_Tasks(const DIOArray* boardConfig, BoardRuntimeConfig* runtimeConfig, DIOSample* latest, DIOSampleList* streamingSamples)
+void DIO_Tasks(const DIOArray* boardConfig, tBoardRuntimeConfig* runtimeConfig, DIOSample* latest, DIOSampleList* streamingSamples)
 {
 //    // For debugging streaming frequency only!
 //    runtimeConfig->Data[0].Value = !runtimeConfig->Data[0].Value;

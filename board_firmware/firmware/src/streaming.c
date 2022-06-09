@@ -108,7 +108,7 @@ void Streaming_Stop(const tStreamingConfig* config, StreamingRuntimeConfig* runt
     DRV_TMR_CounterValue32BitSet(runtimeConfig->TimerHandle, 0);
 }
 
-void Streaming_UpdateState(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig)
+void Streaming_UpdateState(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig)
 {
     Streaming_Stop(&boardConfig->StreamingConfig, &runtimeConfig->StreamingConfig);
     
@@ -123,7 +123,7 @@ void Streaming_UpdateState(const tBoardConfig* boardConfig, BoardRuntimeConfig* 
     Streaming_Start(&boardConfig->StreamingConfig, &runtimeConfig->StreamingConfig);
 }
     
-void Streaming_Tasks(const tBoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, tBoardData* boardData)
+void Streaming_Tasks(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig, tBoardData* boardData)
 {
     if (!runtimeConfig->StreamingConfig.IsEnabled)
     {

@@ -108,10 +108,9 @@ void BoardData_Set(                                                         \
  */
 extern tBoardData __attribute__((coherent)) g_BoardData;
 
-/**
- * Initializes the board data 
+/*! Initializes the board data 
  */
-void InitializeBoardData(tBoardData* boardData);
+void BoardData_Init( void );
     
 #ifdef __cplusplus
 }
