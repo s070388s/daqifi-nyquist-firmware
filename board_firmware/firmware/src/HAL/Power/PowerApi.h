@@ -1,8 +1,13 @@
-/* 
- * File:   PowerApi.h
- * Author: Daniel
- *
- * Created on January 11, 2017, 7:06 PM
+/*! @file PowerApi.h
+ * @brief Interface of the Power API library
+ * 
+ * @author Javier Longares Abaiz
+ * j.longares@abluethinginthecloud.com
+ * 
+ * A Blue Thing In The Cloud S.L.U.
+ *   === When Technology becomes art ===
+ * www.abluethinginthecloud.com
+ *     
  */
 
 #ifndef POWERAPI_H
@@ -103,17 +108,20 @@ extern "C" {
        unsigned char EN_12V_Val;
        sBQ24297WriteVars BQ24297WriteVars;
 
-    } sPowerWriteVars;
+    } tPowerWriteVars;
     
-    void Power_Init(tPowerConfig config, tPowerData *data, sPowerWriteVars vars);
-    void Power_Update_Settings(tPowerConfig config, tPowerData *data, sPowerWriteVars *vars);
-    void Power_USB_Sleep_Update(tPowerConfig config, tPowerData *data, bool connected);
-    void Power_Write(tPowerConfig config, sPowerWriteVars *vars);
-    void Power_Up(tPowerConfig config, tPowerData *data, sPowerWriteVars *vars);
-    void Power_Down(tPowerConfig configs, tPowerData *data, sPowerWriteVars *vars);
-    void Power_UpdateState(tPowerConfig config, tPowerData *data, sPowerWriteVars *vars);
-    void Power_UpdateChgPct(tPowerData *data);
-    void Power_Tasks(tPowerConfig PowerConfig, tPowerData *PowerData, sPowerWriteVars *powerVars);
+/*! Fucntion to initialize the Power API and the device's power */
+void Power_Init(void);
+    
+/*! This function is used for updating the sleep state 
+ * @param[in] sleep Sleep state to be updated, depending on if USB is connected
+ * or not
+ */
+void Power_USB_Sleep_Update( bool sleep );
+
+/*! This function is intended to be called continuously in order to perform the
+ power tasks */
+void Power_Tasks( void );
     
 #ifdef	__cplusplus
 }

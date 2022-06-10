@@ -141,7 +141,7 @@ void BoardRunTimeConfig_Set(                                                \
             memcpy(                                                         \
                     &g_BoardRuntimeConfig.PowerWriteVars,                   \
                     pSetValue,                                              \
-                    sizeof(sPowerWriteVars) );
+                    sizeof(tPowerWriteVars) );
             break;
             
         case BOARDRUNTIMECONFIG_UI_WRITE_VARIABLES:

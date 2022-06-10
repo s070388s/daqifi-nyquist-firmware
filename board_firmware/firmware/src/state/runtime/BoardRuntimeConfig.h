@@ -99,7 +99,7 @@ typedef struct sBoardRuntimeConfig
     AInRuntimeArray AInChannels;
 
     // Power Variables that can be written
-    sPowerWriteVars PowerWriteVars;
+    tPowerWriteVars PowerWriteVars;
 
     //! UI Variables that can be written
     sUIWriteVars UIWriteVars;
