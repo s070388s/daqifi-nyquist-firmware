@@ -77,7 +77,7 @@ extern "C" {
         PORTS_CHANNEL USB_Dn_Ch; 
         PORTS_BIT_POS USB_Dn_Bit;
        
-       sBQ24297Config BQ24297Config;
+       tBQ24297Config BQ24297Config;
 
     } tPowerConfig;
 
@@ -95,7 +95,7 @@ extern "C" {
        double battVoltage;
        bool pONBattPresent;
        
-       sBQ24297Data BQ24297Data;
+       tBQ24297Data BQ24297Data;
 
     }tPowerData;
     
@@ -106,7 +106,7 @@ extern "C" {
        unsigned char EN_5_10V_Val;
        unsigned char EN_5V_ADC_Val;
        unsigned char EN_12V_Val;
-       sBQ24297WriteVars BQ24297WriteVars;
+       tBQ24297WriteVars BQ24297WriteVars;
 
     } tPowerWriteVars;
     

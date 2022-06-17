@@ -44,10 +44,7 @@ void Power_Init(void)
     
     // NOTE: This is called before the RTOS is running.  
     // Don't call any RTOS functions here!
-    BQ24297_InitHardware(                                                   \
-                            pPowerConfig->BQ24297Config,                    \
-                            pPowerWriteVariables->BQ24297WriteVars,         \
-                            (void *)&pPowerData->BQ24297Data );
+    BQ24297_InitHardware();
     
     PLIB_PORTS_PinWrite(                                                    \
                             PORTS_ID_0,                                     \
@@ -418,10 +415,7 @@ void Power_Tasks( void )
 
     // If we haven't initialized the battery management settings, do so now
     if( pPowerData->BQ24297Data.initComplete == false ){
-        BQ24297_InitSettings(                                               \
-                  pPowerConfig->BQ24297Config,                      \
-                  pPowerWriteVariables->BQ24297WriteVars,                         \
-                  &( pPowerData->BQ24297Data ) );
+        BQ24297_InitSettings();
     }
 
     // Update power settings based on BQ24297 interrupt change
@@ -441,10 +435,7 @@ void Power_Tasks( void )
         vTaskDelay(100 / portTICK_PERIOD_MS);
         // Update battery management status - plugged in (USB, charger, etc),
         // charging/discharging, etc.
-        BQ24297_UpdateStatus(                                               \
-                  pPowerConfig->BQ24297Config,                              \
-                  pPowerWriteVariables->BQ24297WriteVars,                   \
-                  &( pPowerData->BQ24297Data ) );
+        BQ24297_UpdateStatus();
         Power_Update_Settings();
         pPowerData->BQ24297Data.intFlag = false; // Clear flag
     }
@@ -467,17 +458,10 @@ void Power_Update_Settings(void)
     // Change charging/other power settings based on current status
        
     // Check new power source and set parameters accordingly
-    BQ24297_AutoSetILim(                                                    \
-                  pPowerConfig->BQ24297Config,                              \
-                  (void *)&pPowerWriteVariables->BQ24297WriteVars,                  \
-                  (void *)&pPowerData->BQ24297Data );
+    BQ24297_AutoSetILim( );
     
     // Enable/disable charging
-    BQ24297_ChargeEnable(                                                   \
-                  pPowerConfig->BQ24297Config,                               \
-                  (void *)&pPowerWriteVariables->BQ24297WriteVars,                  \
-                  (void *)&pPowerData->BQ24297Data,                                 \
-                  pPowerData->BQ24297Data.status.batPresent );
+    BQ24297_ChargeEnable( );
 }
 
 /*! This function is used for updating the sleep state 
