@@ -1,19 +1,14 @@
-/* ************************************************************************** */
-/** UI.h
-
-  @Company
-    DAQifi
-
-  @File Name
-    UI.h
-
-  @Summary
-    This file contains user interface (LED and button) handling function headers.
-
-  @Description
-    Describe the purpose of this file.
+/*! @file UI.h
+ * @brief Interface of the board user interface library
+ * 
+ * @author Javier Longares Abaiz
+ * j.longares@abluethinginthecloud.com
+ * 
+ * A Blue Thing In The Cloud S.L.U.
+ *   === When Technology becomes art ===
+ * www.abluethinginthecloud.com
+ *     
  */
-/* ************************************************************************** */
 
 #ifndef _UI_H    /* Guard against multiple inclusion */
 #define _UI_H
@@ -98,7 +93,7 @@ extern "C" {
         Function should be called periodically (~100ms) from a FreeRTOS task
 
      */
-    void Button_Tasks(tUIConfig config, tUIReadVars *UIReadVars, tPowerData *PowerData);
+    void Button_Tasks( void );
     
         /**
       @Function
@@ -111,7 +106,7 @@ extern "C" {
         Function should be called periodically (100ms) from a FreeRTOS task
 
      */
-    void LED_Tasks(tUIConfig config, tPowerData *PowerData, tUIReadVars *UIReadVars, bool streamingFlag);
+    void LED_Tasks( void );
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus
