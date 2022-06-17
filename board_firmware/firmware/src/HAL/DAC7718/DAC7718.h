@@ -65,7 +65,7 @@ extern "C" {
      * @param mode
      * @return 
      */
-    uint8_t DAC7718_NewConfig(DAC7718Config *newDAC7718Config);
+    uint8_t DAC7718_NewConfig(const DAC7718Config *newDAC7718Config);
     
     /**
      * Gets a handle to the config object with the specified id
