@@ -87,7 +87,7 @@ const void *BoardData_Get(                                                  \
         case BOARDDATA_DIO_LATEST:
             return &g_BoardData.DIOLatest;
         case BOARDDATA_DIO_SAMPLES:
-            return &g_BoardData.DIOSamples.List;
+            return &g_BoardData.DIOSamples;
         case BOARDATA_AIN_MODULE:
             if( index < g_BoardData.AInState.Size ){
                 return &g_BoardData.AInState.Data[ index ];
@@ -99,7 +99,7 @@ const void *BoardData_Get(                                                  \
             }
             return NULL;
         case BOARDDATA_AIN_SAMPLES:
-            return &g_BoardData.AInSamples.List;
+            return &g_BoardData.AInSamples;
         case BOARDATA_POWER_DATA:
             return &g_BoardData.PowerData;
         case BOARDDATA_UI_VARIABLES:

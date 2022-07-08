@@ -402,7 +402,7 @@ static scpi_result_t SCPI_StartStreaming(scpi_t * context)
         //No freq given just stream with the current value
     }
     
-    Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
+    Streaming_UpdateState();
     g_BoardRuntimeConfig.StreamingConfig.IsEnabled = true;
     return SCPI_RES_OK;
 }
@@ -411,7 +411,7 @@ static scpi_result_t SCPI_StopStreaming(scpi_t * context)
 {
     g_BoardRuntimeConfig.StreamingConfig.IsEnabled = false;
     
-    Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
+    Streaming_UpdateState();
     
     return SCPI_RES_OK;
 }
