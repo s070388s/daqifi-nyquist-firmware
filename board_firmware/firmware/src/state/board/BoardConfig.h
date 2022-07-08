@@ -43,6 +43,8 @@ enum eBoardParameter{
     BOARDCONFIG_SERIAL_NUMBER,
     //! DIO Channel element
     BOARDCONFIG_DIO_CHANNEL,
+    //! Number of DIO channels
+    BOARDCONFIG_NUM_OF_DIO_CHANNELS,
     //! AIN Module element
     BOARDCONFIG_AIN_MODULE,
     //! Power Config element

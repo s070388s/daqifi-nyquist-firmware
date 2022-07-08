@@ -75,6 +75,8 @@ const void *BoardConfig_Get(                                                \
                 return &g_BoardConfig.DIOChannels.Data[ index ];
             }
             return NULL;
+        case BOARDCONFIG_NUM_OF_DIO_CHANNELS:
+            return &g_BoardConfig.DIOChannels.Size;
         case BOARDCONFIG_AIN_MODULE:
             if( index < g_BoardConfig.AInModules.Size ){
                 return &g_BoardConfig.AInModules.Data[ index ];

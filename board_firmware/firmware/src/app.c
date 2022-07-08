@@ -161,10 +161,10 @@ void APP_Initialize(void)
     Power_Init();
     
     // Init DIO Hardware
-    DIO_InitHardware(&g_BoardConfig.DIOChannels);
+    DIO_InitHardware();
     
 	// Write initial values
-    DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);
+    DIO_WriteStateAll();
    
 	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
     Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
