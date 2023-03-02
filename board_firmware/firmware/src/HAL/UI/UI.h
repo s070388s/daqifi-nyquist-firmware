@@ -1,14 +1,19 @@
-/*! @file UI.h
- * @brief Interface of the board user interface library
- * 
- * @author Javier Longares Abaiz
- * j.longares@abluethinginthecloud.com
- * 
- * A Blue Thing In The Cloud S.L.U.
- *   === When Technology becomes art ===
- * www.abluethinginthecloud.com
- *     
+/* ************************************************************************** */
+/** UI.h
+
+  @Company
+    DAQifi
+
+  @File Name
+    UI.h
+
+  @Summary
+    This file contains user interface (LED and button) handling function headers.
+
+  @Description
+    Describe the purpose of this file.
  */
+/* ************************************************************************** */
 
 #ifndef _UI_H    /* Guard against multiple inclusion */
 #define _UI_H
@@ -55,13 +60,13 @@ extern "C" {
         sLEDIndication LED1_Ind;
         sLEDIndication LED2_Ind;
 
-    } tUIConfig;
+    } sUIConfig;
     
     typedef struct sUIReadVars {
         bool LED1;
         bool LED2;
         bool button;
-    }tUIReadVars;
+    } sUIReadVars;
     
     typedef struct sUIWriteVars {
         bool LED1;
@@ -93,7 +98,7 @@ extern "C" {
         Function should be called periodically (~100ms) from a FreeRTOS task
 
      */
-    void Button_Tasks( void );
+    void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData);
     
         /**
       @Function
@@ -106,7 +111,7 @@ extern "C" {
         Function should be called periodically (100ms) from a FreeRTOS task
 
      */
-    void LED_Tasks( void );
+    void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars, bool streamingFlag);
 
     /* Provide C++ Compatibility */
 #ifdef __cplusplus

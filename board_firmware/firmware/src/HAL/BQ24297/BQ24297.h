@@ -1,13 +1,8 @@
-/*! @file BQ24297.h
- * @brief Header of the BQ24297 driver
- * 
- * @author Javier Longares Abaiz
- * j.longares@abluethinginthecloud.com
- * 
- * A Blue Thing In The Cloud S.L.U.
- *   === When Technology becomes art ===
- * www.abluethinginthecloud.com
- *     
+/* 
+ * File:   BQ24297.h
+ * Author: Chris Lange
+ *
+ * Created on March 12, 2017, 6:45 PM
  */
 
 #ifndef BQ24297_H
@@ -71,7 +66,7 @@ typedef struct
 	PORTS_BIT_POS STAT_Bit;
     SYS_MODULE_INDEX I2C_Index;
     unsigned char I2C_Address;
- } tBQ24297Config;
+ } sBQ24297Config;
 
   typedef struct sBQ24297Data{
 	unsigned char INT_Val;
@@ -81,29 +76,49 @@ typedef struct
     bool initComplete;
     BQ24297_STATUS status;
     DRV_HANDLE I2C_Handle;
- } tBQ24297Data;
+ } sBQ24297Data;
  
    typedef struct sBQ24297WriteVars{
 
 	unsigned char OTG_Val;	// Input type selection (Low for USB port, High for ac-dc adapter)
 	unsigned char CE_Val;	// USB port input current limit selection when SEL = Low. (Low = 100 mA, High = 500 mA)
- } tBQ24297WriteVars;
+ } sBQ24297WriteVars;
  
     /**
      * Initializes hardware
      */
-    void BQ24297_InitHardware( void );
+    void BQ24297_InitHardware(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
  
     /**
      * Sets the default variable values via I2C
      */
-    void BQ24297_InitSettings( void );
+    void BQ24297_InitSettings(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
     
-    void BQ24297_ChargeEnable( void );
+    /**
+    * Reads data from BQ24297.
+    * TODO:
+    * @param config
+    * @param data 
+    * @return
+    */
+    uint8_t BQ24297_Read_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg);
+    
+    /**
+    * Writes data to the the BQ24297.
+    * TODO:
+    * @param config
+    * @param write
+    * @return
+    */
+    void BQ24297_Write_I2C(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data data, uint8_t reg, uint8_t txData);
+    
+    void BQ24297_ChargeEnable(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data, bool chargeEnable);
 
-    void BQ24297_UpdateStatus( void );
+    void BQ24297_UpdateStatus(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
     
-    void BQ24297_AutoSetILim( void );
+    void BQ24297_ForceDPDM(sBQ24297Config config, sBQ24297WriteVars write, sBQ24297Data *data);
+    
+    void BQ24297_AutoSetILim(sBQ24297Config config, sBQ24297WriteVars *write, sBQ24297Data *data);
 
 
     

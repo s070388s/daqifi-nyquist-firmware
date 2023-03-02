@@ -132,9 +132,9 @@ void APP_Initialize(void)
     }
     
     // Load board config structures with the correct board variant values
-    BoardConfig_Init(&tmpTopLevelSettings.settings.topLevelSettings);
-    BoardRunTimeConfig_Init(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
-    BoardData_Init();
+    InitBoardConfig(&tmpTopLevelSettings.settings.topLevelSettings);
+    InitBoardRuntimeConfig(tmpTopLevelSettings.settings.topLevelSettings.boardVariant);
+    InitializeBoardData(&g_BoardData);
     
     // Try to load WiFiSettings from NVM - if this fails, store default settings to NVM (first run after a program)
     DaqifiSettings tmpWifiSettings;
@@ -158,17 +158,17 @@ void APP_Initialize(void)
     if(tmpTopLevelSettings.settings.topLevelSettings.calVals) LoadADCCalSettings(DaqifiSettings_UserAInCalParams, &g_BoardRuntimeConfig.AInChannels);
 
  	// Power initialization - enables 3.3V rail by default - other power functions are in power task
-    Power_Init();
+    Power_Init(g_BoardConfig.PowerConfig, &g_BoardData.PowerData, g_BoardRuntimeConfig.PowerWriteVars);
     
     // Init DIO Hardware
-    DIO_InitHardware();
+    DIO_InitHardware(&g_BoardConfig.DIOChannels);
     
 	// Write initial values
-    DIO_WriteStateAll();
+    DIO_WriteStateAll(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels);
    
-	TimestampTimer_Init();
-    Streaming_Init();
-    Streaming_UpdateState();
+	TimestampTimer_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
+    Streaming_Init(&g_BoardConfig.StreamingConfig, &g_BoardRuntimeConfig.StreamingConfig);
+    Streaming_UpdateState(&g_BoardConfig, &g_BoardRuntimeConfig);
 }
 
 
@@ -182,7 +182,7 @@ void APP_Initialize(void)
 void APP_Tasks(void)
 {   
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
-    Streaming_Tasks( &g_BoardData );
+    Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     
     // Don't do anything else until the board powers on
     if (g_BoardData.PowerData.powerState == MICRO_ON)

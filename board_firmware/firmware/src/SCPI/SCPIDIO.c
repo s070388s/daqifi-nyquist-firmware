@@ -322,7 +322,7 @@ static scpi_result_t SCPI_GPIOSingleStateGet(uint8_t id, bool* result)
     
     DIOSample sample;
     uint32_t mask = (1 << id);
-    if (!DIO_ReadSampleByMask(&sample, mask))
+    if (!DIO_ReadSampleByMask(&sample, &g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels, mask))
     {
         return SCPI_RES_ERR;
     }
@@ -336,7 +336,7 @@ static scpi_result_t SCPI_GPIOMultiStateGet(uint32_t* result)
     (*result) = 0;
     uint32_t channelMask = 0xFFFFFFFF;
     DIOSample sample;
-    if (!DIO_ReadSampleByMask(&sample, channelMask))
+    if (!DIO_ReadSampleByMask(&sample, &g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig.DIOChannels, channelMask))
     {
         return SCPI_RES_ERR;
     }

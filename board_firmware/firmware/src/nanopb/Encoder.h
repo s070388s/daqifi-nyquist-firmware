@@ -21,7 +21,7 @@ extern "C" {
      * @param bufferLen The size of the buffer
      * @return The number of bytes written to the buffer
      */
-    size_t Nanopb_Encode(tBoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen);
+    size_t Nanopb_Encode(BoardData* state, const NanopbFlagsArray* fields, uint8_t* buffer, size_t bufferLen);
 
     /**
      * Decodes the the nanopb format into the system settings object
@@ -31,7 +31,7 @@ extern "C" {
      * @param state The state object to hold the result
      * @return True on success, false otherwise
      */
-    uint8_array Nanopb_Decode(const uint8_t* buffer, const size_t bufferLen, const NanopbFlagsArray* fields, tBoardRuntimeConfig* state);
+    uint8_array Nanopb_Decode(const uint8_t* buffer, const size_t bufferLen, const NanopbFlagsArray* fields, BoardRuntimeConfig* state);
 
     void int2PBByteArray(const size_t integer, pb_bytes_array_t* byteArray, size_t maxArrayLen);
     

@@ -1,4 +1,4 @@
-
+#include "streaming.h"
 
 #include "HAL/ADC.h"
 #include "HAL/DIO.h"
@@ -6,15 +6,11 @@
 #include "nanopb/DaqifiOutMessage.pb.h"
 #include "nanopb/Encoder.h"
 #include "Util/Logger.h"
-#include "state/runtime/BoardRuntimeConfig.h"
-#include "state/board/BoardConfig.h"
-#include "state/data/BoardData.h"
-#include "streaming.h"
 
 #define UNUSED(x) (void)(x)
 void Streaming_StuffDummyData (void); // Function for debugging - fills buffer with dummy data
 
-static void Streaming_TriggerADC( AInModule* module )
+static void Streaming_TriggerADC(AInModule* module)
 {
     if (module->Type == AIn_MC12bADC)
     {
@@ -31,23 +27,13 @@ static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
     UNUSED(context);
     UNUSED(alarmCount);
     
-    AInModRuntimeArray *pRunTimeAnalogInputArray = BoardRunTimeConfig_Get(  \
-                    BOARDRUNTIMECONFIG_AIN_MODULES );
-    AInModData *pAinModuleData;
-    AInModule *pAinModuleConfig;
-    StreamingRuntimeConfig *pStreamingConfig =                              \
-                    BoardRunTimeConfig_Get(                                 \
-                                BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
     if(inHandler) return;
     inHandler = true;
     
     // On a 'System' prescale match
-    // - Read the latest DIO (if it's not streaming- otherwise we'll wind up
-    //      with an extra sample)
-    // - Read the latest ADC (if it's not streaming- otherwise we'll wind up
-    //      with an extra sample)
-    // - Disable the charger and read battery voltages (Omit the regular 
-    //      channels so we don't wind up with extra samples)
+    // - Read the latest DIO (if it's not streaming- otherwise we'll wind up with an extra sample)
+    // - Read the latest ADC (if it's not streaming- otherwise we'll wind up with an extra sample)
+    // - Disable the charger and read battery voltages (Omit the regular channels so we don't wind up with extra samples)
     // Otherwise
     // - Trigger conversions if, and only if, their prescale has been matched
     
@@ -57,138 +43,97 @@ static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
     //return;
  
     uint8_t i=0;
-    for( i=0; i < pRunTimeAnalogInputArray->Size; ++i ){
-        pAinModuleData = BoardData_Get( BOARDATA_AIN_MODULE, i );
+    for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
+    {
         // Only trigger conversions if the previous conversion is complete
-        // @TODO: Replace with ADCPrescale[i]
-        if( pAinModuleData->AInTaskState == AINTASK_IDLE &&                 \
-            pStreamingConfig->StreamCount == pStreamingConfig->StreamCountTrigger ){
-            pAinModuleConfig = BoardConfig_Get(                             \
-                    BOARDCONFIG_AIN_MODULE, i );
-            Streaming_TriggerADC( pAinModuleConfig );
+        if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
+            g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
+        {
+            Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
         }
 
     }
 
-    // @TODO: Replace with DIOPrescale
-    if( pStreamingConfig->StreamCount == pStreamingConfig->StreamCountTrigger ){ 
-        DIO_Tasks( &g_BoardData.DIOLatest, &g_BoardData.DIOSamples );
+    if (g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with DIOPrescale
+    {
+        DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);
     }
     
-    pStreamingConfig->StreamCount =                                         \
-            (pStreamingConfig->StreamCount + 1) % pStreamingConfig->MaxStreamCount;
+    g_BoardRuntimeConfig.StreamingConfig.StreamCount = (g_BoardRuntimeConfig.StreamingConfig.StreamCount + 1) % g_BoardRuntimeConfig.StreamingConfig.MaxStreamCount;
     
     inHandler = false;
 }
 
-void Streaming_Init( void )
+void Streaming_Init(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)
 {
-    tStreamingConfig *pStreamingConfig = BoardConfig_Get(                   \
-            BOARDCONFIG_STREAMING_CONFIG,                                   \
-            0 );
-    StreamingRuntimeConfig *pRuntimeStreaming = BoardRunTimeConfig_Get(     \
-            BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
     // Initialize sample trigger timer
-    pRuntimeStreaming->TimerHandle =                                        \
-            DRV_TMR_Open(                                                   \
-                            pStreamingConfig->TimerIndex,                   \
-                            pStreamingConfig->TimerIntent );
-    if( pRuntimeStreaming->TimerHandle == DRV_HANDLE_INVALID )
+    runtimeConfig->TimerHandle = DRV_TMR_Open(config->TimerIndex, config->TimerIntent);
+    if( runtimeConfig->TimerHandle == DRV_HANDLE_INVALID )
     {
         // Client cannot open the instance.
          SYS_DEBUG_BreakPoint();
     }
     
-    pRuntimeStreaming->Running = false;
+    runtimeConfig->Running = false;
 }
 
-void Streaming_Start( void )
+void Streaming_Start(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)
 {
+    UNUSED(config);
     
-    StreamingRuntimeConfig *pRuntimeStreaming = BoardRunTimeConfig_Get(     \
-            BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
-    
-    if (!pRuntimeStreaming->Running)
+    if (!runtimeConfig->Running)
     {       
-        DRV_TMR_AlarmRegister(                                              \
-                pRuntimeStreaming->TimerHandle,                             \
-                pRuntimeStreaming->ClockDivider,                            \
-                true,                                                       \
-                0,                                                          \
-                Streaming_TimerHandler );
+        DRV_TMR_AlarmRegister(runtimeConfig->TimerHandle,
+            runtimeConfig->ClockDivider,
+            true,
+            0,
+            Streaming_TimerHandler);
         
-        DRV_TMR_Start( pRuntimeStreaming->TimerHandle );
+        DRV_TMR_Start(runtimeConfig->TimerHandle);
         
-        pRuntimeStreaming->Running = true;
+        runtimeConfig->Running = true;
     }
     
 }
 
-void Streaming_Stop( void )
+void Streaming_Stop(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)
 {
-    StreamingRuntimeConfig *pRuntimeStreaming = BoardRunTimeConfig_Get(     \
-            BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
-    
-    if( pRuntimeStreaming->Running ){
-        DRV_TMR_Stop(pRuntimeStreaming->TimerHandle);
-        DRV_TMR_AlarmDeregister(pRuntimeStreaming->TimerHandle);
-        pRuntimeStreaming->Running = false;
+    UNUSED(config);
+    if (runtimeConfig->Running)
+    {
+        DRV_TMR_Stop(runtimeConfig->TimerHandle);
+        DRV_TMR_AlarmDeregister(runtimeConfig->TimerHandle);
+        runtimeConfig->Running = false;
     }
-    DRV_TMR_CounterValue32BitSet( pRuntimeStreaming->TimerHandle, 0 );
+    DRV_TMR_CounterValue32BitSet(runtimeConfig->TimerHandle, 0);
 }
 
-void Streaming_UpdateState( void )
+void Streaming_UpdateState(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig)
 {
-    tStreamingConfig *pStreamingConfig = BoardConfig_Get(                   \
-            BOARDCONFIG_STREAMING_CONFIG,                                   \
-            0 );
-    StreamingRuntimeConfig *pRuntimeStreaming = BoardRunTimeConfig_Get(     \
-            BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
+    Streaming_Stop(&boardConfig->StreamingConfig, &runtimeConfig->StreamingConfig);
     
-    Streaming_Stop( );
-    
-    // TODO: Calculate an appropriate runtimeConfig->ClockDivider and Prescale
-    //          value for each module/channel
+    // TODO: Calculate an appropriate runtimeConfig->ClockDivider and Prescale value for each module/channel
     //  - ClockDivider = Least Common Denominator of all the desired frequencies
-    //  - Prescale = The integral multiple of ClockDivider closest to the 
-    //          desired frequency
-    //  - The 'System' prescale should be selected to be approximately 1s 
-    //          (if possible), and should probably be excluded from the 
-    //          LCD calculation
-    pRuntimeStreaming->StreamCountTrigger = 0;
-    pRuntimeStreaming->MaxStreamCount =                                     \
-            pRuntimeStreaming->StreamCountTrigger + 1;
+    //  - Prescale = The integral multiple of ClockDivider closest to the desired frequency
+    //  - The 'System' prescale should be selected to be approximately 1s (if possible), and should probably be excluded from the LCD calculation
+    runtimeConfig->StreamingConfig.StreamCountTrigger = 0;
+    runtimeConfig->StreamingConfig.MaxStreamCount = runtimeConfig->StreamingConfig.StreamCountTrigger + 1;
     
-    // We never actually disable the streaming time because the system functions
-    // (battery level, voltages, actually depend on it)
-    Streaming_Start();
+    // We never actually disable the streaming time because the system functions (battery level, voltages, actually depend on it)
+    Streaming_Start(&boardConfig->StreamingConfig, &runtimeConfig->StreamingConfig);
 }
     
-void Streaming_Tasks( tBoardData* boardData)
+void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, BoardData* boardData)
 {
-    DIOConfig *pDIO;
-    DIORuntimeArray *pDIORunTimeArray;
-    TcpServerData *pServerData = BoardRunTimeConfig_Get(                    \
-            BOARDRUNTIMECONFIG_TCP_SERVER_DATA );
-    UsbCdcData *pUSBSettings = BoardRunTimeConfig_Get(                      \
-            BOARDRUNTIMECONFIG_USB_SETTINGS );
-    StreamingRuntimeConfig *pRuntimeStreaming = BoardRunTimeConfig_Get(     \
-            BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
-    AInSampleList *pAinSamplesList = BoardData_Get(                         \
-            BOARDDATA_AIN_SAMPLES,                                          \
-            0 );
-    DIOSampleList *pDIOSamplesList = BoardData_Get(                         \
-            BOARDDATA_DIO_SAMPLES,                                          \
-            0 );
-    
-    if( !pRuntimeStreaming->IsEnabled ){
+    if (!runtimeConfig->StreamingConfig.IsEnabled)
+    {
         return;
     }
     
     const size_t BUFFER_SIZE = 2048;
     uint8_t buffer[BUFFER_SIZE];
-    bool AINDataAvailable = !AInSampleList_IsEmpty( pAinSamplesList );
-    bool DIODataAvailable = !DIOSampleList_IsEmpty( pDIOSamplesList );
+    bool AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
+    bool DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
     
     #if(DAQIFI_DIO_DEBUG == 1)
     {
@@ -221,27 +166,22 @@ void Streaming_Tasks( tBoardData* boardData)
     // Decide how many samples we can send out
     size_t usbSize = 0;
     bool hasUsb = false;
-    if( pUSBSettings->state == USB_CDC_STATE_PROCESS )
+    if (runtimeConfig->usbSettings.state == USB_CDC_STATE_PROCESS)
     {
-        usbSize = min(                                                      \
-                BUFFER_SIZE,                                                \
-                USB_BUFFER_SIZE - pUSBSettings->writeBufferLength );
+        usbSize = min(BUFFER_SIZE, USB_BUFFER_SIZE - runtimeConfig->usbSettings.writeBufferLength);
         hasUsb = true;
     }
 
     size_t i=0;
     size_t wifiSize = BUFFER_SIZE;
     bool hasWifi = false;
-    if( pServerData->state == IP_SERVER_PROCESS )
+    if (runtimeConfig->serverData.state == IP_SERVER_PROCESS)
     {
         for (i=0; i<WIFI_MAX_CLIENT; ++i)
         {
-            if( pServerData->clients[i].client != INVALID_SOCKET)
+            if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
             {
-                 wifiSize = min(                                            \
-                         wifiSize,                                          \
-                         WIFI_BUFFER_SIZE -                                 \
-                         pServerData->clients[i].writeBufferLength );
+                 wifiSize = min(wifiSize, WIFI_BUFFER_SIZE - runtimeConfig->serverData.clients[i].writeBufferLength);
                  hasWifi = true;
             }
         }
@@ -268,17 +208,24 @@ void Streaming_Tasks( tBoardData* boardData)
     
     while(maxSize > 0 && (AINDataAvailable || DIODataAvailable))
     {
-        AINDataAvailable=!AInSampleList_IsEmpty( pAinSamplesList );
-        DIODataAvailable=!DIOSampleList_IsEmpty( pDIOSamplesList );
+        AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
+        DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
 
-        if( AINDataAvailable ){
-            flags.Data[ flags.Size ] = DaqifiOutMessage_analog_in_data_tag;
+        if (AINDataAvailable)
+        {
+            flags.Data[flags.Size] = DaqifiOutMessage_analog_in_data_tag;
+            //flags.Data[flags.Size + 1] = DaqifiOutMessage_analog_in_data_b_tag;   
+            //flags.Data[flags.Size + 2] = DaqifiOutMessage_analog_in_port_rse_tag;
+            //flags.Data[flags.Size + 3] = DaqifiOutMessage_analog_in_port_enabled_tag;
+            //flags.Data[flags.Size + 4] = DaqifiOutMessage_analog_in_port_range_tag;
+            //flags.Data[flags.Size + 5] = DaqifiOutMessage_analog_in_res_tag;
             flags.Size += 1;
         }
 
-        if( DIODataAvailable ){
-            flags.Data[ flags.Size ] = DaqifiOutMessage_digital_data_tag;
-            flags.Data[ flags.Size + 1 ] = DaqifiOutMessage_digital_port_dir_tag;
+        if (DIODataAvailable)
+        {
+            flags.Data[flags.Size] = DaqifiOutMessage_digital_data_tag;
+            flags.Data[flags.Size + 1] = DaqifiOutMessage_digital_port_dir_tag;
             flags.Size += 2;
         }
 
@@ -288,43 +235,35 @@ void Streaming_Tasks( tBoardData* boardData)
         // TODO: ASCII Encoder
         if(flags.Size>0){
             size_t size = 0;
-            if (pRuntimeStreaming->Encoding == Streaming_Json)
+            if (runtimeConfig->StreamingConfig.Encoding == Streaming_Json)
             {
-                size = Json_Encode( boardData, &flags, buffer, maxSize );
+                size = Json_Encode(boardData, &flags, buffer, maxSize);
             }
             else
             {
-                size = Nanopb_Encode( boardData, &flags, buffer, maxSize );
+                size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
             }
 
             // Write the packet out
             if (size > 0)
             {
                 // Toggle DIO pin for diagnostic use
-                pDIO = BoardConfig_Get( BOARDCONFIG_DIO_CHANNEL, 1);
-                pDIORunTimeArray = BoardRunTimeConfig_Get( BOARDRUNTIMECONFIG_DIO_CHANNELS );
-                
-                DIO_WriteStateSingle( pDIO, &pDIORunTimeArray->Data[1] );
+                DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[1], &g_BoardRuntimeConfig.DIOChannels.Data[1]);
                 
                 if (hasUsb)
                 {
-                    memcpy(                                                 \
-                            pUSBSettings->writeBuffer +                     \
-                            pUSBSettings->writeBufferLength,                \
-                            buffer,                                         \
-                            size );
-                    pUSBSettings->writeBufferLength += size;
+                    memcpy(runtimeConfig->usbSettings.writeBuffer + runtimeConfig->usbSettings.writeBufferLength, buffer, size);
+                    runtimeConfig->usbSettings.writeBufferLength += size;
                 }
 
-                if( hasWifi ){
-                    for( i = 0; i < WIFI_MAX_CLIENT; ++i ){
-                        if( pServerData->clients[ i ].client != INVALID_SOCKET ){
-                            memcpy(                                         \
-                                    pServerData->clients[i].writeBuffer +   \
-                                    pServerData->clients[i].writeBufferLength,\
-                                    buffer,                                 \
-                                    size);
-                            pServerData->clients[i].writeBufferLength += size;
+                if (hasWifi)
+                {
+                    for (i=0; i<WIFI_MAX_CLIENT; ++i)
+                    {
+                        if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
+                        {
+                            memcpy(runtimeConfig->serverData.clients[i].writeBuffer + runtimeConfig->serverData.clients[i].writeBufferLength, buffer, size);
+                            runtimeConfig->serverData.clients[i].writeBufferLength += size;
                         }
                     }
                 }
@@ -339,31 +278,23 @@ void Streaming_Tasks( tBoardData* boardData)
     }
 }
 
-void TimestampTimer_Init( void )
+void TimestampTimer_Init(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)
 {
-    tStreamingConfig *pStreamingConfig = BoardConfig_Get(                   \
-            BOARDCONFIG_STREAMING_CONFIG,                                   \
-            0 );
-    StreamingRuntimeConfig *pRuntimeStreaming = BoardRunTimeConfig_Get(     \
-            BOARDRUNTIMECONFIG_STREAMING_CONFIGURATION );
     // Initialize and start timestamp timer
-    // This is a free running timer used for reference - this doesn't interrupt
-    // or callback
-    pRuntimeStreaming->TSTimerHandle = DRV_TMR_Open(                         \
-            pStreamingConfig->TSTimerIndex,                                 \
-            pStreamingConfig->TSTimerIntent );
-    if( pRuntimeStreaming->TSTimerHandle == DRV_HANDLE_INVALID ){
+    // This is a free running timer used for reference - this doesn't interrupt or callback
+    runtimeConfig->TSTimerHandle = DRV_TMR_Open(config->TSTimerIndex, config->TSTimerIntent);
+    if( runtimeConfig->TSTimerHandle == DRV_HANDLE_INVALID )
+    {
         // Client cannot open the instance.
          SYS_DEBUG_BreakPoint();
     }
-    DRV_TMR_AlarmRegister(                                                  \
-            pRuntimeStreaming->TSTimerHandle,                               \
-            pRuntimeStreaming->TSClockDivider,                              \
-            true,                                                           \
-            0,                                                              \
-            NULL );
-    DRV_TMR_AlarmDisable( pRuntimeStreaming->TSTimerHandle );
-    DRV_TMR_Start( pRuntimeStreaming->TSTimerHandle );
+    DRV_TMR_AlarmRegister(runtimeConfig->TSTimerHandle,
+            runtimeConfig->TSClockDivider,
+            true,
+            0,
+            NULL);
+    DRV_TMR_AlarmDisable(runtimeConfig->TSTimerHandle);
+    DRV_TMR_Start(runtimeConfig->TSTimerHandle);
 }
 
 void Streaming_StuffDummyData (void)
@@ -374,9 +305,7 @@ void Streaming_StuffDummyData (void)
     static AInSample data;
     data.Value = 'O';
     data.Timestamp ++;
-    // Skip zero so as not to allow multiple duplicate timestamps 
-    // (uninitialized channels will have 0 timestamp)
-    if (data.Timestamp == 0) data.Timestamp++;  
+    if (data.Timestamp == 0) data.Timestamp++;  // Skip zero so as not to allow multiple duplicate timestamps (uninitialized channels will have 0 timestamp)
 
     for (i=0; i<16; ++i)
     {

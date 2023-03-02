@@ -39,7 +39,7 @@
  * @param runtimeConfig The runtime structure to extract information from
  */
 static void GetModuleChannelRuntimeData(AInArray* moduleChannels, AInRuntimeArray* moduleChannelRuntime,
-        uint8_t moduleId, const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig)
+        uint8_t moduleId, const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig)
 {
     moduleChannels->Size = 0;
     moduleChannelRuntime->Size = 0;
@@ -82,7 +82,7 @@ bool ADC_InitHardware(const AInModule* boardConfig, const AInArray* moduleChanne
     return result;
 }
 
-bool ADC_WriteModuleState(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig, size_t moduleId, POWER_STATE powerState)
+bool ADC_WriteModuleState(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, size_t moduleId, POWER_STATE powerState)
 {
     const AInModule* currentModule = &boardConfig->AInModules.Data[moduleId];
     AInModuleRuntimeConfig* currentModuleRuntime = &runtimeConfig->AInModules.Data[moduleId];
@@ -108,7 +108,7 @@ bool ADC_WriteModuleState(const tBoardConfig* boardConfig, tBoardRuntimeConfig* 
     return result;
 }
 
-bool ADC_WriteChannelStateAll(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig)
+bool ADC_WriteChannelStateAll(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig)
 {
     size_t i;
     bool result = true;
@@ -152,7 +152,7 @@ bool ADC_WriteChannelStateAll(const tBoardConfig* boardConfig, tBoardRuntimeConf
     return result;
 }
 
-bool ADC_WriteChannelStateSingle(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig, size_t channelId)
+bool ADC_WriteChannelStateSingle(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, size_t channelId)
 {
     const AInChannel* channel = &boardConfig->AInChannels.Data[channelId];
     AInRuntimeConfig* channelRuntime = &runtimeConfig->AInChannels.Data[channelId];
@@ -364,7 +364,7 @@ void ADC_ConversionComplete(const AInModule* module)
     g_BoardData.AInState.Data[moduleId].AInTaskState = AINTASK_IDLE;
 }
 
-void ADC_Tasks(const tBoardConfig* boardConfig, tBoardRuntimeConfig* runtimeConfig, tBoardData* boardData)
+void ADC_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtimeConfig, BoardData* boardData)
 {
     size_t moduleIndex = 0;
     POWER_STATE powerState = boardData->PowerData.powerState;

@@ -1,13 +1,8 @@
-/*! @file PowerApi.h
- * @brief Interface of the Power API library
- * 
- * @author Javier Longares Abaiz
- * j.longares@abluethinginthecloud.com
- * 
- * A Blue Thing In The Cloud S.L.U.
- *   === When Technology becomes art ===
- * www.abluethinginthecloud.com
- *     
+/* 
+ * File:   PowerApi.h
+ * Author: Daniel
+ *
+ * Created on January 11, 2017, 7:06 PM
  */
 
 #ifndef POWERAPI_H
@@ -77,9 +72,9 @@ extern "C" {
         PORTS_CHANNEL USB_Dn_Ch; 
         PORTS_BIT_POS USB_Dn_Bit;
        
-       tBQ24297Config BQ24297Config;
+       sBQ24297Config BQ24297Config;
 
-    } tPowerConfig;
+    } sPowerConfig;
 
     typedef struct sPowerData{
 
@@ -95,9 +90,9 @@ extern "C" {
        double battVoltage;
        bool pONBattPresent;
        
-       tBQ24297Data BQ24297Data;
+       sBQ24297Data BQ24297Data;
 
-    }tPowerData;
+    } sPowerData;
     
     typedef struct sPowerWriteVars{
 
@@ -106,22 +101,19 @@ extern "C" {
        unsigned char EN_5_10V_Val;
        unsigned char EN_5V_ADC_Val;
        unsigned char EN_12V_Val;
-       tBQ24297WriteVars BQ24297WriteVars;
+       sBQ24297WriteVars BQ24297WriteVars;
 
-    } tPowerWriteVars;
+    } sPowerWriteVars;
     
-/*! Fucntion to initialize the Power API and the device's power */
-void Power_Init(void);
-    
-/*! This function is used for updating the sleep state 
- * @param[in] sleep Sleep state to be updated, depending on if USB is connected
- * or not
- */
-void Power_USB_Sleep_Update( bool sleep );
-
-/*! This function is intended to be called continuously in order to perform the
- power tasks */
-void Power_Tasks( void );
+    void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars);
+    void Power_Update_Settings(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_USB_Sleep_Update(sPowerConfig config, sPowerData *data, bool connected);
+    void Power_Write(sPowerConfig config, sPowerWriteVars *vars);
+    void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_Down(sPowerConfig configs, sPowerData *data, sPowerWriteVars *vars);
+    void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars);
+    void Power_UpdateChgPct(sPowerData *data);
+    void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVars *powerVars);
     
 #ifdef	__cplusplus
 }
