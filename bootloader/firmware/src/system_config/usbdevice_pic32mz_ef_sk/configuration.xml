@@ -369,16 +369,16 @@
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">2CD6E4B369BE9C50C8C68475A671F003</Checksum>
-        <ProjectFileChecksum dnOrder="3">B88480DD9DC407FD2B449998A70AEE1F</ProjectFileChecksum>
+        <ProjectFileChecksum dnOrder="3">E23FC5967097F7E642A6DB3905C264E7</ProjectFileChecksum>
       </Template>
     </Templates>
     <CompilerItems dnOrder="2">
       <C32 dnOrder="0">
-        <Include dnOrder="0" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware-javier\bootloader\firmware\src"/>
-        <Include dnOrder="1" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware-javier\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk"/>
-        <Include dnOrder="2" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware-javier\bootloader\firmware\src\usbdevice_pic32mz_ef_sk"/>
+        <Include dnOrder="0" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src"/>
+        <Include dnOrder="1" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk"/>
+        <Include dnOrder="2" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src\usbdevice_pic32mz_ef_sk"/>
         <Include dnOrder="3" value="C:\microchip\harmony\v2_06\framework"/>
-        <Include dnOrder="4" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware-javier\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk\framework"/>
+        <Include dnOrder="4" value="C:\microchip\harmony\v2_06\apps\nyquist-firmware\bootloader\firmware\src\system_config\usbdevice_pic32mz_ef_sk\framework"/>
       </C32>
     </CompilerItems>
     <Libraries dnOrder="3">

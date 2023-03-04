@@ -271,7 +271,7 @@ scpi_result_t SCPI_ADCChanCalmSet(scpi_t * context)
         return SCPI_RES_ERR;
     }
     
-    if (!SCPI_ParamFloat(context, (float*)&param2, TRUE))
+    if (!SCPI_ParamDouble(context, &param2, TRUE))
     {
         return SCPI_RES_ERR;
     }
@@ -325,7 +325,7 @@ scpi_result_t SCPI_ADCChanCalmGet(scpi_t * context)
         return SCPI_RES_ERR;
     }
 
-    SCPI_ResultFloat(context, g_BoardRuntimeConfig.AInChannels.Data[index].CalM);
+    SCPI_ResultDouble(context, g_BoardRuntimeConfig.AInChannels.Data[index].CalM);
     return SCPI_RES_OK;
 }
 

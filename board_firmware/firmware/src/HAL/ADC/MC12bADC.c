@@ -11,7 +11,7 @@
 
 bool MC12b_InitHardware(const MC12bModuleConfig* boardConfig, const AInArray* channelConfig)
 {
-    // Copy factory calibration data to calibration registers - NOTE: this appears to make readings worse
+    // Copy factory calibration data to calibration registers
     ADC0CFG = DEVADC0;
     ADC1CFG = DEVADC1;
     ADC2CFG = DEVADC2;

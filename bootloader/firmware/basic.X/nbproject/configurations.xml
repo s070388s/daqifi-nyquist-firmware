@@ -601,52 +601,10 @@
                    displayName="Linker Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="system_config" projectFiles="true">
-        <logicalFolder name="f11"
-                       displayName="sdcard_pic32mz_ef_sk_meb2"
-                       projectFiles="true">
-          <itemPath>../src/system_config/sdcard_pic32mz_ef_sk_meb2/btl_mz.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f1" displayName="udp_pic32mx_eth_sk" projectFiles="true">
-          <itemPath>../src/system_config/udp_pic32mx_eth_sk/btl_mx.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f3"
-                       displayName="udp_pic32mz_da_sk_intddr"
-                       projectFiles="true">
-          <itemPath>../src/system_config/udp_pic32mz_da_sk_intddr/btl_mz.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f2" displayName="udp_pic32mz_ef_sk" projectFiles="true">
-          <itemPath>../src/system_config/udp_pic32mz_ef_sk/btl_mz.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f5" displayName="usart_pic32mx_eth_sk" projectFiles="true">
-          <itemPath>../src/system_config/usart_pic32mx_eth_sk/btl_mx.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f8"
-                       displayName="usart_pic32mz_da_sk_intddr"
-                       projectFiles="true">
-          <itemPath>../src/system_config/usart_pic32mz_da_sk_intddr/btl_mz.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f6" displayName="usart_pic32mz_ef_sk" projectFiles="true">
-          <itemPath>../src/system_config/usart_pic32mz_ef_sk/btl_mz.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f9"
-                       displayName="usbdevice_pic32mx_usb_sk2"
-                       projectFiles="true">
-          <itemPath>../src/system_config/usbdevice_pic32mx_usb_sk2/btl_mx.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f10"
+        <logicalFolder name="f1"
                        displayName="usbdevice_pic32mz_ef_sk"
                        projectFiles="true">
           <itemPath>../src/system_config/usbdevice_pic32mz_ef_sk/btl_mz.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f4"
-                       displayName="usbhost_pic32mx_usb_sk2"
-                       projectFiles="true">
-          <itemPath>../src/system_config/usbhost_pic32mx_usb_sk2/btl_mx.ld</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f7"
-                       displayName="usbhost_pic32mz_ef_sk"
-                       projectFiles="true">
-          <itemPath>../src/system_config/usbhost_pic32mz_ef_sk/btl_mz.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -4847,24 +4805,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/sdcard_pic32mz_ef_sk_meb2/btl_mz.ld"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../src/system_config/sdcard_pic32mz_ef_sk_meb2/framework/system/devcon/src/sys_devcon_local.h"
             ex="true"
             overriding="false">
@@ -4991,24 +4931,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/udp_pic32mx_eth_sk/btl_mx.ld"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../src/system_config/udp_pic32mx_eth_sk/framework/system/devcon/src/sys_devcon_local.h"
             ex="true"
             overriding="false">
@@ -5082,24 +5004,6 @@
         </C32Global>
       </item>
       <item path="../src/system_config/udp_pic32mz_da_sk_intddr/bsp/bsp.h"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../src/system_config/udp_pic32mz_da_sk_intddr/btl_mz.ld"
             ex="true"
             overriding="false">
         <C32>
@@ -5207,24 +5111,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/udp_pic32mz_ef_sk/btl_mz.ld"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../src/system_config/udp_pic32mz_ef_sk/framework/system/devcon/src/sys_devcon_local.h"
             ex="true"
             overriding="false">
@@ -5298,24 +5184,6 @@
         </C32Global>
       </item>
       <item path="../src/system_config/usart_pic32mx_eth_sk/bsp/bsp.h"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../src/system_config/usart_pic32mx_eth_sk/btl_mx.ld"
             ex="true"
             overriding="false">
         <C32>
@@ -5459,24 +5327,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/usart_pic32mz_da_sk_intddr/btl_mz.ld"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../src/system_config/usart_pic32mz_da_sk_intddr/framework/driver/usart/drv_usart_static.h"
             ex="true"
             overriding="false">
@@ -5586,24 +5436,6 @@
         </C32Global>
       </item>
       <item path="../src/system_config/usart_pic32mz_ef_sk/bsp/bsp.h"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../src/system_config/usart_pic32mz_ef_sk/btl_mz.ld"
             ex="true"
             overriding="false">
         <C32>
@@ -5747,24 +5579,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/usbdevice_pic32mx_usb_sk2/btl_mx.ld"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../src/system_config/usbdevice_pic32mx_usb_sk2/framework/system/devcon/src/sys_devcon_local.h"
             ex="true"
             overriding="false">
@@ -5838,24 +5652,6 @@
         </C32Global>
       </item>
       <item path="../src/system_config/usbhost_pic32mx_usb_sk2/bsp/bsp.h"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../src/system_config/usbhost_pic32mx_usb_sk2/btl_mx.ld"
             ex="true"
             overriding="false">
         <C32>
@@ -5999,24 +5795,6 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="../src/system_config/usbhost_pic32mz_ef_sk/btl_mz.ld"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <item path="../src/system_config/usbhost_pic32mz_ef_sk/framework/system/devcon/src/sys_devcon_local.h"
             ex="true"
             overriding="false">
@@ -6134,7 +5912,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/system_config/usbdevice_pic32mz_ef_sk;../src/usbdevice_pic32mz_ef_sk;../../../../../framework;../src/system_config/usbdevice_pic32mz_ef_sk/framework"/>
+                  value="../src;../src/system_config/usbdevice_pic32mz_ef_sk;../src/usbdevice_pic32mz_ef_sk;../src/system_config/usbdevice_pic32mz_ef_sk/framework;../../../../../framework"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -6585,6 +6363,8 @@
         <property key="UART4" value="true"/>
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="hwtoolclock.instructionspeed" value="4"/>
@@ -6673,6 +6453,14 @@
         <property key="REFERENCE CLOCK2" value="true"/>
         <property key="REFERENCE CLOCK3" value="true"/>
         <property key="REFERENCE CLOCK4" value="true"/>
+        <property key="RIExTrigs.Five" value="OFF"/>
+        <property key="RIExTrigs.Four" value="OFF"/>
+        <property key="RIExTrigs.One" value="OFF"/>
+        <property key="RIExTrigs.Seven" value="OFF"/>
+        <property key="RIExTrigs.Six" value="OFF"/>
+        <property key="RIExTrigs.Three" value="OFF"/>
+        <property key="RIExTrigs.Two" value="OFF"/>
+        <property key="RIExTrigs.Zero" value="OFF"/>
         <property key="SPI/I2S 1" value="true"/>
         <property key="SPI/I2S 2" value="true"/>
         <property key="SPI/I2S 3" value="true"/>
@@ -6693,6 +6481,7 @@
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UpdateOptions"
                   value="ToolFirmwareOption.UseLatest"/>
+        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="ToolFirmwareToolPack"
                   value="Press to select which tool pack to use"/>
         <property key="UART1" value="true"/>
@@ -6710,6 +6499,9 @@
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="freeze.timers" value="false"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="hwtoolclock.instructionspeed" value="4"/>
+        <property key="hwtoolclock.units" value="mips"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -6719,6 +6511,7 @@
         <property key="memories.exclude.configurationmemory" value="true"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
         <property key="memories.instruction.ram.ranges"
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
@@ -6736,8 +6529,7 @@
         <property key="programoptions.pgmentry.voltage" value="low"/>
         <property key="programoptions.pgmspeed" value="Med"/>
         <property key="programoptions.preservedataflash" value="false"/>
-        <property key="programoptions.preservedataflash.ranges"
-                  value="${memories.dataflash.default}"/>
+        <property key="programoptions.preservedataflash.ranges" value=""/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
@@ -6747,12 +6539,20 @@
         <property key="programoptions.programcalmem" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
         <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
+        <property key="programoptions.usehighvoltageonmclr" value="false"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="ptgProgramImage" value="true"/>
         <property key="ptgSendImage" value="true"/>
         <property key="toolpack.updateoptions"
                   value="toolpack.updateoptions.uselatestoolpack"/>
         <property key="toolpack.updateoptions.packversion"
                   value="Press to select which tool pack to use"/>
+        <property key="tracecontrol.include.timestamp" value="summarydataenabled"/>
+        <property key="tracecontrol.select" value="0"/>
+        <property key="tracecontrol.stallontracebufferfull" value="false"/>
+        <property key="tracecontrol.tracebufmax" value="546000"/>
+        <property key="tracecontrol.tracefile" value="defmplabxtrace.log"/>
+        <property key="tracecontrol.tracefilemax" value="10000000"/>
         <property key="voltagevalue" value="3.25"/>
       </Tool>
       <pk4hybrid>
