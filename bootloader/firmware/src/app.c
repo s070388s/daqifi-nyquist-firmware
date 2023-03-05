@@ -85,8 +85,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #define UNUSED(x) (void)(x)
 
-#define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFE0 // Address must match what is defined in the project preprocessor definition (0x8007FFE0 is the last 16 bytes of data mem)
-#define FORCE_BOOOT_VALUE 0x04CEB007    // magic force bootloader value
+// These are defined as preprocessor macros in the app and bootloader
+//#define FORCE_BOOTLOADER_FLAG_ADDR 0x80000000 // Address must match what is defined in the project preprocessor definition (0x80000000 is the beginning 16 bytes of data mem)
+//#define FORCE_BOOT_VALUE 0xF4CEB007    // magic force bootloader value
 
 #define TIMER_PERIOD (uint32_t)500   //mS
 #define BOOTLOADER_PRIME_WINDOW     (uint32_t)5000   //mSeconds duration where user may press button to enter bootloader
@@ -122,7 +123,7 @@ volatile uint32_t g_timerCount = 0;
 */ 
 int APP_Bootloader_ForceEvent(void)
 {
-    if (force_bootloader_flag == FORCE_BOOOT_VALUE) forceBootloader = true;
+    if (force_bootloader_flag == FORCE_BOOTLOADER_FLAG_VALUE) forceBootloader = true;
     // Reset flag as we accomplished our task of entering the bootloader
     force_bootloader_flag = 0;
 

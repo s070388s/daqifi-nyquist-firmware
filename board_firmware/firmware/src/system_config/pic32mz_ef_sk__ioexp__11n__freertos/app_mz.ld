@@ -102,10 +102,10 @@ _GEN_EXCPT_ADDR                = _ebase_address + 0x180;
  *************************************************************************/
 MEMORY
 {
-    kseg1_boot_mem          : ORIGIN = 0x9D000000, LENGTH = 0x480
-    kseg0_program_mem  (rx) : ORIGIN = 0x9D000000 + 0x480, LENGTH = 0x200000 - 0x480 /* All C files will be located here */
-    kseg0_boot_mem          : ORIGIN = 0x9D000000, LENGTH = 0x0   
-  kseg0_data_mem       (w!x)  : ORIGIN = 0x80000000, LENGTH = 0x80000
+  kseg1_boot_mem          : ORIGIN = 0x9D000000, LENGTH = 0x480
+  kseg0_program_mem  (rx) : ORIGIN = 0x9D000000 + 0x1200, LENGTH = 0x200000 - 0x1200 /* All C files will be located here */
+  kseg0_boot_mem          : ORIGIN = 0x9D000000, LENGTH = 0x0   
+  kseg0_data_mem       (w!x)  : ORIGIN = 0x80000000 + 16, LENGTH = 0x80000 - 16 /* Save room at the beginning of RAM for Harmony 3+ bootloader force */
   sfrs                        : ORIGIN = 0xBF800000, LENGTH = 0x100000
   kseg2_ebi_data_mem          : ORIGIN = 0xC0000000, LENGTH = 0x4000000
   kseg2_sqi_data_mem          : ORIGIN = 0xD0000000, LENGTH = 0x4000000
