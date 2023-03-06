@@ -305,7 +305,7 @@
       <Template dnOrder="4">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
-        <Checksum dnOrder="2">E716D18A3D73F066331E109020E3E2DC</Checksum>
+        <Checksum dnOrder="2">CC1C454F9B5F09A49DE0297F87BD279A</Checksum>
       </Template>
       <Template dnOrder="5">
         <Name dnOrder="0">system_tasks.c</Name>
@@ -326,6 +326,7 @@
         <Name dnOrder="0">btl_mz.ld</Name>
         <Path dnOrder="1">Linker&amp;#160;Files/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">394B3139EE36EE5C78498F3C80CD76DB</Checksum>
+        <ProjectFileChecksum dnOrder="3">0246F8FB641F43ABF097F231525CADE4</ProjectFileChecksum>
       </Template>
       <Template dnOrder="9">
         <Name dnOrder="0">sys_devcon_cache_pic32mz.S</Name>

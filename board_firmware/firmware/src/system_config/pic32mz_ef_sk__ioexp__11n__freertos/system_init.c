@@ -803,7 +803,7 @@ const USB_DEVICE_DESCRIPTOR deviceDescriptor =
     0x00,                       // Protocol code
     USB_DEVICE_EP0_BUFFER_SIZE,     // Max packet size for EP0, see system_config.h
     0x04D8,                         // Vendor ID
-    0x000A,                         // Product ID
+    0xF794,                         // DAQIFI Nyquist Product ID (sublicense from Microchip)
     0x0100,                         // Device release number in BCD format
     0x01,                           // Manufacturer string index
     0x02,                           // Product string index
@@ -843,7 +843,7 @@ const uint8_t highSpeedConfigurationDescriptor[]=
     0x01,                                               // Index value of this configuration
     0x00,                                               // Configuration string index
     USB_ATTRIBUTE_DEFAULT | USB_ATTRIBUTE_SELF_POWERED, // Attributes
-    50,                                                 // Max power consumption (2X mA)
+    250,                                                 // Max power consumption (2X mA)
     
     /* Descriptor for Function 1 - CDC     */ 
     
@@ -946,7 +946,7 @@ const uint8_t fullSpeedConfigurationDescriptor[]=
     0x01,                                               // Index value of this configuration
     0x00,                                               // Configuration string index
     USB_ATTRIBUTE_DEFAULT | USB_ATTRIBUTE_SELF_POWERED, // Attributes
-    50,                                                 // Max power consumption (2X mA)
+    250,                                                 // Max power consumption (2X mA)
     /* Descriptor for Function 1 - CDC     */ 
     
     /* Interface Descriptor */

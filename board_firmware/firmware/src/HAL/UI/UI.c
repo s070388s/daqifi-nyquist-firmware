@@ -103,7 +103,7 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
         if(repeatSeqNum==repeatSeq) PowerData->powerDnAllowed = true;
     }
     else if(pluggedIn && !poweredOn && charging && !streaming) // && !battLow)
-    {   // Plugged in and charging - NOTE: This state has been temporarily disable to avoid confusion during debugging
+    {   // Plugged in and charging - TODO NOTE: This state has been temporarily disable to avoid confusion during debugging
         if(currentPattern == 0) currentPattern = 3;
     }
     else if(pluggedIn && poweredOn && !charging && !streaming) //  && !battLow)

@@ -97,7 +97,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #pragma config FPLLRNG =    RANGE_5_10_MHZ
 #pragma config FPLLICLK =   PLL_POSC
 #pragma config FPLLMULT =   MUL_50
-#pragma config FPLLODIV =   DIV_2
+#pragma config FPLLODIV =   DIV_2   /***   MHC KEEP   ***/
 #pragma config UPLLFSEL =   FREQ_24MHZ
 /*** DEVCFG3 ***/
 
@@ -321,7 +321,7 @@ const uint8_t highSpeedConfigurationDescriptor[]=
     0x01,                                               // Index value of this configuration
     0x00,                                               // Configuration string index
     USB_ATTRIBUTE_DEFAULT | USB_ATTRIBUTE_SELF_POWERED, // Attributes
-    50,                                                 // Max power consumption (2X mA)
+    250,                                                 // Max power consumption (2X mA)
     
     /* Descriptor for Function 1 - HID     */ 
     
@@ -391,7 +391,7 @@ const uint8_t fullSpeedConfigurationDescriptor[]=
     0x01,                                               // Index value of this configuration
     0x00,                                               // Configuration string index
     USB_ATTRIBUTE_DEFAULT | USB_ATTRIBUTE_SELF_POWERED, // Attributes
-    50,                                                 // Max power consumption (2X mA)
+    250,                                                 // Max power consumption (2X mA)
     /* Descriptor for Function 1 - HID     */ 
     
 	/* Interface Descriptor */

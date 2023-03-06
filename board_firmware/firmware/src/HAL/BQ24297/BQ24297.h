@@ -96,7 +96,6 @@ typedef struct
     
     /**
     * Reads data from BQ24297.
-    * TODO:
     * @param config
     * @param data 
     * @return
@@ -105,7 +104,6 @@ typedef struct
     
     /**
     * Writes data to the the BQ24297.
-    * TODO:
     * @param config
     * @param write
     * @return

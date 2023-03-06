@@ -225,7 +225,7 @@ MEMORY
   configsfrs_BFC54020         : ORIGIN = 0xBFC54020, LENGTH = 0x8
   configsfrs_BFC6FF40         : ORIGIN = 0xBFC6FF40, LENGTH = 0x40
   configsfrs_BFC6FFC0         : ORIGIN = 0xBFC6FFC0, LENGTH = 0x40
-  kseg0_data_mem       (w!x)  : ORIGIN = 0x80000000 + 16, LENGTH = 0x80000 - 16
+  kseg0_data_mem       (w!x)  : ORIGIN = 0x80000000 + 16, LENGTH = 0x80000 - 16 /***   MHC KEEP   ***/
   sfrs                        : ORIGIN = 0xBF800000, LENGTH = 0x100000
   kseg2_ebi_data_mem          : ORIGIN = 0xC0000000, LENGTH = 0x4000000
   kseg2_sqi_data_mem          : ORIGIN = 0xD0000000, LENGTH = 0x4000000

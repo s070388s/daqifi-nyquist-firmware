@@ -298,10 +298,6 @@ void APP_Initialize ( void )
     PLIB_PORTS_PinDirectionOutputSet(0, LED_WHITE_PORT, LED_WHITE_PIN);
     PLIB_PORTS_PinClear(0, LED_WHITE_PORT, LED_WHITE_PIN);
     
-    // 3.3V Enable Pin
-    PLIB_PORTS_PinDirectionOutputSet(0, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN);
-    PLIB_PORTS_PinSet(0, PWR_3_3V_EN_PORT, PWR_3_3V_EN_PIN);
-    
     // Status LED2
     PLIB_PORTS_PinDirectionOutputSet(0, LED_BLUE_PORT, LED_BLUE_PIN);
     PLIB_PORTS_PinClear(0, LED_BLUE_PORT, LED_BLUE_PIN);

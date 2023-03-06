@@ -76,21 +76,18 @@ extern "C" {
         
     /**
     * Sets the SPI parameters and opens the SPI port
-    * TODO:
     * @param id Driver instance ID
     */
     void DAC7718_Apply_SPI_Config(uint8_t id);
     
     /**
     * Resets the DAC7718.  Must be called after DAC7718_Init
-    * TODO:
     * @param id Driver instance ID
     */
     void DAC7718_Reset(uint8_t id);
 
     /**
     * Initializes the DAC7718.
-    * TODO:
     * @param id Driver instance ID
     * @param range Range setting
     * @return
@@ -99,7 +96,6 @@ extern "C" {
 
     /**
     * Reads/Writes to a register in the DAC7718.
-    * TODO:
     * @param id Driver instance ID
     * @param RW Read/Write Bit (W=0, R=1)
     * @param reg Register to read/write to DAC7718
@@ -111,8 +107,6 @@ extern "C" {
     /**
     * Updates latches with values written to the DAC7718.
     * @param id Driver instance ID 
-    * TODO:
-
     * @return
     */
     void DAC7718_UpdateLatch(uint8_t id);

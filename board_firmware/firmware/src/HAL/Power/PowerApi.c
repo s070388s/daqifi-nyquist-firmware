@@ -13,7 +13,7 @@ void Power_Init(sPowerConfig config, sPowerData *data, sPowerWriteVars vars)
 {
     // NOTE: This is called before the RTOS is running.  Don't call any RTOS functions here!
     BQ24297_InitHardware(config.BQ24297Config, vars.BQ24297WriteVars, &(data->BQ24297Data));
-    
+       
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit, vars.EN_3_3V_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5_10V_Ch, config.EN_5_10V_Bit, vars.EN_5_10V_Val);
     PLIB_PORTS_PinWrite(PORTS_ID_0, config.EN_5V_ADC_Ch, config.EN_5V_ADC_Bit, vars.EN_5V_ADC_Val);
@@ -61,6 +61,14 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
     //uint32_t achievedFrequencyHz=0;
     
+    // Set 3.3V Enable Pin as output high to force 3.3V rail on
+    PLIB_PORTS_PinDirectionOutputSet(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit);
+
+    // 3.3V Enable
+    vars->EN_3_3V_Val = true;
+    Power_Write(config, vars); 
+    
+
     // If the battery management is not enabled, wait for it to become ready
     while(!data->BQ24297Data.initComplete) vTaskDelay(100 / portTICK_PERIOD_MS);   
     
@@ -140,10 +148,6 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     SYS_INT_Enable();
     vTaskDelay(50 / portTICK_PERIOD_MS);   //Delay after turning up to full speed to allow steady-state before powering system
     
-      // 3.3V Enable
-    vars->EN_3_3V_Val = true;
-    Power_Write(config, vars); 
-
     // 5V Enable
     if((data->BQ24297Data.status.batPresent) || (data->BQ24297Data.status.vBusStat == VBUS_CHARGER)) vars->EN_5_10V_Val = true;
     Power_Write(config, vars);
@@ -186,6 +190,8 @@ void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     
     //SYS_CLK_SystemClockStatus
     
+    // Set 3.3V Enable Pin as input
+    PLIB_PORTS_PinDirectionInputSet(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit);
     // 3.3V Disable - if powered externally, board will stay on and go to low power state, else off completely
     vars->EN_3_3V_Val = false;
     // 5V Disable

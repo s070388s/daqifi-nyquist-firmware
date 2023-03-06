@@ -1983,7 +1983,7 @@
       <Template dnOrder="21">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
-        <Checksum dnOrder="2">C03D2F858D403CB20AF73FF99822E7A0</Checksum>
+        <Checksum dnOrder="2">B79EBB93C7AE6DE9D8D32150C168977A</Checksum>
         <ProjectFileChecksum dnOrder="3">52CB7566A977DDFA9C5914356301C0FC</ProjectFileChecksum>
       </Template>
       <Template dnOrder="22">
@@ -2025,6 +2025,7 @@
         <Name dnOrder="0">app_mz.ld</Name>
         <Path dnOrder="1">Linker&amp;#160;Files/system_config/pic32mz_ef_sk__ioexp__11n__freertos</Path>
         <Checksum dnOrder="2">554844EF852C3B0F9AA544EFA2B1D510</Checksum>
+        <ProjectFileChecksum dnOrder="3">AD3DCD1F5C0C6057BDE5601569A2D390</ProjectFileChecksum>
       </Template>
       <Template dnOrder="30">
         <Name dnOrder="0">drv_adc_static.c</Name>
