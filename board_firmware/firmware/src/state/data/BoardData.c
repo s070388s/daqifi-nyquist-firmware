@@ -23,12 +23,11 @@ void InitializeBoardData(BoardData* boardData)
     // size_t index = ADC_FindChannelIndex(&g_BoardConfig.AInChannels, ADC_CHANNEL_VBATT);
     // boardData->AInLatest.Data[index].Value = 4095;
     
-    boardData->PowerData.powerState = MICRO_ON;
+    boardData->PowerData.powerState = FRESH_BOOT;
     boardData->PowerData.battLow = false;
     boardData->PowerData.battVoltage = 0.0;
     boardData->PowerData.chargePct = 0;
     boardData->PowerData.USBSleep = false;
-    boardData->PowerData.requestedPowerState = NO_CHANGE;       // Initialize to NO_CHANGE nominally for debugging, can use DO_POWER_UP to power immediately
     boardData->PowerData.powerDnAllowed = false;
     boardData->PowerData.externalPowerSource = NO_EXT_POWER;
     boardData->PowerData.BQ24297Data.chargeAllowed = true;

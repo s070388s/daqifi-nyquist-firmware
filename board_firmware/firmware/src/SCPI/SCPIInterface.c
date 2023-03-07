@@ -370,11 +370,11 @@ static scpi_result_t SCPI_SetPowerState(scpi_t * context)
     
     if (param1 != 0)
     {
-        g_BoardData.PowerData.requestedPowerState = DO_POWER_UP;
+        g_BoardData.PowerData.powerState = DO_POWER_UP;
     }
     else
     {
-        g_BoardData.PowerData.requestedPowerState = DO_POWER_DOWN;
+        g_BoardData.PowerData.powerState = DO_POWER_DOWN;
     }
     
     return SCPI_RES_OK;

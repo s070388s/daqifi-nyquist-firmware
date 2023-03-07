@@ -205,11 +205,11 @@ const BoardConfig g_NQ1BoardConfig = {
                 {0,0,0,0,0,0,0,0},  // LEDs off
                 {0,0,0,0,0,0,0,0},  // Error state
                 {0,0,1,1,0,0,1,1},  // Bat exhausted
-                {1,1,1,1,1,1,1,1},  // Plugged in
-                {0,1,1,1,1,1,1,1},  // Plugged in, power on
-                {0,1,0,1,1,1,1,1},  // Plugged in, power on, charging
-                {0,1,1,1,1,1,1,1},  // Plugged in, power on, streaming
-                {0,1,0,1,1,1,1,1},  // Plugged in, power on, charging, streaming
+                {0,0,0,0,0,0,0,0},  // Plugged in
+                {1,1,1,1,1,1,1,1},  // Plugged in, power on
+                {0,1,1,1,1,1,1,1},  // Plugged in, power on, charging
+                {1,1,1,1,1,1,1,1},  // Plugged in, power on, streaming
+                {0,1,1,1,1,1,1,1},  // Plugged in, power on, charging, streaming
                 {1,0,0,0,0,0,0,0},  // Power on
                 {1,0,0,0,0,0,0,0},  // Power on, streaming
                 {1,0,1,0,0,0,0,0},  // Power on, batt low

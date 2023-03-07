@@ -17,28 +17,23 @@ extern "C" {
 #endif
     typedef enum
      {  
-        /* Powered down */
-        POWER_DOWN = -1,
-        /* 3.3V rail enabled. Ready to check initial status */
-        MICRO_ON = 0,
+        /* Power board down */        
+        DO_POWER_DOWN = 0,
+        /* Power was just applied */
+        FRESH_BOOT,
+        /* 3.3V rail enabled after fresh boot. Ready to check initial status */
+        MICRO_ON,
+        /* Enable power rails besides 3.3V */
+        DO_POWER_UP,
         /* Board fully powered. Monitor for any changes/faults */ 
         POWERED_UP,
-        /* Board partially powered. External power disabled */         
+        /* Power is low or other fault.  Power off external power rails. */
+        DO_EXT_DOWN,
+        /* Board partially powered. External power disabled. */         
         POWERED_UP_EXT_DOWN,
      } POWER_STATE;
-     
-    typedef enum
-     {      
-        /* Board fully powered. */ 
-        DO_POWER_UP,
-        /* Board partially powered. External power disabled. */         
-        DO_POWER_UP_EXT_DOWN,
-        /* Power down. */
-        DO_POWER_DOWN,
-        /* No change.  This is the default status which allows power task to handle board power state.*/
-        NO_CHANGE,
-     } POWER_STATE_REQUEST;
-     
+   
+   
     typedef enum
      {      
         /* No power detected. */ 
@@ -80,7 +75,6 @@ extern "C" {
 
        uint8_t chargePct;
        POWER_STATE powerState;
-       POWER_STATE_REQUEST requestedPowerState;
        EXT_POWER_SOURCE externalPowerSource;
        
        // Variables below are meant to be updated externally

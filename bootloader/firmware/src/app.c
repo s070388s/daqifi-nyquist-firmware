@@ -305,7 +305,7 @@ void APP_Initialize ( void )
     m_TimerCallback = SYS_TMR_HANDLE_INVALID;
        
     /* Delay to allow the power to stabilize */
-    DelayMs(250);
+    DelayMs(10);
         
     reasonType = SYS_RESET_ReasonGet();
     if(reasonType & RESET_REASON_MCLR)

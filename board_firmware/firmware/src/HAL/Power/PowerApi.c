@@ -174,6 +174,9 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 
 void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
+    // Set 3.3V Enable Pin as input
+    PLIB_PORTS_PinDirectionInputSet(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit);
+        
     // Turn off WiFi interface to save power
     WifiConnectionDown();
         
@@ -187,12 +190,9 @@ void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     // dividing the full speed (200MHz by a divider, SYS_CLK_DIV_PWR_SAVE)
     SYS_CLK_SystemFrequencySet (SYS_CLK_SOURCE_PRIMARY_SYSPLL, 200000000, true);
     
-    
     //SYS_CLK_SystemClockStatus
     
-    // Set 3.3V Enable Pin as input
-    PLIB_PORTS_PinDirectionInputSet(PORTS_ID_0, config.EN_3_3V_Ch, config.EN_3_3V_Bit);
-    // 3.3V Disable - if powered externally, board will stay on and go to low power state, else off completely
+    // 3.3V Disable - has no real effect since pin is set as input at beginning of function
     vars->EN_3_3V_Val = false;
     // 5V Disable
     vars->EN_5_10V_Val = false;
@@ -203,60 +203,58 @@ void Power_Down(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     // Vref Disable
     vars->EN_Vref_Val = false;
     Power_Write(config, vars);
-
     
-    data->powerState = MICRO_ON;    // Set back to default state
-    data->requestedPowerState = NO_CHANGE;
-    
-    // Delay 1000ms for power to discharge
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // Delay 10ms for power to discharge
+    vTaskDelay(10 / portTICK_PERIOD_MS);
 }
 
 
 void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
 {
-    // Set power state immediately if POWER_DOWN is requested
-    if(data->requestedPowerState == DO_POWER_DOWN) data->powerState = POWER_DOWN;
-    
     switch(data->powerState){
-        case POWER_DOWN:
-            /* Not initialized or powered down */
             
-            // Check to see if we've finished signaling the user of insufficient power if necessary
-            if(data->powerDnAllowed == true) Power_Down(config, data, vars);
+        case FRESH_BOOT:
+            data->powerState = MICRO_ON;
             break;
             
         case MICRO_ON:
-        /* 3.3V rail enabled. Ready to check initial status 
-         * NOTE: This is the default state if code is running!
-         * There is no Vref at this time, so any read to ADC is invalid!
-         */
-            if(data->requestedPowerState == DO_POWER_UP)
-            {
-                if(!data->BQ24297Data.status.vsysStat || data->BQ24297Data.status.pgStat)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
-                {
-                    Power_Up(config, data, vars);
-                }else
-                {
-                    // Otherwise insufficient power.  Notify user and power down
-                    data->powerDnAllowed = false; // This will turn true after the LED sequence completes
-                    data->powerState = POWER_DOWN;
-                }
-            }
+            /* 3.3V rail enabled. Ready to check initial status 
+             * NOTE: This is the default state if code is running!
+             * There is no Vref at this time, so any read to ADC is invalid!
+             * Wait for user input in UI.c or SCPI command.
+             */
+
             break;
             
+        case DO_POWER_UP:
+            /*There is no Vref at this time, so any read to ADC is invalid!*/
+            if(!data->BQ24297Data.status.vsysStat || data->BQ24297Data.status.pgStat)    // If batt voltage is greater than VSYSMIN or power is good, we can power up
+            {
+                Power_Up(config, data, vars);
+                data->powerState = POWERED_UP;
+            }else
+            {
+                // Otherwise insufficient power.  Notify user and power down
+                data->powerDnAllowed = false; // This will turn true after the LED sequence completes
+                data->powerState = DO_POWER_DOWN;
+            }
+
+            break;
         case POWERED_UP:
-        /* Board fully powered. Monitor for any changes/faults
+        /* Board fully powered. Monitor for any changes/faults.
          * ADC readings are now valid!
          */ 
             Power_UpdateChgPct(data);
-            if(data->requestedPowerState == DO_POWER_UP_EXT_DOWN || (data->chargePct<BATT_LOW_TH && !data->BQ24297Data.status.pgStat))
-            {
-                // If battery is low on charge and we are not plugged in, disable external supplies
-                vars->EN_5_10V_Val = false;
-                Power_Write(config, vars);
-                data->powerState = POWERED_UP_EXT_DOWN;
-            }
+            // If battery is low on charge and we are not plugged in, disable external supplies
+            if(data->chargePct<BATT_LOW_TH && !data->BQ24297Data.status.pgStat) data->powerState = DO_EXT_DOWN;
+
+            break;
+            
+        case DO_EXT_DOWN:
+            // Turn off external power supplies
+            vars->EN_5_10V_Val = false;
+            Power_Write(config, vars);
+            data->powerState = POWERED_UP_EXT_DOWN;
             break;
             
         case POWERED_UP_EXT_DOWN:
@@ -264,21 +262,25 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
             Power_UpdateChgPct(data);
             if(data->chargePct>(BATT_LOW_TH + BATT_LOW_HYST) || (data->BQ24297Data.status.inLim > 1))
             {
-                if(data->requestedPowerState == DO_POWER_UP)
-                {
-                    // If battery is charged or we are plugged in, enable external supplies
-                    vars->EN_5_10V_Val = true;
-                    Power_Write(config, vars);
-                    data->powerState = POWERED_UP;
-                }
-                    // Else, remain here because the user didn't want to be fully powered
+                // If battery is charged or we are plugged in, enable external supplies
+                vars->EN_5_10V_Val = true;
+                Power_Write(config, vars);
+                data->powerState = POWERED_UP;
+
             }else if(data->chargePct<BATT_EXH_TH)
             {
                 // Insufficient power.  Notify user and power down.
                 data->powerDnAllowed = false;   // This will turn true after the LED sequence completes
-                data->powerState = POWER_DOWN;
+                data->powerState = DO_POWER_DOWN;
             }
-
+            break;
+            
+        case DO_POWER_DOWN:
+            // Check to see if we've finished signaling the user of insufficient power if necessary
+            if(data->powerDnAllowed == true){
+                Power_Down(config, data, vars);
+                data->powerState = MICRO_ON;
+            }
             break;
     }
  

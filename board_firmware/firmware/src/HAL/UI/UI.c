@@ -19,8 +19,8 @@
                                                     //  This multiplier value is the square of SYS_CLK_DIV_PWR_SAVE
 
 #define UI_TASK_CALLING_PRD 125 //  125ms
-#define BUTTON_POWER_ON_TH (1000/UI_POWER_ON_TASK_CALLING_PRD)   //  2 seconds (~2 seconds are required for power on sequence)
-#define BUTTON_POWER_OFF_TH (2000/UI_TASK_CALLING_PRD)  //  2 seconds (~1 second is required to power off)
+#define BUTTON_POWER_ON_TH (1000/UI_POWER_ON_TASK_CALLING_PRD)   //  ~1 second (+250 ms are required for power on sequence)
+#define BUTTON_POWER_OFF_TH (1000/UI_TASK_CALLING_PRD)  //  ~1 second
 
 
 void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerData)
@@ -33,24 +33,30 @@ void Button_Tasks(sUIConfig config, sUIReadVars *UIReadVars, sPowerData *PowerDa
     if(UIReadVars->button)
     {
         buttonPressCount++;
-        if(PowerData->powerState == MICRO_ON)
-        {
-            if((buttonPressCount > BUTTON_POWER_ON_TH) && !oneShot)
-            {
-                // Signal board to power up
-                PowerData->requestedPowerState = DO_POWER_UP;
-                oneShot = true;
-            }
+        switch(PowerData->powerState){
+            case FRESH_BOOT:
+            case MICRO_ON:
+                if((buttonPressCount > BUTTON_POWER_ON_TH) && !oneShot)
+                {
+                    // Signal board to power up
+                    PowerData->powerState = DO_POWER_UP;
+                    oneShot = true;
+                }
+                break;
+                
+            case POWERED_UP:
+            case POWERED_UP_EXT_DOWN:
+                if((buttonPressCount > BUTTON_POWER_OFF_TH) && !oneShot)
+                {
+                    PowerData->powerDnAllowed = true;   // User requested power down.  Allow board to turn off without LED indication.
+                    // Signal board to power off
+                    PowerData->powerState = DO_POWER_DOWN;
+                    oneShot = true;
+                }
+                break;
+            default:
+                break;
         }
-        
-        if((PowerData->powerState > MICRO_ON) && (buttonPressCount > BUTTON_POWER_OFF_TH) && !oneShot)
-        {
-            PowerData->powerDnAllowed = true;   // User requested power down.  Allow board to turn off without LED indication.
-            // Signal board to power off
-            PowerData->requestedPowerState = DO_POWER_DOWN;
-            oneShot = true;
-        }
-        
     }
     else
     {
@@ -82,7 +88,7 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
     // Assign nicer variable names to make the code below more readable
     pluggedIn = PowerData->BQ24297Data.status.pgStat;
        
-    poweredOn = (PowerData->powerState > 0);
+    poweredOn = (PowerData->powerState == POWERED_UP || PowerData->powerState == POWERED_UP_EXT_DOWN);
 
     charging = ((PowerData->BQ24297Data.status.chgStat == CHG_STAT_PRECHARGE) || (PowerData->BQ24297Data.status.chgStat == CHG_STAT_FASTCHARGE));
 
@@ -95,15 +101,23 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
     // Code below tests currentPattern to make sure another sequence is not currently running (like a mutex).
     // 0 means no sequence is executing.  A number above 0 means that array number is executing.
     
-    if(PowerData->powerState==POWER_DOWN){
-        // Batt exhausted
-        currentPattern = 2; // Take over any other sequence
-        repeatSeq = 4;  // This sequence should repeat 4 times
-        // If we've finished our repetitions, allow board to be powered down.
-        if(repeatSeqNum==repeatSeq) PowerData->powerDnAllowed = true;
+    // If we are directed to power down, turn off LEDs
+    if(PowerData->powerState == DO_POWER_DOWN){
+        // Reset and take over any other sequence
+        repeatSeq = 0;
+        repeatSeqNum = 0;
+        sequenceNum = 0;
+        currentPattern = 0; 
+    }
+    // If we are directed to power down, turn on LED
+    else if(PowerData->powerState == DO_POWER_UP){
+        repeatSeq = 0;
+        repeatSeqNum = 0;
+        sequenceNum = 0;
+        currentPattern = 4; // Take over any other sequence and turn on power LED
     }
     else if(pluggedIn && !poweredOn && charging && !streaming) // && !battLow)
-    {   // Plugged in and charging - TODO NOTE: This state has been temporarily disable to avoid confusion during debugging
+    {   // Plugged in and charging - TODO NOTE: This state has been temporarily disabled to avoid confusion during debugging
         if(currentPattern == 0) currentPattern = 3;
     }
     else if(pluggedIn && poweredOn && !charging && !streaming) //  && !battLow)
