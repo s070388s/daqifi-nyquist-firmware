@@ -15,10 +15,9 @@
 #include "UI.h"
 #include "state/runtime/StreamingRuntimeConfig.h"
 
-#define UI_POWER_ON_TASK_CALLING_PRD (125 * 4)      //  Multiply by clock divider due to the slower clock frequency when "off"
-                                                    //  This multiplier value is the square of SYS_CLK_DIV_PWR_SAVE
-
-#define UI_TASK_CALLING_PRD 125 //  125ms
+#define UI_TASK_CALLING_PRD 100 //  100ms
+#define UI_POWER_ON_TASK_CALLING_PRD (UI_TASK_CALLING_PRD * 4)      //  Multiply by clock divider due to the slower clock frequency when "off"
+                                                                    //  This multiplier value is the square of SYS_CLK_DIV_PWR_SAVE
 #define BUTTON_POWER_ON_TH (1000/UI_POWER_ON_TASK_CALLING_PRD)   //  ~1 second (+250 ms are required for power on sequence)
 #define BUTTON_POWER_OFF_TH (1000/UI_TASK_CALLING_PRD)  //  ~1 second
 
