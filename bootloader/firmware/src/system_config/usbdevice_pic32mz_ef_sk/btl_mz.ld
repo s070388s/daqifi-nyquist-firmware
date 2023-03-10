@@ -104,9 +104,9 @@ _GEN_EXCPT_ADDR                = _ebase_address + 0x180;
  *************************************************************************/
 MEMORY
 {
-  kseg1_boot_mem          : ORIGIN = 0xBFC00000, LENGTH = 0x480
-  kseg0_program_mem  (rx) : ORIGIN = 0x9fc01000, LENGTH = 0xFF00 - 0x1000
-  kseg0_boot_mem          : ORIGIN = 0x9fc004b0, LENGTH = 0x00000000
+    kseg1_boot_mem          : ORIGIN = 0xBFC00000, LENGTH = 0x480
+    kseg0_program_mem  (rx) : ORIGIN = 0x9fc01000, LENGTH = 0xFF00 - 0x1000
+    kseg0_boot_mem          : ORIGIN = 0x9fc004b0, LENGTH = 0x00000000
   kseg1_boot_mem_4B0          : ORIGIN = 0xBFC004B0, LENGTH = 0x1000 - 0x4B0
   config_BFC0FF40             : ORIGIN = 0xBFC0FF40, LENGTH = 0x4
   config_BFC0FF44             : ORIGIN = 0xBFC0FF44, LENGTH = 0x4
@@ -225,7 +225,7 @@ MEMORY
   configsfrs_BFC54020         : ORIGIN = 0xBFC54020, LENGTH = 0x8
   configsfrs_BFC6FF40         : ORIGIN = 0xBFC6FF40, LENGTH = 0x40
   configsfrs_BFC6FFC0         : ORIGIN = 0xBFC6FFC0, LENGTH = 0x40
-  kseg0_data_mem       (w!x)  : ORIGIN = 0x80000000 + 16, LENGTH = 0x80000 - 16 /***   MHC KEEP   ***/
+  kseg0_data_mem       (w!x)  : ORIGIN = 0x80000000, LENGTH = 0x80000
   sfrs                        : ORIGIN = 0xBF800000, LENGTH = 0x100000
   kseg2_ebi_data_mem          : ORIGIN = 0xC0000000, LENGTH = 0x4000000
   kseg2_sqi_data_mem          : ORIGIN = 0xD0000000, LENGTH = 0x4000000

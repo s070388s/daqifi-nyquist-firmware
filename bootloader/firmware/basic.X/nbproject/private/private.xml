@@ -2,24 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/HAL/Power/PowerApi.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/HAL/BQ24297/BQ24297.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/system_init.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/bootloader/firmware/src/system_config/usbdevice_pic32mz_ef_sk/btl_mz.ld</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/bootloader/firmware/src/main.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/HAL/BQ24297/BQ24297.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/SCPI/SCPIInterface.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/SCPI/SCPIADC.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/bootloader/firmware/src/system_config/usbdevice_pic32mz_ef_sk/system_init.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/app.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/HAL/NVM/DaqifiSettings.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/HAL/UI/UI.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/bootloader/firmware/src/app.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/nanopb/Encoder.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/app_mz.ld</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/bootloader/firmware/src/app.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/nyquist-firmware/board_firmware/firmware/src/HAL/Power/PowerApi.h</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

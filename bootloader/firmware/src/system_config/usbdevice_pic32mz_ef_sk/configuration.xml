@@ -9,7 +9,7 @@
     <Processor dnOrder="1" name="PIC32MZ2048EFM144"/>
     <Board dnOrder="2" name=""/>
     <ForceOptimization dnOrder="3" flag="true"/>
-    <MergeStrategy dnOrder="4" flag="USER_ALL"/>
+    <MergeStrategy dnOrder="4" flag="ALL"/>
   </General>
   <Manifest>
     <Files dnOrder="0">
@@ -287,11 +287,13 @@
         <Name dnOrder="0">system_interrupt.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">E271DECB6BE73A36BCA418F7B269F565</Checksum>
+        <ProjectFileChecksum dnOrder="3">620D5121A33A4E7C010185F5FA932FA6</ProjectFileChecksum>
       </Template>
       <Template dnOrder="1">
         <Name dnOrder="0">sys_devcon_pic32mz.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">D011F212E6410A0C92087C188E1F60AF</Checksum>
+        <ProjectFileChecksum dnOrder="3">FE0DF78CAE6A767CBC6ED531B666A453</ProjectFileChecksum>
       </Template>
       <Template dnOrder="2">
         <Name dnOrder="0">main.c</Name>
@@ -301,26 +303,31 @@
         <Name dnOrder="0">sys_devcon.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon</Path>
         <Checksum dnOrder="2">07580DCDEF89D9C79B062544109C5367</Checksum>
+        <ProjectFileChecksum dnOrder="3">44D84F9525D0BAD231ED1BCB7AF39652</ProjectFileChecksum>
       </Template>
       <Template dnOrder="4">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">CC1C454F9B5F09A49DE0297F87BD279A</Checksum>
+        <ProjectFileChecksum dnOrder="3">AF35EA81C314B0C543C86F2FB8DC321C</ProjectFileChecksum>
       </Template>
       <Template dnOrder="5">
         <Name dnOrder="0">system_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">8DD9A3D5FC7C1509941AEA6D935610E5</Checksum>
+        <ProjectFileChecksum dnOrder="3">B06D4E2502F0D3B3AAAB75F325A4BDF6</ProjectFileChecksum>
       </Template>
       <Template dnOrder="6">
         <Name dnOrder="0">sys_devcon.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">54ADBD4A35BCA03C42C74182FCE41849</Checksum>
+        <ProjectFileChecksum dnOrder="3">0AE886A2510872FF4C8BF188834B903D</ProjectFileChecksum>
       </Template>
       <Template dnOrder="7">
         <Name dnOrder="0">sys_reset.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/reset/src</Path>
         <Checksum dnOrder="2">BE66429899862E1E38250CA4006D5F46</Checksum>
+        <ProjectFileChecksum dnOrder="3">D27C9DBE797A398FF0345AA9FA855DA6</ProjectFileChecksum>
       </Template>
       <Template dnOrder="8">
         <Name dnOrder="0">btl_mz.ld</Name>
@@ -332,6 +339,7 @@
         <Name dnOrder="0">sys_devcon_cache_pic32mz.S</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">D0A9CCA1CA85BB1CE7364A5DE10CC07D</Checksum>
+        <ProjectFileChecksum dnOrder="3">9F3D1CC8C9941C4D660C48A68E0D9338</ProjectFileChecksum>
       </Template>
       <Template dnOrder="10">
         <Name dnOrder="0">app.c</Name>
@@ -341,26 +349,31 @@
         <Name dnOrder="0">system_definitions.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">09E90704EFF8B6CC01DA329BB97B7A2E</Checksum>
+        <ProjectFileChecksum dnOrder="3">4A102D92F05D782A21F3187CA0766E06</ProjectFileChecksum>
       </Template>
       <Template dnOrder="12">
         <Name dnOrder="0">sys_devcon_local.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">B66F9B4DBD85DA7F9DE775E864E01395</Checksum>
+        <ProjectFileChecksum dnOrder="3">04A84FD6F9041559D6817F315FF1FAE2</ProjectFileChecksum>
       </Template>
       <Template dnOrder="13">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/ports/src</Path>
         <Checksum dnOrder="2">9560F16C807027124C8D38874DEE9CFA</Checksum>
+        <ProjectFileChecksum dnOrder="3">402A0DD54C2B24645518148AEBD7FCA3</ProjectFileChecksum>
       </Template>
       <Template dnOrder="14">
         <Name dnOrder="0">system_exceptions.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk</Path>
         <Checksum dnOrder="2">9836A04F3E98D3971DB91DF539160F34</Checksum>
+        <ProjectFileChecksum dnOrder="3">BFFC3B837CA5853440F6D84586790839</ProjectFileChecksum>
       </Template>
       <Template dnOrder="15">
         <Name dnOrder="0">sys_devcon_cache.h</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/usbdevice_pic32mz_ef_sk/framework/system/devcon/src</Path>
         <Checksum dnOrder="2">5EB0485AC07A8B25665195B960AFBE5B</Checksum>
+        <ProjectFileChecksum dnOrder="3">7C8FC41DAAB507A69733B72FE569699F</ProjectFileChecksum>
       </Template>
       <Template dnOrder="16">
         <Name dnOrder="0">app.h</Name>
