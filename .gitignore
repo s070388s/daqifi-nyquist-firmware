@@ -2,14 +2,23 @@
 # /board_firmware/firmware/DAQiFi_3_0.X/
 /board_firmware/firmware/DAQiFi_3_0.X/build
 /board_firmware/firmware/DAQiFi_3_0.X/debug
+/board_firmware/firmware/DAQiFi_3_0.X/nbproject/Makefile-*
+/board_firmware/firmware/DAQiFi_3_0.X/Package-*
+/board_firmware/firmware/DAQiFi_3_0.X/private/
 
 # /board_firmware/libscpi/libscpi.X/
 /board_firmware/libscpi/libscpi.X/build
 /board_firmware/libscpi/libscpi.X/debug
+/board_firmware/libscpi/libscpi.X/nbproject/Makefile-*
+/board_firmware/libscpi/libscpi.X/Package-*
+/board_firmware/libscpi/libscpi.X/private/
 
 # /board_firmware/microrl/microrl.X/
 /board_firmware/microrl/microrl.X/build
 /board_firmware/microrl/microrl.X/debug
+/board_firmware/microrl/microrl.X/nbproject/Makefile-*
+/board_firmware/microrl/microrl.X/Package-*
+/board_firmware/microrl/microrl.X/private/
 
 # /board_firmware/microrl/microrl.X/dist/PIC32MZ2048EFM144/
 /board_firmware/microrl/microrl.X/dist/PIC32MZ2048EFM144/debug
@@ -17,6 +26,9 @@
 # /board_firmware/nanopb/nanopb.X/
 /board_firmware/nanopb/nanopb.X/build
 /board_firmware/nanopb/nanopb.X/debug
+/board_firmware/nanopb/nanopb.X/nbproject/Makefile-*
+/board_firmware/nanopb/nanopb.X/Package-*
+/board_firmware/nanopb/nanopb.X/private/
 
 # /board_firmware/nanopb/nanopb.X/dist/PIC32MZ2048EFM144/
 /board_firmware/nanopb/nanopb.X/dist/PIC32MZ2048EFM144/debug
