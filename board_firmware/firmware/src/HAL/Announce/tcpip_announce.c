@@ -473,7 +473,7 @@ static bool TCPIP_ANNOUNCE_SendIf(int netIx, TCPIP_ANNOUNCE_DCPT* pDcpt, uint8_t
     TCPIP_ANNOUNCE_SEND_DCPT annDcpt;
     TCPIP_ANNOUNCE_TRUNC_DCPT* pTDcpt;
     uint8_t*    outData;
-    bool        isTruncated;
+    bool        isTruncated = false;
     annSkt = pDcpt->skt;
     
     uint8_t buffer[TCPIP_ANNOUNCE_MAX_PAYLOAD]; // DAQiFi Modification
