@@ -6,19 +6,17 @@
 #include "nanopb/DaqifiOutMessage.pb.h"
 #include "nanopb/Encoder.h"
 #include "Util/Logger.h"
+#include "TcpServer/TcpServer.h"
+#include "Util/CircularBuffer.h"
+#include "commTest.h"
+#include "UsbCdc/UsbCdc.h"
 
 #define UNUSED(x) (void)(x)
-void Streaming_StuffDummyData (void); // Function for debugging - fills buffer with dummy data
 
-static void Streaming_TriggerADC(AInModule* module)
-{
-    if (module->Type == AIn_MC12bADC)
-    {
-        
-    }
-    
-    ADC_TriggerConversion(module);
-}
+#define BUFFER_SIZE  USB_WBUFFER_SIZE //2048
+uint8_t buffer[BUFFER_SIZE];
+size_t loop = 0;
+void Streaming_StuffDummyData (void); // Function for debugging - fills buffer with dummy data
 
 static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
 {
@@ -42,24 +40,7 @@ static void Streaming_TimerHandler(uintptr_t context, uint32_t alarmCount)
     //inHandler = false;
     //return;
  
-    uint8_t i=0;
-    for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
-    {
-        // Only trigger conversions if the previous conversion is complete
-        if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
-            g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
-        {
-            Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
-        }
-
-    }
-
-    if (g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with DIOPrescale
-    {
-        DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);
-    }
-    
-    g_BoardRuntimeConfig.StreamingConfig.StreamCount = (g_BoardRuntimeConfig.StreamingConfig.StreamCount + 1) % g_BoardRuntimeConfig.StreamingConfig.MaxStreamCount;
+    Streaming_Defer_Interrupt();
     
     inHandler = false;
 }
@@ -80,7 +61,7 @@ void Streaming_Init(const StreamingConfig* config, StreamingRuntimeConfig* runti
 void Streaming_Start(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)
 {
     UNUSED(config);
-    
+   
     if (!runtimeConfig->Running)
     {       
         DRV_TMR_AlarmRegister(runtimeConfig->TimerHandle,
@@ -129,142 +110,116 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
     {
         return;
     }
-    
-    const size_t BUFFER_SIZE = 2048;
-    uint8_t buffer[BUFFER_SIZE];
-    bool AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
-    bool DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
-    
-    #if(DAQIFI_DIO_DEBUG == 1)
-    {
-        // For diagnostic purposes, setup DIO pin 1
-        //TODO: DAQiFi For diagnostic purposes, setup DIO pin 1
-        g_BoardRuntimeConfig.DIOChannels.Data[1].IsInput = false;
-        g_BoardRuntimeConfig.DIOChannels.Data[1].IsReadOnly = false;
-        g_BoardRuntimeConfig.DIOChannels.Data[1].Value = !g_BoardRuntimeConfig.DIOChannels.Data[1].Value;
-    }
-    #endif
-    
-    // Decide what to write
-    NanopbFlagsArray flags;
-    
-    flags.Size=0;   // Initialize array size to zero
-    
-    // See if we have anything to write at all, if so, proceed with creating message header, etc.
-    if(AINDataAvailable || DIODataAvailable){
-        flags.Data[0] = DaqifiOutMessage_msg_time_stamp_tag;
-//        flags.Data[1] = DaqifiOutMessage_device_status_tag;
-//        flags.Data[2] = DaqifiOutMessage_bat_level_tag;
-//        flags.Data[3] = DaqifiOutMessage_pwr_status_tag;
-//        flags.Data[4] = DaqifiOutMessage_temp_status_tag;
-        flags.Size = 1;
-    }else
-    {
-        return;
-    }
-    
-    // Decide how many samples we can send out
-    size_t usbSize = 0;
-    bool hasUsb = false;
-    if (runtimeConfig->usbSettings.state == USB_CDC_STATE_PROCESS)
-    {
-        usbSize = min(BUFFER_SIZE, USB_BUFFER_SIZE - runtimeConfig->usbSettings.writeBufferLength);
-        hasUsb = true;
-    }
 
-    size_t i=0;
-    size_t wifiSize = BUFFER_SIZE;
-    bool hasWifi = false;
-    if (runtimeConfig->serverData.state == IP_SERVER_PROCESS)
-    {
-        for (i=0; i<WIFI_MAX_CLIENT; ++i)
-        {
-            if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
-            {
-                 wifiSize = min(wifiSize, WIFI_BUFFER_SIZE - runtimeConfig->serverData.clients[i].writeBufferLength);
-                 hasWifi = true;
-            }
-        }
-    }
-    
-    size_t maxSize = 0;
-    if (hasUsb && hasWifi)
-    {
-        maxSize = min(usbSize, wifiSize);
-    }
-    else if (hasUsb)
-    {
-        maxSize = usbSize;
-    }
-    else
-    {
-        maxSize = wifiSize;
-    }
-    
-    if (maxSize < 128)
-    {
-        return;
-    }
-    
-    while(maxSize > 0 && (AINDataAvailable || DIODataAvailable))
-    {
+    bool AINDataAvailable, DIODataAvailable;
+    NanopbFlagsArray flags;
+    size_t usbSize, wifiSize, maxSize;
+    bool hasUsb, hasWifi;
+    int wifi_cnt;
+    //  TODO: This should be refactored
+    do{
         AINDataAvailable=!AInSampleList_IsEmpty(&boardData->AInSamples);
         DIODataAvailable=!DIOSampleList_IsEmpty(&boardData->DIOSamples);
-
-        if (AINDataAvailable)
+        flags.Size = 0;
+        usbSize    = 0;
+        hasUsb     = hasWifi    = false;
+        usbSize    = wifiSize   = 0;
+        maxSize    = 0;
+        
+        if(AINDataAvailable || DIODataAvailable){
+            flags.Data[flags.Size++] = DaqifiOutMessage_msg_time_stamp_tag;
+        }else{
+            return;
+        }
+         
+        // Decide how many samples we can send out
+        if (runtimeConfig->usbSettings.state == USB_CDC_STATE_PROCESS)
         {
-            flags.Data[flags.Size] = DaqifiOutMessage_analog_in_data_tag;
-            //flags.Data[flags.Size + 1] = DaqifiOutMessage_analog_in_data_b_tag;   
-            //flags.Data[flags.Size + 2] = DaqifiOutMessage_analog_in_port_rse_tag;
-            //flags.Data[flags.Size + 3] = DaqifiOutMessage_analog_in_port_enabled_tag;
-            //flags.Data[flags.Size + 4] = DaqifiOutMessage_analog_in_port_range_tag;
-            //flags.Data[flags.Size + 5] = DaqifiOutMessage_analog_in_res_tag;
-            flags.Size += 1;
+            usbSize = CircularBuf_NumBytesFree(&runtimeConfig->usbSettings.wCirbuf);
+            hasUsb  = true;
         }
 
-        if (DIODataAvailable)
+        if (runtimeConfig->serverData.state == IP_SERVER_PROCESS)
         {
-            flags.Data[flags.Size] = DaqifiOutMessage_digital_data_tag;
-            flags.Data[flags.Size + 1] = DaqifiOutMessage_digital_port_dir_tag;
-            flags.Size += 2;
+            for (wifi_cnt=0; wifi_cnt<WIFI_MAX_CLIENT; ++wifi_cnt)
+            {
+                if (runtimeConfig->serverData.clients[wifi_cnt].client != INVALID_SOCKET)
+                {
+                    wifiSize = WIFI_WBUFFER_SIZE - runtimeConfig->serverData.clients[wifi_cnt].writeBufferLength;
+                    hasWifi = true;
+                }
+            }
+        }
+        
+        if (hasUsb && hasWifi){
+            maxSize = min(usbSize, wifiSize);
+        }
+        else if(hasUsb){
+            maxSize = usbSize;
+        }
+        else{
+            maxSize = wifiSize;
         }
 
+        if (maxSize < 128){
+            return;
+        }
+        
+        if (AINDataAvailable){
+            flags.Data[flags.Size++] = DaqifiOutMessage_analog_in_data_tag;
+        }
 
-
+        if (DIODataAvailable){
+            flags.Data[flags.Size++] = DaqifiOutMessage_digital_data_tag;
+            flags.Data[flags.Size++] = DaqifiOutMessage_digital_port_dir_tag;
+        }
+           
         // Generate a packet
         // TODO: ASCII Encoder
         if(flags.Size>0){
+            
             size_t size = 0;
-            if (runtimeConfig->StreamingConfig.Encoding == Streaming_Json)
-            {
+            if (runtimeConfig->StreamingConfig.Encoding == Streaming_Json){
                 size = Json_Encode(boardData, &flags, buffer, maxSize);
             }
-            else
-            {
+            else{
+
                 size = Nanopb_Encode(boardData, &flags, buffer, maxSize);
+                
+                if(runtimeConfig->StreamingConfig.Encoding == Streaming_TestData){
+  
+                    // if TestData_Len is specified, overwrite the buffer length
+                    if(commTest.TestData_len>0)
+                    size = commTest.TestData_len;
+                    
+                    if(CommTest_FillTestData(buffer, size)==false){
+                        size = 0;//discard the frame 
+                    }
+                }
             }
 
             // Write the packet out
-            if (size > 0)
-            {
-                // Toggle DIO pin for diagnostic use
-                DIO_WriteStateSingle(&g_BoardConfig.DIOChannels.Data[1], &g_BoardRuntimeConfig.DIOChannels.Data[1]);
-                
-                if (hasUsb)
-                {
-                    memcpy(runtimeConfig->usbSettings.writeBuffer + runtimeConfig->usbSettings.writeBufferLength, buffer, size);
-                    runtimeConfig->usbSettings.writeBufferLength += size;
+            if (size > 0){
+
+                if (hasUsb){
+                    UsbCdc_WriteToBuffer(&g_BoardRuntimeConfig.usbSettings, buffer, size);
                 }
 
-                if (hasWifi)
-                {
-                    for (i=0; i<WIFI_MAX_CLIENT; ++i)
-                    {
-                        if (runtimeConfig->serverData.clients[i].client != INVALID_SOCKET)
+                if (hasWifi){
+                    
+                    if( TCP_Server_Is_Blocked() == 0 ){
+                        for (wifi_cnt=0; wifi_cnt<WIFI_MAX_CLIENT; ++wifi_cnt)
                         {
-                            memcpy(runtimeConfig->serverData.clients[i].writeBuffer + runtimeConfig->serverData.clients[i].writeBufferLength, buffer, size);
-                            runtimeConfig->serverData.clients[i].writeBufferLength += size;
+                            if (runtimeConfig->serverData.clients[wifi_cnt].client != INVALID_SOCKET)
+                            {
+                                memcpy(runtimeConfig->serverData.clients[wifi_cnt].writeBuffer + runtimeConfig->serverData.clients[wifi_cnt].writeBufferLength, buffer, size);
+                                runtimeConfig->serverData.clients[wifi_cnt].writeBufferLength += size;
+                            }
                         }
+                    }
+                    else{
+                        maxSize = 0;
+                        continue;
                     }
                 }
                 maxSize = maxSize - size;
@@ -272,10 +227,11 @@ void Streaming_Tasks(const BoardConfig* boardConfig, BoardRuntimeConfig* runtime
             {
                 // We don't have enough available buffer to encode another message
                 // Set maxSize to 0 to break out of loop
-                maxSize = 0;
+                maxSize = 0;                
             }
         }
-    }
+    }while(1);
+    
 }
 
 void TimestampTimer_Init(const StreamingConfig* config, StreamingRuntimeConfig* runtimeConfig)

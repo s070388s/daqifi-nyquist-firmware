@@ -243,12 +243,13 @@ void IntHandlerDrvAdcEOS(void)
     // Apparently something else might share this interrupt, so check to make sure the scan is complete!
     if(PLIB_ADCHS_AnalogInputScanIsComplete(ADCHS_ID_0))
     {
-        //uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
-        //UNUSED(dummyADCCON2);
+        uint32_t dummyADCCON2 = ADCCON2;    // Clear Scan Complete Interrupt Flag (the only way to do this is to read from ADCCON2)
+        UNUSED(dummyADCCON2);
         
         // Tell the app to read the results
-        const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
-        ADC_ConversionComplete(module);
+        /*const AInModule* module = ADC_FindModule(&g_BoardConfig.AInModules, AIn_MC12bADC);
+        ADC_ConversionComplete(module);*/
+        _ADC_Defer_Interrupt();
     }
     
     --g_BoardData.InISR;

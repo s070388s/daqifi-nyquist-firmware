@@ -179,67 +179,6 @@ typedef struct {
 
 /*******************************************************************************
   Function:
-    void APP_Initialize(void)
-
-  Summary:
-     This routine initializes the application object.
-
-  Description:
-    This routine initializes the application object. The application state is
-    set to wait for media attach.
-
-  Precondition:
-    All other system initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    APP_Initialize();
-    </code>
-
-  Remarks:
-    This routine must be called from the SYS_Initialize function.
- */
-void APP_Initialize(void);
-
-/*******************************************************************************
-  Function:
-    void APP_Tasks(void)
-
-  Summary:
-    Application Tasks Function
-
-  Description:
-    This routine implements the application in a non blocking manner.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize") should be
-    called before calling this function.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    APP_Tasks();
-    </code>
-
-  Remarks:
-    This routine must be called from SYS_Tasks() routine.
- */
-void APP_Tasks(void);
-
-/*******************************************************************************
-  Function:
     uint8_t APP_WIFI_Prescan(void)
 
   Summary:

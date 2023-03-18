@@ -44,7 +44,7 @@ bool UsbCdc_IsActive();
  * @param len The length of data
  * @return The number of bytes written
  */
-size_t UsbCdc_Write(UsbCdcData* client, const char* data, size_t len);
+size_t UsbCdc_WriteToBuffer(UsbCdcData* client, const char* data, size_t len);
 
 /**
  * Writes to the default (only) client

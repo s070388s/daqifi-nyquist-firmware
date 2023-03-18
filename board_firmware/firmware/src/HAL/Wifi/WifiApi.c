@@ -1,5 +1,4 @@
-//#include <sys/attribs.h>
-// Original include from demo but relocated to WifiApi.h
+
 #include "WifiApi.h"
 
 // DAQiFi includes

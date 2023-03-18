@@ -21,7 +21,12 @@ extern __attribute__((section(".bss.errno"))) int errno;
 #define WIFI_INTERFACE_NAME "WINC1500"
 #endif
 
+//! Timeout for waiting when WiFi device is full and returning EWOULDBLOCK error
+#define TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT         1
+
 #define UNUSED(x) (void)(x)
+
+static uint8_t tcpServerBlocked = 0;
 
 // Function Prototypes
 static void TcpServer_InitializeClient(TcpClientData* client);
@@ -46,7 +51,7 @@ static size_t TcpServer_Write(TcpClientData* client, const char* data, size_t le
     size_t startIndex = 0;
     while (startIndex < len)
     {
-        size_t remainder = WIFI_BUFFER_SIZE - client->writeBufferLength - 1;
+        size_t remainder = WIFI_WBUFFER_SIZE - client->writeBufferLength - 1;
         size_t size = min(remainder, len - startIndex);
 
         if (data != NULL && size > 0)
@@ -83,7 +88,17 @@ static size_t TcpServer_Write(TcpClientData* client, const char* data, size_t le
  */
 static bool TcpServer_Flush(TcpClientData* client)
 {
-    int length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
+    int length;
+    
+    tcpServerBlocked = 1;
+    do{
+        length = send(client->client, (char*)client->writeBuffer, client->writeBufferLength, 0);
+        if( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) ){
+            vTaskDelay( TCPSERVER_EWOULDBLOCK_ERROR_TIMEOUT );
+        }
+
+    }while( ( errno == EWOULDBLOCK ) && (length == SOCKET_ERROR) );
+    tcpServerBlocked = 0;
     if (length == SOCKET_ERROR)
     {
         switch(errno)
@@ -411,9 +426,9 @@ void TcpServer_ProcessState()
                 }
             }
             
-            if (client->readBufferLength < WIFI_BUFFER_SIZE)
+            if (client->readBufferLength < WIFI_RBUFFER_SIZE)
             {
-                int length = recv(client->client, (char*)client->readBuffer + client->readBufferLength, WIFI_BUFFER_SIZE - client->readBufferLength, 0);
+                int length = recv(client->client, (char*)client->readBuffer + client->readBufferLength, WIFI_RBUFFER_SIZE - client->readBufferLength, 0);
                 if (length == SOCKET_ERROR)
                 {
                     switch(errno)
@@ -504,4 +519,12 @@ void TcpServer_ProcessState()
         g_BoardRuntimeConfig.serverData.state = IP_SERVER_DISCONNECT;
         break;
     }
+}
+
+/*! Used for knowing if TCP Server is trying to flush data
+* so we should not try yo put additional data on the buffer
+* @return 1 When bloked, 0 when it is not
+*/
+uint8_t TCP_Server_Is_Blocked( void ){
+    return tcpServerBlocked;
 }

@@ -5,6 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="app" displayName="app" projectFiles="true">
+        <logicalFolder name="f2" displayName="commTest" projectFiles="true">
+          <itemPath>../src/commTest.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="HAL" displayName="HAL" projectFiles="true">
           <logicalFolder name="ADC" displayName="ADC" projectFiles="true">
             <itemPath>../src/HAL/ADC/AD7173.h</itemPath>
@@ -117,6 +120,7 @@
           <itemPath>../src/Util/StackList.h</itemPath>
           <itemPath>../src/Util/StringFormatters.h</itemPath>
           <itemPath>../src/Util/NullLockProvider.h</itemPath>
+          <itemPath>../src/Util/CircularBuffer.h</itemPath>
         </logicalFolder>
         <itemPath>../src/app.h</itemPath>
         <itemPath>../src/app_commands.h</itemPath>
@@ -636,6 +640,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="app" displayName="app" projectFiles="true">
+        <logicalFolder name="f2" displayName="commTest" projectFiles="true">
+          <itemPath>../src/commTest.c</itemPath>
+        </logicalFolder>
         <logicalFolder name="HAL" displayName="HAL" projectFiles="true">
           <logicalFolder name="ADC" displayName="ADC" projectFiles="true">
             <itemPath>../src/HAL/ADC/AD7173.c</itemPath>
@@ -771,6 +778,7 @@
           <itemPath>../src/Util/StackList.c</itemPath>
           <itemPath>../src/Util/StringFormatters.c</itemPath>
           <itemPath>../src/Util/NullLockProvider.c</itemPath>
+          <itemPath>../src/Util/CircularBuffer.c</itemPath>
         </logicalFolder>
         <itemPath>../src/app.c</itemPath>
         <itemPath>../src/app_commands.c</itemPath>
@@ -1368,6 +1376,20 @@
       <item path="../../../../../framework/tcpip/src/tcpip_announce.c"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MX/ISR_Support.h"
             ex="true"
@@ -1520,6 +1542,10 @@
         </C32CPP>
         <C32Global>
         </C32Global>
+      </item>
+      <item path="../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/app_mz.ld"
+            ex="true"
+            overriding="false">
       </item>
       <C32>
         <property key="additional-warnings" value="true"/>

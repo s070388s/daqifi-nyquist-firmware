@@ -15,7 +15,8 @@ extern "C" {
 #endif
 
 #define WIFI_MAX_CLIENT 1 //MAX_BSD_SOCKETS - 1
-#define WIFI_BUFFER_SIZE 2048
+#define WIFI_RBUFFER_SIZE 2048
+#define WIFI_WBUFFER_SIZE 32768
 
 /**
  * Tracks the client state
@@ -36,13 +37,13 @@ typedef struct s_TcpClientData
     SOCKET client;
 
     /** Client read buffer */
-    uint8_t readBuffer[WIFI_BUFFER_SIZE];
+    uint8_t readBuffer[WIFI_RBUFFER_SIZE];
 
     /** The current length of the read buffer */
     size_t readBufferLength;
 
     /** Client write buffer */
-    uint8_t writeBuffer[WIFI_BUFFER_SIZE];
+    uint8_t writeBuffer[WIFI_WBUFFER_SIZE];
 
     /** The current length of the write buffer */
     size_t writeBufferLength;

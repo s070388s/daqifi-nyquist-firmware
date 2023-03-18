@@ -9,13 +9,15 @@
 #include <stdlib.h>
 #include "scpi/scpi.h"
 #include "microrl.h"
+#include "Util/CircularBuffer.h"
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-#define USB_BUFFER_SIZE 2048 // 32 * 64
-
+    
+#define USB_WBUFFER_SIZE 2048
+#define USB_RBUFFER_SIZE 512 // 32 * 64
 /**
  * State machine states
  */
@@ -80,10 +82,13 @@ typedef struct s_UsbCdcData
     size_t writeBufferLength;
     
     /** Client read buffer */
-    uint8_t readBuffer[USB_BUFFER_SIZE] __attribute__((aligned(16)));
+    uint8_t readBuffer[USB_RBUFFER_SIZE] __attribute__((aligned(16)));
     
     /** Client write buffer */
-    uint8_t writeBuffer[USB_BUFFER_SIZE] __attribute__((aligned(16)));
+    uint8_t writeBuffer[USB_WBUFFER_SIZE] __attribute__((aligned(16)));
+    
+    CircularBuf wCirbuf;
+    SemaphoreHandle_t wMutex;
 } UsbCdcData;
 
 #ifdef	__cplusplus

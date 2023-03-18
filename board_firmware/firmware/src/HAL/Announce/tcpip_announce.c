@@ -995,4 +995,3 @@ bool TCPIP_ANNOUNCE_CallbackRegister(TCPIP_ANNOUNCE_MESSAGE_CALLBACK callback)
 }
 
 #endif  // defined(TCPIP_STACK_USE_IPV4) && defined(TCPIP_STACK_USE_ANNOUNCE)
-

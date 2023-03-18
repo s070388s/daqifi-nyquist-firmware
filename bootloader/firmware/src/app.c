@@ -86,14 +86,14 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #define UNUSED(x) (void)(x)
 
 // These are defined as preprocessor macros in the app and bootloader
-//#define FORCE_BOOTLOADER_FLAG_ADDR 0x80000000 // Address must match what is defined in the project preprocessor definition (0x80000000 is the beginning 16 bytes of data mem)
+//#define FORCE_BOOTLOADER_FLAG_ADDR 0x8007FFE0 // Address must match what is defined in the project preprocessor definition (0x80000000 is the beginning 16 bytes of data mem)
 //#define FORCE_BOOT_VALUE 0xF4CEB007    // magic force bootloader value
 
 #define TIMER_PERIOD (uint32_t)500   //mS
 #define BOOTLOADER_PRIME_WINDOW     (uint32_t)5000   //mSeconds duration where user may press button to enter bootloader
 #define BOOTLOADER_FORCE_DURATION   (uint32_t)1000   //mSeconds required for user to press button to enter bootloader
 #define BOOTLOADER_POWER_OFF_DURATION   (uint32_t)5000/TIMER_PERIOD   //mSeconds delay for user to press button to power off board  
-#define BOOTLOADER_BLINK_DURATION   (uint32_t)100   //mSeconds
+#define BOOTLOADER_BLINK_DURATION   (uint32_t)500   //mSeconds
 
 APP_DATA appData;
 static SYS_TMR_HANDLE m_TimerCallback;

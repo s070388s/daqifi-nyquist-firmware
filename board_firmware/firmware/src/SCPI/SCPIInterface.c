@@ -25,6 +25,7 @@
 #include "SCPI/SCPIDIO.h"
 #include "SCPI/SCPILAN.h"
 #include "streaming.h"
+#include "commTest.h"
 
 #define UNUSED(x) (void)(x)
 
@@ -289,7 +290,7 @@ static scpi_result_t SCPI_SysInfoGet(scpi_t * context)
     }
     
     uint8_t buffer[DaqifiOutMessage_size];
-    size_t count = Nanopb_Encode(&g_BoardData, (const)&fields_info, buffer, DaqifiOutMessage_size);
+    size_t count = Nanopb_Encode(&g_BoardData, (const NanopbFlagsArray *)&fields_info, buffer, (size_t)DaqifiOutMessage_size);
     if (count < 1)
     {
         return SCPI_RES_ERR;
@@ -380,6 +381,23 @@ static scpi_result_t SCPI_SetPowerState(scpi_t * context)
     return SCPI_RES_OK;
 }
 
+static scpi_result_t SCPI_ClearStreamStats(scpi_t * context)
+{
+    memset(commTest.stats,0, sizeof(commTest.stats));
+    return SCPI_RES_OK;
+}
+
+scpi_result_t SCPI_GetStreamStats(scpi_t * context)
+{
+    SCPI_ResultInt32(context, commTest.stats[0]);
+    SCPI_ResultInt32(context, commTest.stats[1]);
+    SCPI_ResultInt32(context, commTest.stats[2]);
+    SCPI_ResultInt32(context, commTest.stats[3]);
+
+    return SCPI_RES_OK;
+}
+
+
 static scpi_result_t SCPI_StartStreaming(scpi_t * context)
 {
     int32_t freq;
@@ -387,7 +405,7 @@ static scpi_result_t SCPI_StartStreaming(scpi_t * context)
     
     if (SCPI_ParamInt32(context, &freq, FALSE))
     {
-        if (freq >= 1 && freq <= 1000)
+        if (freq >= 1 && freq <= 1000)///TODO: Test higher throughput
         {
             g_BoardRuntimeConfig.StreamingConfig.ClockDivider = clkFreq / freq; // calculate the divider needed
             g_BoardRuntimeConfig.StreamingConfig.TSClockDivider = 0xFFFFFFFF; // Set timer to maximum period
@@ -424,19 +442,31 @@ static scpi_result_t SCPI_IsStreaming(scpi_t * context)
 
 static scpi_result_t SCPI_SetStreamFormat(scpi_t * context)
 {
-    int param1;
+    int param1, param2;
     if (!SCPI_ParamInt32(context, &param1, TRUE))
     {
         return SCPI_RES_ERR;
     }
     
-    if (param1 == 0)
+    if (param1 == Streaming_ProtoBuffer)
     {
         g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_ProtoBuffer;
     }
-    else
+    else if(param1 == Streaming_Json)
     {
         g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_Json;
+    }
+    else if(param1 == Streaming_TestData)
+    {
+        g_BoardRuntimeConfig.StreamingConfig.Encoding = Streaming_TestData;
+        
+        if(SCPI_ParamInt32(context, &param2, FALSE) && (param2 <= 1000)){
+            commTest.TestData_len = param2;
+        }
+        else{
+            // TestData_len is not set. This indicates use dynamic length
+            commTest.TestData_len = 0;
+        }
     }
     
     return SCPI_RES_OK;
@@ -542,6 +572,26 @@ scpi_result_t SCPI_GetSerialNumber(scpi_t * context)
     return SCPI_RES_OK;
 }
 
+scpi_result_t SCPI_GetFreeRtosStats(scpi_t * context)
+{
+    char* pcWriteBuffer;
+    int len;
+    
+    pcWriteBuffer = pvPortMalloc(1000);
+    
+    if(pcWriteBuffer!=NULL){
+        // generate run-time stats string into the buffer
+        vTaskGetRunTimeStats(pcWriteBuffer);
+        
+        len = strlen(pcWriteBuffer);
+        if (len > 0){
+            context->interface->write(context, pcWriteBuffer,len);
+        }
+        
+        vPortFree(pcWriteBuffer);
+    }
+    return SCPI_RES_OK;
+}
 
 static const scpi_command_t scpi_commands[] = {
     // Build into libscpi
@@ -671,16 +721,17 @@ static const scpi_command_t scpi_commands[] = {
     {.pattern = "OUTPut:SPI:WRIte", .callback = SCPI_NotImplemented, },
     
     // Streaming
-    {.pattern = "SYSTem:StartStreamData", .callback = SCPI_StartStreaming, },
-    {.pattern = "SYSTem:StopStreamData", .callback = SCPI_StopStreaming, },
-    {.pattern = "SYSTem:StreamData?", .callback = SCPI_IsStreaming, },
-    
-    {.pattern = "SYSTem:STReam:FORmat", .callback = SCPI_SetStreamFormat, }, // 0 = pb = default, 1 = text (json)
-    {.pattern = "SYSTem:STReam:FORmat?", .callback = SCPI_GetStreamFormat, },
-    
+    {.pattern = "SYSTem:StartStreamData",     .callback = SCPI_StartStreaming, },  
+    {.pattern = "SYSTem:StopStreamData",      .callback = SCPI_StopStreaming, },
+    {.pattern = "SYSTem:StreamData?",         .callback = SCPI_IsStreaming, },   
+    {.pattern = "SYSTem:STReam:FORmat",       .callback = SCPI_SetStreamFormat, }, // 0 = pb = default, 1 = text (json)
+    {.pattern = "SYSTem:STReam:FORmat?",      .callback = SCPI_GetStreamFormat, },
+    {.pattern = "SYSTem:STReam:Stats?",       .callback = SCPI_GetStreamStats,},  
+    {.pattern = "SYSTem:STReam:ClearStats",   .callback = SCPI_ClearStreamStats,},
+    // FreeRTOS
+    {.pattern = "SYSTem:OS:Stats?",           .callback = SCPI_GetFreeRtosStats,},
     // Testing
-    {.pattern = "BENCHmark?", .callback = SCPI_NotImplemented, },
-    
+    {.pattern = "BENCHmark?",       .callback = SCPI_NotImplemented,},
     {.pattern = NULL, .callback = SCPI_NotImplemented, },
 };
 

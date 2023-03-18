@@ -78,6 +78,35 @@ static enum {
     EXCEP_C2E      = 18, // coprocessor 2
 } _excep_code;
 
+
+/* Pointer to the string describing the cause of the exception. */
+static char *_cause_str;
+
+/* Array identifying the cause (indexed by _exception_code). */
+const char *cause[] =
+{
+    "Interrupt",                        // 0
+    "Undefined",                        // 1
+    "Undefined",                        // 2
+    "Undefined",                        // 3
+    "Load/fetch address error",         // 4
+    "Store address error",              // 5
+    "Instruction bus error",            // 6
+    "Data bus error",                   // 7
+    "Syscall",                          // 8
+    "Breakpoint",                       // 9
+    "Reserved instruction",             // 10
+    "Coprocessor unusable",             // 11
+    "Arithmetic overflow",              // 12
+    "Trap (possible divide by zero)",   // 13
+    "Reserved",                         // 14
+    "Reserved",                         // 15
+    "Reserved",                         // 16
+    "Reserved",                         // 17
+    "Reserved",                         // 18
+};
+
+
 // Use static variables, with fixed addresses, since S/W stack can be unstable
 static unsigned int _excep_code;
 static unsigned int _excep_addr;
@@ -85,16 +114,24 @@ static uint32_t  _CP0_StatusValue;   // Status value from CP0 Register 12
 static uintptr_t _StackPointerValue; // Stack pointer value
 static uintptr_t _BadVirtualAddress; // Bad address for address exceptions
 static uintptr_t _ReturnAddress;     // Return Address (ra)
+static char fault_str[500];
 
 
+    
+ 
 void __attribute__((nomips16)) _general_exception_handler (XCPT_FRAME* const pXFrame)
 {
     register uint32_t _localStackPointerValue asm("sp");
 
-    _excep_addr = pXFrame->epc;
-    _excep_code = pXFrame->cause;   // capture exception type
-    _excep_code = (_excep_code & 0x0000007C) >> 2;
+    _excep_addr = _CP0_GET_EPC();
+    _excep_code = (_CP0_GET_CAUSE() & 0x0000007C) >> 2;  
+    _cause_str  = (char*)cause[_excep_code];
+    asm volatile("di"); // Disable all interrupts
+    
+    // copy the exception string to the persistent variable for diagnostic.
+    sprintf(fault_str," General Exception %s (cause=%d, addr=%x)",_cause_str, _excep_code, _excep_addr);
 
+#if 0
     _CP0_StatusValue   = _CP0_GET_STATUS();
     _StackPointerValue = _localStackPointerValue;
     _BadVirtualAddress = _CP0_GET_BADVADDR();
@@ -107,6 +144,7 @@ void __attribute__((nomips16)) _general_exception_handler (XCPT_FRAME* const pXF
                       "**EXCEPTION:*\r\n",
                       _excep_code,_excep_addr,_CP0_StatusValue,
                       _StackPointerValue,_BadVirtualAddress,_ReturnAddress);
+#endif
 
     while(1) {
         SYS_DEBUG_BreakPoint();  // Stop here is in debugger.

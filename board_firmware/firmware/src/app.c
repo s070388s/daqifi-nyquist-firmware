@@ -51,6 +51,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/board/BoardConfig.h"
 #include "state/runtime/BoardRuntimeConfig.h"
 #include "state/data/BoardData.h"
+#include "commTest.h"
 
 const char BOARD_HARDWARE_REV[16] = "2.0.0";
 const char BOARD_FIRMWARE_REV[16] = "1.0.3";
@@ -103,6 +104,62 @@ extern volatile uint32_t force_bootloader_flag __attribute__((persistent, cohere
 // Section: Application Initialization and State Machine Functions
 // *****************************************************************************
 // *****************************************************************************
+/*=============================================================================
+ * Function: runTimeStatsTimer89_init
+ * Execution Level:
+ * Execution Time: Not measured
+ *
+ * Return Value:  No return value.
+ *
+ * Abstract:  This routine initializes timer 8/9, which is a 32-bit hardware timer
+ *            to generate tick every 2.56us. The timer is used for the following 
+ *            purposes:
+ *            1. FreeRTOS run time statistic counter. The freeRTOS run time statistics 
+ *               time base needs to have a higher resolution than the 1ms tick interrupt. 
+ *               Otherwise the statistics may be too inaccurate to be truly useful. The 
+ *               timer 8/9 tick is set to run ~400 time faster than the tick interrupt 
+ *               because the faster the time base the more accurate the statistics will be. 
+ *               However, the downside is the timer value will also overflow faster(~3 hours). 
+ *               This becomes a problem because there is no overflow protection in the FreeRTOS 
+ *               library function, so count values are only valid until the timer overflows. 
+ *               As a workaround, the timer 8/9 is programmed to interrupt every 60 mins to reset 
+ *				 runtime counter for every task. 
+ *            2. General purpose microseconds counter. Refer to osGetSystemTimeUs()
+ *               in os_port_freertos.c                                  
+ *===========================================================================*/
+void runTimeStatsTimer89_init(void)
+{
+    PLIB_TMR_Stop(TMR_ID_8);
+    //timer is clocked by PBCLK3 at 100Mhz
+    PLIB_TMR_ClockSourceSelect(TMR_ID_8, TMR_CLOCK_SOURCE_PERIPHERAL_CLOCK);
+    //prescaler = 256 to generate 2.56us/tick
+    PLIB_TMR_PrescaleSelect(TMR_ID_8, TMR_PRESCALE_VALUE_256);
+    PLIB_TMR_Mode32BitEnable(TMR_ID_8);
+    PLIB_TMR_Counter32BitClear(TMR_ID_8);
+    // interrupt every ~ 1 hour. <-Do NOT change the interrupt frequency as it 
+    // will affect other applications that are using the timer, e.g Recorder library. 
+    PLIB_TMR_Period32BitSet(TMR_ID_8, 0x50000000); 
+    
+    /* Setup Interrupt */   
+    PLIB_INT_VectorPrioritySet(INT_ID_0, INT_VECTOR_T9, INT_PRIORITY_LEVEL3);
+    PLIB_INT_VectorSubPrioritySet(INT_ID_0, INT_VECTOR_T9, INT_SUBPRIORITY_LEVEL3);
+    PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_TIMER_9);//disable interrupt
+    PLIB_TMR_Start(TMR_ID_8);
+}
+
+/*=============================================================================
+ * Function: runTimeStatsTimer89_counter
+ * Execution Level:
+ * Execution Time: Not measured
+ *
+ * Return Value:  No return value.
+ *
+ * Abstract:  This routine returns tick counter for FreeRTOS run time stats. 
+ *===========================================================================*/
+unsigned long runTimeStatsTimer89_counter(void)
+{
+    return (TMR9 <<16 | TMR8); // The 32-bit timer will overflow every 10995 secs.
+}
 
 /*******************************************************************************
   Function:
@@ -182,6 +239,7 @@ void APP_Initialize(void)
 void APP_Tasks(void)
 {   
     ADC_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
+    
     Streaming_Tasks(&g_BoardConfig, &g_BoardRuntimeConfig, &g_BoardData);
     
     // Don't do anything else until the board powers on

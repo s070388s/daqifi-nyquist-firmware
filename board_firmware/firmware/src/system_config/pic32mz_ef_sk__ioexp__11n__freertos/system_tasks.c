@@ -63,6 +63,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "state/board/BoardConfig.h"
 #include "UsbCdc/UsbCdc.h"
 #include "HAL/Wifi/WifiApi.h"
+#include "HAL/ADC.h"
+#include "HAL/DIO.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -82,7 +84,8 @@ void _TCPIP_Tasks(void);
 void _NET_PRES_Tasks(void);
 static void _APP_Tasks(void);
 void _POWER_AND_UI_Tasks(void);
-
+void _ADC_Deferred_Interrupt_Task( void );
+void _Streaming_Deferred_Interrupt_Task( void );
 
 // *****************************************************************************
 // *****************************************************************************
@@ -96,6 +99,22 @@ static TaskHandle_t tcpipHandle;
 static TaskHandle_t appHandle;
 static TaskHandle_t netpHandle;
 static TaskHandle_t powerUIHandle;
+//! ADC Interrupt Task Handle
+static TaskHandle_t ADCInterruptHandle;
+//! Streaming Interrupt Task Handle
+static TaskHandle_t streamingInterruptHandle;
+
+
+static void Streaming_TriggerADC(AInModule* module)
+{
+    if (module->Type == AIn_MC12bADC)
+    {
+        
+    }
+    
+    ADC_TriggerConversion(module);
+}
+
 /*******************************************************************************
   Function:
     void SYS_Tasks ( void )
@@ -109,16 +128,16 @@ void SYS_Tasks ( void )
     /* Create OS Thread for Sys Tasks. */
     xTaskCreate((TaskFunction_t) _SYS_Tasks,
                 "Sys Tasks",
-                2048, NULL, 3, &sysHandle);
+                512, NULL, 3, &sysHandle);
 
 
  
  
     /* Create task for gfx state machine*/
     /* Create OS Thread for DRV_SDCARD Tasks. */
-    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
-                "DRV_SDCARD Tasks",
-                1024, NULL, 2, NULL);
+//    xTaskCreate((TaskFunction_t) _DRV_SDCARD_Tasks,
+//                "DRV_SDCARD Tasks",
+//                1024, NULL, 2, NULL);
 
 
  
@@ -133,23 +152,31 @@ void SYS_Tasks ( void )
     /* Create OS Thread for TCPIP Tasks. */
     xTaskCreate((TaskFunction_t) _TCPIP_Tasks,
                 "TCPIP Tasks",
-                2048, NULL, 1, &tcpipHandle);
+                2048, NULL, 4, &tcpipHandle);
 
     /* Create OS Thread for Net Pres Tasks. */
     xTaskCreate((TaskFunction_t) _NET_PRES_Tasks,
                 "Net Pres Tasks",
-                1024, NULL, 2, &netpHandle);
+                256, NULL, 2, &netpHandle);
 
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                2048, NULL, 2, &appHandle);
+                2048, NULL, 5, &appHandle);
     
     /* Create OS Thread for power Tasks. */
     xTaskCreate((TaskFunction_t) _POWER_AND_UI_Tasks,
                 "POWER Tasks",
-                1024, NULL, 9, &powerUIHandle);    
+                1024, NULL, 9, &powerUIHandle);   
     
+    xTaskCreate((TaskFunction_t) _ADC_Deferred_Interrupt_Task,
+                "ADC Interrupt",
+                2048, NULL, 8, &ADCInterruptHandle);   
+    
+    xTaskCreate((TaskFunction_t) _Streaming_Deferred_Interrupt_Task,
+                "Stream Interrupt",
+                1024, NULL, 8, &streamingInterruptHandle);   
+      
     /**************
      * Start RTOS * 
      **************/
@@ -172,6 +199,8 @@ static void _SYS_Tasks ( void)
     volatile UBaseType_t uxHighWaterMark3 = 0;
     volatile UBaseType_t uxHighWaterMark4 = 0;
     volatile UBaseType_t uxHighWaterMark5 = 0;
+    volatile UBaseType_t uxHighWaterMark6 = 0;
+    volatile UBaseType_t uxHighWaterMark7 = 0;
     
 //    UNUSED(uxHighWaterMark0);
 //    UNUSED(uxHighWaterMark1);
@@ -196,14 +225,16 @@ static void _SYS_Tasks ( void)
  
 
         /* Maintain Middleware */
- 
+        //uxTaskGetStackHighWaterMark() returns the minimum amount of remaining stack (units of portBASE_TYPE = long = 4bytes) space that was available to the task since the task started executing
         uxHighWaterMark0 = uxTaskGetStackHighWaterMark(sysHandle);
         uxHighWaterMark1 = uxTaskGetStackHighWaterMark(usbHandle);
         uxHighWaterMark2 = uxTaskGetStackHighWaterMark(tcpipHandle);
         uxHighWaterMark3 = uxTaskGetStackHighWaterMark(netpHandle);
         uxHighWaterMark4 = uxTaskGetStackHighWaterMark(appHandle);
         uxHighWaterMark5 = uxTaskGetStackHighWaterMark(powerUIHandle);
-
+        uxHighWaterMark6 = uxTaskGetStackHighWaterMark(ADCInterruptHandle);  //
+        uxHighWaterMark7 = uxTaskGetStackHighWaterMark(streamingInterruptHandle);  //
+        
         /* Task Delay */
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
@@ -294,7 +325,64 @@ void _POWER_AND_UI_Tasks(void)
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
+/*! Task for ADC deferred interrupt*/
+void _ADC_Deferred_Interrupt_Task( void ){
+    const TickType_t xBlockTime = portMAX_DELAY;
+    const AInModule* module = NULL;
+    
+    do{
+        vTaskDelay( 1 );
+        module = ADC_FindModule( &g_BoardConfig.AInModules, AIn_MC12bADC );
+    }while( module == NULL);
+    
+    while( 1 ){
+        ulTaskNotifyTake( pdFALSE, xBlockTime );        
+        ADC_ConversionComplete(module);
+    }
+}
 
+/*! Function to be called from the ISR for deferring the ADC interrupt */
+void _ADC_Defer_Interrupt( void ){
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    vTaskNotifyGiveFromISR( ADCInterruptHandle, &xHigherPriorityTaskWoken );
+    portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+}
+
+void _Streaming_Deferred_Interrupt_Task( void ){
+    
+    uint8_t i=0;
+    const TickType_t xBlockTime = portMAX_DELAY;
+
+    while( 1 ){
+        ulTaskNotifyTake( pdFALSE, xBlockTime );
+
+        for (i=0; i < g_BoardRuntimeConfig.AInModules.Size; ++i)
+        {
+            // Only trigger conversions if the previous conversion is complete
+            if (g_BoardData.AInState.Data[i].AInTaskState == AINTASK_IDLE &&
+                g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with ADCPrescale[i]
+            {
+                Streaming_TriggerADC(&g_BoardConfig.AInModules.Data[i]);
+            }
+
+        }
+
+        if (g_BoardRuntimeConfig.StreamingConfig.StreamCount == g_BoardRuntimeConfig.StreamingConfig.StreamCountTrigger) // TODO: Replace with DIOPrescale
+        {
+            DIO_Tasks(&g_BoardConfig.DIOChannels, &g_BoardRuntimeConfig, &g_BoardData.DIOLatest, &g_BoardData.DIOSamples);
+        }
+
+        g_BoardRuntimeConfig.StreamingConfig.StreamCount = (g_BoardRuntimeConfig.StreamingConfig.StreamCount + 1) % g_BoardRuntimeConfig.StreamingConfig.MaxStreamCount;
+        
+    }
+}
+
+void Streaming_Defer_Interrupt( void ){
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    vTaskNotifyGiveFromISR( streamingInterruptHandle, &xHigherPriorityTaskWoken );
+    portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+    
+}
 /*******************************************************************************
  End of File
  */

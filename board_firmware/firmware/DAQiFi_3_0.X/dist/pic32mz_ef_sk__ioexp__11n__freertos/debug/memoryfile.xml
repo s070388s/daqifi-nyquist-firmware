@@ -3,15 +3,15 @@
   <executable name="dist/pic32mz_ef_sk__ioexp__11n__freertos/debug/DAQiFi_3_0.X.debug.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
-      <length>2097152</length>                 
-      <used>537620</used>                     
-      <free>1559532</free>                     
+      <length>2098304</length>                 
+      <used>632172</used>                     
+      <free>1466132</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
       <length>525184</length>                 
-      <used>189452</used>                     
-      <free>335732</free>                     
+      <used>192116</used>                     
+      <free>333068</free>                     
     </memory>                              
   </executable>                            
 </project>                                 
