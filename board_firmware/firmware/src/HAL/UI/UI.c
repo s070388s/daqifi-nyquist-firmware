@@ -107,8 +107,9 @@ void LED_Tasks(sUIConfig config, sPowerData *PowerData, sUIReadVars *UIReadVars,
         repeatSeqNum = 0;
         sequenceNum = 0;
         currentPattern = 0; 
+        PowerData->powerDnAllowed = true;    // TODO: This should remain false until we've signaled to the user we are going down for any reason other than button power off
     }
-    // If we are directed to power down, turn on LED
+    // If we are directed to power up, turn on LED
     else if(PowerData->powerState == DO_POWER_UP){
         repeatSeq = 0;
         repeatSeqNum = 0;

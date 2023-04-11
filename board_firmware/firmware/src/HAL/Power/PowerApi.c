@@ -70,7 +70,7 @@ void Power_Up(sPowerConfig config, sPowerData *data, sPowerWriteVars *vars)
     
 
     // If the battery management is not enabled, wait for it to become ready
-    while(!data->BQ24297Data.initComplete) vTaskDelay(100 / portTICK_PERIOD_MS);   
+    while(!data->BQ24297Data.initComplete) vTaskDelay(10 / portTICK_PERIOD_MS);   
     
     // Enable processor to run at full speed
     SYS_INT_Disable();
@@ -232,6 +232,8 @@ void Power_UpdateState(sPowerConfig config, sPowerData *data, sPowerWriteVars *v
             {
                 Power_Up(config, data, vars);
                 data->powerState = POWERED_UP;
+                vTaskDelay(100 / portTICK_PERIOD_MS);   // Allow systems to initialize before allowing state machine to switch
+                
             }else
             {
                 // Otherwise insufficient power.  Notify user and power down
@@ -329,7 +331,7 @@ void Power_Tasks(sPowerConfig PowerConfig, sPowerData *PowerData, sPowerWriteVar
          * -On temperature fault
          * -Safety timer timeout
          */
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
         // Update battery management status - plugged in (USB, charger, etc), charging/discharging, etc.
         BQ24297_UpdateStatus(PowerConfig.BQ24297Config, powerWriteVars->BQ24297WriteVars, &(PowerData->BQ24297Data));
         Power_Update_Settings(PowerConfig, PowerData, powerWriteVars);

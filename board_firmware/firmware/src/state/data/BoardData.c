@@ -29,7 +29,7 @@ void InitializeBoardData(BoardData* boardData)
     boardData->PowerData.battVoltage = 0.0;
     boardData->PowerData.chargePct = 0;
     boardData->PowerData.USBSleep = false;
-    boardData->PowerData.powerDnAllowed = false;
+    boardData->PowerData.powerDnAllowed = true;
     boardData->PowerData.externalPowerSource = NO_EXT_POWER;
     boardData->PowerData.BQ24297Data.chargeAllowed = true;
    
