@@ -130,6 +130,8 @@ int APP_Bootloader_ForceEvent(void)
     /* Check the trigger memory location and return true/false. */
     if (*(uint32_t *)APP_RESET_ADDRESS == 0xFFFFFFFF) forceBootloader = true;
     
+    DelayMs(2000);  // If device was previously connected immediately before booting, delay a couple seconds for the host to properly reenumerate the USB HID bootloader device
+    
     return (forceBootloader);
 }
 
