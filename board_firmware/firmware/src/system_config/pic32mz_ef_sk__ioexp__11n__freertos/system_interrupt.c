@@ -89,150 +89,217 @@ void IntHandlerDrvI2CErrorInstance0(void)
 
 void IntHandlerChangeNotification_PortA(void)
 {
-    ++g_BoardData.InISR;
-    if(PLIB_PORTS_PinGet(PORTS_ID_0, BATT_MAN_INT_PORT, BATT_MAN_INT_PIN)) // Read port to clear mismatch condition on BATT_MAN_INT
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    tPowerData * pPowerData = BoardData_Get(                                \
+                            BOARDATA_POWER_DATA,                            \
+                            0 ); 
+    ++(*boardDataInISR);
+    
+    // Read port to clear mismatch condition on BATT_MAN_INT
+    if(PLIB_PORTS_PinGet(PORTS_ID_0, BATT_MAN_INT_PORT, BATT_MAN_INT_PIN)) 
     {
         // Battery management interrupt has occurred
-        g_BoardData.PowerData.BQ24297Data.intFlag = true;   // Set intFlag so we can handle it in the main power task
+        // Set intFlag so we can handle it in the main power task
+        pPowerData->BQ24297Data.intFlag = true;   
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_A);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerChangeNotification_PortB(void)
 {
-    ++g_BoardData.InISR;
-    if(PLIB_PORTS_PinGet(PORTS_ID_0, AD7609_BUSY_PORT, AD7609_BUSY_PIN)) // Read port to clear mismatch condition
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
+    
+    // Read port to clear mismatch condition
+    if(PLIB_PORTS_PinGet(PORTS_ID_0, AD7609_BUSY_PORT, AD7609_BUSY_PIN)) 
     {
         // AD7609 interrupt has occurred
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_B);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerChangeNotification_PortF(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    
+    ++(*boardDataInISR);
     if(PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_F, PORTS_BIT_POS_2)) // Read port to clear mismatch condition
     {
         // SDI6 signal caused interrupt
     }
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_CHANGE_NOTICE_F);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 
 void IntHandlerSysDmaInstance0(void)
 {  
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_0);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 void IntHandlerSysDmaInstance1(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     SYS_DMA_Tasks(sysObj.sysDma, DMA_CHANNEL_1);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 
 void IntHandlerSysRtcc (void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     SYS_RTCC_Tasks(sysObj.sysRtcc);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerExternalInterruptInstance0(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_EXTERNAL_4);
     WDRV_WINC1500_ISR();
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
  
 
 void IntHandlerDrvTmrInstance0(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_TMR_Tasks(sysObj.drvTmr0);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerDrvTmrInstance1(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_TMR_Tasks(sysObj.drvTmr1);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerDrvTmrInstance2(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_TMR_Tasks(sysObj.drvTmr2);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
  
 void IntHandlerSPIRxInstance0(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerSPITxInstance0(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerSPIFaultInstance0(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_SPI_Tasks(sysObj.spiObjectIdx0);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerSPIRxInstance1(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerSPITxInstance1(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 void IntHandlerSPIFaultInstance1(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_SPI_Tasks(sysObj.spiObjectIdx1);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 void IntHandlerDrvNvm (void)
-
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_NVM_Tasks(sysObj.drvNvm);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 
 }
 
 void IntHandlerUSBInstance0(void)
-
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_USBHS_Tasks_ISR(sysObj.drvUSBObject);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 void IntHandlerUSBInstance0_USBDMA ( void )
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     DRV_USBHS_Tasks_ISR_USBDMA(sysObj.drvUSBObject);
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 void IntHandlerDrvAdcEOS(void)
 {
-    ++g_BoardData.InISR;
+    int * boardDataInISR = BoardData_Get(                                      \
+                            BOARDDATA_IN_ISR,                               \
+                            0 );
+    ++(*boardDataInISR);
     
     // Scanning of ADC channels is complete - so read data
 
@@ -252,7 +319,7 @@ void IntHandlerDrvAdcEOS(void)
         _ADC_Defer_Interrupt();
     }
     
-    --g_BoardData.InISR;
+    --(*boardDataInISR);
 }
 
 void _ISR_DefaultInterrupt(void) 

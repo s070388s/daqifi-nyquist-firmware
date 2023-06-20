@@ -174,7 +174,11 @@ static bool InitBuffer(char** buffer, uint8_t bufferLen)
 
 bool WifiApplyNetworkSettings(WifiSettings* settings)
 {
-    if (g_BoardData.PowerData.powerState < POWERED_UP)
+    const tPowerData *pPowerState = BoardData_Get(                          \
+              BOARDATA_POWER_DATA,                                          \
+              0 );
+    if( NULL != pPowerState &&                                              \
+        pPowerState->powerState < POWERED_UP )
     {
         LogMessage("Board must be powered-on for WiFi operations\n\r");
         return false;
@@ -357,7 +361,11 @@ uint8_t WifiCopyKey(uint8_t* buffer, uint8_t securityMode, const uint8_t* source
 
 bool WifiResetConnection(WifiSettings* settings)
 {
-    if (g_BoardData.PowerData.powerState < POWERED_UP)
+    const tPowerData *pPowerState = BoardData_Get(                          \
+              BOARDATA_POWER_DATA,                                          \
+              0 );
+    if( NULL != pPowerState &&                                              \
+        pPowerState->powerState <  POWERED_UP )
     {
         LogMessage("Board must be powered-on for WiFi operations\n\r");
         return false;
@@ -375,7 +383,11 @@ bool WifiResetConnection(WifiSettings* settings)
 
 bool WifiConnectionUp()
 {
-    if (g_BoardData.PowerData.powerState < POWERED_UP)
+    const tPowerData *pPowerState = BoardData_Get(                          \
+              BOARDATA_POWER_DATA,                                          \
+              0 );
+    if( NULL != pPowerState &&                                              \
+        pPowerState->powerState <  POWERED_UP )
     {
         LogMessage("Board must be powered-on for WiFi operations\n\r");
         return false;
@@ -398,7 +410,11 @@ bool WifiConnectionUp()
 
 bool WifiConnectionDown()
 {
-    if (g_BoardData.PowerData.powerState < POWERED_UP)
+    const tPowerData *pPowerState = BoardData_Get(                          \
+              BOARDATA_POWER_DATA,                                          \
+              0 );
+    if( NULL != pPowerState &&                                              \
+        pPowerState->powerState <  POWERED_UP )
     {
         LogMessage("Board must be powered-on for WiFi operations\n\r");
         return false;

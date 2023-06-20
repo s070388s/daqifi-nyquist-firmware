@@ -39,11 +39,11 @@
           <itemPath>../src/HAL/DIO.h</itemPath>
         </logicalFolder>
         <logicalFolder name="json" displayName="json" projectFiles="true">
-          <itemPath>../src/json/Encoder.h</itemPath>
+          <itemPath>../src/json/JSON_Encoder.h</itemPath>
         </logicalFolder>
         <logicalFolder name="nanopb" displayName="nanopb" projectFiles="true">
           <itemPath>../src/nanopb/DaqifiOutMessage.pb.h</itemPath>
-          <itemPath>../src/nanopb/Encoder.h</itemPath>
+          <itemPath>../src/nanopb/NanoPB_Encoder.h</itemPath>
         </logicalFolder>
         <logicalFolder name="SCPI" displayName="SCPI" projectFiles="true">
           <itemPath>../src/SCPI/SCPIADC.h</itemPath>
@@ -624,6 +624,7 @@
         <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/include/stream_buffer.h</itemPath>
         <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/include/message_buffer.h</itemPath>
       </logicalFolder>
+      <itemPath>../src/encoder.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -675,11 +676,11 @@
           <itemPath>../src/HAL/DIO.c</itemPath>
         </logicalFolder>
         <logicalFolder name="json" displayName="json" projectFiles="true">
-          <itemPath>../src/json/Encoder.c</itemPath>
+          <itemPath>../src/json/JSON_Encoder.c</itemPath>
         </logicalFolder>
         <logicalFolder name="nanopb" displayName="nanopb" projectFiles="true">
           <itemPath>../src/nanopb/DaqifiOutMessage.pb.c</itemPath>
-          <itemPath>../src/nanopb/Encoder.c</itemPath>
+          <itemPath>../src/nanopb/NanoPB_Encoder.c</itemPath>
         </logicalFolder>
         <logicalFolder name="SCPI" displayName="SCPI" projectFiles="true">
           <itemPath>../src/SCPI/SCPIADC.c</itemPath>
@@ -1082,6 +1083,7 @@
         <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/event_groups.c</itemPath>
         <itemPath>../../../../../third_party/rtos/FreeRTOS/Source/stream_buffer.c</itemPath>
       </logicalFolder>
+      <itemPath>../src/encoder.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -1124,7 +1126,7 @@
         <targetDevice>PIC32MZ2048EFM144</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>pk4hybrid</platformTool>
+        <platformTool>RealICEPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.50</languageToolchainVersion>
         <platform>3</platform>
@@ -1546,6 +1548,20 @@
       <item path="../src/system_config/pic32mz_ef_sk__ioexp__11n__freertos/app_mz.ld"
             ex="true"
             overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <C32>
         <property key="additional-warnings" value="true"/>
