@@ -7,6 +7,7 @@ on:
         description: 'Log level'     
         required: true
         default: 'warning'
+        types: [opened, synchronize, reopened, edited]
         
 jobs:
   validate-pr-title:
